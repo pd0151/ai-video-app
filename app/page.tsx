@@ -7,8 +7,6 @@ const [business, setBusiness] = useState("");
 const [product, setProduct] = useState("");
 const [offer, setOffer] = useState("");
 const [customer, setCustomer] = useState("");
-const [platform, setPlatform] = useState("Instagram");
-const [tone, setTone] = useState("Bold");
 const [result, setResult] = useState("");
 
 const generateAd = () => {
@@ -44,6 +42,7 @@ setResult(text);
 
 return (
 <main style={styles.container}>
+{/* FORM */}
 <div style={styles.card}>
 <h1>Business Ad Creator AI 🚀</h1>
 <p>Create captions, video ideas, scripts, and ads in seconds 🔥</p>
@@ -81,17 +80,20 @@ Generate Business Ad
 </button>
 </div>
 
-{/* VIDEO SECTION */}
+{/* VIDEO PREVIEW */}
 <div style={styles.card}>
 <h3>🎥 Example Ad Video</h3>
 
 <video
 controls
+autoPlay
+loop
+muted
 style={{ width: "100%", borderRadius: "12px" }}
 src={
 product.toLowerCase().includes("tyre") ||
 product.toLowerCase().includes("car")
-? "https://www.w3schools.com/html/mov_bbb.mp4"
+? "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
 : "https://www.w3schools.com/html/mov_bbb.mp4"
 }
 />
