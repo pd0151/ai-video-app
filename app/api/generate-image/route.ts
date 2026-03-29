@@ -9,13 +9,6 @@ if (!prompt) {
 return NextResponse.json({ error: "Prompt is required" }, { status: 400 });
 }
 
-if (!process.env.OPENAI_API_KEY) {
-return NextResponse.json(
-{ error: "Missing OPENAI_API_KEY in environment variables" },
-{ status: 500 }
-);
-}
-
 const openai = new OpenAI({
 apiKey: process.env.OPENAI_API_KEY,
 });
@@ -29,10 +22,7 @@ size: "1024x1024",
 const item = result.data?.[0];
 
 if (!item) {
-return NextResponse.json(
-{ error: "No image returned from OpenAI" },
-{ status: 500 }
-);
+return NextResponse.json({ error: "No image returned" }, { status: 500 });
 }
 
 if ("b64_json" in item && item.b64_json) {
@@ -47,12 +37,8 @@ image: item.url,
 });
 }
 
-return NextResponse.json(
-{ error: "Image came back in an unexpected format" },
-{ status: 500 }
-);
+return NextResponse.json({ error: "Unexpected image format" }, { status: 500 });
 } catch (error: any) {
-console.error("generate-image error:", error);
 return NextResponse.json(
 { error: error?.message || "Something went wrong" },
 { status: 500 }
