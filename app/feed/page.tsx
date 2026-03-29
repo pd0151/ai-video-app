@@ -1,155 +1,51 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-
-type Ad = {
-id: number;
-image: string;
-username: string;
-caption: string;
-};
+import { useState } from "react";
 
 export default function FeedPage() {
-const router = useRouter();
+const [prompt, setPrompt] = useState("");
+const [image, setImage] = useState<string | null>(null);
+const [loading, setLoading] = useState(false);
 
-const [user, setUser] = useState("");
-const [ads, setAds] = useState<Ad[]>([]);
-const [isPremium, setIsPremium] = useState(false);
+async function generateAd() {
+if (!prompt) return;
 
-useEffect(() => {
-const savedUser = localStorage.getItem("user");
-if (!savedUser) {
-router.push("/login");
-return;
-}
+setLoading(true);
 
-setUser(savedUser);
+const res = await fetch("/api/generate-image", {
+method: "POST",
+body: JSON.stringify({ prompt }),
+});
 
-const savedAds = localStorage.getItem("ads");
-if (savedAds) setAds(JSON.parse(savedAds));
-
-const premium = localStorage.getItem("premium");
-if (premium === "true") setIsPremium(true);
-}, [router]);
-
-function handleLogout() {
-localStorage.removeItem("user");
-router.push("/login");
-}
-
-function createAd() {
-if (!isPremium && ads.length >= 1) {
-alert("Upgrade to premium to post more ads 💰");
-return;
-}
-
-const image = prompt("Paste image URL");
-const caption = prompt("Caption");
-
-if (!image || !caption) return;
-
-const newAd: Ad = {
-id: Date.now(),
-image,
-username: user,
-caption,
-};
-
-const updated = [newAd, ...ads];
-setAds(updated);
-localStorage.setItem("ads", JSON.stringify(updated));
-}
-
-function upgrade() {
-localStorage.setItem("premium", "true");
-setIsPremium(true);
-alert("You are now premium 🚀");
+const data = await res.json();
+setImage(data.image);
+setLoading(false);
 }
 
 return (
-<main
-style={{
-height: "100vh",
-overflowY: "scroll",
-scrollSnapType: "y mandatory",
-background: "#000",
-color: "white",
-}}
->
-{/* HEADER */}
-<div
-style={{
-position: "fixed",
-top: 0,
-width: "100%",
-padding: "16px",
-display: "flex",
-justifyContent: "space-between",
-background: "rgba(0,0,0,0.6)",
-zIndex: 10,
-}}
->
-<h2>Ad Feed</h2>
+<main style={{ padding: "20px", color: "white" }}>
+<h1>Ad Feed</h1>
 
-<div style={{ display: "flex", gap: "10px" }}>
-{!isPremium && (
-<button onClick={upgrade}>Go Premium 💰</button>
-)}
-<button onClick={handleLogout}>Logout</button>
-</div>
-</div>
-
-{/* POSTS */}
-{ads.map((ad) => (
-<div
-key={ad.id}
+<input
+placeholder="Describe your ad..."
+value={prompt}
+onChange={(e) => setPrompt(e.target.value)}
 style={{
-height: "100vh",
-scrollSnapAlign: "start",
-position: "relative",
-}}
->
-<img
-src={ad.image}
-style={{
-width: "100%",
-height: "100%",
-objectFit: "cover",
+padding: "10px",
+width: "300px",
+marginRight: "10px",
 }}
 />
 
-<div
-style={{
-position: "absolute",
-bottom: "40px",
-left: "20px",
-}}
->
-<p>Sponsored</p>
-<h2>{ad.username}</h2>
-<p>{ad.caption}</p>
-</div>
-</div>
-))}
-
-{/* CREATE BUTTON */}
-<button
-onClick={createAd}
-style={{
-position: "fixed",
-bottom: "20px",
-right: "20px",
-width: "60px",
-height: "60px",
-borderRadius: "50%",
-fontSize: "28px",
-background: "white",
-color: "black",
-}}
->
-+
+<button onClick={generateAd}>
+{loading ? "Generating..." : "Generate Ad"}
 </button>
+
+{image && (
+<div style={{ marginTop: "20px" }}>
+<img src={image} alt="Generated Ad" width="300" />
+</div>
+)}
 </main>
 );
 }
