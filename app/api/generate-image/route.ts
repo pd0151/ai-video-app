@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
 try {
@@ -15,10 +15,11 @@ prompt,
 });
 
 return NextResponse.json({
-image: result.data[0].url,
+image: result?.data?.[0]?.url || null,
 });
 } catch (error: any) {
 console.error(error);
+
 return NextResponse.json(
 { error: error.message || "Something went wrong" },
 { status: 500 }
