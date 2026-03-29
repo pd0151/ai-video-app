@@ -7,30 +7,29 @@ const [prompt, setPrompt] = useState("");
 const [image, setImage] = useState<string | null>(null);
 const [loading, setLoading] = useState(false);
 
-async function generateAd() {
+function generateAd() {
 setLoading(true);
 
-try {
-const res = await fetch("/api/generate-image", {
-method: "POST",
-});
+const text = prompt || "AdForge Test";
 
-const data = await res.json();
+const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800">
+<rect width="100%" height="100%" fill="#0f172a"/>
+<text x="50%" y="40%" text-anchor="middle" fill="white" font-size="40">
+AdForge
+</text>
+<text x="50%" y="55%" text-anchor="middle" fill="#38bdf8" font-size="24">
+${text}
+</text>
+</svg>
+`;
 
-console.log("RESPONSE:", data);
+const dataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 
-if (!data.image) {
-alert("No image returned");
-return;
-}
-
-setImage(data.image);
-} catch (err) {
-console.error(err);
-alert("Error generating image");
-} finally {
+setTimeout(() => {
+setImage(dataUrl);
 setLoading(false);
-}
+}, 500);
 }
 
 return (
