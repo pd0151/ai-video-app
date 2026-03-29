@@ -8,25 +8,32 @@ const [image, setImage] = useState<string | null>(null);
 const [loading, setLoading] = useState(false);
 
 async function generateAd() {
+if (!prompt.trim()) {
+alert("Type something first");
+return;
+}
+
 setLoading(true);
+setImage(null);
 
 try {
 const res = await fetch("/api/generate-image", {
 method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({ prompt }),
 });
 
 const data = await res.json();
 
-console.log("RESPONSE:", data);
-
-if (!data.image) {
-alert("No image returned");
+if (!res.ok) {
+alert(data.error);
 return;
 }
 
 setImage(data.image);
 } catch (err) {
-console.error(err);
 alert("Error generating image");
 } finally {
 setLoading(false);
@@ -42,18 +49,19 @@ background: "linear-gradient(to bottom, #1e293b, #0f172a)",
 color: "white",
 }}
 >
-<h1 style={{ fontSize: "28px", fontWeight: "bold" }}>Ad Feed</h1>
+<h1 style={{ fontSize: "32px", marginBottom: "20px" }}>
+Ad Feed
+</h1>
 
-<div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
+<div style={{ display: "flex", gap: "10px" }}>
 <input
-type="text"
-placeholder="Describe your ad..."
 value={prompt}
 onChange={(e) => setPrompt(e.target.value)}
+placeholder="Describe your ad..."
 style={{
 padding: "12px",
 borderRadius: "8px",
-width: "300px",
+width: "400px",
 border: "none",
 }}
 />
@@ -62,10 +70,9 @@ border: "none",
 onClick={generateAd}
 disabled={loading}
 style={{
-padding: "12px 16px",
+padding: "12px",
 borderRadius: "8px",
 border: "none",
-cursor: "pointer",
 }}
 >
 {loading ? "Generating..." : "Generate Ad"}
@@ -76,8 +83,12 @@ cursor: "pointer",
 <div style={{ marginTop: "30px" }}>
 <img
 src={image}
-alt="Generated ad"
-style={{ width: "320px", borderRadius: "12px" }}
+alt="Generated"
+style={{
+width: "400px",
+borderRadius: "12px",
+border: "2px solid white",
+}}
 />
 </div>
 )}
