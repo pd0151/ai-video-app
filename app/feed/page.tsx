@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 type SavedAd = {
@@ -12,17 +14,28 @@ const [image, setImage] = useState<string | null>(null);
 const [loading, setLoading] = useState(false);
 const [savedAds, setSavedAds] = useState<SavedAd[]>([]);
 
-// Load saved ads
 useEffect(() => {
 const stored = localStorage.getItem("ads");
-if (stored) setSavedAds(JSON.parse(stored));
+
+if (stored) {
+try {
+const ads: SavedAd[] = JSON.parse(stored);
+setSavedAds(ads);
+
+if (ads.length > 0) {
+setImage(ads[0].image);
+}
+} catch {
+setSavedAds([]);
+setImage(null);
+}
+}
 }, []);
 
-// Save ads
-const saveAds = (ads: SavedAd[]) => {
+function saveAds(ads: SavedAd[]) {
 setSavedAds(ads);
 localStorage.setItem("ads", JSON.stringify(ads));
-};
+}
 
 async function generateAd() {
 if (!prompt.trim()) {
@@ -44,8 +57,13 @@ body: JSON.stringify({ prompt }),
 
 const data = await res.json();
 
+if (!res.ok) {
+alert(data.error || "Failed to generate");
+return;
+}
+
 if (!data.image) {
-alert("Failed to generate");
+alert("No image returned");
 return;
 }
 
@@ -57,7 +75,8 @@ prompt,
 image: data.image,
 };
 
-saveAds([newAd, ...savedAds]);
+const nextAds = [newAd, ...savedAds];
+saveAds(nextAds);
 } catch (err) {
 alert("Error generating ad");
 } finally {
@@ -65,12 +84,17 @@ setLoading(false);
 }
 }
 
-function downloadImage() {
-if (!image) return;
+function downloadImage(src: string) {
 const a = document.createElement("a");
-a.href = image;
+a.href = src;
 a.download = "ad.png";
 a.click();
+}
+
+function clearAds() {
+localStorage.removeItem("ads");
+setSavedAds([]);
+setImage(null);
 }
 
 return (
@@ -83,11 +107,16 @@ color: "white",
 fontFamily: "Arial",
 }}
 >
-<h1 style={{ fontSize: "40px", marginBottom: "20px" }}>
-Ad Feed
-</h1>
+<h1 style={{ fontSize: "40px", marginBottom: "20px" }}>Ad Feed</h1>
 
-<div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+<div
+style={{
+display: "flex",
+gap: "10px",
+marginBottom: "20px",
+flexWrap: "wrap",
+}}
+>
 <input
 value={prompt}
 onChange={(e) => setPrompt(e.target.value)}
@@ -97,64 +126,109 @@ padding: "12px",
 borderRadius: "10px",
 width: "400px",
 border: "none",
+fontSize: "16px",
 }}
 />
 
 <button
 onClick={generateAd}
+disabled={loading}
 style={{
 padding: "12px 20px",
 borderRadius: "10px",
 border: "none",
 cursor: "pointer",
+fontWeight: "bold",
 }}
 >
 {loading ? "Generating..." : "Generate Ad"}
 </button>
+
+{savedAds.length > 0 && (
+<button
+onClick={clearAds}
+style={{
+padding: "12px 20px",
+borderRadius: "10px",
+border: "none",
+cursor: "pointer",
+fontWeight: "bold",
+background: "#ef4444",
+color: "white",
+}}
+>
+Clear Ads
+</button>
+)}
 </div>
 
-{loading && <p>Generating image...</p>}
+{loading && <p style={{ marginBottom: "20px" }}>Generating image...</p>}
 
 {image && (
 <div style={{ marginBottom: "30px" }}>
 <img
 src={image}
+alt="Generated ad"
 style={{
-width: "400px",
+width: "420px",
+maxWidth: "100%",
 borderRadius: "12px",
 marginBottom: "10px",
+border: "2px solid white",
+display: "block",
 }}
 />
 
-<div>
 <button
-onClick={downloadImage}
+onClick={() => downloadImage(image)}
 style={{
 padding: "10px",
 borderRadius: "8px",
 border: "none",
 cursor: "pointer",
+fontWeight: "bold",
 }}
 >
 Download
 </button>
 </div>
-</div>
 )}
 
-<h2>Previous Ads</h2>
+<h2 style={{ marginBottom: "15px" }}>Previous Ads</h2>
 
+{savedAds.length === 0 ? (
+<p>No saved ads yet.</p>
+) : (
 <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
 {savedAds.map((ad) => (
-<div key={ad.id}>
+<div key={ad.id} style={{ width: "200px" }}>
 <img
 src={ad.image}
-style={{ width: "200px", borderRadius: "10px" }}
+alt={ad.prompt}
+style={{
+width: "200px",
+borderRadius: "10px",
+marginBottom: "8px",
+border: "2px solid rgba(255,255,255,0.4)",
+}}
 />
-<p style={{ fontSize: "12px" }}>{ad.prompt}</p>
+<p style={{ fontSize: "12px", marginBottom: "8px" }}>{ad.prompt}</p>
+<button
+onClick={() => setImage(ad.image)}
+style={{
+padding: "8px 10px",
+borderRadius: "8px",
+border: "none",
+cursor: "pointer",
+fontWeight: "bold",
+}}
+>
+View
+</button>
 </div>
 ))}
 </div>
+)}
 </main>
 );
 }
