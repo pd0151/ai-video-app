@@ -3,8 +3,6 @@ import { useState } from "react";
 
 export default function FeedPage() {
 const [prompt, setPrompt] = useState("");
-const [brand, setBrand] = useState("");
-const [cta, setCta] = useState("");
 const [image, setImage] = useState("");
 const [loading, setLoading] = useState(false);
 
@@ -35,59 +33,26 @@ setLoading(false);
 };
 
 return (
-<div className="min-h-screen bg-black text-white p-4 flex flex-col items-center">
+<div className="min-h-screen bg-black text-white p-6 flex flex-col items-center">
 
-{/* INPUT */}
-<div className="w-full max-w-md flex flex-col gap-3 mb-6">
 <input
 value={prompt}
 onChange={(e) => setPrompt(e.target.value)}
-placeholder="Describe your ad"
-className="p-3 rounded-lg bg-white/10"
-/>
-
-<input
-value={brand}
-onChange={(e) => setBrand(e.target.value)}
-placeholder="Brand name"
-className="p-3 rounded-lg bg-white/10"
-/>
-
-<input
-value={cta}
-onChange={(e) => setCta(e.target.value)}
-placeholder="Call to action"
-className="p-3 rounded-lg bg-white/10"
+placeholder="Create an ad..."
+className="p-3 rounded-lg bg-white/10 w-full max-w-md mb-4"
 />
 
 <button
 onClick={generateAd}
-className="bg-blue-600 p-3 rounded-lg"
+className="bg-blue-600 p-3 rounded-lg mb-4"
 >
-Generate Ad
+Generate
 </button>
-</div>
 
-{/* LOADING */}
 {loading && <p>Generating...</p>}
 
-{/* RESULT */}
 {image && (
-<div className="w-full max-w-md bg-white/5 p-4 rounded-xl">
-<img src={image} className="rounded-lg mb-3" />
-
-<h2 className="text-xl font-bold">
-{brand ? brand : "Ad Campaign"}
-</h2>
-
-<p className="text-gray-300">{prompt}</p>
-
-{cta && (
-<p className="text-blue-400 mt-2">
-{cta}
-</p>
-)}
-</div>
+<img src={image} className="rounded-lg max-w-md" />
 )}
 </div>
 );
