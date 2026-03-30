@@ -11,8 +11,8 @@ return NextResponse.json(
 );
 }
 
-const seed = encodeURIComponent(prompt.trim());
-const image = `https://picsum.photos/seed/${seed}/900/1600`;
+const title = encodeURIComponent(prompt.trim().slice(0, 60));
+const image = `https://placehold.co/900x1600/0f172a/ffffff/png?text=${title}`;
 
 return NextResponse.json({ image });
 } catch (error) {
