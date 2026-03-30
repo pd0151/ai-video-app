@@ -13,16 +13,14 @@ comments: string[];
 export default function FeedPage() {
 const [prompt, setPrompt] = useState("");
 const [posts, setPosts] = useState<Post[]>([]);
-const [loading, setLoading] = useState(false);
 const [commentInputs, setCommentInputs] = useState<{ [key: string]: string }>({});
+const [loading, setLoading] = useState(false);
 
-// Load posts from localStorage
 useEffect(() => {
 const saved = localStorage.getItem("adforge-posts");
 if (saved) setPosts(JSON.parse(saved));
 }, []);
 
-// Save posts
 useEffect(() => {
 localStorage.setItem("adforge-posts", JSON.stringify(posts));
 }, [posts]);
@@ -31,7 +29,6 @@ const generateAd = async () => {
 if (!prompt) return;
 setLoading(true);
 
-try {
 const res = await fetch("/api/generate-image", {
 method: "POST",
 body: JSON.stringify({ prompt }),
@@ -49,10 +46,6 @@ comments: [],
 
 setPosts([newPost, ...posts]);
 setPrompt("");
-} catch (err) {
-console.error(err);
-}
-
 setLoading(false);
 };
 
@@ -76,78 +69,67 @@ setCommentInputs({ ...commentInputs, [id]: "" });
 };
 
 return (
-<main style={{ padding: "20px", maxWidth: "600px", margin: "auto", color: "white" }}>
-<h1 style={{ fontSize: "28px", marginBottom: "10px" }}>AdForge Feed</h1>
+<main style={{ height: "100vh", overflowY: "scroll", scrollSnapType: "y mandatory" }}>
 
-{/* Input */}
-<div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+{/* TOP BAR */}
+<div style={{
+position: "fixed",
+top: 0,
+width: "100%",
+padding: "10px",
+background: "rgba(0,0,0,0.5)",
+zIndex: 10
+}}>
 <input
 value={prompt}
 onChange={(e) => setPrompt(e.target.value)}
-placeholder="Create an ad..."
-style={{
-flex: 1,
-padding: "12px",
-borderRadius: "8px",
-border: "none"
-}}
+placeholder="Create ad..."
+style={{ padding: "8px", width: "70%" }}
 />
-<button
-onClick={generateAd}
-disabled={loading}
-style={{
-padding: "12px 16px",
-borderRadius: "8px",
-border: "none",
-cursor: "pointer"
-}}
->
+<button onClick={generateAd}>
 {loading ? "..." : "Generate"}
 </button>
 </div>
 
-{/* Feed */}
-{posts.length === 0 && <p>No ads yet</p>}
-
+{/* POSTS */}
 {posts.map(post => (
 <div
 key={post.id}
 style={{
-background: "#1e293b",
-padding: "10px",
-borderRadius: "12px",
-marginBottom: "20px"
+height: "100vh",
+position: "relative",
+scrollSnapAlign: "start"
 }}
 >
+{/* IMAGE */}
 <img
 src={post.image}
 style={{
 width: "100%",
-borderRadius: "10px"
+height: "100%",
+objectFit: "cover"
 }}
 />
 
-<p style={{ marginTop: "8px", fontSize: "14px" }}>
-{post.prompt}
-</p>
+{/* OVERLAY LEFT (caption) */}
+<div style={{
+position: "absolute",
+bottom: "80px",
+left: "10px",
+color: "white"
+}}>
+<h3>@adforge_user</h3>
+<p>{post.prompt}</p>
 
-{/* Actions */}
-<div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-<button onClick={() => likePost(post.id)}>
-❤️ {post.likes}
-</button>
-
-<button
-onClick={() => navigator.clipboard.writeText(post.image)}
->
-🔗 Share
-</button>
+{/* COMMENTS */}
+<div>
+{post.comments.map((c, i) => (
+<p key={i}>💬 {c}</p>
+))}
 </div>
 
-{/* Comments */}
-<div style={{ marginTop: "10px" }}>
 <input
-placeholder="Write a comment..."
+placeholder="Comment..."
 value={commentInputs[post.id] || ""}
 onChange={(e) =>
 setCommentInputs({
@@ -155,26 +137,33 @@ setCommentInputs({
 [post.id]: e.target.value
 })
 }
-style={{
-width: "100%",
-padding: "8px",
-borderRadius: "6px",
-border: "none",
-marginBottom: "5px"
-}}
 />
+<button onClick={() => addComment(post.id)}>Send</button>
+</div>
 
-<button onClick={() => addComment(post.id)}>
-Add Comment
+{/* RIGHT SIDE BUTTONS */}
+<div style={{
+position: "absolute",
+right: "10px",
+bottom: "100px",
+display: "flex",
+flexDirection: "column",
+gap: "20px",
+color: "white"
+}}>
+<button onClick={() => likePost(post.id)}>
+❤️ {post.likes}
 </button>
 
-<div style={{ marginTop: "10px" }}>
-{post.comments.map((c, i) => (
-<p key={i} style={{ fontSize: "13px", opacity: 0.9 }}>
-💬 {c}
-</p>
-))}
-</div>
+<button>
+💬 {post.comments.length}
+</button>
+
+<button
+onClick={() => navigator.clipboard.writeText(post.image)}
+>
+🔗
+</button>
 </div>
 </div>
 ))}
