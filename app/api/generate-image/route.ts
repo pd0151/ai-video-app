@@ -11,39 +11,38 @@ return NextResponse.json(
 );
 }
 
-const cleanPrompt = prompt.trim();
+const clean = prompt.trim();
+
+const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(clean)}`;
 
 try {
-const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(
-cleanPrompt
-)}`;
+const res = await fetch(pollinationsUrl, { cache: "no-store" });
 
-const imageRes = await fetch(pollinationsUrl, {
-cache: "no-store",
+if (res.ok) {
+const type = res.headers.get("content-type") || "";
+
+// ONLY accept real images
+if (type.includes("image")) {
+const buffer = await res.arrayBuffer();
+
+// reject tiny / broken responses
+if (buffer.byteLength > 5000) {
+const base64 = Buffer.from(buffer).toString("base64");
+return NextResponse.json({
+image: `data:${type};base64,${base64}`,
 });
-
-if (imageRes.ok) {
-const contentType = imageRes.headers.get("content-type") || "";
-
-if (contentType.startsWith("image/")) {
-const arrayBuffer = await imageRes.arrayBuffer();
-const base64 = Buffer.from(arrayBuffer).toString("base64");
-const dataUrl = `data:${contentType};base64,${base64}`;
-
-return NextResponse.json({ image: dataUrl });
+}
 }
 }
 } catch (err) {
-console.error("Pollinations failed, using fallback:", err);
+console.log("Image failed:", err);
 }
 
-const fallback = `https://placehold.co/900x1600/0f172a/ffffff/png?text=${encodeURIComponent(
-cleanPrompt
-)}`;
+// fallback ALWAYS works
+const fallback = `https://placehold.co/900x1600/111827/ffffff/png?text=${encodeURIComponent(clean)}`;
 
 return NextResponse.json({ image: fallback });
 } catch (error) {
-console.error(error);
 return NextResponse.json(
 { error: "Failed to generate image" },
 { status: 500 }
