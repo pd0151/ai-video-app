@@ -1,4 +1,9 @@
+import OpenAI from "openai";
 import { NextResponse } from "next/server";
+
+const client = new OpenAI({
+apiKey: process.env.OPENAI_API_KEY,
+});
 
 export async function POST(req: Request) {
 try {
@@ -11,38 +16,27 @@ return NextResponse.json(
 );
 }
 
-const clean = prompt.trim();
-
-const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(clean)}`;
-
-try {
-const res = await fetch(pollinationsUrl, { cache: "no-store" });
-
-if (res.ok) {
-const type = res.headers.get("content-type") || "";
-
-// ONLY accept real images
-if (type.includes("image")) {
-const buffer = await res.arrayBuffer();
-
-// reject tiny / broken responses
-if (buffer.byteLength > 5000) {
-const base64 = Buffer.from(buffer).toString("base64");
-return NextResponse.json({
-image: `data:${type};base64,${base64}`,
+const result = await client.images.generate({
+model: "gpt-image-1.5",
+prompt: prompt.trim(),
+size: "1024x1024",
 });
-}
-}
-}
-} catch (err) {
-console.log("Image failed:", err);
+
+const imageBase64 = result.data?.[0]?.b64_json;
+
+if (!imageBase64) {
+return NextResponse.json(
+{ error: "No image returned" },
+{ status: 500 }
+);
 }
 
-// fallback ALWAYS works
-const fallback = `https://placehold.co/900x1600/111827/ffffff/png?text=${encodeURIComponent(clean)}`;
-
-return NextResponse.json({ image: fallback });
+return NextResponse.json({
+image: `data:image/png;base64,${imageBase64}`,
+});
 } catch (error) {
+console.error("AI ERROR:", error);
+
 return NextResponse.json(
 { error: "Failed to generate image" },
 { status: 500 }
