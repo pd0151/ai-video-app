@@ -1,18 +1,11 @@
-import "./globals.css";
+html, body {
+margin: 0;
+padding: 0;
+background: #0f172a;
+color: white;
+font-family: Arial, sans-serif;
+}
 
-export const metadata = {
-title: "AdForge",
-description: "AI Ad Generator",
-};
-
-export default function RootLayout({
-children,
-}: {
-children: React.ReactNode;
-}) {
-return (
-<html lang="en">
-<body>{children}</body>
-</html>
-);
+* {
+box-sizing: border-box;
 }
