@@ -11,14 +11,12 @@ return NextResponse.json(
 );
 }
 
-// FREE image generator (no API key needed)
-const image = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}`;
+const seed = encodeURIComponent(prompt.trim());
+const image = `https://picsum.photos/seed/${seed}/900/1600`;
 
 return NextResponse.json({ image });
-
 } catch (error) {
 console.error(error);
-
 return NextResponse.json(
 { error: "Failed to generate image" },
 { status: 500 }
