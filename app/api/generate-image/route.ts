@@ -11,9 +11,8 @@ return NextResponse.json(
 );
 }
 
-const image = `https://image.pollinations.ai/prompt/${encodeURIComponent(
-prompt
-)}`;
+const title = encodeURIComponent(prompt.trim().slice(0, 80));
+const image = `https://placehold.co/900x1600/0f172a/ffffff/png?text=${title}`;
 
 return NextResponse.json({ image });
 } catch (error) {
