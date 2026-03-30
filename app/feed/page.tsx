@@ -2,38 +2,38 @@
 
 import { useEffect, useState } from "react";
 
-type SavedAd = {
+type AdPost = {
 id: number;
 prompt: string;
 image: string;
+likes: number;
+comments: number;
 };
 
 export default function FeedPage() {
 const [prompt, setPrompt] = useState("");
 const [loading, setLoading] = useState(false);
-const [savedAds, setSavedAds] = useState<SavedAd[]>([]);
+const [posts, setPosts] = useState<AdPost[]>([]);
 
+// Load from localStorage
 useEffect(() => {
-const stored = localStorage.getItem("ads");
+const stored = localStorage.getItem("ads-feed");
 if (stored) {
 try {
-setSavedAds(JSON.parse(stored));
+setPosts(JSON.parse(stored));
 } catch {
-setSavedAds([]);
+setPosts([]);
 }
 }
 }, []);
 
-function saveAds(ads: SavedAd[]) {
-setSavedAds(ads);
-localStorage.setItem("ads", JSON.stringify(ads));
+function savePosts(newPosts: AdPost[]) {
+setPosts(newPosts);
+localStorage.setItem("ads-feed", JSON.stringify(newPosts));
 }
 
 async function generateAd() {
-if (!prompt.trim()) {
-alert("Type something first");
-return;
-}
+if (!prompt.trim()) return alert("Type something first");
 
 setLoading(true);
 
@@ -48,76 +48,74 @@ body: JSON.stringify({ prompt }),
 
 const data = await res.json();
 
-if (!res.ok) {
-alert(data.error || "Failed to generate");
+if (!res.ok || !data.image) {
+alert("Failed to generate");
 return;
 }
 
-if (!data.image) {
-alert("No image returned");
-return;
-}
-
-const newAd: SavedAd = {
+const newPost: AdPost = {
 id: Date.now(),
 prompt,
 image: data.image,
+likes: 0,
+comments: 0,
 };
 
-const nextAds = [newAd, ...savedAds];
-saveAds(nextAds);
+const updated = [newPost, ...posts];
+savePosts(updated);
 setPrompt("");
-} catch (error) {
-console.error(error);
-alert("Error generating ad");
+} catch (err) {
+console.error(err);
+alert("Error generating");
 } finally {
 setLoading(false);
 }
 }
 
-function downloadImage(src: string, id: number) {
-const a = document.createElement("a");
-a.href = src;
-a.download = `ad-${id}.png`;
-a.click();
+function likePost(id: number) {
+const updated = posts.map((p) =>
+p.id === id ? { ...p, likes: p.likes + 1 } : p
+);
+savePosts(updated);
 }
 
-function clearAds() {
-localStorage.removeItem("ads");
-setSavedAds([]);
+function commentPost(id: number) {
+const updated = posts.map((p) =>
+p.id === id ? { ...p, comments: p.comments + 1 } : p
+);
+savePosts(updated);
+}
+
+function sharePost() {
+alert("Share feature coming soon 🚀");
 }
 
 return (
 <main
 style={{
 minHeight: "100vh",
-padding: "40px",
-background: "linear-gradient(#1e293b, #0f172a)",
+background: "#0f172a",
 color: "white",
-fontFamily: "Arial, sans-serif",
+padding: "20px",
+fontFamily: "Arial",
 }}
 >
-<div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-<h1 style={{ fontSize: "40px", marginBottom: "20px" }}>Ad Feed</h1>
+<div style={{ maxWidth: "700px", margin: "0 auto" }}>
+<h1 style={{ fontSize: "32px", marginBottom: "20px" }}>
+AdForge Feed
+</h1>
 
-<div
-style={{
-display: "flex",
-gap: "12px",
-flexWrap: "wrap",
-marginBottom: "25px",
-}}
->
+{/* INPUT */}
+<div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
 <input
 value={prompt}
 onChange={(e) => setPrompt(e.target.value)}
-placeholder="Describe your ad..."
+placeholder="Create an ad..."
 style={{
-padding: "14px",
+flex: 1,
+padding: "12px",
 borderRadius: "10px",
-width: "460px",
 border: "none",
-fontSize: "16px",
 }}
 />
 
@@ -125,113 +123,72 @@ fontSize: "16px",
 onClick={generateAd}
 disabled={loading}
 style={{
-padding: "14px 20px",
+padding: "12px 18px",
 borderRadius: "10px",
 border: "none",
-cursor: "pointer",
 fontWeight: "bold",
+cursor: "pointer",
 }}
 >
-{loading ? "Generating..." : "Generate Ad"}
+{loading ? "..." : "Generate"}
 </button>
-
-{savedAds.length > 0 && (
-<button
-onClick={clearAds}
-style={{
-padding: "14px 20px",
-borderRadius: "10px",
-border: "none",
-cursor: "pointer",
-fontWeight: "bold",
-background: "#ef4444",
-color: "white",
-}}
->
-Clear Feed
-</button>
-)}
 </div>
 
-{loading && <p style={{ marginBottom: "20px" }}>Generating image...</p>}
+{/* FEED */}
+{posts.length === 0 && <p>No ads yet</p>}
 
-{savedAds.length === 0 ? (
-<p>No ads yet. Generate your first one.</p>
-) : (
-<>
-<h2 style={{ marginBottom: "16px" }}>Saved Ads</h2>
-
+<div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+{posts.map((post) => (
 <div
+key={post.id}
 style={{
-display: "grid",
-gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-gap: "20px",
-}}
->
-{savedAds.map((ad, index) => (
-<div
-key={ad.id}
-style={{
-background: "rgba(255,255,255,0.06)",
+background: "#1e293b",
 borderRadius: "16px",
-padding: "14px",
-border:
-index === 0
-? "2px solid white"
-: "1px solid rgba(255,255,255,0.2)",
+overflow: "hidden",
 }}
 >
-{index === 0 && (
-<div
-style={{
-marginBottom: "10px",
-fontSize: "12px",
-fontWeight: "bold",
-color: "#93c5fd",
-}}
->
-Latest Ad
-</div>
-)}
-
 <img
-src={ad.image}
-alt={ad.prompt}
-style={{
-width: "100%",
-borderRadius: "12px",
-display: "block",
-marginBottom: "10px",
-}}
+src={post.image}
+style={{ width: "100%", display: "block" }}
 />
 
-<p
+<div style={{ padding: "12px" }}>
+<p style={{ marginBottom: "10px" }}>{post.prompt}</p>
+
+<div
 style={{
-fontSize: "14px",
-lineHeight: "1.4",
-marginBottom: "10px",
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
 }}
 >
-{ad.prompt}
-</p>
+<div style={{ display: "flex", gap: "15px" }}>
+<button onClick={() => likePost(post.id)}>
+❤️ {post.likes}
+</button>
+
+<button onClick={() => commentPost(post.id)}>
+💬 {post.comments}
+</button>
+
+<button onClick={sharePost}>🔗 Share</button>
+</div>
 
 <button
-onClick={() => downloadImage(ad.image, ad.id)}
-style={{
-padding: "10px 12px",
-borderRadius: "8px",
-border: "none",
-cursor: "pointer",
-fontWeight: "bold",
+onClick={() => {
+const a = document.createElement("a");
+a.href = post.image;
+a.download = "ad.png";
+a.click();
 }}
 >
-Download
+⬇️
 </button>
+</div>
+</div>
 </div>
 ))}
 </div>
-</>
-)}
 </div>
 </main>
 );
