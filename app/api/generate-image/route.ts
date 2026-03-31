@@ -8,16 +8,9 @@ export async function POST(req: Request) {
 try {
 const { prompt } = await req.json();
 
-if (!prompt) {
-return new Response(
-JSON.stringify({ error: "No prompt provided" }),
-{ status: 400 }
-);
-}
-
 const result = await openai.images.generate({
 model: "gpt-image-1",
-prompt: prompt,
+prompt,
 size: "1024x1024",
 });
 
