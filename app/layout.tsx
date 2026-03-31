@@ -1,4 +1,4 @@
-import "./globals";
+import "./globals.css";
 
 export const metadata = {
 title: "AdForge",
