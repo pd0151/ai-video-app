@@ -30,7 +30,6 @@ if (!image_base64) {
 return new Response(
 JSON.stringify({
 error: "No image returned from OpenAI",
-debug: result,
 }),
 {
 status: 500,
@@ -41,12 +40,15 @@ headers: { "Content-Type": "application/json" },
 
 const image = `data:image/png;base64,${image_base64}`;
 
-return new Response(JSON.stringify({ image }), {
+return new Response(
+JSON.stringify({ image }),
+{
 status: 200,
 headers: { "Content-Type": "application/json" },
-});
+}
+);
 } catch (error: any) {
-console.error("GENERATE IMAGE ERROR:", error);
+console.error("FULL ERROR:", error);
 
 return new Response(
 JSON.stringify({
