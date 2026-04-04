@@ -22,7 +22,11 @@ prompt,
 size: "1024x1024",
 });
 
-const imageBase64 = result.data[0].b64_json;
+const imageBase64 = result.data?.[0]?.b64_json;
+
+if (!imageBase64) {
+throw new Error("No image returned");
+}
 
 return NextResponse.json({
 image: `data:image/png;base64,${imageBase64}`,
