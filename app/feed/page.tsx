@@ -82,7 +82,9 @@ return (
 
 <div style={styles.overlay}>
 <p style={styles.caption}>{post.caption || "No caption"}</p>
-<p style={styles.meta}>❤️ {post.likes_count ?? 0} 💬 {post.comments_count ?? 0}</p>
+<p style={styles.meta}>
+❤️ {post.likes_count ?? 0} 💬 {post.comments_count ?? 0}
+</p>
 </div>
 </div>
 ))}
