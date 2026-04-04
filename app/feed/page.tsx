@@ -12,35 +12,37 @@ created_at: string | null;
 };
 
 export default function FeedPage() {
-const supabase = createClient();
-
 const [posts, setPosts] = useState<Post[]>([]);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState("");
 
 useEffect(() => {
 const loadPosts = async () => {
+try {
 setLoading(true);
 setError("");
 
+const supabase = createClient();
+
 const { data, error } = await supabase
-.from("Posts")
-.select("*")
+.from("posts")
+.select("id, caption, image_url, likes, created_at")
 .order("created_at", { ascending: false });
 
 if (error) {
-console.error("FEED LOAD ERROR:", error);
-setError(error.message);
-setPosts([]);
-} else {
-setPosts((data as Post[]) || []);
+throw error;
 }
 
+setPosts(data || []);
+} catch (err: any) {
+setError(err?.message || "Failed to load posts");
+} finally {
 setLoading(false);
+}
 };
 
 loadPosts();
-}, [supabase]);
+}, []);
 
 return (
 <main style={styles.page}>
@@ -60,7 +62,6 @@ return (
 <div style={styles.feed}>
 {posts.map((post) => (
 <div key={post.id} style={styles.card}>
-<div style={styles.mediaWrap}>
 {post.image_url ? (
 <img
 src={post.image_url}
@@ -73,12 +74,7 @@ style={styles.image}
 
 <div style={styles.overlay}>
 <p style={styles.caption}>{post.caption || "No caption"}</p>
-<div style={styles.actions}>
-<div style={styles.actionButton}>❤️ {post.likes ?? 0}</div>
-<div style={styles.actionButton}>💬 0</div>
-<div style={styles.actionButton}>↗ Share</div>
-</div>
-</div>
+<p style={styles.likes}>❤️ {post.likes ?? 0}</p>
 </div>
 </div>
 ))}
@@ -91,63 +87,62 @@ style={styles.image}
 const styles: Record<string, React.CSSProperties> = {
 page: {
 minHeight: "100vh",
-background:
-"linear-gradient(180deg, #081226 0%, #0d1b3a 50%, #0a1630 100%)",
-padding: "20px",
+background: "linear-gradient(180deg, #0f172a 0%, #1e3a8a 100%)",
+padding: "24px",
 color: "white",
 },
 title: {
-fontSize: "40px",
+fontSize: "56px",
 fontWeight: 900,
-marginBottom: "20px",
+margin: "0 0 24px 0",
+lineHeight: 1,
 },
 message: {
 textAlign: "center",
-fontSize: "28px",
+fontSize: "42px",
 fontWeight: 800,
 marginTop: "120px",
 },
 error: {
 textAlign: "center",
-fontSize: "20px",
+fontSize: "28px",
 fontWeight: 700,
-color: "#ff8a8a",
-marginTop: "80px",
+color: "#fca5a5",
+marginTop: "120px",
 },
 feed: {
 display: "flex",
 flexDirection: "column",
 gap: "24px",
-maxWidth: "700px",
-margin: "0 auto",
+alignItems: "center",
 },
 card: {
+position: "relative",
+width: "100%",
+maxWidth: "520px",
+minHeight: "720px",
+background: "#111827",
 borderRadius: "24px",
 overflow: "hidden",
-background: "rgba(255,255,255,0.06)",
-border: "1px solid rgba(255,255,255,0.08)",
 boxShadow: "0 20px 60px rgba(0,0,0,0.35)",
-},
-mediaWrap: {
-position: "relative",
-minHeight: "500px",
-background: "#111827",
+border: "1px solid rgba(255,255,255,0.08)",
 },
 image: {
 width: "100%",
-height: "100%",
-maxHeight: "700px",
+height: "720px",
 objectFit: "cover",
 display: "block",
 },
 noImage: {
-height: "500px",
+width: "100%",
+height: "720px",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-color: "rgba(255,255,255,0.7)",
-fontSize: "24px",
+fontSize: "28px",
 fontWeight: 700,
+color: "rgba(255,255,255,0.7)",
+background: "rgba(255,255,255,0.04)",
 },
 overlay: {
 position: "absolute",
@@ -156,27 +151,17 @@ right: 0,
 bottom: 0,
 padding: "24px",
 background:
-"linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.28), transparent)",
+"linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%)",
 },
 caption: {
 margin: 0,
-fontSize: "22px",
+fontSize: "24px",
 fontWeight: 800,
-lineHeight: 1.4,
-maxWidth: "80%",
 },
-actions: {
-display: "flex",
-gap: "12px",
-marginTop: "18px",
-flexWrap: "wrap",
-},
-actionButton: {
-background: "rgba(255,255,255,0.14)",
-border: "1px solid rgba(255,255,255,0.14)",
-borderRadius: "14px",
-padding: "10px 14px",
-fontSize: "15px",
+likes: {
+margin: "10px 0 0 0",
+fontSize: "18px",
 fontWeight: 700,
+color: "rgba(255,255,255,0.85)",
 },
 };
