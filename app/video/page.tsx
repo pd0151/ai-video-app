@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { createClient } from "@/lib/client";
 
 export default function VideoPage() {
-const supabase = createClient();
-
 const [prompt, setPrompt] = useState(
 "A premium 24 hour mobile tyre fitting advert, a clean branded van parked at a suburban roadside, a tyre technician kneels by a car changing a wheel, cinematic lighting, smooth camera motion, bold advertising feel, realistic, high quality"
 );
@@ -14,8 +11,6 @@ const [status, setStatus] = useState<string>("");
 const [videoUrl, setVideoUrl] = useState<string | null>(null);
 const [error, setError] = useState<string>("");
 const [starting, setStarting] = useState(false);
-const [posting, setPosting] = useState(false);
-const [posted, setPosted] = useState(false);
 
 const pollRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -26,52 +21,9 @@ pollRef.current = null;
 }
 };
 
-const saveVideoPost = async (finalVideoUrl: string) => {
-try {
-setPosting(true);
-setError("");
-
-const {
-data: { user },
-error: userError,
-} = await supabase.auth.getUser();
-
-if (userError || !user) {
-setError("You must be logged in to save video posts");
-return;
-}
-
-const { error: insertError } = await supabase.from("posts").insert({
-user_id: user.id,
-image_url: "",
-video_url: finalVideoUrl,
-prompt,
-caption: "24 hour mobile tyre fitting video ad",
-product: "mobile tyre fitting",
-location: "uk",
-likes_count: 0,
-comments_count: 0,
-});
-
-if (insertError) {
-setError(insertError.message);
-return;
-}
-
-setPosted(true);
-} catch (err) {
-console.error(err);
-setError("Failed to save video post");
-} finally {
-setPosting(false);
-}
-};
-
 const checkStatus = async (id: string) => {
 try {
-const res = await fetch(`/api/generate-video?id=${id}`, {
-cache: "no-store",
-});
+const res = await fetch(`/api/generate-video?id=${id}`);
 const data = await res.json();
 
 if (!res.ok) {
@@ -80,36 +32,14 @@ clearPoll();
 return;
 }
 
-const nextStatus = data.status || "";
-setStatus(nextStatus);
+setStatus(data.status || "");
 
-let finalVideoUrl: string | null = null;
-
-if (typeof data.videoUrl === "string" && data.videoUrl) {
-finalVideoUrl = data.videoUrl;
-} else if (typeof data.output === "string" && data.output) {
-finalVideoUrl = data.output;
-} else if (Array.isArray(data.output) && data.output.length > 0) {
-finalVideoUrl = data.output[0];
-} else if (data.output?.url) {
-finalVideoUrl = data.output.url;
-}
-
-if (nextStatus === "succeeded") {
-if (finalVideoUrl) {
-setVideoUrl(finalVideoUrl);
-clearPoll();
-
-if (!posted) {
-await saveVideoPost(finalVideoUrl);
-}
-} else {
-setError("Video finished but no video URL was returned");
+if (data.status === "succeeded") {
+setVideoUrl(data.videoUrl || null);
 clearPoll();
 }
-}
 
-if (nextStatus === "failed" || nextStatus === "canceled") {
+if (data.status === "failed" || data.status === "canceled") {
 setError(data?.error || "Video generation failed");
 clearPoll();
 }
@@ -128,7 +58,6 @@ setError("");
 setPredictionId(null);
 setVideoUrl(null);
 setStatus("");
-setPosted(false);
 
 const res = await fetch("/api/generate-video", {
 method: "POST",
@@ -155,7 +84,7 @@ await checkStatus(id);
 
 pollRef.current = setInterval(() => {
 checkStatus(id);
-}, 5000);
+}, 4000);
 } catch (err) {
 console.error(err);
 setError("Video generation failed");
@@ -188,8 +117,7 @@ placeholder="Describe the ad video..."
 ) : null}
 
 {status ? <div style={styles.info}>Status: {status}</div> : null}
-{posting ? <div style={styles.info}>Saving to feed...</div> : null}
-{posted ? <div style={styles.success}>Video posted to feed</div> : null}
+
 {error ? <div style={styles.error}>{error}</div> : null}
 
 {videoUrl ? (
@@ -253,13 +181,6 @@ marginBottom: "16px",
 info: {
 marginBottom: "10px",
 fontSize: "14px",
-},
-success: {
-marginBottom: "14px",
-background: "rgba(0,180,90,0.18)",
-color: "#d9ffe9",
-padding: "12px 14px",
-borderRadius: "12px",
 },
 error: {
 marginBottom: "14px",

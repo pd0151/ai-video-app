@@ -1,20 +1,19 @@
+import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
-apiKey: process.env.OPENAI_API_KEY!,
+apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: Request) {
 try {
-const { prompt } = await req.json();
+const body = await req.json();
+const prompt = body?.prompt;
 
-if (!prompt || !prompt.trim()) {
-return new Response(
-JSON.stringify({ error: "No prompt provided" }),
-{
-status: 400,
-headers: { "Content-Type": "application/json" },
-}
+if (!prompt || typeof prompt !== "string") {
+return NextResponse.json(
+{ error: "Prompt is required" },
+{ status: 400 }
 );
 }
 
@@ -24,43 +23,26 @@ prompt,
 size: "1024x1024",
 });
 
-const image_base64 = result.data?.[0]?.b64_json;
+const b64 = result.data?.[0]?.b64_json;
 
-if (!image_base64) {
-return new Response(
-JSON.stringify({
-error: "No image returned from OpenAI",
-}),
-{
-status: 500,
-headers: { "Content-Type": "application/json" },
-}
+if (!b64) {
+return NextResponse.json(
+{ error: "No image returned from OpenAI" },
+{ status: 500 }
 );
 }
 
-const image = `data:image/png;base64,${image_base64}`;
-
-return new Response(
-JSON.stringify({ image }),
-{
-status: 200,
-headers: { "Content-Type": "application/json" },
-}
-);
+return NextResponse.json({
+imageUrl: `data:image/png;base64,${b64}`,
+});
 } catch (error: any) {
-console.error("FULL ERROR:", error);
+console.error("generate-image route error:", error);
 
-return new Response(
-JSON.stringify({
-error: error?.message || "Failed to generate image",
-type: error?.type || null,
-code: error?.code || null,
-status: error?.status || null,
-}),
+return NextResponse.json(
 {
-status: 500,
-headers: { "Content-Type": "application/json" },
-}
+error: error?.message || "Image generation failed",
+},
+{ status: 500 }
 );
 }
 }
