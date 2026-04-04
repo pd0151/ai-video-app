@@ -46,16 +46,16 @@ return NextResponse.json(
 const imageBase64 = data?.data?.[0]?.b64_json;
 
 if (!imageBase64) {
-console.error("No image returned:", data);
+console.error("No image data returned:", data);
 return NextResponse.json(
 { error: "No image data returned from OpenAI" },
 { status: 500 }
 );
 }
 
-const imageUrl = `data:image/png;base64,${imageBase64}`;
-
-return NextResponse.json({ imageUrl });
+return NextResponse.json({
+imageUrl: `data:image/png;base64,${imageBase64}`,
+});
 } catch (error: any) {
 console.error("generate-image route error:", error);
 return NextResponse.json(
