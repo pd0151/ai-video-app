@@ -6,10 +6,7 @@ try {
 const { prompt } = await req.json();
 
 if (!prompt) {
-return NextResponse.json(
-{ error: "Prompt is required" },
-{ status: 400 }
-);
+return NextResponse.json({ error: "Prompt is required" }, { status: 400 });
 }
 
 const openai = new OpenAI({
@@ -25,18 +22,27 @@ size: "1024x1024",
 const imageBase64 = result.data?.[0]?.b64_json;
 
 if (!imageBase64) {
-throw new Error("No image returned");
+return NextResponse.json(
+{ error: "OpenAI returned no image data" },
+{ status: 500 }
+);
 }
 
 return NextResponse.json({
 image: `data:image/png;base64,${imageBase64}`,
 });
 } catch (error: any) {
-console.error("IMAGE ERROR:", error);
+console.error("IMAGE ERROR FULL:", error);
 
 return NextResponse.json(
-{ error: error?.message || "Failed to generate image" },
-{ status: 500 }
+{
+error:
+error?.message ||
+error?.error?.message ||
+error?.response?.data?.error?.message ||
+"Failed to generate image",
+},
+{ status: error?.status || 500 }
 );
 }
 }
