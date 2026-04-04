@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { createClient } from "@/lib/client";
 
+const DEMO_USER_ID = "dd8b21a2-1300-4ba0-af48-3fb442569407";
+
 export default function HomePage() {
 const supabase = createClient();
 
@@ -49,21 +51,8 @@ if (!image) {
 throw new Error("Generate an image first");
 }
 
-const {
-data: { user },
-error: userError,
-} = await supabase.auth.getUser();
-
-if (userError) {
-throw userError;
-}
-
-if (!user) {
-throw new Error("You need to log in first");
-}
-
 const blob = dataURLToBlob(image);
-const fileName = `${user.id}/${Date.now()}.png`;
+const fileName = `${DEMO_USER_ID}/${Date.now()}.png`;
 
 const uploadResult = await supabase.storage
 .from("post-images")
@@ -83,9 +72,10 @@ const { data: publicUrlData } = supabase.storage
 const publicUrl = publicUrlData.publicUrl;
 
 const insertResult = await supabase.from("posts").insert({
-user_id: user.id,
+user_id: DEMO_USER_ID,
 image_url: publicUrl,
 prompt: prompt || "AI image",
+caption: prompt || "AI image",
 likes_count: 0,
 comments_count: 0,
 });
