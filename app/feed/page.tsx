@@ -1,212 +1,90 @@
-export const dynamic = "force-dynamic";
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+export const dynamic = "force-dynamic";
+
+import { useEffect, useState } from "react";
 import { createClient } from "@/lib/client";
 
-export default function VideoPage() {
+type Post = {
+id: string;
+prompt?: string;
+image_url?: string;
+video_url?: string;
+created_at?: string;
+};
+
+export default function FeedPage() {
 const supabase = createClient();
 
-const [prompt, setPrompt] = useState(
-"A premium 24 hour mobile tyre fitting advert, a clean branded van parked at a suburban roadside, a tyre technician kneels by a car changing a wheel, cinematic lighting, smooth camera motion, bold advertising feel, realistic, high quality"
-);
-const [predictionId, setPredictionId] = useState<string | null>(null);
-const [status, setStatus] = useState<string>("");
-const [videoUrl, setVideoUrl] = useState<string | null>(null);
-const [error, setError] = useState<string>("");
-const [starting, setStarting] = useState(false);
-const [posting, setPosting] = useState(false);
-const [posted, setPosted] = useState(false);
-
-const pollRef = useRef<NodeJS.Timeout | null>(null);
-
-const clearPoll = () => {
-if (pollRef.current) {
-clearInterval(pollRef.current);
-pollRef.current = null;
-}
-};
-
-const saveVideoPost = async (finalVideoUrl: string) => {
-try {
-setPosting(true);
-setError("");
-
-const {
-data: { user },
-error: userError,
-} = await supabase.auth.getUser();
-
-if (userError || !user) {
-setError("You must be logged in to save video posts");
-return;
-}
-
-const { error: insertError } = await supabase.from("posts").insert({
-user_id: user.id,
-image_url: "",
-video_url: finalVideoUrl,
-prompt,
-caption: "24 hour mobile tyre fitting video ad",
-product: "mobile tyre fitting",
-location: "uk",
-likes_count: 0,
-comments_count: 0,
-});
-
-if (insertError) {
-setError(insertError.message);
-return;
-}
-
-setPosted(true);
-} catch (err) {
-console.error(err);
-setError("Failed to save video post");
-} finally {
-setPosting(false);
-}
-};
-
-const checkStatus = async (id: string) => {
-try {
-const res = await fetch(`/api/generate-video?id=${id}`, {
-cache: "no-store",
-});
-const data = await res.json();
-
-if (!res.ok) {
-setError(data?.error || "Failed to check status");
-clearPoll();
-return;
-}
-
-const nextStatus = data.status || "";
-setStatus(nextStatus);
-
-let finalVideoUrl: string | null = null;
-
-if (typeof data.videoUrl === "string" && data.videoUrl) {
-finalVideoUrl = data.videoUrl;
-} else if (typeof data.output === "string" && data.output) {
-finalVideoUrl = data.output;
-} else if (Array.isArray(data.output) && data.output.length > 0) {
-finalVideoUrl = data.output[0];
-} else if (data.output?.url) {
-finalVideoUrl = data.output.url;
-}
-
-if (nextStatus === "succeeded") {
-if (finalVideoUrl) {
-setVideoUrl(finalVideoUrl);
-clearPoll();
-
-if (!posted) {
-await saveVideoPost(finalVideoUrl);
-}
-} else {
-setError("Video finished but no video URL was returned");
-clearPoll();
-}
-}
-
-if (nextStatus === "failed" || nextStatus === "canceled") {
-setError(data?.error || "Video generation failed");
-clearPoll();
-}
-} catch (err) {
-console.error(err);
-setError("Status check failed");
-clearPoll();
-}
-};
-
-const handleGenerate = async () => {
-try {
-clearPoll();
-setStarting(true);
-setError("");
-setPredictionId(null);
-setVideoUrl(null);
-setStatus("");
-setPosted(false);
-
-const res = await fetch("/api/generate-video", {
-method: "POST",
-headers: {
-"Content-Type": "application/json",
-},
-body: JSON.stringify({ prompt }),
-});
-
-const data = await res.json();
-
-if (!res.ok) {
-setError(data?.error || "Failed to start video generation");
-setStarting(false);
-return;
-}
-
-const id = data.id;
-setPredictionId(id);
-setStatus(data.status || "starting");
-setStarting(false);
-
-await checkStatus(id);
-
-pollRef.current = setInterval(() => {
-checkStatus(id);
-}, 5000);
-} catch (err) {
-console.error(err);
-setError("Video generation failed");
-setStarting(false);
-}
-};
+const [posts, setPosts] = useState<Post[]>([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState("");
 
 useEffect(() => {
-return () => clearPoll();
-}, []);
+const loadPosts = async () => {
+setLoading(true);
+setError("");
+
+const { data, error } = await supabase
+.from("posts")
+.select("*")
+.order("created_at", { ascending: false });
+
+if (error) {
+setError(error.message);
+} else {
+setPosts((data as Post[]) || []);
+}
+
+setLoading(false);
+};
+
+loadPosts();
+}, [supabase]);
 
 return (
 <main style={styles.page}>
-<div style={styles.wrap}>
-<h1 style={styles.title}>AI Video Generator</h1>
+<div style={styles.header}>
+<h1 style={styles.title}>Premium AI Feed</h1>
+<a href="/video" style={styles.linkButton}>
+Video
+</a>
+</div>
 
-<textarea
-value={prompt}
-onChange={(e) => setPrompt(e.target.value)}
-style={styles.textarea}
-placeholder="Describe the ad video..."
-/>
-
-<button onClick={handleGenerate} style={styles.button}>
-{starting ? "Starting..." : "Generate Video"}
-</button>
-
-{predictionId ? (
-<div style={styles.info}>Prediction: {predictionId}</div>
+{loading ? <p style={styles.info}>Loading feed...</p> : null}
+{error ? <p style={styles.error}>{error}</p> : null}
+{!loading && !error && posts.length === 0 ? (
+<p style={styles.info}>No posts yet.</p>
 ) : null}
 
-{status ? <div style={styles.info}>Status: {status}</div> : null}
-{posting ? <div style={styles.info}>Saving to feed...</div> : null}
-{posted ? <div style={styles.success}>Video posted to feed</div> : null}
-{error ? <div style={styles.error}>{error}</div> : null}
-
-{videoUrl ? (
-<div style={styles.videoWrap}>
+<div style={styles.feedWrap}>
+{posts.map((post) => (
+<div key={post.id} style={styles.card}>
+<div style={styles.mediaWrap}>
+{post.video_url ? (
 <video
-src={videoUrl}
+src={post.video_url}
 controls
-autoPlay
-loop
 playsInline
-style={styles.video}
+style={styles.media}
 />
-</div>
+) : post.image_url ? (
+<img src={post.image_url} alt="post" style={styles.media} />
 ) : (
-<div style={styles.placeholder}>Your video will appear here</div>
+<div style={styles.emptyMedia}>No media</div>
 )}
+</div>
+
+<div style={styles.cardBody}>
+<p style={styles.prompt}>{post.prompt || "Untitled post"}</p>
+<p style={styles.date}>
+{post.created_at
+? new Date(post.created_at).toLocaleString()
+: ""}
+</p>
+</div>
+</div>
+))}
 </div>
 </main>
 );
@@ -215,77 +93,91 @@ style={styles.video}
 const styles: Record<string, React.CSSProperties> = {
 page: {
 minHeight: "100vh",
-background: "linear-gradient(180deg, #16234a 0%, #0f1730 100%)",
+background:
+"linear-gradient(180deg, #0f172a 0%, #142850 45%, #1e3a8a 100%)",
 padding: "24px",
-boxSizing: "border-box",
-color: "white",
 },
-wrap: {
-maxWidth: "900px",
-margin: "0 auto",
+header: {
+maxWidth: "1100px",
+margin: "0 auto 24px",
+display: "flex",
+alignItems: "center",
+justifyContent: "space-between",
+gap: "16px",
 },
 title: {
-fontSize: "32px",
-fontWeight: 800,
-marginBottom: "18px",
+color: "white",
+fontSize: "42px",
+fontWeight: 900,
+margin: 0,
 },
-textarea: {
-width: "100%",
-minHeight: "140px",
-borderRadius: "16px",
-border: "none",
-padding: "16px",
-fontSize: "16px",
-boxSizing: "border-box",
-marginBottom: "14px",
-},
-button: {
-height: "52px",
-borderRadius: "16px",
-border: "none",
-padding: "0 20px",
-background: "#4da3ff",
+linkButton: {
+textDecoration: "none",
+background: "linear-gradient(135deg, #60a5fa, #2563eb)",
 color: "white",
 fontWeight: 800,
-fontSize: "15px",
-cursor: "pointer",
-marginBottom: "16px",
+padding: "12px 20px",
+borderRadius: "14px",
 },
 info: {
-marginBottom: "10px",
-fontSize: "14px",
-},
-success: {
-marginBottom: "14px",
-background: "rgba(0,180,90,0.18)",
-color: "#d9ffe9",
-padding: "12px 14px",
-borderRadius: "12px",
+maxWidth: "1100px",
+margin: "0 auto 16px",
+color: "white",
+fontSize: "16px",
 },
 error: {
-marginBottom: "14px",
-background: "rgba(255,0,0,0.18)",
-color: "#ffdada",
+maxWidth: "1100px",
+margin: "0 auto 16px",
+color: "#fecaca",
+background: "rgba(127,29,29,0.4)",
 padding: "12px 14px",
 borderRadius: "12px",
 },
-placeholder: {
-height: "420px",
-borderRadius: "20px",
-background: "rgba(255,255,255,0.06)",
+feedWrap: {
+maxWidth: "1100px",
+margin: "0 auto",
+display: "grid",
+gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+gap: "20px",
+},
+card: {
+background: "rgba(15,23,42,0.85)",
+border: "1px solid rgba(255,255,255,0.12)",
+borderRadius: "22px",
+overflow: "hidden",
+boxShadow: "0 20px 40px rgba(0,0,0,0.25)",
+},
+mediaWrap: {
+width: "100%",
+aspectRatio: "9 / 16",
+background: "#0b1120",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-color: "rgba(255,255,255,0.75)",
 },
-videoWrap: {
-marginTop: "10px",
-},
-video: {
+media: {
 width: "100%",
-maxWidth: "420px",
-borderRadius: "20px",
+height: "100%",
+objectFit: "cover",
 display: "block",
-background: "black",
+},
+emptyMedia: {
+color: "rgba(255,255,255,0.55)",
+fontSize: "15px",
+},
+cardBody: {
+padding: "16px",
+},
+prompt: {
+color: "white",
+fontSize: "16px",
+fontWeight: 700,
+margin: "0 0 8px",
+lineHeight: 1.4,
+},
+date: {
+color: "rgba(255,255,255,0.65)",
+fontSize: "13px",
+margin: 0,
 },
 };
