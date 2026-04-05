@@ -14,7 +14,10 @@ const [imageUrl, setImageUrl] = useState("");
 const [loading, setLoading] = useState(false);
 
 const generateImage = async () => {
-if (!prompt) return;
+if (!prompt.trim()) {
+alert("Type a prompt first");
+return;
+}
 
 setLoading(true);
 
@@ -34,8 +37,8 @@ throw new Error(data.error || "Failed to generate image");
 }
 
 setImageUrl(data.image);
-} catch (err: any) {
-alert(err.message || "Error generating image");
+} catch (error: any) {
+alert(error.message || "Error generating image");
 } finally {
 setLoading(false);
 }
@@ -49,18 +52,19 @@ return;
 
 const { error } = await supabase.from("Posts").insert([
 {
-Caption: prompt || "AI image",
-Image_url: imageUrl,
-Likes: 0,
+caption: prompt || "AI image",
+image_url: imageUrl,
+likes: 0,
 },
 ]);
 
 if (error) {
 console.log(error);
 alert(error.message);
-} else {
-alert("Posted!");
+return;
 }
+
+alert("Posted!");
 };
 
 return (
@@ -85,7 +89,7 @@ Post to Feed
 </div>
 
 {imageUrl ? (
-<img src={imageUrl} alt="AI" style={styles.image} />
+<img src={imageUrl} alt="AI generated" style={styles.image} />
 ) : (
 <div style={styles.emptyBox}>Your image will appear here</div>
 )}
@@ -96,20 +100,20 @@ Post to Feed
 const styles: Record<string, React.CSSProperties> = {
 page: {
 minHeight: "100vh",
-padding: 30,
+padding: "30px",
 background: "linear-gradient(180deg, #182848 0%, #1d4ed8 100%)",
 color: "white",
 },
 title: {
 fontSize: "72px",
 fontWeight: 900,
-marginBottom: 30,
+marginBottom: "30px",
 },
 row: {
 display: "flex",
-gap: 14,
+gap: "14px",
 alignItems: "center",
-marginBottom: 20,
+marginBottom: "20px",
 flexWrap: "wrap",
 },
 input: {
