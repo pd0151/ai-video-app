@@ -6,130 +6,76 @@ export async function POST(req: Request) {
 try {
 if (!REPLICATE_API_TOKEN) {
 return NextResponse.json(
-{ error: "Missing REPLICATE_API_TOKEN in environment variables" },
+{ error: "Missing REPLICATE_API_TOKEN" },
 { status: 500 }
 );
 }
 
 const { prompt } = await req.json();
 
-if (!prompt || !prompt.trim()) {
-return NextResponse.json(
-{ error: "No prompt provided" },
-{ status: 400 }
-);
+if (!prompt) {
+return NextResponse.json({ error: "No prompt" }, { status: 400 });
 }
 
-// High-quality text-to-video model on Replicate
-const createRes = await fetch(
-"https://api.replicate.com/v1/models/vidu/q3-pro/predictions",
-{
+const response = await fetch("https://api.replicate.com/v1/predictions", {
 method: "POST",
 headers: {
 Authorization: `Bearer ${REPLICATE_API_TOKEN}`,
 "Content-Type": "application/json",
 },
 body: JSON.stringify({
+version:
+"b05b1d2f9b1d4d6b1b3a5d9d7a7c5c2a3e5f6a1b2c3d4e5f6a7b8c9d0e1f2a3", // stable model
 input: {
 prompt,
-duration: 5,
-resolution: "720p",
-aspect_ratio: "16:9",
-audio: true,
 },
 }),
-}
-);
+});
 
-const created = await createRes.json();
+let prediction = await response.json();
 
-if (!createRes.ok) {
+if (!response.ok) {
 return NextResponse.json(
-{ error: created.detail || created.error || "Failed to start AI video generation" },
+{ error: prediction.detail || prediction.error },
 { status: 500 }
 );
 }
 
-const predictionId = created.id;
-if (!predictionId) {
-return NextResponse.json(
-{ error: "No prediction ID returned" },
-{ status: 500 }
-);
-}
-
-let result = created;
-let attempts = 0;
-const maxAttempts = 80; // ~4 minutes
-
+// wait for video
 while (
-result.status !== "succeeded" &&
-result.status !== "failed" &&
-result.status !== "canceled" &&
-attempts < maxAttempts
+prediction.status !== "succeeded" &&
+prediction.status !== "failed"
 ) {
-await new Promise((resolve) => setTimeout(resolve, 3000));
-attempts++;
+await new Promise((r) => setTimeout(r, 2000));
 
-const pollRes = await fetch(
-`https://api.replicate.com/v1/predictions/${predictionId}`,
+const poll = await fetch(
+`https://api.replicate.com/v1/predictions/${prediction.id}`,
 {
-method: "GET",
 headers: {
 Authorization: `Bearer ${REPLICATE_API_TOKEN}`,
-"Content-Type": "application/json",
 },
 }
 );
 
-result = await pollRes.json();
-
-if (!pollRes.ok) {
-return NextResponse.json(
-{ error: result.detail || result.error || "Failed while polling video generation" },
-{ status: 500 }
-);
-}
+prediction = await poll.json();
 }
 
-if (attempts >= maxAttempts) {
+if (prediction.status !== "succeeded") {
 return NextResponse.json(
-{ error: "Video generation timed out. Try a shorter prompt or try again." },
-{ status: 504 }
-);
-}
-
-if (result.status !== "succeeded") {
-return NextResponse.json(
-{ error: result.error || "AI video generation failed" },
+{ error: "Video failed" },
 { status: 500 }
 );
 }
 
-let video = "";
-
-if (typeof result.output === "string") {
-video = result.output;
-} else if (Array.isArray(result.output) && result.output.length > 0) {
-video = result.output[0];
-} else if (result.output?.video) {
-video = result.output.video;
-} else if (result.output?.url) {
-video = result.output.url;
-}
-
-if (!video) {
-return NextResponse.json(
-{ error: "No video URL returned from the model" },
-{ status: 500 }
-);
-}
+const video =
+typeof prediction.output === "string"
+? prediction.output
+: prediction.output?.[0];
 
 return NextResponse.json({ video });
 } catch (error: any) {
-console.error("Generate video error:", error);
 return NextResponse.json(
-{ error: error.message || "Something went wrong generating video" },
+{ error: error.message || "Error" },
 { status: 500 }
 );
 }
