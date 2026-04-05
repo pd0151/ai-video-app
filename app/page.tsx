@@ -49,9 +49,9 @@ return;
 
 const { error } = await supabase.from("Posts").insert([
 {
-caption: prompt || "AI image",
-image_url: imageUrl,
-likes: 0,
+Caption: prompt || "AI image",
+Image_url: imageUrl,
+Likes: 0,
 },
 ]);
 
@@ -87,7 +87,7 @@ Post to Feed
 {imageUrl ? (
 <img src={imageUrl} alt="AI" style={styles.image} />
 ) : (
-<div style={styles.emptyBox}>Your image preview will show here</div>
+<div style={styles.emptyBox}>Your image will appear here</div>
 )}
 </main>
 );
