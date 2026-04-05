@@ -13,69 +13,99 @@ return NextResponse.json(
 
 const { prompt } = await req.json();
 
-if (!prompt) {
-return NextResponse.json({ error: "No prompt" }, { status: 400 });
+if (!prompt || !prompt.trim()) {
+return NextResponse.json(
+{ error: "No prompt provided" },
+{ status: 400 }
+);
 }
 
-const response = await fetch("https://api.replicate.com/v1/predictions", {
+const createRes = await fetch(
+"https://api.replicate.com/v1/models/minimax/video-01/predictions",
+{
 method: "POST",
 headers: {
 Authorization: `Bearer ${REPLICATE_API_TOKEN}`,
 "Content-Type": "application/json",
+Prefer: "wait=60",
 },
 body: JSON.stringify({
-version:
-"b05b1d2f9b1d4d6b1b3a5d9d7a7c5c2a3e5f6a1b2c3d4e5f6a7b8c9d0e1f2a3", // stable model
 input: {
 prompt,
 },
 }),
-});
+}
+);
 
-let prediction = await response.json();
+const created = await createRes.json();
 
-if (!response.ok) {
+if (!createRes.ok) {
 return NextResponse.json(
-{ error: prediction.detail || prediction.error },
+{ error: created.detail || created.error || "Failed to start video generation" },
 { status: 500 }
 );
 }
 
-// wait for video
+let prediction = created;
+
 while (
 prediction.status !== "succeeded" &&
-prediction.status !== "failed"
+prediction.status !== "failed" &&
+prediction.status !== "canceled"
 ) {
-await new Promise((r) => setTimeout(r, 2000));
+await new Promise((resolve) => setTimeout(resolve, 3000));
 
-const poll = await fetch(
+const pollRes = await fetch(
+prediction.urls?.get ||
 `https://api.replicate.com/v1/predictions/${prediction.id}`,
 {
 headers: {
 Authorization: `Bearer ${REPLICATE_API_TOKEN}`,
+"Content-Type": "application/json",
 },
 }
 );
 
-prediction = await poll.json();
+prediction = await pollRes.json();
+
+if (!pollRes.ok) {
+return NextResponse.json(
+{ error: prediction.detail || prediction.error || "Polling failed" },
+{ status: 500 }
+);
+}
 }
 
 if (prediction.status !== "succeeded") {
 return NextResponse.json(
-{ error: "Video failed" },
+{ error: prediction.error || "Video generation failed" },
 { status: 500 }
 );
 }
 
-const video =
-typeof prediction.output === "string"
-? prediction.output
-: prediction.output?.[0];
+let video = "";
+
+if (typeof prediction.output === "string") {
+video = prediction.output;
+} else if (Array.isArray(prediction.output) && prediction.output.length > 0) {
+video = prediction.output[0];
+} else if (prediction.output?.video) {
+video = prediction.output.video;
+} else if (prediction.output?.url) {
+video = prediction.output.url;
+}
+
+if (!video) {
+return NextResponse.json(
+{ error: "No video URL returned" },
+{ status: 500 }
+);
+}
 
 return NextResponse.json({ video });
 } catch (error: any) {
 return NextResponse.json(
-{ error: error.message || "Error" },
+{ error: error.message || "Something went wrong generating video" },
 { status: 500 }
 );
 }
