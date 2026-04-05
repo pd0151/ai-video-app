@@ -20,6 +20,8 @@ return NextResponse.json(
 );
 }
 
+const enhancedPrompt = `${prompt}, cinematic, ultra realistic, 4k, smooth motion, professional advertising style`;
+
 const createRes = await fetch(
 "https://api.replicate.com/v1/models/minimax/video-01/predictions",
 {
@@ -31,7 +33,7 @@ Prefer: "wait=60",
 },
 body: JSON.stringify({
 input: {
-prompt,
+prompt: enhancedPrompt,
 },
 }),
 }
@@ -41,7 +43,12 @@ const created = await createRes.json();
 
 if (!createRes.ok) {
 return NextResponse.json(
-{ error: created.detail || created.error || "Failed to start video generation" },
+{
+error:
+created.detail ||
+created.error ||
+"Failed to start video generation",
+},
 { status: 500 }
 );
 }
