@@ -144,9 +144,10 @@ return;
 
 setPosting(true);
 
+try {
 const isVideo = activeType === "video";
 
-let { error } = await supabase.from("Posts").insert([
+const { error } = await supabase.from("Posts").insert([
 {
 caption: prompt || "AI post",
 image_url: isVideo ? null : activeUrl,
@@ -156,26 +157,15 @@ likes: 0,
 ]);
 
 if (error) {
-const fallback = await supabase.from("Posts").insert([
-{
-Caption: prompt || "AI post",
-Image_url: isVideo ? null : activeUrl,
-Video_url: isVideo ? activeUrl : null,
-Likes: 0,
-},
-]);
-
-error = fallback.error || null;
-}
-
-setPosting(false);
-
-if (error) {
-alert(error.message);
-return;
+throw error;
 }
 
 alert("Posted!");
+} catch (error: any) {
+alert(error.message || "Failed to post");
+} finally {
+setPosting(false);
+}
 };
 
 return (
@@ -213,7 +203,9 @@ style={styles.input}
 <button onClick={postToFeed} style={styles.blueButton}>
 {posting ? "Posting..." : "Post to Feed"}
 </button>
+</div>
 
+<div style={{ marginBottom: 18 }}>
 <button onClick={clearAll} style={styles.darkButton}>
 Clear
 </button>
