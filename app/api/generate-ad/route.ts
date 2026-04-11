@@ -1,58 +1,33 @@
-Fimport { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-const body = await req.json();
-
-const { business, product, offer, audience, location } = body;
-
 try {
-const response = await fetch("https://api.openai.com/v1/chat/completions", {
-method: "POST",
-headers: {
-"Content-Type": "application/json",
-Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-},
-body: JSON.stringify({
-model: "gpt-4o-mini",
-messages: [
-{
-role: "system",
-content: "You are a marketing expert who writes TikTok-style ads.",
-},
-{
-role: "user",
-content: `
-Create a catchy local business advert.
+const body = await req.json();
+const prompt = body?.prompt;
 
-Business: ${business}
-Product: ${product}
-Offer: ${offer}
-Audience: ${audience}
-Location: ${location}
-
-Make it short, punchy, and engaging.
-`,
-},
-],
-}),
-});
-
-const data = await response.json();
-
-// 🔴 IMPORTANT: show real error in terminal
-console.log("OPENAI RESPONSE:", data);
-
-if (!response.ok) {
-return NextResponse.json({
-error: data.error?.message || "OpenAI error",
-});
+if (!prompt || typeof prompt !== "string") {
+return NextResponse.json(
+{ error: "Prompt is required" },
+{ status: 400 }
+);
 }
 
-const text = data.choices?.[0]?.message?.content;
+const adCopy = `Ad idea for: ${prompt}
 
-return NextResponse.json({ text });
-} catch (error) {
-console.error("SERVER ERROR:", error);
-return NextResponse.json({ error: "Server crashed" });
+Headline:
+${prompt}
+
+Description:
+Professional ad concept based on your prompt, ready to use for image or video generation.
+
+CTA:
+Book now`;
+
+return NextResponse.json({ adCopy });
+} catch (error: any) {
+return NextResponse.json(
+{ error: error?.message || "Ad generation failed" },
+{ status: 500 }
+);
 }
 }
