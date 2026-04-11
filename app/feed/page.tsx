@@ -10,19 +10,19 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
 type Post = {
-id: string;
-user_id: string | null;
-caption: string | null;
-content?: string | null;
+Id: string;
+caption: string;
 image_url: string | null;
 video_url: string | null;
+likes: number;
 created_at: string;
+user_id: string;
 };
 
 type Comment = {
 id: string;
 post_id: string;
-user_id: string | null;
+user_id: string;
 text: string;
 created_at: string;
 };
@@ -32,11 +32,11 @@ const router = useRouter();
 
 const [posts, setPosts] = useState<Post[]>([]);
 const [user, setUser] = useState<any>(null);
-const [loading, setLoading] = useState(true);
-
-const [likedPosts, setLikedPosts] = useState<Record<string, boolean>>({});
 const [likeCounts, setLikeCounts] = useState<Record<string, number>>({});
 const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
+const [followingUsers, setFollowingUsers] = useState<Record<string, boolean>>(
+{}
+);
 
 const [openCommentsFor, setOpenCommentsFor] = useState<string | null>(null);
 const [commentsByPost, setCommentsByPost] = useState<Record<string, Comment[]>>(
@@ -44,70 +44,52 @@ const [commentsByPost, setCommentsByPost] = useState<Record<string, Comment[]>>(
 );
 const [commentText, setCommentText] = useState("");
 
-const [followingUsers, setFollowingUsers] = useState<Record<string, boolean>>(
-{}
-);
-
 useEffect(() => {
-start();
+loadFeed();
 }, []);
 
-async function start() {
-setLoading(true);
-
+async function loadFeed() {
 const {
-data: { user },
-} = await supabase.auth.getUser();
+data: { session },
+} = await supabase.auth.getSession();
 
-setUser(user || null);
+const currentUser = session?.user ?? null;
+setUser(currentUser);
 
-const { data: postsData, error: postsError } = await supabase
+const { data: postsData, error } = await supabase
 .from("Posts")
 .select("*")
 .order("created_at", { ascending: false });
 
-if (postsError) {
-alert("Error loading posts: " + postsError.message);
-setLoading(false);
+if (error) {
+alert("Feed error: " + error.message);
 return;
 }
 
 const safePosts = (postsData || []) as Post[];
 setPosts(safePosts);
 
-await loadLikes(safePosts, user);
+await loadLikeCounts(safePosts);
 await loadCommentCounts(safePosts);
-await loadFollowing(safePosts, user);
 
-setLoading(false);
+if (currentUser) {
+await loadFollowing(safePosts, currentUser.id);
+}
 }
 
-async function loadLikes(allPosts: Post[], currentUser: any) {
+async function loadLikeCounts(allPosts: Post[]) {
 const counts: Record<string, number> = {};
-const liked: Record<string, boolean> = {};
 
 for (const post of allPosts) {
 const { count } = await supabase
 .from("likes")
 .select("*", { count: "exact", head: true })
-.eq("post_id", post.id);
+.eq("post_id", post.Id);
 
-counts[post.id] = count || 0;
-
-if (currentUser) {
-const { data } = await supabase
-.from("likes")
-.select("id")
-.eq("post_id", post.id)
-.eq("user_id", currentUser.id)
-.maybeSingle();
-
-liked[post.id] = !!data;
-}
+counts[post.Id] = count || 0;
 }
 
 setLikeCounts(counts);
-setLikedPosts(liked);
 }
 
 async function loadCommentCounts(allPosts: Post[]) {
@@ -117,33 +99,31 @@ for (const post of allPosts) {
 const { count } = await supabase
 .from("comments")
 .select("*", { count: "exact", head: true })
-.eq("post_id", post.id);
+.eq("post_id", post.Id);
 
-counts[post.id] = count || 0;
+counts[post.Id] = count || 0;
 }
 
 setCommentCounts(counts);
 }
 
-async function loadFollowing(allPosts: Post[], currentUser: any) {
-if (!currentUser) return;
-
-const followsMap: Record<string, boolean> = {};
+async function loadFollowing(allPosts: Post[], currentUserId: string) {
+const map: Record<string, boolean> = {};
 
 for (const post of allPosts) {
-if (!post.user_id || post.user_id === currentUser.id) continue;
+if (!post.user_id || post.user_id === currentUserId) continue;
 
 const { data } = await supabase
 .from("follows")
 .select("id")
-.eq("follower_id", currentUser.id)
+.eq("follower_id", currentUserId)
 .eq("following_id", post.user_id)
 .maybeSingle();
 
-followsMap[post.user_id] = !!data;
+map[post.user_id] = !!data;
 }
 
-setFollowingUsers(followsMap);
+setFollowingUsers(map);
 }
 
 async function handleLike(postId: string) {
@@ -152,23 +132,6 @@ alert("Please log in first");
 return;
 }
 
-const alreadyLiked = likedPosts[postId];
-
-if (alreadyLiked) {
-const { error } = await supabase
-.from("likes")
-.delete()
-.eq("post_id", postId)
-.eq("user_id", user.id);
-
-if (error) {
-alert("Like error: " + error.message);
-return;
-}
-
-setLikedPosts((prev) => ({ ...prev, [postId]: false }));
-setLikeCounts((prev) => ({ ...prev, [postId]: Math.max((prev[postId] || 1) - 1, 0) }));
-} else {
 const { error } = await supabase.from("likes").insert({
 post_id: postId,
 user_id: user.id,
@@ -179,9 +142,10 @@ alert("Like error: " + error.message);
 return;
 }
 
-setLikedPosts((prev) => ({ ...prev, [postId]: true }));
-setLikeCounts((prev) => ({ ...prev, [postId]: (prev[postId] || 0) + 1 }));
-}
+setLikeCounts((prev) => ({
+...prev,
+[postId]: (prev[postId] || 0) + 1,
+}));
 }
 
 async function openComments(postId: string) {
@@ -211,7 +175,10 @@ alert("Please log in first");
 return;
 }
 
-if (!openCommentsFor) return;
+if (!openCommentsFor) {
+alert("No post selected");
+return;
+}
 
 const cleanText = commentText.trim();
 
@@ -248,7 +215,7 @@ setCommentCounts((prev) => ({
 setCommentText("");
 }
 
-async function handleFollow(postUserId: string | null) {
+async function handleFollow(postUserId: string) {
 if (!user) {
 alert("Please log in first");
 return;
@@ -300,25 +267,6 @@ setFollowingUsers((prev) => ({
 }
 }
 
-if (loading) {
-return (
-<main
-style={{
-minHeight: "100vh",
-background: "#07152f",
-color: "white",
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-fontSize: 24,
-fontWeight: 700,
-}}
->
-Loading feed...
-</main>
-);
-}
-
 return (
 <main
 style={{
@@ -362,20 +310,10 @@ Back
 </button>
 </div>
 
+<div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+{posts.map((post) => (
 <div
-style={{
-display: "flex",
-flexDirection: "column",
-gap: 24,
-}}
->
-{posts.map((post) => {
-const caption = post.caption || post.content || "";
-const isFollowing = post.user_id ? followingUsers[post.user_id] : false;
-
-return (
-<div
-key={post.id}
+key={post.Id}
 style={{
 position: "relative",
 width: "100%",
@@ -410,20 +348,7 @@ objectFit: "cover",
 display: "block",
 }}
 />
-) : (
-<div
-style={{
-height: 500,
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-color: "#ccc",
-fontSize: 22,
-}}
->
-No media found
-</div>
-)}
+) : null}
 
 <div
 style={{
@@ -446,7 +371,7 @@ lineHeight: 1.02,
 whiteSpace: "pre-wrap",
 }}
 >
-{caption}
+{post.caption}
 </div>
 </div>
 
@@ -461,30 +386,23 @@ gap: 14,
 alignItems: "center",
 }}
 >
-<button
-onClick={() => handleLike(post.id)}
-style={actionBtnStyle}
->
-❤️ {likeCounts[post.id] || 0}
+<button onClick={() => handleLike(post.Id)} style={actionBtnStyle}>
+❤️ {likeCounts[post.Id] || 0}
 </button>
 
-<button
-onClick={() => openComments(post.id)}
-style={actionBtnStyle}
->
-💬 {commentCounts[post.id] || 0}
+<button onClick={() => openComments(post.Id)} style={actionBtnStyle}>
+💬 {commentCounts[post.Id] || 0}
 </button>
 
 <button
 onClick={() => handleFollow(post.user_id)}
 style={actionBtnStyle}
 >
-{post.user_id && followingUsers[post.user_id] ? "Following" : "Follow"}
+{followingUsers[post.user_id] ? "Following" : "Follow"}
 </button>
 </div>
 </div>
-);
-})}
+))}
 </div>
 
 {openCommentsFor && (
@@ -549,7 +467,7 @@ marginBottom: 10,
 }}
 >
 <div style={{ fontSize: 14, opacity: 0.8, marginBottom: 4 }}>
-{comment.user_id || "User"}
+{comment.user_id}
 </div>
 <div style={{ fontSize: 17, fontWeight: 600 }}>{comment.text}</div>
 </div>
@@ -557,13 +475,7 @@ marginBottom: 10,
 )}
 </div>
 
-<div
-style={{
-display: "flex",
-gap: 10,
-alignItems: "center",
-}}
->
+<div style={{ display: "flex", gap: 10, alignItems: "center" }}>
 <input
 value={commentText}
 onChange={(e) => setCommentText(e.target.value)}
