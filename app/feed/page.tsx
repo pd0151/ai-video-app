@@ -43,17 +43,40 @@ const [commentsByPost, setCommentsByPost] = useState<Record<string, Comment[]>>(
 {}
 );
 const [commentText, setCommentText] = useState("");
+const [loading, setLoading] = useState(true);
 
 useEffect(() => {
 loadFeed();
+
+const {
+data: { subscription },
+} = supabase.auth.onAuthStateChange(async (_event, session) => {
+setUser(session?.user ?? null);
+});
+
+return () => {
+subscription.unsubscribe();
+};
 }, []);
 
-async function loadFeed() {
+async function getCurrentUser() {
 const {
-data: { session },
-} = await supabase.auth.getSession();
+data: { user },
+error,
+} = await supabase.auth.getUser();
 
-const currentUser = session?.user ?? null;
+if (error) {
+console.error("getUser error:", error.message);
+return null;
+}
+
+return user ?? null;
+}
+
+async function loadFeed() {
+setLoading(true);
+
+const currentUser = await getCurrentUser();
 setUser(currentUser);
 
 const { data: postsData, error } = await supabase
@@ -63,6 +86,7 @@ const { data: postsData, error } = await supabase
 
 if (error) {
 alert("Feed error: " + error.message);
+setLoading(false);
 return;
 }
 
@@ -75,6 +99,8 @@ await loadCommentCounts(safePosts);
 if (currentUser) {
 await loadFollowing(safePosts, currentUser.id);
 }
+
+setLoading(false);
 }
 
 async function loadLikeCounts(allPosts: Post[]) {
@@ -127,14 +153,16 @@ setFollowingUsers(map);
 }
 
 async function handleLike(postId: string) {
-if (!user) {
+const currentUser = await getCurrentUser();
+
+if (!currentUser) {
 alert("Please log in first");
 return;
 }
 
 const { error } = await supabase.from("likes").insert({
 post_id: postId,
-user_id: user.id,
+user_id: currentUser.id,
 });
 
 if (error) {
@@ -170,7 +198,9 @@ setCommentsByPost((prev) => ({
 }
 
 async function handleSendComment() {
-if (!user) {
+const currentUser = await getCurrentUser();
+
+if (!currentUser) {
 alert("Please log in first");
 return;
 }
@@ -191,7 +221,7 @@ const { data, error } = await supabase
 .from("comments")
 .insert({
 post_id: openCommentsFor,
-user_id: user.id,
+user_id: currentUser.id,
 text: cleanText,
 })
 .select()
@@ -216,7 +246,9 @@ setCommentText("");
 }
 
 async function handleFollow(postUserId: string) {
-if (!user) {
+const currentUser = await getCurrentUser();
+
+if (!currentUser) {
 alert("Please log in first");
 return;
 }
@@ -226,7 +258,7 @@ alert("This post has no owner");
 return;
 }
 
-if (postUserId === user.id) {
+if (postUserId === currentUser.id) {
 alert("You cannot follow yourself");
 return;
 }
@@ -237,7 +269,7 @@ if (alreadyFollowing) {
 const { error } = await supabase
 .from("follows")
 .delete()
-.eq("follower_id", user.id)
+.eq("follower_id", currentUser.id)
 .eq("following_id", postUserId);
 
 if (error) {
@@ -251,7 +283,7 @@ setFollowingUsers((prev) => ({
 }));
 } else {
 const { error } = await supabase.from("follows").insert({
-follower_id: user.id,
+follower_id: currentUser.id,
 following_id: postUserId,
 });
 
@@ -265,6 +297,25 @@ setFollowingUsers((prev) => ({
 [postUserId]: true,
 }));
 }
+}
+
+if (loading) {
+return (
+<main
+style={{
+minHeight: "100vh",
+background: "#07152f",
+color: "white",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+fontSize: 24,
+fontWeight: 800,
+}}
+>
+Loading feed...
+</main>
+);
 }
 
 return (
