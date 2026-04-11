@@ -335,14 +335,7 @@ alignItems: "flex-start",
 marginBottom: 20,
 }}
 >
-<div>
-<h1 style={{ fontSize: 64, fontWeight: 900, lineHeight: 1, margin: 0 }}>
-AdForge Feed
-</h1>
-<p style={{ marginTop: 6, fontSize: 18 }}>
-Swipe posts, like, comment, follow
-</p>
-</div>
+
 
 <button
 onClick={() => router.push("/")}
@@ -353,7 +346,19 @@ border: "none",
 borderRadius: 18,
 padding: "14px 20px",
 fontSize: 18,
-fontWeight: 700,
+fontWeight: <div>
+<h1 style={{ fontSize: 64, fontWeight: 900, lineHeight: 1, margin: 0 }}>
+AdForge Feed
+</h1>
+
+<p style={{ marginTop: 6, fontSize: 18 }}>
+{user ? `Logged in as ${user.email}` : "Not logged in"}
+</p>
+
+<p style={{ marginTop: 6, fontSize: 18 }}>
+Swipe posts, like, comment, follow
+</p>
+</div>700,
 cursor: "pointer",
 }}
 >
