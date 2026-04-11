@@ -1,13 +1,15 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
 import { useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/client";
+
+const supabase = createClient(
+process.env.NEXT_PUBLIC_SUPABASE_URL!,
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 export default function LoginPage() {
-const supabase = createClient();
 const router = useRouter();
 
 const [mode, setMode] = useState<"login" | "signup">("login");
@@ -16,73 +18,150 @@ const [password, setPassword] = useState("");
 const [loading, setLoading] = useState(false);
 const [message, setMessage] = useState("");
 
-const handleSubmit = async () => {
+async function handleSubmit(e: React.FormEvent) {
+e.preventDefault();
 setLoading(true);
 setMessage("");
 
-if (!email || !password) {
+if (!email.trim() || !password.trim()) {
 setMessage("Enter email and password");
 setLoading(false);
 return;
 }
 
-try {
-if (mode === "login") {
-const { error } = await supabase.auth.signInWithPassword({
-email,
-password,
-});
-
-if (error) {
-setMessage(error.message);
-} else {
-setMessage("Login successful");
-router.push("/feed");
-router.refresh();
-}
-} else {
+if (mode === "signup") {
 const { error } = await supabase.auth.signUp({
-email,
-password,
+email: email.trim(),
+password: password.trim(),
 });
 
 if (error) {
 setMessage(error.message);
-} else {
-setMessage("Signup successful. You can now log in.");
-setMode("login");
-}
-}
-} catch (error: any) {
-setMessage(error?.message || "Something went wrong");
-} finally {
 setLoading(false);
+return;
 }
-};
+
+const loginResult = await supabase.auth.signInWithPassword({
+email: email.trim(),
+password: password.trim(),
+});
+
+if (loginResult.error) {
+setMessage(loginResult.error.message);
+setLoading(false);
+return;
+}
+
+const {
+data: { session },
+} = await supabase.auth.getSession();
+
+if (!session) {
+setMessage("Signup worked but session not found");
+setLoading(false);
+return;
+}
+
+setMessage("Logged in!");
+setLoading(false);
+
+window.location.href = "/feed";
+return;
+}
+
+const { error } = await supabase.auth.signInWithPassword({
+email: email.trim(),
+password: password.trim(),
+});
+
+if (error) {
+setMessage(error.message);
+setLoading(false);
+return;
+}
+
+const {
+data: { session },
+} = await supabase.auth.getSession();
+
+if (!session) {
+setMessage("Login worked but session not found");
+setLoading(false);
+return;
+}
+
+setMessage("Logged in!");
+setLoading(false);
+
+window.location.href = "/feed";
+}
 
 return (
-<main style={styles.page}>
-<div style={styles.card}>
-<h1 style={styles.title}>AI App Login</h1>
-<p style={styles.subtitle}>
+<main
+style={{
+minHeight: "100vh",
+background: "#07152f",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+padding: 20,
+}}
+>
+<form
+onSubmit={handleSubmit}
+style={{
+width: "100%",
+maxWidth: 460,
+background: "#10224a",
+padding: 28,
+borderRadius: 24,
+display: "flex",
+flexDirection: "column",
+gap: 16,
+color: "white",
+boxShadow: "0 20px 60px rgba(0,0,0,0.35)",
+}}
+>
+<h1 style={{ margin: 0, fontSize: 44, fontWeight: 900 }}>
+AI App Login
+</h1>
+
+<p style={{ margin: 0, fontSize: 18, opacity: 0.95 }}>
 Login or create an account to use your app
 </p>
 
-<div style={styles.switchRow}>
+<div style={{ display: "flex", gap: 12 }}>
 <button
+type="button"
 onClick={() => setMode("login")}
 style={{
-...styles.switchButton,
-...(mode === "login" ? styles.switchButtonActive : {}),
+flex: 1,
+height: 54,
+borderRadius: 16,
+border: "none",
+fontSize: 22,
+fontWeight: 800,
+cursor: "pointer",
+background: mode === "login" ? "#1ea0ff" : "#5b6f96",
+color: "white",
 }}
 >
 Login
 </button>
+
 <button
+type="button"
 onClick={() => setMode("signup")}
 style={{
-...styles.switchButton,
-...(mode === "signup" ? styles.switchButtonActive : {}),
+flex: 1,
+height: 54,
+borderRadius: 16,
+border: "none",
+fontSize: 22,
+fontWeight: 800,
+cursor: "pointer",
+background: mode === "signup" ? "#1ea0ff" : "#5b6f96",
+color: "white",
 }}
 >
 Sign up
@@ -94,7 +173,16 @@ type="email"
 placeholder="Email"
 value={email}
 onChange={(e) => setEmail(e.target.value)}
-style={styles.input}
+style={{
+height: 58,
+borderRadius: 16,
+border: "1px solid rgba(255,255,255,0.12)",
+padding: "0 18px",
+fontSize: 18,
+outline: "none",
+background: "#1a2f5f",
+color: "white",
+}}
 />
 
 <input
@@ -102,94 +190,53 @@ type="password"
 placeholder="Password"
 value={password}
 onChange={(e) => setPassword(e.target.value)}
-style={styles.input}
+style={{
+height: 58,
+borderRadius: 16,
+border: "1px solid rgba(255,255,255,0.12)",
+padding: "0 18px",
+fontSize: 18,
+outline: "none",
+background: "#1a2f5f",
+color: "white",
+}}
 />
 
-<button onClick={handleSubmit} disabled={loading} style={styles.button}>
-{loading ? "Please wait..." : mode === "login" ? "Login" : "Create account"}
+<button
+type="submit"
+disabled={loading}
+style={{
+height: 58,
+borderRadius: 16,
+border: "none",
+background: "#1ea0ff",
+color: "white",
+fontSize: 22,
+fontWeight: 900,
+cursor: "pointer",
+opacity: loading ? 0.7 : 1,
+}}
+>
+{loading
+? "Please wait..."
+: mode === "login"
+? "Login"
+: "Create account"}
 </button>
 
-{message ? <p style={styles.message}>{message}</p> : null}
+{!!message && (
+<div
+style={{
+fontSize: 18,
+fontWeight: 700,
+color:
+message === "Logged in!" ? "#8dffb1" : "rgba(255,255,255,0.95)",
+}}
+>
+{message}
 </div>
+)}
+</form>
 </main>
 );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-page: {
-minHeight: "100vh",
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-background:
-"linear-gradient(180deg, #0f172a 0%, #142850 45%, #1e3a8a 100%)",
-padding: "24px",
-},
-card: {
-width: "100%",
-maxWidth: "420px",
-background: "rgba(15, 23, 42, 0.9)",
-border: "1px solid rgba(255,255,255,0.12)",
-borderRadius: "24px",
-padding: "28px",
-boxShadow: "0 25px 60px rgba(0,0,0,0.35)",
-},
-title: {
-color: "white",
-fontSize: "34px",
-fontWeight: 800,
-margin: "0 0 8px",
-},
-subtitle: {
-color: "rgba(255,255,255,0.75)",
-margin: "0 0 20px",
-fontSize: "15px",
-},
-switchRow: {
-display: "flex",
-gap: "10px",
-marginBottom: "18px",
-},
-switchButton: {
-flex: 1,
-border: "none",
-borderRadius: "14px",
-padding: "12px 16px",
-cursor: "pointer",
-fontWeight: 700,
-background: "rgba(255,255,255,0.12)",
-color: "white",
-},
-switchButtonActive: {
-background: "linear-gradient(135deg, #60a5fa, #2563eb)",
-},
-input: {
-width: "100%",
-padding: "14px 16px",
-marginBottom: "12px",
-borderRadius: "14px",
-border: "1px solid rgba(255,255,255,0.15)",
-background: "rgba(255,255,255,0.08)",
-color: "white",
-fontSize: "16px",
-outline: "none",
-boxSizing: "border-box",
-},
-button: {
-width: "100%",
-border: "none",
-borderRadius: "14px",
-padding: "14px 18px",
-cursor: "pointer",
-fontWeight: 800,
-fontSize: "16px",
-color: "white",
-background: "linear-gradient(135deg, #60a5fa, #2563eb)",
-marginTop: "6px",
-},
-message: {
-color: "white",
-marginTop: "14px",
-fontSize: "14px",
-},
-};
