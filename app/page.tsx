@@ -9,18 +9,15 @@ process.env.NEXT_PUBLIC_SUPABASE_URL as string,
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 );
 
-export default function HomePage() {
+export default function Home() {
 const [user, setUser] = useState<any>(null);
-
 const [prompt, setPrompt] = useState("");
-const [loadingImage, setLoadingImage] = useState(false);
-const [loadingVideo, setLoadingVideo] = useState(false);
-
 const [generatedImage, setGeneratedImage] = useState<string | null>(null);
 const [generatedVideo, setGeneratedVideo] = useState<string | null>(null);
-
 const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 const [uploadedVideo, setUploadedVideo] = useState<string | null>(null);
+const [loadingImage, setLoadingImage] = useState(false);
+const [loadingVideo, setLoadingVideo] = useState(false);
 
 useEffect(() => {
 loadUser();
@@ -31,16 +28,13 @@ data: { subscription },
 setUser(session?.user ?? null);
 });
 
-return () => {
-subscription.unsubscribe();
-};
+return () => subscription.unsubscribe();
 }, []);
 
 async function loadUser() {
 const {
 data: { user },
 } = await supabase.auth.getUser();
-
 setUser(user ?? null);
 }
 
@@ -57,9 +51,7 @@ setGeneratedVideo(null);
 try {
 const res = await fetch("/api/generate-image", {
 method: "POST",
-headers: {
-"Content-Type": "application/json",
-},
+headers: { "Content-Type": "application/json" },
 body: JSON.stringify({ prompt }),
 });
 
@@ -81,7 +73,7 @@ return;
 }
 
 setGeneratedImage(imageUrl);
-} catch (error) {
+} catch {
 alert("Image generation failed");
 }
 
@@ -101,9 +93,7 @@ setGeneratedImage(null);
 try {
 const res = await fetch("/api/generate-video", {
 method: "POST",
-headers: {
-"Content-Type": "application/json",
-},
+headers: { "Content-Type": "application/json" },
 body: JSON.stringify({ prompt }),
 });
 
@@ -125,7 +115,7 @@ return;
 }
 
 setGeneratedVideo(videoUrl);
-} catch (error) {
+} catch {
 alert("Video generation failed");
 }
 
@@ -136,8 +126,8 @@ function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
 const file = e.target.files?.[0];
 if (!file) return;
 
-const localUrl = URL.createObjectURL(file);
-setUploadedImage(localUrl);
+const url = URL.createObjectURL(file);
+setUploadedImage(url);
 setUploadedVideo(null);
 setGeneratedImage(null);
 setGeneratedVideo(null);
@@ -147,8 +137,8 @@ function handleVideoUpload(e: React.ChangeEvent<HTMLInputElement>) {
 const file = e.target.files?.[0];
 if (!file) return;
 
-const localUrl = URL.createObjectURL(file);
-setUploadedVideo(localUrl);
+const url = URL.createObjectURL(file);
+setUploadedVideo(url);
 setUploadedImage(null);
 setGeneratedImage(null);
 setGeneratedVideo(null);
@@ -165,10 +155,10 @@ setUploadedVideo(null);
 async function shareToFeed() {
 const {
 data: { user },
-error: userError,
+error,
 } = await supabase.auth.getUser();
 
-if (userError || !user) {
+if (error || !user) {
 alert("Please log in first");
 return;
 }
@@ -181,17 +171,15 @@ alert("No image or video to post");
 return;
 }
 
-const captionText = prompt.trim() || "New post";
-
-const { error } = await supabase.from("Posts").insert({
-caption: captionText,
+const { error: postError } = await supabase.from("Posts").insert({
+caption: prompt.trim() || "New post",
 image_url: imageUrl,
 video_url: videoUrl,
 user_id: user.id,
 });
 
-if (error) {
-alert("Post error: " + error.message);
+if (postError) {
+alert("Post error: " + postError.message);
 return;
 }
 
@@ -208,71 +196,215 @@ const previewImage = uploadedImage || generatedImage;
 const previewVideo = uploadedVideo || generatedVideo;
 
 return (
-<main style={pageStyle}>
-<div style={containerStyle}>
-<div style={headerRowStyle}>
+<main
+style={{
+minHeight: "100vh",
+background: "linear-gradient(180deg, #0b1d4b 0%, #102c78 50%, #12398e 100%)",
+color: "white",
+padding: "20px",
+fontFamily: "Arial, sans-serif",
+}}
+>
+<div style={{ maxWidth: "900px", margin: "0 auto" }}>
+<div
+style={{
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+gap: "12px",
+flexWrap: "wrap",
+marginBottom: "20px",
+}}
+>
 <div>
-<h1 style={titleStyle}>AdForge</h1>
-<p style={subTextStyle}>
+<h1 style={{ margin: 0, fontSize: "54px", fontWeight: 900 }}>AdForge</h1>
+<p style={{ margin: "8px 0 0 0", fontSize: "18px" }}>
 {user ? `Logged in as ${user.email}` : "Not logged in"}
 </p>
 </div>
 
-<div style={topButtonsWrapStyle}>
-<Link href="/feed" style={topBtnStyle}>
+<div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+<Link
+href="/feed"
+style={{
+display: "inline-flex",
+alignItems: "center",
+justifyContent: "center",
+height: "50px",
+padding: "0 18px",
+borderRadius: "16px",
+background: "#1b2f63",
+color: "white",
+textDecoration: "none",
+fontSize: "18px",
+fontWeight: 800,
+}}
+>
 Feed
 </Link>
 
 {!user ? (
-<Link href="/login" style={topBtnStyle}>
+<Link
+href="/login"
+style={{
+display: "inline-flex",
+alignItems: "center",
+justifyContent: "center",
+height: "50px",
+padding: "0 18px",
+borderRadius: "16px",
+background: "#1b2f63",
+color: "white",
+textDecoration: "none",
+fontSize: "18px",
+fontWeight: 800,
+}}
+>
 Login
 </Link>
 ) : (
-<button onClick={logout} style={topBtnButtonStyle}>
+<button
+onClick={logout}
+style={{
+height: "50px",
+padding: "0 18px",
+borderRadius: "16px",
+background: "#1b2f63",
+color: "white",
+border: "none",
+fontSize: "18px",
+fontWeight: 800,
+cursor: "pointer",
+}}
+>
 Logout
 </button>
 )}
 </div>
 </div>
 
-<div style={cardStyle}>
+<div
+style={{
+background: "rgba(255,255,255,0.08)",
+borderRadius: "30px",
+padding: "20px",
+boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+}}
+>
 <textarea
 value={prompt}
 onChange={(e) => setPrompt(e.target.value)}
 placeholder="Describe your ad..."
-style={textareaStyle}
+style={{
+width: "100%",
+minHeight: "110px",
+borderRadius: "22px",
+border: "none",
+padding: "18px",
+fontSize: "20px",
+outline: "none",
+resize: "vertical",
+boxSizing: "border-box",
+marginBottom: "16px",
+}}
 />
 
-<div style={buttonGridStyle}>
+<div
+style={{
+display: "grid",
+gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+gap: "14px",
+marginBottom: "16px",
+}}
+>
 <button
 onClick={generateImage}
-style={bigBtnStyle}
 disabled={loadingImage}
+style={{
+height: "64px",
+borderRadius: "20px",
+border: "none",
+background: "white",
+color: "#102c78",
+fontSize: "20px",
+fontWeight: 900,
+cursor: "pointer",
+}}
 >
 {loadingImage ? "Generating image..." : "Generate image"}
 </button>
 
 <button
 onClick={generateVideo}
-style={bigBtnStyle}
 disabled={loadingVideo}
+style={{
+height: "64px",
+borderRadius: "20px",
+border: "none",
+background: "white",
+color: "#102c78",
+fontSize: "20px",
+fontWeight: 900,
+cursor: "pointer",
+}}
 >
 {loadingVideo ? "Generating video..." : "Generate video"}
 </button>
 
-<button onClick={clearAll} style={darkBtnStyle}>
+<button
+onClick={clearAll}
+style={{
+height: "64px",
+borderRadius: "20px",
+border: "none",
+background: "#17305f",
+color: "white",
+fontSize: "20px",
+fontWeight: 900,
+cursor: "pointer",
+}}
+>
 Clear
 </button>
 
-<button onClick={shareToFeed} style={greenBtnStyle}>
+<button
+onClick={shareToFeed}
+style={{
+height: "64px",
+borderRadius: "20px",
+border: "none",
+background: "#20c76d",
+color: "white",
+fontSize: "20px",
+fontWeight: 900,
+cursor: "pointer",
+}}
+>
 Share to Feed
 </button>
 </div>
 
-<div style={uploadGridStyle}>
-<label style={uploadCardStyle}>
-<div style={uploadTitleStyle}>Upload your own image</div>
-<div style={uploadSubStyle}>JPG, PNG, WEBP</div>
+<div
+style={{
+display: "grid",
+gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+gap: "14px",
+marginBottom: "18px",
+}}
+>
+<label
+style={{
+display: "block",
+background: "rgba(39, 108, 255, 0.35)",
+borderRadius: "22px",
+padding: "22px",
+cursor: "pointer",
+}}
+>
+<div style={{ fontSize: "22px", fontWeight: 900, marginBottom: "6px" }}>
+Upload your own image
+</div>
+<div style={{ fontSize: "16px", opacity: 0.9 }}>JPG, PNG, WEBP</div>
 <input
 type="file"
 accept="image/*"
@@ -281,9 +413,19 @@ style={{ display: "none" }}
 />
 </label>
 
-<label style={uploadCardStyle}>
-<div style={uploadTitleStyle}>Upload your own video</div>
-<div style={uploadSubStyle}>MP4, MOV, WEBM</div>
+<label
+style={{
+display: "block",
+background: "rgba(39, 108, 255, 0.35)",
+borderRadius: "22px",
+padding: "22px",
+cursor: "pointer",
+}}
+>
+<div style={{ fontSize: "22px", fontWeight: 900, marginBottom: "6px" }}>
+Upload your own video
+</div>
+<div style={{ fontSize: "16px", opacity: 0.9 }}>MP4, MOV, WEBM</div>
 <input
 type="file"
 accept="video/*"
@@ -293,20 +435,48 @@ style={{ display: "none" }}
 </label>
 </div>
 
-<div style={previewWrapStyle}>
+<div
+style={{
+background: "rgba(0,0,0,0.18)",
+borderRadius: "28px",
+padding: "14px",
+minHeight: "320px",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+overflow: "hidden",
+}}
+>
 {previewVideo ? (
 <video
 src={previewVideo}
 controls
 playsInline
-style={videoStyle}
+style={{
+width: "100%",
+maxHeight: "520px",
+borderRadius: "22px",
+objectFit: "contain",
+background: "black",
+}}
 />
 ) : previewImage ? (
-<img src={previewImage} alt="Preview" style={imageStyle} />
+<img
+src={previewImage}
+alt="Preview"
+style={{
+width: "100%",
+maxHeight: "520px",
+borderRadius: "22px",
+objectFit: "contain",
+}}
+/>
 ) : (
-<div style={emptyStateStyle}>
-<div style={emptyTitleStyle}>Your ad preview will appear here</div>
-<div style={emptySubStyle}>
+<div style={{ textAlign: "center", opacity: 0.9, padding: "40px" }}>
+<div style={{ fontSize: "28px", fontWeight: 900, marginBottom: "10px" }}>
+Your ad preview will appear here
+</div>
+<div style={{ fontSize: "18px" }}>
 Generate or upload an image/video, then share it to feed
 </div>
 </div>
@@ -317,197 +487,3 @@ Generate or upload an image/video, then share it to feed
 </main>
 );
 }
-
-const pageStyle: React.CSSProperties = {
-minHeight: "100vh",
-background: "linear-gradient(180deg, #0b1d4b 0%, #102c78 50%, #12398e 100%)",
-color: "white",
-padding: 20,
-fontFamily: "Arial, sans-serif",
-};
-
-const containerStyle: React.CSSProperties = {
-maxWidth: 900,
-margin: "0 auto",
-};
-
-const headerRowStyle: React.CSSProperties = {
-display: "flex",
-justifyContent: "space-between",
-alignItems: "center",
-marginBottom: 20,
-gap: 12,
-flexWrap: "wrap",
-};
-
-const titleStyle: React.CSSProperties = {
-margin: 0,
-fontSize: 54,
-fontWeight: 900,
-lineHeight: 1,
-};
-
-const subTextStyle: React.CSSProperties = {
-margin: "8px 0 0 0",
-fontSize: 18,
-};
-
-const topButtonsWrapStyle: React.CSSProperties = {
-display: "flex",
-gap: 10,
-flexWrap: "wrap",
-};
-
-const topBtnStyle: React.CSSProperties = {
-display: "inline-flex",
-alignItems: "center",
-justifyContent: "center",
-height: 50,
-padding: "0 18px",
-borderRadius: 16,
-background: "#1b2f63",
-color: "white",
-textDecoration: "none",
-fontSize: 18,
-fontWeight: 800,
-};
-
-const topBtnButtonStyle: React.CSSProperties = {
-height: 50,
-padding: "0 18px",
-borderRadius: 16,
-background: "#1b2f63",
-color: "white",
-border: "none",
-fontSize: 18,
-fontWeight: 800,
-cursor: "pointer",
-};
-
-const cardStyle: React.CSSProperties = {
-background: "rgba(255,255,255,0.08)",
-borderRadius: 30,
-padding: 20,
-boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-};
-
-const textareaStyle: React.CSSProperties = {
-width: "100%",
-minHeight: 110,
-borderRadius: 22,
-border: "none",
-padding: 18,
-fontSize: 20,
-outline: "none",
-resize: "vertical",
-boxSizing: "border-box",
-marginBottom: 16,
-};
-
-const buttonGridStyle: React.CSSProperties = {
-display: "grid",
-gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-gap: 14,
-marginBottom: 16,
-};
-
-const bigBtnStyle: React.CSSProperties = {
-height: 64,
-borderRadius: 20,
-border: "none",
-background: "white",
-color: "#102c78",
-fontSize: 20,
-fontWeight: 900,
-cursor: "pointer",
-};
-
-const darkBtnStyle: React.CSSProperties = {
-height: 64,
-borderRadius: 20,
-border: "none",
-background: "#17305f",
-color: "white",
-fontSize: 20,
-fontWeight: 900,
-cursor: "pointer",
-};
-
-const greenBtnStyle: React.CSSProperties = {
-height: 64,
-borderRadius: 20,
-border: "none",
-background: "#20c76d",
-color: "white",
-fontSize: 20,
-fontWeight: 900,
-cursor: "pointer",
-};
-
-const uploadGridStyle: React.CSSProperties = {
-display: "grid",
-gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-gap: 14,
-marginBottom: 18,
-};
-
-const uploadCardStyle: React.CSSProperties = {
-display: "block",
-background: "rgba(39, 108, 255, 0.35)",
-borderRadius: 22,
-padding: 22,
-cursor: "pointer",
-};
-
-const uploadTitleStyle: React.CSSProperties = {
-fontSize: 22,
-fontWeight: 900,
-marginBottom: 6,
-};
-
-const uploadSubStyle: React.CSSProperties = {
-fontSize: 16,
-opacity: 0.9,
-};
-
-const previewWrapStyle: React.CSSProperties = {
-background: "rgba(0,0,0,0.18)",
-borderRadius: 28,
-padding: 14,
-minHeight: 320,
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-overflow: "hidden",
-};
-
-const videoStyle: React.CSSProperties = {
-width: "100%",
-maxHeight: 520,
-borderRadius: 22,
-objectFit: "contain",
-background: "black",
-};
-
-const imageStyle: React.CSSProperties = {
-width: "100%",
-maxHeight: 520,
-borderRadius: 22,
-objectFit: "contain",
-};
-
-const emptyStateStyle: React.CSSProperties = {
-textAlign: "center",
-opacity: 0.9,
-padding: 40,
-};
-
-const emptyTitleStyle: React.CSSProperties = {
-fontSize: 28,
-fontWeight: 900,
-marginBottom: 10,
-};
-
-const emptySubStyle: React.CSSProperties = {
-fontSize: 18,
-};
