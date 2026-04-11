@@ -54,17 +54,17 @@ return NextResponse.json(
 const startRes = await fetch("https://api.replicate.com/v1/predictions", {
 method: "POST",
 headers: {
-"Authorization": `Bearer ${token}`,
+Authorization: `Bearer ${token}`,
 "Content-Type": "application/json",
-"Prefer": "wait=10"
+Prefer: "wait=10",
 },
 body: JSON.stringify({
 version:
 "8ba52bde11300615f65e9591d7afc58816def12c93c870fa583ff67ae17afdda",
 input: {
-prompt: `${prompt}, cinematic, ultra realistic, 4k, smooth motion, professional advertising style`
-}
-})
+prompt: `${prompt}, cinematic, ultra realistic, 4k, smooth motion, professional advertising style`,
+},
+}),
 });
 
 const startData = await startRes.json();
@@ -76,23 +76,23 @@ error:
 startData?.detail ||
 startData?.error ||
 JSON.stringify(startData) ||
-"Failed to start video generation"
+"Failed to start video generation",
 },
 { status: 500 }
 );
 }
 
-// Sometimes Replicate already includes output in the first response.
 let videoUrl = findVideoUrl(startData.output);
 if (videoUrl) {
 return NextResponse.json({ videoUrl });
 }
 
 const pollUrl = startData?.urls?.get;
+
 if (!pollUrl) {
 return NextResponse.json(
 {
-error: `No polling URL returned. Raw response: ${JSON.stringify(startData)}`
+error: `No polling URL returned. Raw response: ${JSON.stringify(startData)}`,
 },
 { status: 500 }
 );
@@ -103,8 +103,8 @@ await new Promise((resolve) => setTimeout(resolve, 3000));
 
 const pollRes = await fetch(pollUrl, {
 headers: {
-"Authorization": `Bearer ${token}`
-}
+Authorization: `Bearer ${token}`,
+},
 });
 
 const pollData = await pollRes.json();
@@ -116,13 +116,12 @@ error:
 pollData?.detail ||
 pollData?.error ||
 JSON.stringify(pollData) ||
-"Polling failed"
+"Polling failed",
 },
 { status: 500 }
 );
 }
 
-// Check output every time, even before "succeeded"
 videoUrl = findVideoUrl(pollData.output);
 if (videoUrl) {
 return NextResponse.json({ videoUrl });
@@ -133,7 +132,7 @@ return NextResponse.json(
 {
 error:
 pollData?.error ||
-`Video generation failed. Raw response: ${JSON.stringify(pollData)}`
+`Video generation failed. Raw response: ${JSON.stringify(pollData)}`,
 },
 { status: 500 }
 );
@@ -142,7 +141,7 @@ pollData?.error ||
 
 return NextResponse.json(
 {
-error: `No video returned. Last prediction response had no usable file URL.`
+error: "No video returned. Last prediction response had no usable file URL.",
 },
 { status: 500 }
 );
@@ -152,4 +151,4 @@ return NextResponse.json(
 { status: 500 }
 );
 }
-} 
+}
