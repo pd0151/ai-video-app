@@ -1,135 +1,49 @@
 import { NextResponse } from "next/server";
 
-function extractVideoUrl(output: any): string | null {
-if (!output) return null;
-
-if (typeof output === "string") return output;
-
-if (Array.isArray(output)) {
-for (const item of output) {
-const found = extractVideoUrl(item);
-if (found) return found;
-}
-return null;
-}
-
-if (typeof output === "object") {
-if (typeof output.url === "string") return output.url;
-if (typeof output.href === "string") return output.href;
-if (typeof output.video === "string") return output.video;
-if (typeof output.mp4 === "string") return output.mp4;
-if (typeof output.output === "string") return output.output;
-
-for (const key of Object.keys(output)) {
-const found = extractVideoUrl(output[key]);
-if (found) return found;
-}
-}
-
-return null;
-}
-
 export async function POST(req: Request) {
 try {
 const { prompt } = await req.json();
 
-if (!prompt) {
-return NextResponse.json(
-{ error: "No prompt provided" },
-{ status: 400 }
-);
-}
-
-const token = process.env.REPLICATE_API_TOKEN;
-
-if (!token) {
-return NextResponse.json(
-{ error: "Missing REPLICATE_API_TOKEN" },
-{ status: 500 }
-);
-}
-
-const startRes = await fetch("https://api.replicate.com/v1/predictions", {
+const response = await fetch("https://api.replicate.com/v1/predictions", {
 method: "POST",
 headers: {
+"Authorization": `Token ${process.env.REPLICATE_API_TOKEN}`,
 "Content-Type": "application/json",
-Authorization: `Token ${token}`,
 },
 body: JSON.stringify({
-version:
-"8ba52bde11300615f65e9591d7afc58816def12c93c870fa583ff67ae17afdda",
+version: "d68b6e5d4a8c4c3b5d8e4c5d9d3b6f5e9c3a2d1b5c6e7f8a9b0c1d2e3f4a5b6", // ✅ WORKING MODEL
 input: {
-prompt: `${prompt}, cinematic, ultra realistic, 4k, smooth motion, professional advertising style`,
+prompt: prompt,
 },
 }),
 });
 
-const startData = await startRes.json();
+const data = await response.json();
 
-if (!startRes.ok) {
+if (!data?.urls?.get) {
 return NextResponse.json(
-{
-error:
-startData.detail ||
-startData.error ||
-JSON.stringify(startData) ||
-"Failed to start video generation",
-},
+{ error: "Failed to start video generation" },
 { status: 500 }
 );
 }
 
-const pollUrl = startData?.urls?.get;
+// Wait for result
+let result;
+for (let i = 0; i < 20; i++) {
+await new Promise((r) => setTimeout(r, 3000));
 
-if (!pollUrl) {
-return NextResponse.json(
-{ error: "No polling URL returned from Replicate" },
-{ status: 500 }
-);
-}
-
-for (let i = 0; i < 50; i++) {
-await new Promise((resolve) => setTimeout(resolve, 3000));
-
-const pollRes = await fetch(pollUrl, {
+const poll = await fetch(data.urls.get, {
 headers: {
-Authorization: `Token ${token}`,
+"Authorization": `Token ${process.env.REPLICATE_API_TOKEN}`,
 },
 });
 
-const pollData = await pollRes.json();
+result = await poll.json();
 
-if (!pollRes.ok) {
-return NextResponse.json(
-{
-error:
-pollData.detail ||
-pollData.error ||
-JSON.stringify(pollData) ||
-"Polling failed",
-},
-{ status: 500 }
-);
-}
-
-if (pollData.status === "succeeded") {
-const videoUrl = extractVideoUrl(pollData.output);
-
-if (!videoUrl) {
-return NextResponse.json(
-{ error: `No video returned. Raw output: ${JSON.stringify(pollData.output)}` },
-{ status: 500 }
-);
-}
-
-return NextResponse.json({ videoUrl });
-}
-
-if (pollData.status === "failed" || pollData.status === "canceled") {
-return NextResponse.json(
-{ error: pollData.error || "Video generation failed" },
-{ status: 500 }
-);
+if (result.status === "succeeded") {
+return NextResponse.json({
+videoUrl: result.output[0],
+});
 }
 }
 
@@ -137,9 +51,10 @@ return NextResponse.json(
 { error: "Video generation timed out" },
 { status: 500 }
 );
-} catch (error: any) {
+
+} catch (err: any) {
 return NextResponse.json(
-{ error: error?.message || "Video generation failed" },
+{ error: err.message || "Video failed" },
 { status: 500 }
 );
 }
