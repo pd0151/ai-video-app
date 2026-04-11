@@ -1,22 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { useRouter } from "next/navigation";
 
 const supabase = createClient(
-process.env.NEXT_PUBLIC_SUPABASE_URL!,
-process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 );
 
 export default function LoginPage() {
-const router = useRouter();
-
 const [mode, setMode] = useState<"login" | "signup">("login");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
-const [loading, setLoading] = useState(false);
 const [message, setMessage] = useState("");
+const [loading, setLoading] = useState(false);
 
 async function handleSubmit(e: React.FormEvent) {
 e.preventDefault();
@@ -52,20 +49,8 @@ setLoading(false);
 return;
 }
 
-const {
-data: { session },
-} = await supabase.auth.getSession();
-
-if (!session) {
-setMessage("Signup worked but session not found");
 setLoading(false);
-return;
-}
-
-setMessage("Logged in!");
-setLoading(false);
-
-window.location.href = "/feed";
+window.location.href = "/";
 return;
 }
 
@@ -80,20 +65,8 @@ setLoading(false);
 return;
 }
 
-const {
-data: { session },
-} = await supabase.auth.getSession();
-
-if (!session) {
-setMessage("Login worked but session not found");
 setLoading(false);
-return;
-}
-
-setMessage("Logged in!");
-setLoading(false);
-
-window.location.href = "/feed";
+window.location.href = "/";
 }
 
 return (
@@ -119,14 +92,13 @@ display: "flex",
 flexDirection: "column",
 gap: 16,
 color: "white",
-boxShadow: "0 20px 60px rgba(0,0,0,0.35)",
 }}
 >
 <h1 style={{ margin: 0, fontSize: 44, fontWeight: 900 }}>
 AI App Login
 </h1>
 
-<p style={{ margin: 0, fontSize: 18, opacity: 0.95 }}>
+<p style={{ margin: 0, fontSize: 18 }}>
 Login or create an account to use your app
 </p>
 
@@ -225,14 +197,7 @@ opacity: loading ? 0.7 : 1,
 </button>
 
 {!!message && (
-<div
-style={{
-fontSize: 18,
-fontWeight: 700,
-color:
-message === "Logged in!" ? "#8dffb1" : "rgba(255,255,255,0.95)",
-}}
->
+<div style={{ fontSize: 18, fontWeight: 700 }}>
 {message}
 </div>
 )}
