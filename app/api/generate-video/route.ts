@@ -11,13 +11,10 @@ return NextResponse.json(
 );
 }
 
-// TEMP demo video (so your app ALWAYS works)
-const demoVideo =
-"https://www.w3schools.com/html/mov_bbb.mp4";
-
-return NextResponse.json({
-videoUrl: demoVideo,
-});
+return NextResponse.json(
+{ error: "AI video generation is not connected yet. Use image generation or upload your own video for now." },
+{ status: 501 }
+);
 } catch (err: any) {
 return NextResponse.json(
 { error: err.message || "Video generation failed" },
