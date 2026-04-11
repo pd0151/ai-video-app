@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -9,324 +10,591 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
 type Post = {
-id?: string;
-Id?: string;
-caption?: string | null;
-Caption?: string | null;
-image_url?: string | null;
-Image_url?: string | null;
-video_url?: string | null;
-Video_url?: string | null;
-likes?: number | null;
-Likes?: number | null;
-user_id?: string | null;
-User_id?: string | null;
-created_at?: string | null;
+id: string;
+user_id: string | null;
+caption: string | null;
+content?: string | null;
+image_url: string | null;
+video_url: string | null;
+created_at: string;
 };
 
 type Comment = {
 id: string;
 post_id: string;
 user_id: string | null;
-body: string;
+text: string;
 created_at: string;
 };
 
-type Like = {
-id: string;
-post_id: string;
-user_id: string;
-};
-
-type Follow = {
-id: string;
-follower_id: string;
-following_id: string;
-};
-
 export default function FeedPage() {
+const router = useRouter();
+
 const [posts, setPosts] = useState<Post[]>([]);
-const [commentsByPost, setCommentsByPost] = useState<Record<string, Comment[]>>({});
-const [likesByPost, setLikesByPost] = useState<Record<string, number>>({});
-const [follows, setFollows] = useState<Follow[]>([]);
-const [activeCommentsPostId, setActiveCommentsPostId] = useState<string | null>(null);
-const [newComment, setNewComment] = useState("");
-const [currentUserId, setCurrentUserId] = useState<string>("demo-user");
+const [user, setUser] = useState<any>(null);
 const [loading, setLoading] = useState(true);
 
-const getPostId = (post: Post) => post.id || post.Id || "";
-const getCaption = (post: Post) => post.caption || post.Caption || "AI post";
-const getImage = (post: Post) => post.image_url || post.Image_url || "";
-const getVideo = (post: Post) => post.video_url || post.Video_url || "";
-const getPostOwnerId = (post: Post) => post.user_id || post.User_id || "demo-owner";
+const [likedPosts, setLikedPosts] = useState<Record<string, boolean>>({});
+const [likeCounts, setLikeCounts] = useState<Record<string, number>>({});
+const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
+
+const [openCommentsFor, setOpenCommentsFor] = useState<string | null>(null);
+const [commentsByPost, setCommentsByPost] = useState<Record<string, Comment[]>>(
+{}
+);
+const [commentText, setCommentText] = useState("");
+
+const [followingUsers, setFollowingUsers] = useState<Record<string, boolean>>(
+{}
+);
 
 useEffect(() => {
-loadAll();
+start();
 }, []);
 
-const loadAll = async () => {
+async function start() {
 setLoading(true);
 
-const authResult = await supabase.auth.getUser();
-const authUserId = authResult.data?.user?.id;
-if (authUserId) {
-setCurrentUserId(authUserId);
-}
+const {
+data: { user },
+} = await supabase.auth.getUser();
 
-const postsResult = await supabase
+setUser(user || null);
+
+const { data: postsData, error: postsError } = await supabase
 .from("Posts")
 .select("*")
 .order("created_at", { ascending: false });
 
-const commentsResult = await supabase
-.from("comments")
-.select("*")
-.order("created_at", { ascending: true });
-
-const likesResult = await supabase.from("likes").select("*");
-const followsResult = await supabase.from("follows").select("*");
-
-const loadedPosts = postsResult.data || [];
-const loadedComments = (commentsResult.data || []) as Comment[];
-const loadedLikes = (likesResult.data || []) as Like[];
-const loadedFollows = (followsResult.data || []) as Follow[];
-
-const groupedComments: Record<string, Comment[]> = {};
-for (const comment of loadedComments) {
-if (!groupedComments[comment.post_id]) groupedComments[comment.post_id] = [];
-groupedComments[comment.post_id].push(comment);
-}
-
-const groupedLikes: Record<string, number> = {};
-for (const like of loadedLikes) {
-groupedLikes[like.post_id] = (groupedLikes[like.post_id] || 0) + 1;
-}
-
-setPosts(loadedPosts);
-setCommentsByPost(groupedComments);
-setLikesByPost(groupedLikes);
-setFollows(loadedFollows);
+if (postsError) {
+alert("Error loading posts: " + postsError.message);
 setLoading(false);
-};
+return;
+}
 
-const hasLiked = (postId: string) => {
-return false;
-};
+const safePosts = (postsData || []) as Post[];
+setPosts(safePosts);
 
-const isFollowing = (ownerId: string) => {
-return follows.some(
-(f) => f.follower_id === currentUserId && f.following_id === ownerId
-);
-};
+await loadLikes(safePosts, user);
+await loadCommentCounts(safePosts);
+await loadFollowing(safePosts, user);
 
-const toggleLike = async (post: Post) => {
-const postId = getPostId(post);
-if (!postId) return;
+setLoading(false);
+}
 
-const { data: existing } = await supabase
+async function loadLikes(allPosts: Post[], currentUser: any) {
+const counts: Record<string, number> = {};
+const liked: Record<string, boolean> = {};
+
+for (const post of allPosts) {
+const { count } = await supabase
 .from("likes")
-.select("*")
-.eq("post_id", postId)
-.eq("user_id", currentUserId)
+.select("*", { count: "exact", head: true })
+.eq("post_id", post.id);
+
+counts[post.id] = count || 0;
+
+if (currentUser) {
+const { data } = await supabase
+.from("likes")
+.select("id")
+.eq("post_id", post.id)
+.eq("user_id", currentUser.id)
 .maybeSingle();
 
-if (existing) {
-await supabase.from("likes").delete().eq("id", existing.id);
-setLikesByPost((prev) => ({
-...prev,
-[postId]: Math.max((prev[postId] || 1) - 1, 0),
-}));
-} else {
-await supabase.from("likes").insert([
-{
-post_id: postId,
-user_id: currentUserId,
-},
-]);
-setLikesByPost((prev) => ({
-...prev,
-[postId]: (prev[postId] || 0) + 1,
-}));
+liked[post.id] = !!data;
 }
-};
+}
 
-const toggleFollow = async (post: Post) => {
-const ownerId = getPostOwnerId(post);
-if (!ownerId || ownerId === currentUserId) return;
+setLikeCounts(counts);
+setLikedPosts(liked);
+}
 
-const existing = follows.find(
-(f) => f.follower_id === currentUserId && f.following_id === ownerId
-);
+async function loadCommentCounts(allPosts: Post[]) {
+const counts: Record<string, number> = {};
 
-if (existing) {
-await supabase.from("follows").delete().eq("id", existing.id);
-setFollows((prev) => prev.filter((f) => f.id !== existing.id));
-} else {
+for (const post of allPosts) {
+const { count } = await supabase
+.from("comments")
+.select("*", { count: "exact", head: true })
+.eq("post_id", post.id);
+
+counts[post.id] = count || 0;
+}
+
+setCommentCounts(counts);
+}
+
+async function loadFollowing(allPosts: Post[], currentUser: any) {
+if (!currentUser) return;
+
+const followsMap: Record<string, boolean> = {};
+
+for (const post of allPosts) {
+if (!post.user_id || post.user_id === currentUser.id) continue;
+
 const { data } = await supabase
 .from("follows")
-.insert([
-{
-follower_id: currentUserId,
-following_id: ownerId,
-},
-])
-.select()
-.single();
+.select("id")
+.eq("follower_id", currentUser.id)
+.eq("following_id", post.user_id)
+.maybeSingle();
 
-if (data) {
-setFollows((prev) => [...prev, data as Follow]);
+followsMap[post.user_id] = !!data;
+}
+
+setFollowingUsers(followsMap);
+}
+
+async function handleLike(postId: string) {
+if (!user) {
+alert("Please log in first");
+return;
+}
+
+const alreadyLiked = likedPosts[postId];
+
+if (alreadyLiked) {
+const { error } = await supabase
+.from("likes")
+.delete()
+.eq("post_id", postId)
+.eq("user_id", user.id);
+
+if (error) {
+alert("Like error: " + error.message);
+return;
+}
+
+setLikedPosts((prev) => ({ ...prev, [postId]: false }));
+setLikeCounts((prev) => ({ ...prev, [postId]: Math.max((prev[postId] || 1) - 1, 0) }));
+} else {
+const { error } = await supabase.from("likes").insert({
+post_id: postId,
+user_id: user.id,
+});
+
+if (error) {
+alert("Like error: " + error.message);
+return;
+}
+
+setLikedPosts((prev) => ({ ...prev, [postId]: true }));
+setLikeCounts((prev) => ({ ...prev, [postId]: (prev[postId] || 0) + 1 }));
 }
 }
-};
 
-const addComment = async () => {
-if (!activeCommentsPostId || !newComment.trim()) return;
+async function openComments(postId: string) {
+setOpenCommentsFor(postId);
+setCommentText("");
 
 const { data, error } = await supabase
 .from("comments")
-.insert([
-{
-post_id: activeCommentsPostId,
-user_id: currentUserId,
-body: newComment.trim(),
-},
-])
+.select("*")
+.eq("post_id", postId)
+.order("created_at", { ascending: true });
+
+if (error) {
+alert("Comments error: " + error.message);
+return;
+}
+
+setCommentsByPost((prev) => ({
+...prev,
+[postId]: (data || []) as Comment[],
+}));
+}
+
+async function handleSendComment() {
+if (!user) {
+alert("Please log in first");
+return;
+}
+
+if (!openCommentsFor) return;
+
+const cleanText = commentText.trim();
+
+if (!cleanText) {
+alert("Type a comment first");
+return;
+}
+
+const { data, error } = await supabase
+.from("comments")
+.insert({
+post_id: openCommentsFor,
+user_id: user.id,
+text: cleanText,
+})
 .select()
 .single();
 
-if (!error && data) {
+if (error) {
+alert("Comment error: " + error.message);
+return;
+}
+
 setCommentsByPost((prev) => ({
 ...prev,
-[activeCommentsPostId]: [...(prev[activeCommentsPostId] || []), data as Comment],
+[openCommentsFor]: [...(prev[openCommentsFor] || []), data as Comment],
 }));
-setNewComment("");
+
+setCommentCounts((prev) => ({
+...prev,
+[openCommentsFor]: (prev[openCommentsFor] || 0) + 1,
+}));
+
+setCommentText("");
 }
-};
+
+async function handleFollow(postUserId: string | null) {
+if (!user) {
+alert("Please log in first");
+return;
+}
+
+if (!postUserId) {
+alert("This post has no owner");
+return;
+}
+
+if (postUserId === user.id) {
+alert("You cannot follow yourself");
+return;
+}
+
+const alreadyFollowing = followingUsers[postUserId];
+
+if (alreadyFollowing) {
+const { error } = await supabase
+.from("follows")
+.delete()
+.eq("follower_id", user.id)
+.eq("following_id", postUserId);
+
+if (error) {
+alert("Follow error: " + error.message);
+return;
+}
+
+setFollowingUsers((prev) => ({
+...prev,
+[postUserId]: false,
+}));
+} else {
+const { error } = await supabase.from("follows").insert({
+follower_id: user.id,
+following_id: postUserId,
+});
+
+if (error) {
+alert("Follow error: " + error.message);
+return;
+}
+
+setFollowingUsers((prev) => ({
+...prev,
+[postUserId]: true,
+}));
+}
+}
+
+if (loading) {
+return (
+<main
+style={{
+minHeight: "100vh",
+background: "#07152f",
+color: "white",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+fontSize: 24,
+fontWeight: 700,
+}}
+>
+Loading feed...
+</main>
+);
+}
 
 return (
-<main style={styles.page}>
-<div style={styles.header}>
+<main
+style={{
+minHeight: "100vh",
+background: "#07152f",
+color: "white",
+padding: 20,
+}}
+>
+<div
+style={{
+display: "flex",
+justifyContent: "space-between",
+alignItems: "flex-start",
+marginBottom: 20,
+}}
+>
 <div>
-<h1 style={styles.title}>AdForge Feed</h1>
-<p style={styles.subtitle}>Swipe posts, like, comment, follow</p>
+<h1 style={{ fontSize: 64, fontWeight: 900, lineHeight: 1, margin: 0 }}>
+AdForge Feed
+</h1>
+<p style={{ marginTop: 6, fontSize: 18 }}>
+Swipe posts, like, comment, follow
+</p>
 </div>
 
-<a href="/" style={styles.backButton}>
+<button
+onClick={() => router.push("/")}
+style={{
+background: "#18294f",
+color: "white",
+border: "none",
+borderRadius: 18,
+padding: "14px 20px",
+fontSize: 18,
+fontWeight: 700,
+cursor: "pointer",
+}}
+>
 Back
-</a>
+</button>
 </div>
 
-{loading ? (
-<div style={styles.centerBox}>Loading feed...</div>
-) : posts.length === 0 ? (
-<div style={styles.centerBox}>No posts yet</div>
-) : (
-<div style={styles.feedWrap}>
+<div
+style={{
+display: "flex",
+flexDirection: "column",
+gap: 24,
+}}
+>
 {posts.map((post) => {
-const postId = getPostId(post);
-const imageUrl = getImage(post);
-const videoUrl = getVideo(post);
-const caption = getCaption(post);
-const ownerId = getPostOwnerId(post);
+const caption = post.caption || post.content || "";
+const isFollowing = post.user_id ? followingUsers[post.user_id] : false;
 
 return (
-<section key={postId} style={styles.card}>
-<div style={styles.mediaWrap}>
-{videoUrl ? (
+<div
+key={post.id}
+style={{
+position: "relative",
+width: "100%",
+maxWidth: 950,
+margin: "0 auto",
+borderRadius: 28,
+overflow: "hidden",
+background: "#0d1f45",
+}}
+>
+{post.video_url ? (
 <video
-src={videoUrl}
+src={post.video_url}
 controls
-autoPlay
-muted
-loop
 playsInline
-style={styles.media}
+style={{
+width: "100%",
+maxHeight: "78vh",
+objectFit: "cover",
+display: "block",
+background: "black",
+}}
 />
-) : imageUrl ? (
-<img src={imageUrl} alt={caption} style={styles.media} />
+) : post.image_url ? (
+<img
+src={post.image_url}
+alt="Post"
+style={{
+width: "100%",
+maxHeight: "78vh",
+objectFit: "cover",
+display: "block",
+}}
+/>
 ) : (
-<div style={styles.emptyMedia}>No media</div>
+<div
+style={{
+height: 500,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+color: "#ccc",
+fontSize: 22,
+}}
+>
+No media found
+</div>
 )}
 
-<div style={styles.overlay}>
-<div style={styles.bottomLeft}>
-<div style={styles.username}>@{ownerId.slice(0, 8)}</div>
-<div style={styles.caption}>{caption}</div>
+<div
+style={{
+position: "absolute",
+left: 24,
+bottom: 24,
+right: 120,
+textShadow: "0 2px 10px rgba(0,0,0,0.7)",
+}}
+>
+<div style={{ fontSize: 18, fontWeight: 700, marginBottom: 10 }}>
+@demo-own
 </div>
 
-<div style={styles.rightActions}>
-<button
-style={styles.actionButton}
-onClick={() => toggleLike(post)}
+<div
+style={{
+fontSize: 30,
+fontWeight: 900,
+lineHeight: 1.02,
+whiteSpace: "pre-wrap",
+}}
 >
-❤️ {likesByPost[postId] || 0}
+{caption}
+</div>
+</div>
+
+<div
+style={{
+position: "absolute",
+right: 16,
+bottom: 24,
+display: "flex",
+flexDirection: "column",
+gap: 14,
+alignItems: "center",
+}}
+>
+<button
+onClick={() => handleLike(post.id)}
+style={actionBtnStyle}
+>
+❤️ {likeCounts[post.id] || 0}
 </button>
 
 <button
-style={styles.actionButton}
-onClick={() => setActiveCommentsPostId(postId)}
+onClick={() => openComments(post.id)}
+style={actionBtnStyle}
 >
-💬 {(commentsByPost[postId] || []).length}
+💬 {commentCounts[post.id] || 0}
 </button>
 
 <button
-style={styles.actionButton}
-onClick={() => toggleFollow(post)}
+onClick={() => handleFollow(post.user_id)}
+style={actionBtnStyle}
 >
-{ownerId === currentUserId
-? "You"
-: isFollowing(ownerId)
-? "Following"
-: "Follow"}
+{post.user_id && followingUsers[post.user_id] ? "Following" : "Follow"}
 </button>
 </div>
 </div>
-</div>
-</section>
 );
 })}
 </div>
-)}
 
-{activeCommentsPostId && (
-<div style={styles.commentsOverlay} onClick={() => setActiveCommentsPostId(null)}>
-<div style={styles.commentsPanel} onClick={(e) => e.stopPropagation()}>
-<div style={styles.commentsHeader}>
-<h2 style={styles.commentsTitle}>Comments</h2>
-<button
-style={styles.closeButton}
-onClick={() => setActiveCommentsPostId(null)}
+{openCommentsFor && (
+<div
+style={{
+position: "fixed",
+left: 0,
+right: 0,
+bottom: 0,
+background: "#10224a",
+borderTopLeftRadius: 24,
+borderTopRightRadius: 24,
+padding: 20,
+boxShadow: "0 -10px 30px rgba(0,0,0,0.35)",
+zIndex: 9999,
+maxHeight: "45vh",
+overflowY: "auto",
+}}
 >
-✕
+<div
+style={{
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+marginBottom: 14,
+}}
+>
+<h2 style={{ margin: 0, fontSize: 22, fontWeight: 800 }}>Comments</h2>
+
+<button
+onClick={() => {
+setOpenCommentsFor(null);
+setCommentText("");
+}}
+style={{
+width: 42,
+height: 42,
+borderRadius: 999,
+border: "none",
+background: "#5a6787",
+color: "white",
+fontSize: 24,
+cursor: "pointer",
+}}
+>
+×
 </button>
 </div>
 
-<div style={styles.commentsList}>
-{(commentsByPost[activeCommentsPostId] || []).length === 0 ? (
-<div style={styles.noComments}>No comments yet</div>
+<div style={{ marginBottom: 16 }}>
+{(commentsByPost[openCommentsFor] || []).length === 0 ? (
+<p style={{ margin: 0, color: "#d7dcef", fontSize: 18 }}>No comments yet</p>
 ) : (
-(commentsByPost[activeCommentsPostId] || []).map((comment) => (
-<div key={comment.id} style={styles.commentCard}>
-<div style={styles.commentUser}>
-@{(comment.user_id || "user").slice(0, 8)}
+(commentsByPost[openCommentsFor] || []).map((comment) => (
+<div
+key={comment.id}
+style={{
+background: "#0b1836",
+borderRadius: 14,
+padding: 12,
+marginBottom: 10,
+}}
+>
+<div style={{ fontSize: 14, opacity: 0.8, marginBottom: 4 }}>
+{comment.user_id || "User"}
 </div>
-<div style={styles.commentBody}>{comment.body}</div>
+<div style={{ fontSize: 17, fontWeight: 600 }}>{comment.text}</div>
 </div>
 ))
 )}
 </div>
 
-<div style={styles.commentInputRow}>
+<div
+style={{
+display: "flex",
+gap: 10,
+alignItems: "center",
+}}
+>
 <input
-value={newComment}
-onChange={(e) => setNewComment(e.target.value)}
+value={commentText}
+onChange={(e) => setCommentText(e.target.value)}
 placeholder="Write a comment..."
-style={styles.commentInput}
+style={{
+flex: 1,
+height: 54,
+borderRadius: 14,
+border: "none",
+outline: "none",
+padding: "0 16px",
+fontSize: 18,
+}}
 />
-<button onClick={addComment} style={styles.sendButton}>
+
+<button
+onClick={handleSendComment}
+style={{
+height: 54,
+borderRadius: 14,
+border: "none",
+padding: "0 18px",
+background: "white",
+color: "#10224a",
+fontWeight: 800,
+fontSize: 18,
+cursor: "pointer",
+}}
+>
 Send
 </button>
-</div>
 </div>
 </div>
 )}
@@ -334,214 +602,15 @@ Send
 );
 }
 
-const styles: Record<string, React.CSSProperties> = {
-page: {
-minHeight: "100vh",
-background: "linear-gradient(180deg, #0f172a 0%, #1d4ed8 100%)",
-color: "white",
-padding: "20px",
-},
-header: {
-display: "flex",
-justifyContent: "space-between",
-alignItems: "flex-start",
-gap: "16px",
-flexWrap: "wrap",
-marginBottom: "18px",
-},
-title: {
-fontSize: "58px",
-lineHeight: 1,
-margin: 0,
-fontWeight: 900,
-},
-subtitle: {
-marginTop: "8px",
-marginBottom: 0,
-fontSize: "18px",
-color: "rgba(255,255,255,0.82)",
-},
-backButton: {
-textDecoration: "none",
-color: "white",
-background: "rgba(255,255,255,0.12)",
-border: "1px solid rgba(255,255,255,0.2)",
-borderRadius: "18px",
-padding: "14px 18px",
-fontWeight: 800,
-display: "inline-block",
-},
-centerBox: {
-minHeight: "60vh",
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-fontSize: "24px",
-fontWeight: 800,
-},
-feedWrap: {
-height: "calc(100vh - 150px)",
-overflowY: "auto",
-scrollSnapType: "y mandatory",
-borderRadius: "24px",
-},
-card: {
-height: "calc(100vh - 150px)",
-scrollSnapAlign: "start",
-paddingBottom: "18px",
-},
-mediaWrap: {
-position: "relative",
-width: "100%",
-height: "100%",
-borderRadius: "28px",
-overflow: "hidden",
-background: "rgba(255,255,255,0.08)",
-border: "1px solid rgba(255,255,255,0.12)",
-},
-media: {
-width: "100%",
-height: "100%",
-objectFit: "cover",
-display: "block",
-background: "#0b1220",
-},
-emptyMedia: {
-width: "100%",
-height: "100%",
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-fontSize: "24px",
-fontWeight: 800,
-},
-overlay: {
-position: "absolute",
-left: 0,
-right: 0,
-bottom: 0,
-padding: "24px 18px",
-background:
-"linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.82) 100%)",
-display: "flex",
-justifyContent: "space-between",
-alignItems: "flex-end",
-gap: "16px",
-},
-bottomLeft: {
-maxWidth: "70%",
-},
-username: {
-fontSize: "18px",
-fontWeight: 800,
-marginBottom: "8px",
-},
-caption: {
-fontSize: "34px",
-lineHeight: 1.02,
-fontWeight: 900,
-textShadow: "0 3px 10px rgba(0,0,0,0.5)",
-},
-rightActions: {
-display: "flex",
-flexDirection: "column",
-gap: "10px",
-alignItems: "flex-end",
-},
-actionButton: {
+const actionBtnStyle: React.CSSProperties = {
+minWidth: 88,
+padding: "12px 14px",
+borderRadius: 999,
 border: "none",
-background: "rgba(255,255,255,0.14)",
+background: "rgba(20,20,20,0.45)",
 color: "white",
-borderRadius: "999px",
-padding: "12px 18px",
-fontSize: "18px",
 fontWeight: 800,
+fontSize: 18,
 cursor: "pointer",
-},
-commentsOverlay: {
-position: "fixed",
-inset: 0,
-background: "rgba(0,0,0,0.6)",
-display: "flex",
-alignItems: "flex-end",
-justifyContent: "center",
-zIndex: 50,
-},
-commentsPanel: {
-width: "100%",
-maxWidth: "700px",
-background: "#0f172a",
-borderTopLeftRadius: "24px",
-borderTopRightRadius: "24px",
-padding: "18px",
-maxHeight: "70vh",
-display: "flex",
-flexDirection: "column",
-},
-commentsHeader: {
-display: "flex",
-justifyContent: "space-between",
-alignItems: "center",
-marginBottom: "14px",
-},
-commentsTitle: {
-margin: 0,
-fontSize: "28px",
-fontWeight: 900,
-},
-closeButton: {
-border: "none",
-background: "rgba(255,255,255,0.12)",
-color: "white",
-borderRadius: "12px",
-padding: "10px 12px",
-cursor: "pointer",
-fontWeight: 800,
-},
-commentsList: {
-flex: 1,
-overflowY: "auto",
-marginBottom: "14px",
-},
-noComments: {
-fontSize: "18px",
-opacity: 0.8,
-},
-commentCard: {
-background: "rgba(255,255,255,0.08)",
-borderRadius: "16px",
-padding: "12px",
-marginBottom: "10px",
-},
-commentUser: {
-fontSize: "14px",
-fontWeight: 800,
-opacity: 0.85,
-marginBottom: "4px",
-},
-commentBody: {
-fontSize: "16px",
-lineHeight: 1.4,
-},
-commentInputRow: {
-display: "flex",
-gap: "10px",
-},
-commentInput: {
-flex: 1,
-borderRadius: "14px",
-border: "none",
-padding: "14px",
-fontSize: "16px",
-outline: "none",
-},
-sendButton: {
-border: "none",
-borderRadius: "14px",
-padding: "14px 18px",
-fontWeight: 800,
-cursor: "pointer",
-background: "white",
-color: "#111827",
-},
+backdropFilter: "blur(8px)",
 };
