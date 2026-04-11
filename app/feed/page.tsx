@@ -1,22 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
 const supabase = createClient(
-process.env.NEXT_PUBLIC_SUPABASE_URL!,
-process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 );
 
 type Post = {
 Id: string;
-caption: string;
+caption: string | null;
 image_url: string | null;
 video_url: string | null;
-likes: number;
 created_at: string;
-user_id: string;
+user_id: string | null;
 };
 
 type Comment = {
@@ -32,6 +31,8 @@ const router = useRouter();
 
 const [posts, setPosts] = useState<Post[]>([]);
 const [user, setUser] = useState<any>(null);
+const [loading, setLoading] = useState(true);
+
 const [likeCounts, setLikeCounts] = useState<Record<string, number>>({});
 const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
 const [followingUsers, setFollowingUsers] = useState<Record<string, boolean>>(
@@ -43,14 +44,13 @@ const [commentsByPost, setCommentsByPost] = useState<Record<string, Comment[]>>(
 {}
 );
 const [commentText, setCommentText] = useState("");
-const [loading, setLoading] = useState(true);
 
 useEffect(() => {
 loadFeed();
 
 const {
 data: { subscription },
-} = supabase.auth.onAuthStateChange(async (_event, session) => {
+} = supabase.auth.onAuthStateChange((_event, session) => {
 setUser(session?.user ?? null);
 });
 
@@ -62,13 +62,7 @@ subscription.unsubscribe();
 async function getCurrentUser() {
 const {
 data: { user },
-error,
 } = await supabase.auth.getUser();
-
-if (error) {
-console.error("getUser error:", error.message);
-return null;
-}
 
 return user ?? null;
 }
@@ -79,7 +73,7 @@ setLoading(true);
 const currentUser = await getCurrentUser();
 setUser(currentUser);
 
-const { data: postsData, error } = await supabase
+const { data, error } = await supabase
 .from("Posts")
 .select("*")
 .order("created_at", { ascending: false });
@@ -90,7 +84,7 @@ setLoading(false);
 return;
 }
 
-const safePosts = (postsData || []) as Post[];
+const safePosts = (data || []) as Post[];
 setPosts(safePosts);
 
 await loadLikeCounts(safePosts);
@@ -160,6 +154,30 @@ alert("Please log in first");
 return;
 }
 
+const { data: existingLike } = await supabase
+.from("likes")
+.select("id")
+.eq("post_id", postId)
+.eq("user_id", currentUser.id)
+.maybeSingle();
+
+if (existingLike) {
+const { error } = await supabase
+.from("likes")
+.delete()
+.eq("post_id", postId)
+.eq("user_id", currentUser.id);
+
+if (error) {
+alert("Like error: " + error.message);
+return;
+}
+
+setLikeCounts((prev) => ({
+...prev,
+[postId]: Math.max((prev[postId] || 1) - 1, 0),
+}));
+} else {
 const { error } = await supabase.from("likes").insert({
 post_id: postId,
 user_id: currentUser.id,
@@ -174,6 +192,7 @@ setLikeCounts((prev) => ({
 ...prev,
 [postId]: (prev[postId] || 0) + 1,
 }));
+}
 }
 
 async function openComments(postId: string) {
@@ -245,7 +264,7 @@ setCommentCounts((prev) => ({
 setCommentText("");
 }
 
-async function handleFollow(postUserId: string) {
+async function handleFollow(postUserId: string | null) {
 const currentUser = await getCurrentUser();
 
 if (!currentUser) {
@@ -335,18 +354,7 @@ alignItems: "flex-start",
 marginBottom: 20,
 }}
 >
-
-
-<button
-onClick={() => router.push("/")}
-style={{
-background: "#18294f",
-color: "white",
-border: "none",
-borderRadius: 18,
-padding: "14px 20px",
-fontSize: 18,
-fontWeight: <div>
+<div>
 <h1 style={{ fontSize: 64, fontWeight: 900, lineHeight: 1, margin: 0 }}>
 AdForge Feed
 </h1>
@@ -358,7 +366,18 @@ AdForge Feed
 <p style={{ marginTop: 6, fontSize: 18 }}>
 Swipe posts, like, comment, follow
 </p>
-</div>700,
+</div>
+
+<button
+onClick={() => router.push("/")}
+style={{
+background: "#18294f",
+color: "white",
+border: "none",
+borderRadius: 18,
+padding: "14px 20px",
+fontSize: 18,
+fontWeight: 700,
 cursor: "pointer",
 }}
 >
@@ -404,7 +423,20 @@ objectFit: "cover",
 display: "block",
 }}
 />
-) : null}
+) : (
+<div
+style={{
+height: 500,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+color: "#ccc",
+fontSize: 22,
+}}
+>
+No media found
+</div>
+)}
 
 <div
 style={{
@@ -416,7 +448,7 @@ textShadow: "0 2px 10px rgba(0,0,0,0.7)",
 }}
 >
 <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 10 }}>
-@demo-own
+@{post.user_id ? post.user_id.slice(0, 8) : "demo-own"}
 </div>
 
 <div
@@ -427,7 +459,7 @@ lineHeight: 1.02,
 whiteSpace: "pre-wrap",
 }}
 >
-{post.caption}
+{post.caption || ""}
 </div>
 </div>
 
@@ -454,7 +486,9 @@ alignItems: "center",
 onClick={() => handleFollow(post.user_id)}
 style={actionBtnStyle}
 >
-{followingUsers[post.user_id] ? "Following" : "Follow"}
+{post.user_id && followingUsers[post.user_id]
+? "Following"
+: "Follow"}
 </button>
 </div>
 </div>
