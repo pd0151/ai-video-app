@@ -20,14 +20,15 @@ headers: {
 body: JSON.stringify({ prompt }),
 });
 
-if (!res.ok) {
 const text = await res.text();
+
+if (!res.ok) {
 alert(text);
 setLoading(false);
 return;
 }
 
-const data = await res.json();
+const data = JSON.parse(text);
 
 if (data.videoUrl) {
 setVideoUrl(data.videoUrl);
@@ -51,8 +52,8 @@ padding: 20,
 fontFamily: "Arial, sans-serif",
 }}
 >
-<div style={{ maxWidth: 900, margin: "0 auto" }}>
-<h1 style={{ fontSize: 56, fontWeight: 900, marginBottom: 10 }}>
+<div style={{ maxWidth: 980, margin: "0 auto" }}>
+<h1 style={{ fontSize: 72, fontWeight: 900, marginBottom: 20 }}>
 AdForge
 </h1>
 
@@ -62,37 +63,31 @@ onChange={(e) => setPrompt(e.target.value)}
 placeholder="Enter prompt..."
 style={{
 width: "100%",
-minHeight: 120,
-padding: 18,
+minHeight: 140,
+padding: 22,
 fontSize: 28,
-borderRadius: 20,
+borderRadius: 24,
 border: "none",
 outline: "none",
 resize: "vertical",
 marginBottom: 20,
+boxSizing: "border-box",
 }}
 />
 
-<div
-style={{
-display: "flex",
-gap: 16,
-flexWrap: "wrap",
-marginBottom: 20,
-}}
->
+<div style={{ display: "flex", gap: 20, marginBottom: 24, flexWrap: "wrap" }}>
 <button
 onClick={generateVideo}
 disabled={loading}
 style={{
-minWidth: 220,
-padding: "18px 24px",
-borderRadius: 20,
+minWidth: 280,
+padding: "20px 24px",
+borderRadius: 24,
 border: "none",
 background: "white",
 color: "#07152f",
-fontSize: 22,
-fontWeight: 800,
+fontSize: 24,
+fontWeight: 900,
 cursor: "pointer",
 }}
 >
@@ -105,14 +100,14 @@ setPrompt("");
 setVideoUrl("");
 }}
 style={{
-minWidth: 220,
-padding: "18px 24px",
-borderRadius: 20,
+minWidth: 280,
+padding: "20px 24px",
+borderRadius: 24,
 border: "none",
 background: "#18376d",
 color: "white",
-fontSize: 22,
-fontWeight: 800,
+fontSize: 24,
+fontWeight: 900,
 cursor: "pointer",
 }}
 >
@@ -123,33 +118,55 @@ Clear
 <div
 style={{
 background: "#0b1d3f",
-borderRadius: 24,
+borderRadius: 28,
 padding: 20,
-minHeight: 320,
+minHeight: 420,
 }}
 >
 {videoUrl ? (
+<>
 <video
+key={videoUrl}
 src={videoUrl}
 controls
 autoPlay
 loop
+muted
+playsInline
+preload="auto"
 style={{
 width: "100%",
+height: "420px",
+objectFit: "contain",
+background: "black",
 borderRadius: 18,
 display: "block",
 }}
 />
+<div
+style={{
+marginTop: 12,
+fontSize: 14,
+opacity: 0.9,
+wordBreak: "break-all",
+background: "#061127",
+padding: 12,
+borderRadius: 12,
+}}
+>
+{videoUrl}
+</div>
+</>
 ) : (
 <div
 style={{
-minHeight: 280,
+minHeight: 380,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
 fontSize: 28,
 fontWeight: 800,
-opacity: 0.8,
+opacity: 0.85,
 textAlign: "center",
 }}
 >

@@ -1,30 +1,32 @@
 import { NextResponse } from "next/server";
 
-function getVideoUrl(output: unknown): string | null {
-if (!output) return null;
+function findUrl(value: unknown): string | null {
+if (!value) return null;
 
-if (typeof output === "string") {
-return output.startsWith("http") ? output : null;
+if (typeof value === "string") {
+return value.startsWith("http") ? value : null;
 }
 
-if (Array.isArray(output)) {
-for (const item of output) {
-const found = getVideoUrl(item);
+if (Array.isArray(value)) {
+for (const item of value) {
+const found = findUrl(item);
 if (found) return found;
 }
 return null;
 }
 
-if (typeof output === "object") {
-const obj = output as Record<string, unknown>;
+if (typeof value === "object") {
+const obj = value as Record<string, unknown>;
 
-if (typeof obj.url === "string") return obj.url;
-if (typeof obj.href === "string") return obj.href;
-if (typeof obj.video === "string") return obj.video;
-if (typeof obj.mp4 === "string") return obj.mp4;
+for (const key of ["url", "href", "video", "mp4"]) {
+const v = obj[key];
+if (typeof v === "string" && v.startsWith("http")) {
+return v;
+}
+}
 
 for (const key of Object.keys(obj)) {
-const found = getVideoUrl(obj[key]);
+const found = findUrl(obj[key]);
 if (found) return found;
 }
 }
@@ -52,21 +54,23 @@ return NextResponse.json(
 );
 }
 
-const startRes = await fetch("https://api.replicate.com/v1/predictions", {
+// Start prediction on official Replicate model endpoint
+const startRes = await fetch(
+"https://api.replicate.com/v1/models/minimax/video-01/predictions",
+{
 method: "POST",
 headers: {
-Authorization: `Token ${token}`,
+Authorization: `Bearer ${token}`,
 "Content-Type": "application/json",
 Prefer: "wait=5",
 },
 body: JSON.stringify({
-version:
-"8ba52bde11300615f65e9591d7afc58816def12c93c870fa583ff67ae17afdda",
 input: {
-prompt: `${prompt}, cinematic, ultra realistic, 4k, smooth motion, professional advertising style`,
+prompt: `${prompt}, cinematic, ultra realistic, smooth motion, professional advertising style`,
 },
 }),
-});
+}
+);
 
 const startData = await startRes.json();
 
@@ -83,7 +87,7 @@ JSON.stringify(startData) ||
 );
 }
 
-let videoUrl = getVideoUrl(startData.output);
+let videoUrl = findUrl(startData.output);
 if (videoUrl) {
 return NextResponse.json({ videoUrl });
 }
@@ -92,17 +96,18 @@ const pollUrl = startData?.urls?.get;
 
 if (!pollUrl) {
 return NextResponse.json(
-{ error: "No polling URL returned from Replicate" },
+{ error: "No polling URL returned" },
 { status: 500 }
 );
 }
 
-for (let i = 0; i < 40; i++) {
+// Poll until finished
+for (let i = 0; i < 50; i++) {
 await new Promise((resolve) => setTimeout(resolve, 3000));
 
 const pollRes = await fetch(pollUrl, {
 headers: {
-Authorization: `Token ${token}`,
+Authorization: `Bearer ${token}`,
 },
 });
 
@@ -121,7 +126,7 @@ JSON.stringify(pollData) ||
 );
 }
 
-videoUrl = getVideoUrl(pollData.output);
+videoUrl = findUrl(pollData.output);
 if (videoUrl) {
 return NextResponse.json({ videoUrl });
 }
@@ -140,7 +145,7 @@ JSON.stringify(pollData) ||
 }
 
 return NextResponse.json(
-{ error: "No video returned" },
+{ error: "Video generation timed out" },
 { status: 500 }
 );
 } catch (error: any) {
