@@ -1,25 +1,67 @@
 import { NextResponse } from "next/server";
 
+function getVideoUrl(output: unknown): string | null {
+if (!output) return null;
+
+if (typeof output === "string") {
+return output.startsWith("http") ? output : null;
+}
+
+if (Array.isArray(output)) {
+for (const item of output) {
+const found = getVideoUrl(item);
+if (found) return found;
+}
+return null;
+}
+
+if (typeof output === "object") {
+const obj = output as Record<string, unknown>;
+
+if (typeof obj.url === "string") return obj.url;
+if (typeof obj.href === "string") return obj.href;
+if (typeof obj.video === "string") return obj.video;
+if (typeof obj.mp4 === "string") return obj.mp4;
+
+for (const key of Object.keys(obj)) {
+const found = getVideoUrl(obj[key]);
+if (found) return found;
+}
+}
+
+return null;
+}
+
 export async function POST(req: Request) {
 try {
 const { prompt } = await req.json();
 
-if (!prompt) {
+if (!prompt || typeof prompt !== "string") {
 return NextResponse.json(
 { error: "No prompt provided" },
 { status: 400 }
 );
 }
 
-// STEP 1: Start video generation
+const token = process.env.REPLICATE_API_TOKEN;
+
+if (!token) {
+return NextResponse.json(
+{ error: "Missing REPLICATE_API_TOKEN" },
+{ status: 500 }
+);
+}
+
 const startRes = await fetch("https://api.replicate.com/v1/predictions", {
 method: "POST",
 headers: {
-Authorization: `Token ${process.env.REPLICATE_API_TOKEN}`,
+Authorization: `Token ${token}`,
 "Content-Type": "application/json",
+Prefer: "wait=5",
 },
 body: JSON.stringify({
-model: "cjwbw/videogen",
+version:
+"8ba52bde11300615f65e9591d7afc58816def12c93c870fa583ff67ae17afdda",
 input: {
 prompt: `${prompt}, cinematic, ultra realistic, 4k, smooth motion, professional advertising style`,
 },
@@ -28,56 +70,82 @@ prompt: `${prompt}, cinematic, ultra realistic, 4k, smooth motion, professional 
 
 const startData = await startRes.json();
 
-if (!startData?.urls?.get) {
+if (!startRes.ok) {
 return NextResponse.json(
-{ error: "Failed to start video generation" },
+{
+error:
+startData?.detail ||
+startData?.error ||
+JSON.stringify(startData) ||
+"Failed to start video generation",
+},
 { status: 500 }
 );
 }
 
-// STEP 2: Poll until video is ready
-let result;
-let attempts = 0;
+let videoUrl = getVideoUrl(startData.output);
+if (videoUrl) {
+return NextResponse.json({ videoUrl });
+}
 
-while (attempts < 30) {
-await new Promise((r) => setTimeout(r, 2000));
+const pollUrl = startData?.urls?.get;
 
-const pollRes = await fetch(startData.urls.get, {
+if (!pollUrl) {
+return NextResponse.json(
+{ error: "No polling URL returned from Replicate" },
+{ status: 500 }
+);
+}
+
+for (let i = 0; i < 40; i++) {
+await new Promise((resolve) => setTimeout(resolve, 3000));
+
+const pollRes = await fetch(pollUrl, {
 headers: {
-Authorization: `Token ${process.env.REPLICATE_API_TOKEN}`,
+Authorization: `Token ${token}`,
 },
 });
 
-result = await pollRes.json();
+const pollData = await pollRes.json();
 
-if (result.status === "succeeded") break;
-if (result.status === "failed") {
+if (!pollRes.ok) {
 return NextResponse.json(
-{ error: "Video generation failed" },
+{
+error:
+pollData?.detail ||
+pollData?.error ||
+JSON.stringify(pollData) ||
+"Polling failed",
+},
 { status: 500 }
 );
 }
 
-attempts++;
+videoUrl = getVideoUrl(pollData.output);
+if (videoUrl) {
+return NextResponse.json({ videoUrl });
 }
 
-// STEP 3: Return video URL
-if (!result?.output) {
+if (pollData.status === "failed" || pollData.status === "canceled") {
+return NextResponse.json(
+{
+error:
+pollData?.error ||
+JSON.stringify(pollData) ||
+"Video generation failed",
+},
+{ status: 500 }
+);
+}
+}
+
 return NextResponse.json(
 { error: "No video returned" },
 { status: 500 }
 );
-}
-
-const videoUrl = Array.isArray(result.output)
-? result.output[0]
-: result.output;
-
-return NextResponse.json({ videoUrl });
-
 } catch (error: any) {
 return NextResponse.json(
-{ error: error.message || "Video generation failed" },
+{ error: error?.message || "Video generation failed" },
 { status: 500 }
 );
 }
