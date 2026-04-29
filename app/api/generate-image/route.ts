@@ -1,40 +1,36 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const client = new OpenAI({
+const openai = new OpenAI({
 apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: Request) {
 try {
-const body = await req.json();
-const prompt = body?.prompt;
+const { prompt } = await req.json();
 
-if (!prompt || typeof prompt !== "string") {
-return NextResponse.json(
-{ error: "Prompt is required" },
-{ status: 400 }
-);
+if (!prompt) {
+return NextResponse.json({ error: "No prompt provided" }, { status: 400 });
 }
 
-const result = await client.images.generate({
+const result = await openai.images.generate({
 model: "gpt-image-1",
 prompt,
 size: "1024x1024",
 });
 
-const imageBase64 = result.data?.[0]?.b64_json;
+const base64 = result.data?.[0]?.b64_json;
 
-if (!imageBase64) {
+if (!base64) {
 return NextResponse.json(
 { error: "No image returned from OpenAI" },
 { status: 500 }
 );
 }
 
-const imageUrl = `data:image/png;base64,${imageBase64}`;
-
-return NextResponse.json({ imageUrl });
+return NextResponse.json({
+image: `data:image/png;base64,${base64}`,
+});
 } catch (error: any) {
 return NextResponse.json(
 { error: error?.message || "Image generation failed" },
