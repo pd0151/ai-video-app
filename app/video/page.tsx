@@ -213,8 +213,25 @@ Animate Image → Video
 <>
 <video src={videoUrl} controls autoPlay playsInline style={video} />
 
-<button onClick={shareToFeed} style={shareButton}>
-{sharing ? "Sharing..." : "Share to Feed"}
+<button
+onClick={shareToFeed}
+style={{
+position: "fixed",
+left: 18,
+right: 18,
+bottom: 90,
+zIndex: 9999,
+padding: "18px",
+borderRadius: 999,
+border: "none",
+background: "linear-gradient(135deg, #a855f7, #7c3aed)",
+color: "white",
+fontSize: 18,
+fontWeight: 950,
+boxShadow: "0 10px 35px rgba(168,85,247,0.45)",
+}}
+>
+{sharing ? "Sharing..." : "🚀 Share to Feed"}
 </button>
 </>
 )}
