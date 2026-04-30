@@ -86,7 +86,7 @@ const router = useRouter();
 
 const [posts, setPosts] = useState<Post[]>([]);
 const [user, setUser] = useState<any>(null);
-const [loading, setLoading] = useState(true);
+const [loading, setLoading] = useState(false);
 const [fullscreenMedia, setFullscreenMedia] = useState<string | null>(null);
 const [activePostId, setActivePostId] = useState<string | null>(null);
 
@@ -154,7 +154,7 @@ const { data, error } = await supabase
 .from("posts")
 .select("*")
 .order("created_at", { ascending: false })
-.limit(10);
+.limit(6);
 
 if (error) {
 alert("Feed error: " + error.message);
@@ -163,11 +163,16 @@ return;
 }
 
 const postsData = (data || []) as Post[];
+
+// ✅ SHOW FEED STRAIGHT AWAY
 setPosts(postsData);
+setLoading(false);
 
 const postIds = postsData.map((p) => p.id);
 
-if (postIds.length > 0) {
+if (postIds.length === 0) return;
+
+// ✅ Load likes/comments/follows AFTER feed is visible
 const { data: likes } = await supabase
 .from("likes")
 .select("post_id, user_id")
@@ -202,7 +207,6 @@ counts[comment.post_id] = (counts[comment.post_id] || 0) + 1;
 
 setCommentCounts(counts);
 }
-}
 
 if (user?.id) {
 const { data: follows } = await supabase
@@ -220,6 +224,7 @@ following[follow.following_id] = true;
 setFollowingUsers(following);
 }
 }
+
 const userIds = postsData
 .map((post) => post.user_id)
 .filter(Boolean) as string[];
@@ -240,7 +245,6 @@ counts[follow.following_id] = (counts[follow.following_id] || 0) + 1;
 setFollowerCounts(counts);
 }
 }
-setLoading(false);
 }
 
 async function toggleLike(postId: string) {
@@ -394,10 +398,15 @@ Back
 </button>
 </div>
 
-{loading ? (
-<div style={emptyBox}>Loading premium feed...</div>
+{false ? (
+<div style={emptyBox}>
+<div>Loading feed...</div>
+<div style={{ fontSize: 14, opacity: 0.6, marginTop: 8 }}>
+Getting your latest posts
+</div>
+</div>
 ) : visiblePosts.length === 0 ? (
-<div style={emptyBox}>No posts yet</div>
+<div style={emptyBox}>Loading post...</div>
 ) : (
 <section style={feedScroller}>
 {visiblePosts.map((post) => {
@@ -624,7 +633,7 @@ Send
 const page: React.CSSProperties = {
 minHeight: "100vh",
 background:
-"radial-gradient(circle at top, #1e3a8a 0%, #08142f 44%, #020617 100%)",
+"radial-gradient(circle at top, rgba(168,85,247,0.35) 0%, #080818 40%, #000000 100%)",
 color: "white",
 fontFamily: "Inter, Arial, sans-serif",
 padding: "22px 16px 34px",
@@ -637,12 +646,20 @@ display: "flex",
 justifyContent: "space-between",
 alignItems: "center",
 gap: 12,
+padding: "18px",
+borderRadius: 20,
+background: "linear-gradient(135deg, rgba(168,85,247,0.25), rgba(124,58,237,0.15))",
+border: "1px solid rgba(255,255,255,0.1)",
+backdropFilter: "blur(20px)",
 };
 
 const logo: React.CSSProperties = {
 fontSize: 34,
 fontWeight: 950,
 letterSpacing: -1,
+background: "linear-gradient(90deg, #fff, #a855f7)",
+WebkitBackgroundClip: "text",
+WebkitTextFillColor: "transparent",
 };
 
 const subText: React.CSSProperties = {
@@ -685,11 +702,11 @@ height: "78vh",
 minHeight: 620,
 borderRadius: 36,
 overflow: "hidden",
-background: "#020617",
+background: "#0f0f1f",
 scrollSnapAlign: "start",
 flexShrink: 0,
-border: "1px solid rgba(255,255,255,0.10)",
-boxShadow: "0 30px 80px rgba(0,0,0,0.45)",
+border: "1px solid rgba(255,255,255,0.14)",
+boxShadow: "0 0 35px rgba(168,85,247,0.22)",
 };
 
 const media: React.CSSProperties = {
@@ -884,7 +901,7 @@ const commentsPanel: React.CSSProperties = {
 width: "100%",
 maxWidth: 560,
 maxHeight: "75vh",
-background: "#071226",
+background: "#0f0f1f",
 borderTopLeftRadius: 28,
 borderTopRightRadius: 28,
 padding: 18,
@@ -942,7 +959,7 @@ outline: "none",
 
 const commentSend: React.CSSProperties = {
 border: "none",
-background: "linear-gradient(135deg, #38bdf8, #6366f1)",
+background: "linear-gradient(135deg, #a855f7, #7c3aed)",
 color: "white",
 borderRadius: 999,
 padding: "13px 18px",

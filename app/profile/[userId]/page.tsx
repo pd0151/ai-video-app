@@ -249,7 +249,7 @@ style={fullscreenMedia}
 const page: CSSProperties = {
 minHeight: "100vh",
 background:
-"radial-gradient(circle at top, #1e3a8a 0%, #08142f 50%, #020617 100%)",
+"radial-gradient(circle at top, rgba(168,85,247,0.35) 0%, #080818 40%, #000000 100%)",
 color: "white",
 fontFamily: "Arial, sans-serif",
 padding: "22px 16px 60px",
@@ -271,16 +271,18 @@ margin: "28px auto 30px",
 maxWidth: 760,
 borderRadius: 34,
 padding: 28,
-background: "rgba(255,255,255,0.10)",
-border: "1px solid rgba(255,255,255,0.16)",
-boxShadow: "0 25px 80px rgba(0,0,0,0.35)",
+background:
+"linear-gradient(135deg, rgba(168,85,247,0.25), rgba(124,58,237,0.15))",
+border: "1px solid rgba(255,255,255,0.14)",
+boxShadow: "0 0 35px rgba(168,85,247,0.22)",
+backdropFilter: "blur(20px)",
 };
 
 const avatar: CSSProperties = {
 width: 92,
 height: 92,
 borderRadius: 28,
-background: "linear-gradient(135deg, #60a5fa, #6366f1)",
+background: "linear-gradient(135deg, #a855f7, #7c3aed)",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
@@ -342,13 +344,14 @@ cursor: "pointer",
 
 const followBtn: CSSProperties = {
 border: "none",
-background: "linear-gradient(135deg, #60a5fa, #6366f1)",
+background: "linear-gradient(135deg, #a855f7, #7c3aed)",
 color: "white",
 padding: "12px 22px",
 borderRadius: 999,
 fontSize: 15,
 fontWeight: 950,
 cursor: "pointer",
+boxShadow: "0 10px 30px rgba(168,85,247,0.4)",
 };
 
 const linkStyle: CSSProperties = {
@@ -359,6 +362,10 @@ const postsTitle: CSSProperties = {
 maxWidth: 760,
 margin: "0 auto 18px",
 fontSize: 30,
+fontWeight: 900,
+background: "linear-gradient(90deg, #fff, #a855f7)",
+WebkitBackgroundClip: "text",
+WebkitTextFillColor: "transparent",
 };
 
 const grid: CSSProperties = {
@@ -372,10 +379,12 @@ gap: 16,
 const postCard: CSSProperties = {
 borderRadius: 24,
 overflow: "hidden",
-background: "rgba(255,255,255,0.08)",
+background: "#0f0f1f",
 border: "1px solid rgba(255,255,255,0.14)",
+boxShadow: "0 20px 60px rgba(168,85,247,0.25)",
 cursor: "pointer",
 };
+
 
 const media: CSSProperties = {
 width: "100%",

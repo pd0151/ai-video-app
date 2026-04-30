@@ -12,7 +12,11 @@ children: React.ReactNode;
 }) {
 return (
 <html lang="en">
-<body>{children}</body>
+<body className="bg-black text-white">
+<div className="min-h-screen bg-gradient-to-b from-black via-[#0b0b1a] to-black">
+{children}
+</div>
+</body>
 </html>
 );
 }
