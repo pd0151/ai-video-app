@@ -38,7 +38,7 @@ return NextResponse.json(
 }
 
 const res = await fetch(
-"https://api.replicate.com/v1/models/minimax/video-01/predictions",
+"https://api.replicate.com/v1/models/luma/ray-2-720p/predictions",
 {
 method: "POST",
 headers: {
@@ -47,9 +47,19 @@ Authorization: `Bearer ${token}`,
 },
 body: JSON.stringify({
 input: {
-prompt: `${prompt}, cinematic, ultra realistic, smooth motion, professional advertising style`,
-duration: 8,
+prompt: `Create a professional vertical advert video.
+
+Scene: ${prompt}
+
+Style: cinematic, realistic, clean commercial advert, smooth camera movement, sharp details, natural lighting.
+
+Camera: slow tracking shot, stable motion, no shaky camera.
+
+Important: make it look like a real business advertisement, not cartoon, not distorted.`,
+
+duration: 9,
 aspect_ratio: "9:16",
+loop: false,
 },
 }),
 }
