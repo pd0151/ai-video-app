@@ -303,10 +303,17 @@ boxShadow: "0 10px 30px rgba(168,85,247,0.4)",
 };
 
 const shareButton: React.CSSProperties = {
-...button,
-display: "block",
-marginTop: 18,
+border: "none",
+background: "linear-gradient(135deg, #a855f7, #7c3aed)",
+color: "white",
+padding: "16px 24px",
+borderRadius: 999,
+fontSize: 18,
+fontWeight: 950,
+cursor: "pointer",
+boxShadow: "0 10px 35px rgba(168,85,247,0.45)",
 width: "100%",
+marginTop: 18,
 };
 
 const statusText: React.CSSProperties = {

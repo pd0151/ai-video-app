@@ -47,7 +47,9 @@ Authorization: `Bearer ${token}`,
 },
 body: JSON.stringify({
 input: {
-prompt: `${prompt}, cinematic, realistic, smooth motion`,
+prompt: `${prompt}, cinematic, ultra realistic, smooth motion, professional advertising style`,
+duration: 8,
+aspect_ratio: "9:16",
 },
 }),
 }
