@@ -212,7 +212,45 @@ Animate Image → Video
 {videoUrl && (
 <>
 <video src={videoUrl} controls autoPlay playsInline style={video} />
+{videoUrl && (
+<button
+onClick={async () => {
+const { data } = await supabase.auth.getUser();
+const user = data.user;
 
+if (!user) {
+alert("Login first");
+return;
+}
+
+const { error } = await supabase.from("posts").insert({
+user_id: user.id,
+video_url: videoUrl,
+image_url: null,
+content: prompt,
+business_name: "Total Tyres 247",
+location: "Liverpool",
+});
+
+if (error) {
+alert("Failed to post video");
+} else {
+alert("Video posted 🚀");
+}
+}}
+style={{
+marginTop: 20,
+padding: "12px 20px",
+borderRadius: 12,
+border: "none",
+background: "#8b5cf6",
+color: "white",
+fontWeight: 700,
+}}
+>
+Post Video to Feed
+</button>
+)}
 <button
 onClick={shareToFeed}
 style={{
