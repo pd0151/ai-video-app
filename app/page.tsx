@@ -205,7 +205,29 @@ Ad<span style={{ color: "#a855f7" }}>Forge</span>✦
 </div>
 </div>
 
-<button onClick={upgradeUser} style={upgrade}>♛ Upgrade</button>
+<button
+onClick={async () => {
+try {
+const res = await fetch("/api/create-checkout", {
+method: "POST",
+});
+
+const data = await res.json();
+
+if (data.url) {
+window.location.href = data.url;
+} else {
+alert("Stripe error");
+}
+} catch (err) {
+console.error(err);
+alert("Something went wrong");
+}
+}}
+style={upgrade}
+>
+👑 Upgrade
+</button>
 </div>
 </header>
 
