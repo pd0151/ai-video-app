@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL as string,
@@ -14,422 +14,311 @@ id: string;
 content: string | null;
 image_url: string | null;
 video_url: string | null;
-created_at: string | null;
-user_id: string | null;
 business_name: string | null;
-phone: string | null;
-whatsapp: string | null;
-website: string | null;
 location: string | null;
+created_at: string | null;
 };
-
-function cleanPhone(phone: string | null) {
-if (!phone) return "";
-return phone.replace(/[^\d+]/g, "");
-}
-
-function cleanWhatsapp(value: string | null) {
-if (!value) return "";
-let cleaned = value.replace(/[^\d]/g, "");
-if (cleaned.startsWith("0")) cleaned = `44${cleaned.slice(1)}`;
-if (cleaned.startsWith("00")) cleaned = cleaned.slice(2);
-return cleaned;
-}
-
-function cleanWebsite(url: string | null) {
-if (!url || !url.trim()) return "";
-const trimmed = url.trim();
-if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
-return trimmed;
-}
-return `https://${trimmed}`;
-}
 
 export default function ProfilePage() {
 const router = useRouter();
-const params = useParams();
-const userId = String(params?.userId || "");
-
 const [posts, setPosts] = useState<Post[]>([]);
-const [loading, setLoading] = useState(true);
-const [fullscreenPost, setFullscreenPost] = useState<Post | null>(null);
+const [following, setFollowing] = useState(false);
+
+async function loadPosts() {
+const { data } = await supabase
+.from("posts")
+.select("id, content, image_url, video_url, business_name, location, created_at")
+.order("created_at", { ascending: false })
+.limit(12);
+
+setPosts((data || []).filter((p) => p.image_url || p.video_url || p.content));
+}
 
 useEffect(() => {
-async function loadProfile() {
-setLoading(true);
-
-let query = supabase
-.from("posts")
-.select(
-"id,content,image_url,video_url,created_at,user_id,business_name,phone,whatsapp,website,location"
-)
-.order("created_at", { ascending: false })
-.limit(12);
-
-if (userId) {
-query = query.eq("user_id", userId);
-}
-
-let { data, error } = await query;
-
-// fallback so page still loads if old posts/user_id are wrong
-if (!error && (!data || data.length === 0)) {
-const fallback = await supabase
-.from("posts")
-.select(
-"id,content,image_url,video_url,created_at,user_id,business_name,phone,whatsapp,website,location"
-)
-.order("created_at", { ascending: false })
-.limit(12);
-
-data = fallback.data;
-error = fallback.error;
-}
-
-if (error) {
-console.error("PROFILE ERROR:", error.message);
-setPosts([]);
-setLoading(false);
-return;
-}
-
-setPosts((data || []) as Post[]);
-setLoading(false);
-}
-
-loadProfile();
-}, [userId]);
-
-const firstPost = posts[0];
-
-const businessName =
-firstPost?.business_name?.trim() || "Business Profile";
-
-const location =
-firstPost?.location?.trim() || "Location not added";
-
-const phoneHref = cleanPhone(firstPost?.phone || null)
-? `tel:${cleanPhone(firstPost?.phone || null)}`
-: "";
-
-const whatsappHref = cleanWhatsapp(firstPost?.whatsapp || null)
-? `https://wa.me/${cleanWhatsapp(firstPost?.whatsapp || null)}`
-: "";
-
-const websiteHref = cleanWebsite(firstPost?.website || null);
+loadPosts();
+}, []);
 
 return (
 <main style={page}>
-<button style={backBtn} onClick={() => router.push("/feed")}>
-← Back
+<button onClick={() => router.push("/feed")} style={backBtn}>← Back</button>
+
+<section style={heroCard}>
+<div style={avatar}>T</div>
+<h1 style={title}>Total Tyres 247</h1>
+<p style={sub}>📍 Liverpool</p>
+<p style={tagline}>Mobile tyre fitting • Emergency call-outs • 24/7</p>
+
+<div style={stats}>
+<Stat value={String(posts.length)} label="Posts" />
+<Stat value={following ? "1" : "0"} label="Followers" />
+<Stat value="0" label="Following" />
+</div>
+
+<button onClick={() => setFollowing(!following)} style={followBtn}>
+{following ? "Following ✓" : "Follow"}
 </button>
-
-<section style={profileCard}>
-<div style={avatar}>{businessName.charAt(0).toUpperCase()}</div>
-
-<h1 style={title}>{businessName}</h1>
-<div style={locationText}>📍 {location}</div>
-
-<div style={statsRow}>
-<div style={statBox}>
-<strong>{posts.length}</strong>
-<span>Posts</span>
-</div>
-
-<div style={statBox}>
-<strong>0</strong>
-<span>Followers</span>
-</div>
-
-<div style={statBox}>
-<strong>0</strong>
-<span>Following</span>
-</div>
-</div>
-
-<div style={buttonRow}>
-{phoneHref && (
-<a href={phoneHref} style={linkStyle}>
-<button style={darkBtn}>📞 Call</button>
-</a>
-)}
-
-{whatsappHref && (
-<a
-href={whatsappHref}
-target="_blank"
-rel="noreferrer"
-style={linkStyle}
->
-<button style={darkBtn}>💬 WhatsApp</button>
-</a>
-)}
-
-{websiteHref && (
-<a
-href={websiteHref}
-target="_blank"
-rel="noreferrer"
-style={linkStyle}
->
-<button style={darkBtn}>🌐 Website</button>
-</a>
-)}
-
-<button style={followBtn}>Follow</button>
-</div>
 </section>
 
-<h2 style={postsTitle}>Posts</h2>
+<section style={quickActions}>
+<button onClick={() => router.push("/feed")} style={actionBtn}>📺 View Feed</button>
+<a href="tel:07385182500" style={actionBtn}>📞 Call</a>
+<a href="https://wa.me/447385182500" style={actionBtn}>💬 WhatsApp</a>
+</section>
 
-{loading ? (
-<div style={emptyBox}>Loading posts...</div>
-) : posts.length === 0 ? (
-<div style={emptyBox}>No posts yet</div>
+<div style={postsHeader}>
+<h2 style={sectionTitle}>Posts</h2>
+<button onClick={() => router.push("/feed")} style={viewAll}>View all</button>
+</div>
+
+{posts.length === 0 ? (
+<div style={emptyCard}>
+<h3>No posts yet</h3>
+<p>Share an advert to the feed and it will show here.</p>
+</div>
 ) : (
 <section style={grid}>
 {posts.map((post) => (
-<article
-key={post.id}
-style={postCard}
-onClick={() => setFullscreenPost(post)}
->
+<button key={post.id} style={postCard} onClick={() => router.push("/feed")}>
 {post.video_url ? (
-<video
-src={post.video_url}
-muted
-autoPlay
-loop
-playsInline
-preload="auto"
-style={media}
-/>
+<video src={post.video_url} muted playsInline style={media} />
 ) : post.image_url ? (
-<img
-src={post.image_url}
-alt="Post"
-loading="lazy"
-style={media}
-/>
+<img src={post.image_url} style={media} />
 ) : (
-<div style={blankMedia}>No media</div>
+<div style={textOnly}>{post.content}</div>
 )}
 
-<div style={caption}>
-{post.content || post.location || "Business post"}
+<div style={postShade} />
+
+<div style={postBadge}>
+{post.video_url ? "▶ Video" : "🖼 Ad"}
 </div>
-</article>
+
+<div style={postOverlay}>
+<b>{post.business_name || "Total Tyres 247"}</b>
+<span>{post.location || "Liverpool"}</span>
+</div>
+</button>
 ))}
 </section>
-)}
-
-{fullscreenPost && (
-<div style={fullscreenOverlay} onClick={() => setFullscreenPost(null)}>
-{fullscreenPost.video_url ? (
-<video
-src={fullscreenPost.video_url}
-controls
-autoPlay
-playsInline
-style={fullscreenMedia}
-/>
-) : (
-<img
-src={fullscreenPost.image_url || ""}
-alt="Fullscreen"
-style={fullscreenMedia}
-/>
-)}
-</div>
 )}
 </main>
 );
 }
 
-const page: CSSProperties = {
+function Stat({ value, label }: { value: string; label: string }) {
+return (
+<div style={statCard}>
+<b style={statNumber}>{value}</b>
+<span style={statLabel}>{label}</span>
+</div>
+);
+}
+
+const page: React.CSSProperties = {
 minHeight: "100vh",
-background:
-"radial-gradient(circle at top, rgba(168,85,247,0.35) 0%, #080818 40%, #000000 100%)",
+padding: 26,
+paddingBottom: 130,
 color: "white",
 fontFamily: "Arial, sans-serif",
-padding: "22px 16px 60px",
+background: "radial-gradient(circle at top, #5b21b6 0%, #240b4a 38%, #05010f 100%)",
 };
 
-const backBtn: CSSProperties = {
-border: "1px solid rgba(255,255,255,0.18)",
-background: "rgba(255,255,255,0.12)",
-color: "white",
+const backBtn: React.CSSProperties = {
+marginTop: 18,
 padding: "12px 18px",
 borderRadius: 999,
-fontSize: 16,
+border: "1px solid rgba(255,255,255,0.15)",
+background: "rgba(255,255,255,0.08)",
+color: "white",
 fontWeight: 900,
-cursor: "pointer",
+fontSize: 16,
 };
 
-const profileCard: CSSProperties = {
-margin: "28px auto 30px",
-maxWidth: 760,
+const heroCard: React.CSSProperties = {
+marginTop: 32,
 borderRadius: 34,
 padding: 28,
-background:
-"linear-gradient(135deg, rgba(168,85,247,0.25), rgba(124,58,237,0.15))",
-border: "1px solid rgba(255,255,255,0.14)",
-boxShadow: "0 0 35px rgba(168,85,247,0.22)",
-backdropFilter: "blur(20px)",
+background: "linear-gradient(145deg, rgba(168,85,247,0.28), rgba(15,23,42,0.85))",
+border: "1px solid rgba(255,255,255,0.16)",
+boxShadow: "0 30px 90px rgba(168,85,247,0.25)",
 };
 
-const avatar: CSSProperties = {
-width: 92,
-height: 92,
-borderRadius: 28,
-background: "linear-gradient(135deg, #a855f7, #7c3aed)",
+const avatar: React.CSSProperties = {
+width: 110,
+height: 110,
+borderRadius: 30,
+background: "linear-gradient(135deg,#a855f7,#7c3aed)",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-fontSize: 44,
+fontSize: 58,
 fontWeight: 950,
-marginBottom: 24,
+boxShadow: "0 0 45px rgba(168,85,247,0.7)",
 };
 
-const title: CSSProperties = {
-fontSize: 40,
+const title: React.CSSProperties = {
+fontSize: 46,
+margin: "26px 0 8px",
 lineHeight: 1,
-margin: 0,
-fontWeight: 950,
 };
 
-const locationText: CSSProperties = {
-marginTop: 14,
-fontSize: 18,
+const sub: React.CSSProperties = {
+fontSize: 22,
 fontWeight: 800,
-opacity: 0.85,
+opacity: 0.9,
 };
 
-const statsRow: CSSProperties = {
-marginTop: 26,
+const tagline: React.CSSProperties = {
+fontSize: 16,
+opacity: 0.7,
+};
+
+const stats: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "repeat(3, 1fr)",
 gap: 12,
-};
-
-const statBox: CSSProperties = {
-background: "rgba(0,0,0,0.28)",
-border: "1px solid rgba(255,255,255,0.12)",
-borderRadius: 20,
-padding: 14,
-textAlign: "center",
-display: "flex",
-flexDirection: "column",
-gap: 6,
-fontWeight: 900,
-};
-
-const buttonRow: CSSProperties = {
-display: "flex",
-flexWrap: "wrap",
-gap: 10,
 marginTop: 24,
 };
 
-const darkBtn: CSSProperties = {
-border: "none",
-background: "rgba(0,0,0,0.48)",
-color: "white",
-padding: "11px 15px",
-borderRadius: 999,
-fontSize: 14,
-fontWeight: 900,
-cursor: "pointer",
-};
-
-const followBtn: CSSProperties = {
-border: "none",
-background: "linear-gradient(135deg, #a855f7, #7c3aed)",
-color: "white",
-padding: "12px 22px",
-borderRadius: 999,
-fontSize: 15,
-fontWeight: 950,
-cursor: "pointer",
-boxShadow: "0 10px 30px rgba(168,85,247,0.4)",
-};
-
-const linkStyle: CSSProperties = {
-textDecoration: "none",
-};
-
-const postsTitle: CSSProperties = {
-maxWidth: 760,
-margin: "0 auto 18px",
-fontSize: 30,
-fontWeight: 900,
-background: "linear-gradient(90deg, #fff, #a855f7)",
-WebkitBackgroundClip: "text",
-WebkitTextFillColor: "transparent",
-};
-
-const grid: CSSProperties = {
-maxWidth: 760,
-margin: "0 auto",
-display: "grid",
-gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-gap: 16,
-};
-
-const postCard: CSSProperties = {
-borderRadius: 24,
-overflow: "hidden",
-background: "#0f0f1f",
-border: "1px solid rgba(255,255,255,0.14)",
-boxShadow: "0 20px 60px rgba(168,85,247,0.25)",
-cursor: "pointer",
-};
-
-
-const media: CSSProperties = {
-width: "100%",
-height: 230,
-objectFit: "cover",
-display: "block",
-background: "#020617",
-};
-
-const blankMedia: CSSProperties = {
-height: 230,
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-fontWeight: 900,
+const statCard: React.CSSProperties = {
+padding: 16,
+borderRadius: 20,
+textAlign: "center",
 background: "rgba(0,0,0,0.3)",
+border: "1px solid rgba(255,255,255,0.12)",
 };
 
-const caption: CSSProperties = {
-padding: 14,
-fontWeight: 900,
-fontSize: 15,
+const statNumber: React.CSSProperties = { fontSize: 28 };
+
+const statLabel: React.CSSProperties = {
+display: "block",
+marginTop: 6,
+opacity: 0.85,
+fontWeight: 800,
 };
 
-const emptyBox: CSSProperties = {
-maxWidth: 760,
-margin: "40px auto",
-padding: 26,
-borderRadius: 24,
+const followBtn: React.CSSProperties = {
+marginTop: 28,
+padding: "16px 34px",
+borderRadius: 20,
+border: "none",
+background: "linear-gradient(90deg,#7c3aed,#c084fc)",
+color: "white",
+fontWeight: 950,
+fontSize: 18,
+boxShadow: "0 0 35px rgba(168,85,247,0.5)",
+};
+
+const quickActions: React.CSSProperties = {
+display: "grid",
+gridTemplateColumns: "repeat(3, 1fr)",
+gap: 12,
+marginTop: 20,
+};
+
+const actionBtn: React.CSSProperties = {
+padding: "14px 10px",
+borderRadius: 18,
 background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(255,255,255,0.14)",
+color: "white",
+textDecoration: "none",
+textAlign: "center",
 fontWeight: 900,
 };
 
-const fullscreenOverlay: CSSProperties = {
-position: "fixed",
-inset: 0,
-background: "black",
-zIndex: 9999,
+const postsHeader: React.CSSProperties = {
+marginTop: 34,
 display: "flex",
+justifyContent: "space-between",
 alignItems: "center",
-justifyContent: "center",
 };
 
-const fullscreenMedia: CSSProperties = {
+const sectionTitle: React.CSSProperties = {
+fontSize: 38,
+margin: 0,
+};
+
+const viewAll: React.CSSProperties = {
+border: "none",
+background: "rgba(255,255,255,0.1)",
+color: "white",
+borderRadius: 999,
+padding: "10px 16px",
+fontWeight: 900,
+};
+
+const emptyCard: React.CSSProperties = {
+marginTop: 18,
+padding: 24,
+borderRadius: 26,
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(255,255,255,0.1)",
+};
+
+const grid: React.CSSProperties = {
+marginTop: 18,
+display: "grid",
+gridTemplateColumns: "repeat(2, 1fr)",
+gap: 14,
+};
+
+const postCard: React.CSSProperties = {
+height: 245,
+borderRadius: 26,
+overflow: "hidden",
+position: "relative",
+background: "#020617",
+border: "1px solid rgba(255,255,255,0.12)",
+padding: 0,
+textAlign: "left",
+boxShadow: "0 18px 45px rgba(0,0,0,0.35)",
+};
+
+const media: React.CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "contain",
+objectFit: "cover",
+};
+
+const textOnly: React.CSSProperties = {
+height: "100%",
+padding: 18,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+color: "white",
+fontWeight: 900,
+background: "linear-gradient(145deg,#1e1b4b,#581c87)",
+};
+
+const postShade: React.CSSProperties = {
+position: "absolute",
+inset: 0,
+background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent 55%)",
+};
+
+const postBadge: React.CSSProperties = {
+position: "absolute",
+top: 12,
+right: 12,
+padding: "7px 10px",
+borderRadius: 999,
+background: "rgba(0,0,0,0.45)",
+color: "white",
+fontSize: 12,
+fontWeight: 900,
+backdropFilter: "blur(10px)",
+};
+
+const postOverlay: React.CSSProperties = {
+position: "absolute",
+left: 12,
+right: 12,
+bottom: 12,
+display: "flex",
+flexDirection: "column",
+gap: 4,
+color: "white",
+textShadow: "0 2px 10px black",
 };
