@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
@@ -20,13 +20,53 @@ const router = useRouter();
 const [prompt, setPrompt] = useState("");
 const [image, setImage] = useState<string | null>(null);
 const [loadingImage, setLoadingImage] = useState(false);
-
+const [isPro, setIsPro] = useState(false);
+const [user, setUser] = useState<any>(null);
+const [credits, setCredits] = useState(0);
 const [chatInput, setChatInput] = useState("");
 const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
 const [chatLoading, setChatLoading] = useState(false);
+useEffect(() => {
+const loadCredits = async () => {
+const { data } = await supabase.auth.getUser();
+const currentUser = data.user;
+
+if (!currentUser) {
+window.location.href = "/login";
+return;
+}
+setUser(currentUser);
+
+const { data: creditRow } = await supabase
+.from("user_credits")
+.select("*")
+.eq("user_id", currentUser.id)
+.single();
+
+if (!creditRow) {
+const { data: newCredits } = await supabase
+.from("user_credits")
+.insert({
+user_id: currentUser.id,
+email: currentUser.email,
+credits: 3,
+})
+.select()
+.single();
+
+setCredits(newCredits?.credits || 3);
+} else {
+setCredits(creditRow.credits || 0);
+}
+};
+
+loadCredits();
+}, []);
+
+
 async function upgradeUser() {
 const res = await fetch("/api/create-checkout", {
-method: "POST",
+method: "POST"
 });
 
 const data = await res.json();
@@ -34,10 +74,14 @@ const data = await res.json();
 if (data.url) {
 window.location.href = data.url;
 } else {
-alert("Checkout failed");
+alert(data.error || "Checkout failed");
 }
 }
 async function generateAd() {
+if (!isPro && credits <= 0) {
+alert("You’ve used your free AI credits. Upgrade to continue 🚀");
+return;
+} 
 if (!prompt.trim()) {
 alert("Enter what you want to advertise");
 return;
@@ -54,7 +98,28 @@ body: JSON.stringify({ prompt }),
 });
 
 const data = await res.json();
+const newCredits = Math.max(credits - 1, 0);
+setCredits(newCredits);
 
+const { data: authData } = await supabase.auth.getUser();
+const currentUser = authData.user;
+
+if (currentUser) {
+const { error } = await supabase
+.from("user_credits")
+.upsert(
+{
+user_id: currentUser.id,
+email: currentUser.email,
+credits: newCredits,
+},
+{ onConflict: "user_id" }
+);
+
+if (error) {
+alert("CREDIT SAVE FAILED: " + error.message);
+}
+}
 if (!res.ok) {
 alert(data.error || "Image failed");
 return;
@@ -197,44 +262,32 @@ Ad<span style={{ color: "#a855f7" }}>Forge</span>✦
 </h1>
 
 <div style={topRight}>
-<div style={credits}>
+<div style={creditBox}>
 <span style={coin}>S</span>
 <div>
-<b>2,450</b>
+<b>{isPro ? "∞" : credits}</b>
 <div style={small}>Credits</div>
 </div>
 </div>
 
-<button
-onClick={async () => {
-try {
-const res = await fetch("/api/create-checkout", {
-method: "POST",
-});
-
-const data = await res.json();
-
-if (data.url) {
-window.location.href = data.url;
-} else {
-alert("Stripe error");
-}
-} catch (err) {
-console.error(err);
-alert("Something went wrong");
-}
-}}
-style={upgrade}
->
-👑 Upgrade
+{isPro ? (
+<div style={upgrade}>✅ Pro Active</div>
+) : (
+<button onClick={upgradeUser} style={upgrade}>
+🚀 Upgrade – Unlimited Ads
 </button>
+)}
 </div>
 </header>
 
 <section style={heroCard}>
-<h2 style={heroTitle}>Create winning ads with AI ⚡</h2>
+<h2 style={heroTitle}>
+Create high-converting ads in seconds with AI 🚀
+</h2>
 <p style={heroSub}>Describe your product or business</p>
-
+<p style={{ opacity: 0.8, marginBottom: 10 }}>
+Free users get limited access. Upgrade to unlock unlimited AI ads.
+</p>
 <div style={promptBox}>
 <textarea
 value={prompt}
@@ -545,7 +598,7 @@ const logo: CSSProperties = { margin: 0, fontSize: 34, fontWeight: 950 };
 
 const topRight: CSSProperties = { display: "flex", gap: 10, alignItems: "center" };
 
-const credits: CSSProperties = {
+const creditBox: CSSProperties = {
 display: "flex",
 alignItems: "center",
 gap: 9,

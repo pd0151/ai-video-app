@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { NextResponse } from "next/server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -10,7 +10,7 @@ mode: "subscription",
 payment_method_types: ["card"],
 line_items: [
 {
-price: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID as string,
+price: "price_1TTFYHHEvcDZqpFQp2we5kj3",
 quantity: 1,
 },
 ],
@@ -20,6 +20,10 @@ cancel_url: "https://ai-video-app-live.vercel.app",
 
 return NextResponse.json({ url: session.url });
 } catch (err: any) {
-return NextResponse.json({ error: err.message }, { status: 500 });
+console.error(err);
+return NextResponse.json(
+{ error: err.message },
+{ status: 500 }
+);
 }
 }

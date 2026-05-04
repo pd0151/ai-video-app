@@ -26,6 +26,7 @@ setLoading(false);
 return;
 }
 
+try {
 if (mode === "signup") {
 const { error } = await supabase.auth.signUp({
 email: email.trim(),
@@ -38,19 +39,10 @@ setLoading(false);
 return;
 }
 
-const loginResult = await supabase.auth.signInWithPassword({
-email: email.trim(),
-password: password.trim(),
-});
-
-if (loginResult.error) {
-setMessage(loginResult.error.message);
+setMessage("Account created. Now log in.");
+setMode("login");
+setPassword("");
 setLoading(false);
-return;
-}
-
-setLoading(false);
-window.location.href = "/";
 return;
 }
 
@@ -65,15 +57,19 @@ setLoading(false);
 return;
 }
 
-setLoading(false);
 window.location.href = "/";
+} catch {
+setMessage("Something went wrong");
+setLoading(false);
+}
 }
 
 return (
 <main
 style={{
 minHeight: "100vh",
-background: "#07152f",
+background:
+"radial-gradient(circle at top, #1e3a8a 0%, #08142f 44%, #020617 100%)",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
@@ -85,27 +81,32 @@ onSubmit={handleSubmit}
 style={{
 width: "100%",
 maxWidth: 460,
-background: "#10224a",
+background: "rgba(16,34,74,0.92)",
 padding: 28,
 borderRadius: 24,
 display: "flex",
 flexDirection: "column",
 gap: 16,
 color: "white",
+border: "1px solid rgba(255,255,255,0.12)",
+boxShadow: "0 24px 80px rgba(0,0,0,0.45)",
 }}
 >
 <h1 style={{ margin: 0, fontSize: 44, fontWeight: 900 }}>
-AI App Login
+AdForge Login
 </h1>
 
-<p style={{ margin: 0, fontSize: 18 }}>
-Login or create an account to use your app
+<p style={{ margin: 0, fontSize: 18, opacity: 0.85 }}>
+Login or create an account to use the app
 </p>
 
 <div style={{ display: "flex", gap: 12 }}>
 <button
 type="button"
-onClick={() => setMode("login")}
+onClick={() => {
+setMode("login");
+setMessage("");
+}}
 style={{
 flex: 1,
 height: 54,
@@ -114,7 +115,7 @@ border: "none",
 fontSize: 22,
 fontWeight: 800,
 cursor: "pointer",
-background: mode === "login" ? "#1ea0ff" : "#5b6f96",
+background: mode === "login" ? "#7c3aed" : "#334155",
 color: "white",
 }}
 >
@@ -123,7 +124,10 @@ Login
 
 <button
 type="button"
-onClick={() => setMode("signup")}
+onClick={() => {
+setMode("signup");
+setMessage("");
+}}
 style={{
 flex: 1,
 height: 54,
@@ -132,7 +136,7 @@ border: "none",
 fontSize: 22,
 fontWeight: 800,
 cursor: "pointer",
-background: mode === "signup" ? "#1ea0ff" : "#5b6f96",
+background: mode === "signup" ? "#7c3aed" : "#334155",
 color: "white",
 }}
 >
@@ -181,7 +185,7 @@ style={{
 height: 58,
 borderRadius: 16,
 border: "none",
-background: "#1ea0ff",
+background: "linear-gradient(135deg, #7c3aed, #a855f7)",
 color: "white",
 fontSize: 22,
 fontWeight: 900,
@@ -197,9 +201,7 @@ opacity: loading ? 0.7 : 1,
 </button>
 
 {!!message && (
-<div style={{ fontSize: 18, fontWeight: 700 }}>
-{message}
-</div>
+<div style={{ fontSize: 18, fontWeight: 700 }}>{message}</div>
 )}
 </form>
 </main>

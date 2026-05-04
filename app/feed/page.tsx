@@ -380,9 +380,9 @@ fontSize: 13,
 };
 
 const caption: React.CSSProperties = {
-fontSize: 15,
-lineHeight: 1.35,
-maxWidth: 280,
+fontSize: 11,
+lineHeight: 1.15,
+maxWidth: 210,
 };
 
 const bookBtn: React.CSSProperties = {

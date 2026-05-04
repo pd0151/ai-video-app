@@ -28,8 +28,9 @@ color: "white",
 <div style={{ minHeight: "100vh", paddingBottom: 90 }}>
 {children}
 
-{/* 🔥 FULL NAV */}
+{pathname !== "/login" && (
 <nav
+
 style={{
 position: "fixed",
 bottom: 0,
@@ -73,6 +74,7 @@ style={isActive("/ai-receptionist") ? active : item}
 <span>Profile</span>
 </a>
 </nav>
+)}
 </div>
 </body>
 </html>
