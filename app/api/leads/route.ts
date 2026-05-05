@@ -10,16 +10,19 @@ const client = twilio(
 process.env.TWILIO_SID,
 process.env.TWILIO_AUTH
 );
-
 try {
 const res = await client.messages.create({
 body: `🚨 NEW TYRE JOB
 
-📞 ${body.caller}
+📞 Customer:
+${body.caller}
 
-📝 ${body.message}`,
+📝 Job Details:
+${body.message}
+
+⚡ Respond ASAP`,
 from: process.env.TWILIO_FROM,
-to: "+447385182500" // 👈 your number here
+to: "+447385182500",
 });
 
 console.log("SMS SENT:", res.sid);
