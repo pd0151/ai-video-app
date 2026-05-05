@@ -57,6 +57,7 @@ setLoading(false);
 return;
 }
 
+localStorage.setItem("user", email.trim());
 window.location.href = "/";
 } catch {
 setMessage("Something went wrong");
