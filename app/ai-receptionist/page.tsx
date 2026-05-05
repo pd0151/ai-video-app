@@ -42,19 +42,10 @@ return;
 setLeads(data || []);
 }
 async function checkSubscription() {
-const { data: { user } } = await supabase.auth.getUser();
+const res = await fetch("/api/business-status");
+const data = await res.json();
 
-if (!user) return;
-
-const { data } = await supabase
-.from("businesses")
-.select("is_paid")
-.eq("id", user.id)
-.single();
-
-if (data?.is_paid) {
-setIsPaid(true);
-}
+setIsPaid(data.isPaid === true);
 }
 
 async function testLead() {
