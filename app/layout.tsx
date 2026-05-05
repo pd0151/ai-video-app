@@ -124,7 +124,7 @@ style={isActive("/ai-receptionist") ? active : item}
 <span>AI</span>
 </a>
 
-<a href="/profile" style={isActive("/profile") ? active : item}>
+<a href="/profile/me" style={isActive("/profile") ? active : item}>
 👤
 <span>Profile</span>
 </a>
