@@ -320,8 +320,10 @@ overflow: "hidden",
 const media: React.CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "contain",
+objectFit: "cover",
 background: "#000",
+position: "absolute",
+inset: 0,
 };
 
 const overlay: React.CSSProperties = {
@@ -380,9 +382,9 @@ fontSize: 13,
 };
 
 const caption: React.CSSProperties = {
-fontSize: 11,
-lineHeight: 1.15,
-maxWidth: 210,
+fontSize: 15,
+lineHeight: 1.35,
+maxWidth: 280,
 };
 
 const bookBtn: React.CSSProperties = {
@@ -439,16 +441,12 @@ inset: 0,
 zIndex: 99999,
 background: "rgba(0,0,0,0.55)",
 display: "flex",
-alignItems: "block",
+alignItems: "flex-end",
 };
 
 const commentBox: React.CSSProperties = {
 width: "100%",
-height: "60vh",
-bottom: 0,
-left: 0,
-right: 0,
-position: "fixed", // IMPORTANT
+height: "58vh",
 display: "flex",
 flexDirection: "column",
 borderTopLeftRadius: 28,
@@ -474,7 +472,7 @@ const commentList: React.CSSProperties = {
 flex: 1,
 overflowY: "auto",
 marginTop: 14,
-paddingBottom: 120, // space for input
+paddingBottom: 100,
 };
 
 const commentCard: React.CSSProperties = {
@@ -485,12 +483,11 @@ marginBottom: 10,
 };
 
 const commentInputRow: React.CSSProperties = {
-position: "absolute",
-left: 16,
-right: 16,
-bottom: 16,
 display: "flex",
 gap: 10,
+marginTop: "auto",
+paddingTop: 10,
+background: "#111827",
 };
 
 
