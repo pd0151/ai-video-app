@@ -1,7 +1,8 @@
 "use client";
 
-import "./globals.css";
-import { usePathname } from "next/navigation";
+//import "./globals.css";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function RootLayout({
 children,
@@ -9,11 +10,47 @@ children,
 children: React.ReactNode;
 }) {
 const pathname = usePathname();
+const router = useRouter();
+const [ready, setReady] = useState(false);
+
+const openPages = ["/login", "/signup", "/ai-receptionist-signup"];
+
+useEffect(() => {
+const user = localStorage.getItem("user");
+
+if (!user && !openPages.includes(pathname)) {
+router.push("/login");
+}
+
+setReady(true);
+}, [pathname, router]);
 
 const isActive = (path: string) => {
 if (path === "/") return pathname === "/";
 return pathname.startsWith(path);
 };
+
+function logout() {
+localStorage.removeItem("user");
+router.push("/login");
+}
+
+const showNav = !openPages.includes(pathname);
+
+if (!ready) {
+return (
+<html lang="en">
+<body
+style={{
+margin: 0,
+background:
+"radial-gradient(circle at top, #1e3a8a 0%, #08142f 40%, #020617 100%)",
+color: "white",
+}}
+/>
+</html>
+);
+}
 
 return (
 <html lang="en">
@@ -25,12 +62,31 @@ background:
 color: "white",
 }}
 >
-<div style={{ minHeight: "100vh", paddingBottom: 90 }}>
+<div style={{ minHeight: "100vh", paddingBottom: showNav ? 90 : 0 }}>
+{showNav && (
+<button
+onClick={logout}
+style={{
+position: "fixed",
+top: 15,
+right: 15,
+zIndex: 9999,
+padding: "9px 13px",
+borderRadius: 14,
+border: "1px solid rgba(255,255,255,0.15)",
+background: "rgba(0,0,0,0.45)",
+color: "white",
+fontWeight: 800,
+}}
+>
+Logout
+</button>
+)}
+
 {children}
 
-{pathname !== "/login" && (
+{showNav && (
 <nav
-
 style={{
 position: "fixed",
 bottom: 0,
@@ -56,7 +112,6 @@ zIndex: 999,
 <span>Feed</span>
 </a>
 
-{/* CENTER BUTTON */}
 <a href="/" style={plus}>
 +
 </a>
