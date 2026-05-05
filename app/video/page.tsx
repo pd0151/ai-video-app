@@ -155,12 +155,25 @@ Important:
 - cinematic, premium, realistic
 `;
 
+const {
+data: { user },
+} = await supabase.auth.getUser();
+
+if (!user) {
+alert("Login required");
+setLoading(false);
+return;
+}
+
 const res = await fetch("/api/generate-video", {
 method: "POST",
 headers: {
 "Content-Type": "application/json",
 },
-body: JSON.stringify({ prompt: betterPrompt }),
+body: JSON.stringify({
+prompt: betterPrompt,
+user_id: user.id,
+}),
 });
 
 const data = await res.json();
