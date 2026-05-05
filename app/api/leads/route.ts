@@ -27,6 +27,7 @@ const { data, error } = await supabase
 phone: body.caller,
 job: body.message,
 location: "Liverpool",
+business_id: "b2c4a284-8aab-4687-9f77-4547a3dfe53b"
 },
 ]);
 
