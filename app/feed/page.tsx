@@ -321,6 +321,8 @@ const media: React.CSSProperties = {
 width: "100%",
 height: "100%",
 objectFit: "cover",
+objectPosition: "center",
+transform: "scale(0.9)", 
 background: "#000",
 position: "absolute",
 inset: 0,
