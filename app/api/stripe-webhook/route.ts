@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 
-export const runtime = "nodejs";
-
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 const supabase = createClient(
@@ -15,38 +13,36 @@ export async function POST(req: Request) {
 const body = await req.text();
 const sig = req.headers.get("stripe-signature");
 
-let event;
+if (!sig) {
+return NextResponse.json({ error: "Missing Stripe signature" }, { status: 400 });
+}
+
+let event: Stripe.Event;
 
 try {
 event = stripe.webhooks.constructEvent(
 body,
-sig as string,
+sig,
 process.env.STRIPE_WEBHOOK_SECRET as string
 );
-} catch (err: any) {
-return NextResponse.json({ error: err.message }, { status: 400 });
+} catch (err) {
+console.error("STRIPE WEBHOOK ERROR:", err);
+return NextResponse.json({ error: "Webhook error" }, { status: 400 });
 }
 
 if (event.type === "checkout.session.completed") {
-const session = event.data.object as any;
+const session = event.data.object as Stripe.Checkout.Session;
+const businessId = session.metadata?.business_id;
 
-const email = session.customer_details?.email;
+if (businessId) {
+await supabase
+.from("businesses")
+.update({ is_paid: true })
+.eq("id", businessId);
 
-if (email) {
-const { error } = await supabase
-.from("paid_users")
-.upsert({
-email: email,
-status: "paidS",
-});
-
-if (error) {
-console.error("SUPABASE PAID USER ERROR:", error.message);
-return NextResponse.json({ error: error.message }, { status: 500 });
+console.log("BUSINESS UNLOCKED:", businessId);
 }
 }
-}
-
 
 return NextResponse.json({ received: true });
 }
