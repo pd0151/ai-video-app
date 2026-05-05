@@ -1,8 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
+
+const BUSINESS_ID = "b2c4a284-8aab-4687-9f77-4547a3dfe53b";
+
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL as string,
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
@@ -14,18 +17,27 @@ phone: string | null;
 job: string | null;
 location: string | null;
 created_at: string | null;
+status: string | null;
+business_id?: string | null;
 };
 
 export default function AIReceptionistPage() {
-const router = useRouter(); //     
+const router = useRouter();
 const [leads, setLeads] = useState<Lead[]>([]);
 const [loading, setLoading] = useState(false);
 
 async function loadLeads() {
-const { data } = await supabase
+const { data, error } = await supabase
 .from("leads")
 .select("*")
+.eq("business_id", BUSINESS_ID)
 .order("created_at", { ascending: false });
+
+if (error) {
+console.error("LOAD LEADS ERROR:", error);
+setLeads([]);
+return;
+}
 
 setLeads(data || []);
 }
@@ -33,19 +45,32 @@ setLeads(data || []);
 async function testLead() {
 setLoading(true);
 
-await fetch("/api/ai-receptionist", {
+await fetch("/api/leads", {
 method: "POST",
 headers: {
-"Content-Type": "application/x-www-form-urlencoded",
+"Content-Type": "application/json",
 },
-body: new URLSearchParams({
-From: "+447123456789",
-SpeechResult: "I need a tyre in Liverpool ASAP",
+body: JSON.stringify({
+caller: "+447123456789",
+message:
+"Customer needs a new tyre fitted. Tyre size: 215/45/17. Vehicle: BMW. Phone number: 07385182500. Postcode: L97JX.",
 }),
 });
 
 await loadLeads();
 setLoading(false);
+}
+
+async function updateStatus(id: string, status: string) {
+const { error } = await supabase.from("leads").update({ status }).eq("id", id);
+
+if (error) {
+alert("Could not update status");
+console.error(error);
+return;
+}
+
+await loadLeads();
 }
 
 async function upgrade() {
@@ -60,26 +85,20 @@ useEffect(() => {
 loadLeads();
 }, []);
 
+const stats = useMemo(() => {
+return {
+calls: leads.length,
+captured: leads.length,
+newJobs: leads.filter((l) => !l.status || l.status === "new").length,
+};
+}, [leads]);
+
 return (
 <main style={page}>
-<button
-onClick={() => router.push("/")}
-style={{
-position: "absolute",
-top: 20,
-left: 20,
-zIndex: 10,
-background: "rgba(0,0,0,0.4)",
-backdropFilter: "blur(12px)",
-border: "1px solid rgba(255,255,255,0.2)",
-padding: "8px 14px",
-borderRadius: 10,
-color: "white",
-fontWeight: 600,
-}}
->
+<button onClick={() => router.push("/")} style={backBtn}>
 ←
-</button>    
+</button>
+
 <section style={hero}>
 <div style={badge}>LIVE AI CALL SYSTEM</div>
 
@@ -102,9 +121,9 @@ straight to your dashboard.
 </section>
 
 <section style={statsRow}>
-<Stat value="27" label="Calls handled" />
-<Stat value={String(leads.length)} label="Leads captured" />
-<Stat value="12" label="Missed calls saved" />
+<Stat value={String(stats.calls)} label="Calls handled" />
+<Stat value={String(stats.captured)} label="Leads captured" />
+<Stat value={String(stats.newJobs)} label="New jobs" />
 </section>
 
 <section style={panel}>
@@ -115,6 +134,7 @@ straight to your dashboard.
 ) : (
 leads.map((lead) => {
 const whatsapp = lead.phone?.replace("+", "");
+const status = lead.status || "new";
 
 return (
 <div key={lead.id} style={leadCard}>
@@ -124,12 +144,21 @@ return (
 <h3 style={phone}>{lead.phone || "Unknown"}</h3>
 </div>
 
-<span style={hotBadge}>NEW JOB</span>
+<span style={hotBadge}>{status.toUpperCase()}</span>
 </div>
 
 <div style={infoBox}>
-<p><b>🛞 Job:</b> {lead.job || "No details"}</p>
-<p><b>📍 Location:</b> {lead.location || "Unknown"}</p>
+<p>
+<b>🛞 Job:</b> {lead.job || "No details"}
+</p>
+<p>
+<b>📍 Location:</b> {lead.location || "Unknown"}
+</p>
+<p style={{ opacity: 0.6, fontSize: 13 }}>
+{lead.created_at
+? new Date(lead.created_at).toLocaleString("en-GB")
+: ""}
+</p>
 </div>
 
 <div style={leadButtons}>
@@ -148,6 +177,21 @@ style={waBtn}
 💬 WhatsApp
 </a>
 )}
+</div>
+
+<div style={statusRow}>
+<button onClick={() => updateStatus(lead.id, "new")} style={miniBtn}>
+New
+</button>
+<button onClick={() => updateStatus(lead.id, "contacted")} style={miniBtn}>
+Contacted
+</button>
+<button onClick={() => updateStatus(lead.id, "booked")} style={miniBtn}>
+Booked
+</button>
+<button onClick={() => updateStatus(lead.id, "done")} style={miniBtn}>
+Done
+</button>
 </div>
 </div>
 );
@@ -171,12 +215,26 @@ const page: React.CSSProperties = {
 position: "relative",
 minHeight: "100vh",
 padding: 22,
-paddingBottom: 80,
-paddingTop:70,
+paddingBottom: 100,
+paddingTop: 70,
 background:
 "radial-gradient(circle at top, #4c1d95 0%, #16072f 35%, #020617 100%)",
 color: "white",
 fontFamily: "Arial, sans-serif",
+};
+
+const backBtn: React.CSSProperties = {
+position: "absolute",
+top: 20,
+left: 20,
+zIndex: 10,
+background: "rgba(0,0,0,0.4)",
+backdropFilter: "blur(12px)",
+border: "1px solid rgba(255,255,255,0.2)",
+padding: "8px 14px",
+borderRadius: 10,
+color: "white",
+fontWeight: 600,
 };
 
 const hero: React.CSSProperties = {
@@ -357,4 +415,21 @@ color: "black",
 textDecoration: "none",
 textAlign: "center",
 fontWeight: 900,
+};
+
+const statusRow: React.CSSProperties = {
+display: "grid",
+gridTemplateColumns: "repeat(4, 1fr)",
+gap: 8,
+marginTop: 12,
+};
+
+const miniBtn: React.CSSProperties = {
+padding: "8px 6px",
+borderRadius: 12,
+border: "1px solid rgba(255,255,255,0.16)",
+background: "rgba(255,255,255,0.08)",
+color: "white",
+fontWeight: 800,
+fontSize: 12,
 };
