@@ -14,6 +14,9 @@ price: "price_1TTFYHHEvcDZqpFQp2we5kj3",
 quantity: 1,
 },
 ],
+metadata: {
+business_id: "b2c4a284-8aab-4687-9f77-4547a3dfe53b",
+},
 success_url: "https://ai-video-app-live.vercel.app",
 cancel_url: "https://ai-video-app-live.vercel.app",
 });
