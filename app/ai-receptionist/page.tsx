@@ -26,6 +26,7 @@ const router = useRouter();
 const [leads, setLeads] = useState<Lead[]>([]);
 const [loading, setLoading] = useState(false);
 const [isPaid, setIsPaid] = useState(false);
+
 async function loadLeads() {
 const { data, error } = await supabase
 .from("leads")
@@ -41,14 +42,24 @@ return;
 
 setLeads(data || []);
 }
+
 async function checkSubscription() {
+try {
 const res = await fetch("/api/business-status");
 const data = await res.json();
-
 setIsPaid(data.isPaid === true);
+} catch (err) {
+console.error("SUBSCRIPTION CHECK ERROR:", err);
+setIsPaid(false);
+}
 }
 
 async function testLead() {
+if (!isPaid) {
+alert("Upgrade required to use AI receptionist leads.");
+return;
+}
+
 setLoading(true);
 
 await fetch("/api/leads", {
@@ -68,6 +79,11 @@ setLoading(false);
 }
 
 async function updateStatus(id: string, status: string) {
+if (!isPaid) {
+alert("Upgrade required to manage AI receptionist leads.");
+return;
+}
+
 const { error } = await supabase.from("leads").update({ status }).eq("id", id);
 
 if (error) {
@@ -94,11 +110,13 @@ checkSubscription();
 
 const stats = useMemo(() => {
 return {
-calls: leads.length,
-captured: leads.length,
-newJobs: leads.filter((l) => !l.status || l.status === "new").length,
+calls: isPaid ? leads.length : 0,
+captured: isPaid ? leads.length : 0,
+newJobs: isPaid
+? leads.filter((l) => !l.status || l.status === "new").length
+: 0,
 };
-}, [leads]);
+}, [leads, isPaid]);
 
 return (
 <main style={page}>
@@ -135,6 +153,7 @@ straight to your dashboard.
 
 <section style={panel}>
 <h2 style={panelTitle}>📋 Live Leads</h2>
+
 {!isPaid && (
 <div style={lockBox}>
 <h3>🔒 Upgrade required</h3>
@@ -144,6 +163,7 @@ straight to your dashboard.
 </button>
 </div>
 )}
+
 {isPaid && leads.length === 0 ? (
 <p style={empty}>No leads yet. Press Test Lead.</p>
 ) : isPaid ? (
@@ -198,10 +218,16 @@ style={waBtn}
 <button onClick={() => updateStatus(lead.id, "new")} style={miniBtn}>
 New
 </button>
-<button onClick={() => updateStatus(lead.id, "contacted")} style={miniBtn}>
+<button
+onClick={() => updateStatus(lead.id, "contacted")}
+style={miniBtn}
+>
 Contacted
 </button>
-<button onClick={() => updateStatus(lead.id, "booked")} style={miniBtn}>
+<button
+onClick={() => updateStatus(lead.id, "booked")}
+style={miniBtn}
+>
 Booked
 </button>
 <button onClick={() => updateStatus(lead.id, "done")} style={miniBtn}>
@@ -431,6 +457,7 @@ textDecoration: "none",
 textAlign: "center",
 fontWeight: 900,
 };
+
 const lockBox: React.CSSProperties = {
 background: "rgba(0,0,0,0.35)",
 border: "1px solid rgba(255,255,255,0.16)",
@@ -439,6 +466,7 @@ padding: 18,
 marginBottom: 16,
 textAlign: "center",
 };
+
 const statusRow: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "repeat(4, 1fr)",
