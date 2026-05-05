@@ -8,6 +8,11 @@ process.env.NEXT_PUBLIC_SUPABASE_URL as string,
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 );
 
+type Business = {
+name: string | null;
+location: string | null;
+};
+
 export default function VideoPage() {
 const [prompt, setPrompt] = useState("");
 const [videoUrl, setVideoUrl] = useState<string | null>(null);
@@ -15,6 +20,7 @@ const [status, setStatus] = useState("");
 const [loading, setLoading] = useState(false);
 const [sharing, setSharing] = useState(false);
 const [error, setError] = useState("");
+const [business, setBusiness] = useState<Business | null>(null);
 
 const pollRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -23,6 +29,59 @@ if (pollRef.current) {
 clearInterval(pollRef.current);
 pollRef.current = null;
 }
+}
+
+async function loadBusiness() {
+const email = localStorage.getItem("user");
+
+if (!email) return;
+
+const { data } = await supabase
+.from("businesses")
+.select("name, location")
+.eq("email", email)
+.single();
+
+if (data) setBusiness(data);
+}
+
+async function useOneCredit() {
+const {
+data: { user },
+} = await supabase.auth.getUser();
+
+if (!user?.id) {
+alert("Please log in first");
+return false;
+}
+
+const { data, error } = await supabase
+.from("user_credits")
+.select("credits")
+.eq("user_id", user.id)
+.single();
+
+if (error || !data) {
+alert("No credits found. Please upgrade.");
+return false;
+}
+
+if (data.credits <= 0) {
+alert("You have no credits left. Upgrade to create more videos.");
+return false;
+}
+
+const { error: updateError } = await supabase
+.from("user_credits")
+.update({ credits: data.credits - 1 })
+.eq("user_id", user.id);
+
+if (updateError) {
+alert("Could not use credit.");
+return false;
+}
+
+return true;
 }
 
 async function checkStatus(id: string) {
@@ -44,31 +103,55 @@ stopPolling();
 }
 }
 
-async function generateVideo() {
+async function startVideo(type: "normal" | "animate") {
 if (!prompt.trim()) {
 alert("Enter something");
 return;
 }
+
+const creditOk = await useOneCredit();
+
+if (!creditOk) return;
 
 setLoading(true);
 setVideoUrl(null);
 setError("");
 setStatus("starting");
 
-const betterPrompt = `
+const businessName = business?.name || "Your business";
+const businessLocation = business?.location || "your local area";
+
+const betterPrompt =
+type === "animate"
+? `
+Create a realistic video based on an existing image.
+
+Business: ${businessName}
+Location: ${businessLocation}
+Scene: ${prompt}
+
+Instructions:
+- realistic motion
+- smooth camera movement
+- UK business advert
+- NO text generation
+- NO distorted logos
+- keep original image structure
+- cinematic and professional
+`
+: `
 Create a realistic premium advert video.
 
-Business: Total Tyres 247
-Service: 24 hour mobile tyre fitting
+Business: ${businessName}
+Location: ${businessLocation}
 Scene: ${prompt}
 
 Important:
-- show a mobile tyre fitting van
 - make it look like a real UK business advert
 - realistic lighting
 - professional camera movement
 - no strange text
-- no misspelled words on vehicles
+- no misspelled words
 - cinematic, premium, realistic
 `;
 
@@ -118,8 +201,8 @@ user_id: user.id,
 video_url: videoUrl,
 image_url: null,
 content: prompt,
-business_name: "Total Tyres 247",
-location: "Liverpool",
+business_name: business?.name || "Your business",
+location: business?.location || "",
 });
 
 setSharing(false);
@@ -131,59 +214,9 @@ return;
 
 alert("Posted to feed ✅");
 }
-async function animateFromImage() {
-if (!prompt.trim()) {
-alert("Enter something");
-return;
-}
 
-setLoading(true);
-setVideoUrl(null);
-setError("");
-setStatus("starting");
-
-const betterPrompt = `
-Create a realistic video based on an existing image.
-
-Scene:
-${prompt}
-
-Instructions:
-- realistic motion
-- smooth camera movement
-- UK mobile tyre fitting advert
-- NO text generation
-- NO distorted logos
-- keep original image structure
-- cinematic and professional
-`;
-
-const res = await fetch("/api/generate-video", {
-method: "POST",
-headers: {
-"Content-Type": "application/json",
-},
-body: JSON.stringify({ prompt: betterPrompt }),
-});
-
-const data = await res.json();
-
-if (!res.ok) {
-setError(data.error || "Failed to start video");
-setLoading(false);
-return;
-}
-
-const id = data.id;
-setStatus(data.status || "processing");
-
-await checkStatus(id);
-
-pollRef.current = setInterval(() => {
-checkStatus(id);
-}, 4000);
-}
 useEffect(() => {
+loadBusiness();
 return () => stopPolling();
 }, []);
 
@@ -199,10 +232,12 @@ onChange={(e) => setPrompt(e.target.value)}
 placeholder="Describe your video advert..."
 style={textarea}
 />
-<button onClick={animateFromImage} style={button}>
+
+<button onClick={() => startVideo("animate")} style={button}>
 Animate Image → Video
 </button>
-<button onClick={generateVideo} style={button}>
+
+<button onClick={() => startVideo("normal")} style={button}>
 {loading ? "Generating..." : "Generate Video"}
 </button>
 
@@ -212,45 +247,7 @@ Animate Image → Video
 {videoUrl && (
 <>
 <video src={videoUrl} controls autoPlay playsInline style={video} />
-{videoUrl && (
-<button
-onClick={async () => {
-const { data } = await supabase.auth.getUser();
-const user = data.user;
 
-if (!user) {
-alert("Login first");
-return;
-}
-
-const { error } = await supabase.from("posts").insert({
-user_id: user.id,
-video_url: videoUrl,
-image_url: null,
-content: prompt,
-business_name: "Total Tyres 247",
-location: "Liverpool",
-});
-
-if (error) {
-alert("Failed to post video");
-} else {
-alert("Video posted 🚀");
-}
-}}
-style={{
-marginTop: 20,
-padding: "12px 20px",
-borderRadius: 12,
-border: "none",
-background: "#8b5cf6",
-color: "white",
-fontWeight: 700,
-}}
->
-Post Video to Feed
-</button>
-)}
 <button
 onClick={shareToFeed}
 style={{
@@ -338,20 +335,8 @@ fontSize: 16,
 fontWeight: 950,
 cursor: "pointer",
 boxShadow: "0 10px 30px rgba(168,85,247,0.4)",
-};
-
-const shareButton: React.CSSProperties = {
-border: "none",
-background: "linear-gradient(135deg, #a855f7, #7c3aed)",
-color: "white",
-padding: "16px 24px",
-borderRadius: 999,
-fontSize: 18,
-fontWeight: 950,
-cursor: "pointer",
-boxShadow: "0 10px 35px rgba(168,85,247,0.45)",
-width: "100%",
-marginTop: 18,
+marginRight: 10,
+marginBottom: 10,
 };
 
 const statusText: React.CSSProperties = {
