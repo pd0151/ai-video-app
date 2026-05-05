@@ -16,6 +16,17 @@ process.env.TWILIO_SID,
 process.env.TWILIO_AUTH
 );
 try {
+const { data, error } = await supabase
+.from("leads")
+.insert([
+{
+phone: body.caller,
+job: body.message,
+location: "Liverpool",
+},
+]);
+
+console.log("SUPABASE:", data, error);    
 const res = await client.messages.create({
 body: `🚨 NEW TYRE JOB
 
