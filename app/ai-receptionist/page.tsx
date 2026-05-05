@@ -25,7 +25,7 @@ export default function AIReceptionistPage() {
 const router = useRouter();
 const [leads, setLeads] = useState<Lead[]>([]);
 const [loading, setLoading] = useState(false);
-
+const [isPaid, setIsPaid] = useState(false);
 async function loadLeads() {
 const { data, error } = await supabase
 .from("leads")
@@ -40,6 +40,21 @@ return;
 }
 
 setLeads(data || []);
+}
+async function checkSubscription() {
+const { data: { user } } = await supabase.auth.getUser();
+
+if (!user) return;
+
+const { data } = await supabase
+.from("businesses")
+.select("is_paid")
+.eq("id", user.id)
+.single();
+
+if (data?.is_paid) {
+setIsPaid(true);
+}
 }
 
 async function testLead() {
@@ -83,6 +98,7 @@ else alert("Checkout failed");
 
 useEffect(() => {
 loadLeads();
+checkSubscription();
 }, []);
 
 const stats = useMemo(() => {
@@ -128,10 +144,18 @@ straight to your dashboard.
 
 <section style={panel}>
 <h2 style={panelTitle}>📋 Live Leads</h2>
-
-{leads.length === 0 ? (
+{!isPaid && (
+<div style={lockBox}>
+<h3>🔒 Upgrade required</h3>
+<p>Subscribe to unlock live AI receptionist leads.</p>
+<button onClick={upgrade} style={purpleBtn}>
+🚀 Upgrade Now
+</button>
+</div>
+)}
+{isPaid && leads.length === 0 ? (
 <p style={empty}>No leads yet. Press Test Lead.</p>
-) : (
+) : isPaid ? (
 leads.map((lead) => {
 const whatsapp = lead.phone?.replace("+", "");
 const status = lead.status || "new";
@@ -196,7 +220,7 @@ Done
 </div>
 );
 })
-)}
+) : null}
 </section>
 </main>
 );
@@ -215,7 +239,7 @@ const page: React.CSSProperties = {
 position: "relative",
 minHeight: "100vh",
 padding: 22,
-paddingBottom: 100,
+paddingBottom: 160,
 paddingTop: 70,
 background:
 "radial-gradient(circle at top, #4c1d95 0%, #16072f 35%, #020617 100%)",
@@ -416,7 +440,14 @@ textDecoration: "none",
 textAlign: "center",
 fontWeight: 900,
 };
-
+const lockBox: React.CSSProperties = {
+background: "rgba(0,0,0,0.35)",
+border: "1px solid rgba(255,255,255,0.16)",
+borderRadius: 18,
+padding: 18,
+marginBottom: 16,
+textAlign: "center",
+};
 const statusRow: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "repeat(4, 1fr)",
