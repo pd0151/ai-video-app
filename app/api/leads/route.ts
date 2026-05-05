@@ -56,7 +56,13 @@ body: `Hi, we’ve received your tyre request and will call you shortly.`,
 from: process.env.TWILIO_FROM,
 to: body.caller,
 });
+await client.calls.create({
+url: "http://demo.twilio.com/docs/voice.xml",
+to: "+447385182500", // YOUR number
+from: process.env.TWILIO_FROM,
+});
 
+console.log("CALL TRIGGERED");
 } catch (err) {
 console.error("ERROR:", err);
 }
