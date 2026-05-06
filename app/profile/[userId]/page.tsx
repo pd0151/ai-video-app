@@ -30,12 +30,12 @@ const { data } = await supabase
 
 setBusiness(data);
 
-if (!data?.name) return;
+if (!data?.business_name) return;
 
 const { data: postsData } = await supabase
 .from("posts")
 .select("*")
-.eq("business_name", data.name)
+.eq("business_name", data.business_name)
 .order("created_at", { ascending: false });
 
 setPosts(postsData || []);
@@ -58,7 +58,9 @@ return (
 
 <div style={avatar}>🏢</div>
 
-<h1 style={title}>{business.name || "Business Profile"}</h1>
+<h1 style={title}>
+{business.business_name || "Business Profile"}
+</h1>
 
 <div style={infoGrid}>
 <div style={infoCard}>📍 {business.location || "No location"}</div>
