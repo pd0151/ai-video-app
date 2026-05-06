@@ -1,23 +1,31 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-const BUSINESS_ID = "b2c4a284-8aab-4687-9f77-4547a3dfe53b";
-
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL as string,
 process.env.SUPABASE_SERVICE_ROLE_KEY as string
 );
 
-export async function GET() {
-const { data, error } = await supabase
-.from("businesses")
-.select("is_paid")
-.eq("id", BUSINESS_ID)
-.single();
+export async function GET(req: Request) {
+const { searchParams } = new URL(req.url);
+const email = searchParams.get("email");
 
-if (error) {
-return NextResponse.json({ isPaid: false, error: error.message });
+if (!email) {
+return NextResponse.json({ isPaid: false, error: "Missing email" });
 }
 
-return NextResponse.json({ isPaid: data?.is_paid === true });
+const { data, error } = await supabase
+.from("businesses")
+.select("id, name, email, phone, twilio_number, location, is_paid")
+.eq("email", email)
+.single();
+
+if (error || !data) {
+return NextResponse.json({ isPaid: false, error: "Business not found" });
+}
+
+return NextResponse.json({
+isPaid: data.is_paid === true,
+business: data,
+});
 }
