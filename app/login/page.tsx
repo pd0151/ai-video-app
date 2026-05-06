@@ -10,8 +10,16 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 
 export default function LoginPage() {
 const [mode, setMode] = useState<"login" | "signup">("login");
+
+const [businessName, setBusinessName] = useState("");
+const [location, setLocation] = useState("");
+const [phone, setPhone] = useState("");
+const [whatsapp, setWhatsapp] = useState("");
+const [website, setWebsite] = useState("");
+
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+
 const [message, setMessage] = useState("");
 const [loading, setLoading] = useState(false);
 
@@ -20,7 +28,9 @@ e.preventDefault();
 setLoading(true);
 setMessage("");
 
-if (!email.trim() || !password.trim()) {
+const cleanEmail = email.toLowerCase().trim();
+
+if (!cleanEmail || !password.trim()) {
 setMessage("Enter email and password");
 setLoading(false);
 return;
@@ -28,13 +38,35 @@ return;
 
 try {
 if (mode === "signup") {
-const { error } = await supabase.auth.signUp({
-email: email.trim(),
+if (!businessName.trim() || !location.trim() || !phone.trim()) {
+setMessage("Enter business name, location and phone number");
+setLoading(false);
+return;
+}
+
+const { error: signupError } = await supabase.auth.signUp({
+email: cleanEmail,
 password: password.trim(),
 });
 
-if (error) {
-setMessage(error.message);
+if (signupError) {
+setMessage(signupError.message);
+setLoading(false);
+return;
+}
+
+const { error: businessError } = await supabase.from("businesses").insert({
+name: businessName.trim(),
+location: location.trim(),
+phone: phone.trim(),
+whatsapp: whatsapp.trim(),
+website: website.trim(),
+email: cleanEmail,
+is_paid: false,
+});
+
+if (businessError) {
+setMessage(businessError.message);
 setLoading(false);
 return;
 }
@@ -46,18 +78,18 @@ setLoading(false);
 return;
 }
 
-const { error } = await supabase.auth.signInWithPassword({
-email: email.trim(),
+const { error: loginError } = await supabase.auth.signInWithPassword({
+email: cleanEmail,
 password: password.trim(),
 });
 
-if (error) {
-setMessage(error.message);
+if (loginError) {
+setMessage(loginError.message);
 setLoading(false);
 return;
 }
 
-localStorage.setItem("user", email.trim());
+localStorage.setItem("user", cleanEmail);
 window.location.href = "/";
 } catch {
 setMessage("Something went wrong");
@@ -98,7 +130,7 @@ AdForge Login
 </h1>
 
 <p style={{ margin: 0, fontSize: 18, opacity: 0.85 }}>
-Login or create an account to use the app
+Login or create your business account
 </p>
 
 <div style={{ display: "flex", gap: 12 }}>
@@ -145,21 +177,22 @@ Sign up
 </button>
 </div>
 
+{mode === "signup" && (
+<>
+<input placeholder="Business name" value={businessName} onChange={(e) => setBusinessName(e.target.value)} style={inputStyle} />
+<input placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} style={inputStyle} />
+<input placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} style={inputStyle} />
+<input placeholder="WhatsApp" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} style={inputStyle} />
+<input placeholder="Website" value={website} onChange={(e) => setWebsite(e.target.value)} style={inputStyle} />
+</>
+)}
+
 <input
 type="email"
 placeholder="Email"
 value={email}
 onChange={(e) => setEmail(e.target.value)}
-style={{
-height: 58,
-borderRadius: 16,
-border: "1px solid rgba(255,255,255,0.12)",
-padding: "0 18px",
-fontSize: 18,
-outline: "none",
-background: "#1a2f5f",
-color: "white",
-}}
+style={inputStyle}
 />
 
 <input
@@ -167,16 +200,7 @@ type="password"
 placeholder="Password"
 value={password}
 onChange={(e) => setPassword(e.target.value)}
-style={{
-height: 58,
-borderRadius: 16,
-border: "1px solid rgba(255,255,255,0.12)",
-padding: "0 18px",
-fontSize: 18,
-outline: "none",
-background: "#1a2f5f",
-color: "white",
-}}
+style={inputStyle}
 />
 
 <button
@@ -194,17 +218,22 @@ cursor: "pointer",
 opacity: loading ? 0.7 : 1,
 }}
 >
-{loading
-? "Please wait..."
-: mode === "login"
-? "Login"
-: "Create account"}
+{loading ? "Please wait..." : mode === "login" ? "Login" : "Create account"}
 </button>
 
-{!!message && (
-<div style={{ fontSize: 18, fontWeight: 700 }}>{message}</div>
-)}
+{!!message && <div style={{ fontSize: 18, fontWeight: 700 }}>{message}</div>}
 </form>
 </main>
 );
 }
+
+const inputStyle: React.CSSProperties = {
+height: 58,
+borderRadius: 16,
+border: "1px solid rgba(255,255,255,0.12)",
+padding: "0 18px",
+fontSize: 18,
+outline: "none",
+background: "#1a2f5f",
+color: "white",
+};
