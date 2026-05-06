@@ -73,7 +73,7 @@ opening_hours: openingHours,
 ai_greeting: aiGreeting,
 twilio_number: twilioNumber,
 vapi_assistant_id: vapiAssistantId,
-setup_complete: true,
+setup_complete: true
 });
 
 setLoading(false);
