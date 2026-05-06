@@ -60,7 +60,21 @@ return NextResponse.json(
 const customerPhone = body.caller || body.phone || "Unknown";
 const jobMessage = body.message || body.job || "New customer enquiry";
 const location = body.location || business.service_area || "Unknown";
+// STOP DUPLICATE VAPI SPAM
+const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
 
+const { data: existingLead } = await supabase
+.from("leads")
+.select("id")
+.eq("business_id", business.id)
+.eq("phone", customerPhone)
+.gte("created_at", fiveMinutesAgo)
+.maybeSingle();
+
+if (existingLead) {
+console.log("DUPLICATE LEAD BLOCKED");
+return NextResponse.json({ success: true, duplicate: true });
+}
 // SAVE LEAD
 const { error } = await supabase.from("leads").insert([
 {
