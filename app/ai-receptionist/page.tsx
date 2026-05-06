@@ -57,7 +57,7 @@ return;
 const email = user.email.toLowerCase().trim();
 console.log("CURRENT USER EMAIL:", email);
 const { data, error } = await supabase
-.from("paid_users")
+.from("businesses")
 .select("id,email,is_paid")
 .eq("email", email)
 .eq("is_paid", true)
