@@ -203,9 +203,7 @@ straight to your dashboard.
 </div>
 </section>
 <button
-onClick={() => {
-window.location.href = "/business-settings";
-}}
+
 style={{
 height: 58,
 padding: "0 26px",
