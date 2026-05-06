@@ -44,7 +44,7 @@ metadata: {
 business_id: business.id,
 email,
 },
-success_url: "https://ai-video-app-live.vercel.app/ai-receptionist?paid=true",
+success_url: "https://ai-video-app-live.vercel.app/business-settings?paid=true",
 cancel_url: "https://ai-video-app-live.vercel.app/ai-receptionist",
 });
 

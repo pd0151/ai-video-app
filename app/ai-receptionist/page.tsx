@@ -26,7 +26,7 @@ const router = useRouter();
 const [leads, setLeads] = useState<Lead[]>([]);
 const [loading, setLoading] = useState(false);
 const [isPaid, setIsPaid] = useState(false);
-
+const [setupComplete, setSetupComplete] = useState(false);
 async function loadLeads() {
 const { data, error } = await supabase
 .from("leads")
@@ -160,7 +160,22 @@ return (
 <div style={badge}>LIVE AI CALL SYSTEM</div>
 
 <h1 style={title}>Never miss a tyre job again</h1>
-
+<div
+style={{
+background: setupComplete
+? "rgba(34,197,94,0.2)"
+: "rgba(234,179,8,0.2)",
+padding: 16,
+borderRadius: 16,
+marginBottom: 20,
+fontWeight: 800,
+fontSize: 18,
+}}
+>
+{setupComplete
+? "✅ AI Receptionist Setup Complete"
+: "⏳ Waiting For Setup"}
+</div>
 <p style={sub}>
 AI answers missed calls, captures customer details and sends the job
 straight to your dashboard.

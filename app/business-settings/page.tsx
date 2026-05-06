@@ -127,7 +127,19 @@ fontSize: 18,
 >
 Setup your AI receptionist business profile
 </p>
-
+<div
+style={{
+background: "rgba(124,58,237,0.2)",
+padding: 18,
+borderRadius: 16,
+marginBottom: 24,
+fontSize: 18,
+fontWeight: 700,
+}}
+>
+🚀 Your AI receptionist will be activated after setup.
+Our team will connect your Twilio + Vapi system within 30 minutes.
+</div>
 <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
 <input
 placeholder="Business name"
