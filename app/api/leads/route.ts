@@ -56,9 +56,21 @@ body: `Hi, we’ve received your tyre request and will call you shortly.`,
 from: process.env.TWILIO_FROM,
 to: body.caller,
 });
+const { data: business } = await supabase
+.from("businesses")
+.select("*")
+.eq("email", body.email?.toLowerCase().trim())
+.single();
+
+if (!business?.notification_phone) {
+return NextResponse.json({
+error: "Business phone not found",
+});
+}
+
 await client.calls.create({
 url: "http://demo.twilio.com/docs/voice.xml",
-to: "+447385182500", // YOUR number
+to: business.notification_phone,
 from: process.env.TWILIO_FROM,
 });
 
