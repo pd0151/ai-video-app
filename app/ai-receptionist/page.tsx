@@ -202,22 +202,8 @@ straight to your dashboard.
 </button>
 </div>
 </section>
-<button
 
-style={{
-height: 58,
-padding: "0 26px",
-borderRadius: 16,
-border: "none",
-background: "linear-gradient(135deg,#2563eb,#7c3aed)",
-color: "white",
-fontSize: 20,
-fontWeight: 800,
-cursor: "pointer",
-}}
->
-⚙️ Business Settings
-</button>
+
 <section style={statsRow}>
 <Stat value={String(stats.calls)} label="Calls handled" />
 <Stat value={String(stats.captured)} label="Leads captured" />
