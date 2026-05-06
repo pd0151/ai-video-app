@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import twilio from "twilio";
 import { createClient } from "@supabase/supabase-js";
 
-// ✅ Supabase (server-side safe)
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL!,
 process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -13,71 +12,111 @@ const body = await req.json();
 
 console.log("NEW VAPI LEAD:", body);
 
-const client = twilio(
-process.env.TWILIO_SID,
-process.env.TWILIO_AUTH
-);
+const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH);
 
 try {
-// ✅ SAVE LEAD (ONLY ONCE)
-const { data, error } = await supabase
-.from("leads")
-.insert([
+let business = null;
+
+// 1. Try find business by business_id from Vapi/app
+if (body.business_id) {
+const { data } = await supabase
+.from("businesses")
+.select("*")
+.eq("id", body.business_id)
+.maybeSingle();
+
+business = data;
+}
+
+// 2. If no business_id, try email
+if (!business && body.email) {
+const { data } = await supabase
+.from("businesses")
+.select("*")
+.eq("email", String(body.email).toLowerCase().trim())
+.maybeSingle();
+
+business = data;
+}
+
+// 3. Safety fallback to your Total Tyres business
+if (!business) {
+const { data } = await supabase
+.from("businesses")
+.select("*")
+.eq("id", "b2c4a284-8aab-4687-9f77-4547a3dfe53b")
+.maybeSingle();
+
+business = data;
+}
+
+if (!business) {
+return NextResponse.json(
+{ error: "Business not found" },
+{ status: 404 }
+);
+}
+
+const customerPhone = body.caller || body.phone || "Unknown";
+const jobMessage = body.message || body.job || "New customer enquiry";
+const location = body.location || business.service_area || "Unknown";
+
+// SAVE LEAD
+const { error } = await supabase.from("leads").insert([
 {
-phone: body.caller,
-job: body.message,
-location: "Liverpool",
-business_id: "b2c4a284-8aab-4687-9f77-4547a3dfe53b"
+phone: customerPhone,
+job: jobMessage,
+location,
+status: "new",
+business_id: business.id,
 },
 ]);
 
-console.log("SUPABASE:", data, error);
+if (error) {
+console.error("SUPABASE LEAD ERROR:", error);
+return NextResponse.json({ error: error.message }, { status: 500 });
+}
 
-// ✅ SEND SMS TO YOU
+// SEND SMS TO BUSINESS OWNER
+if (business.notification_phone) {
 const res = await client.messages.create({
-body: `🚨 NEW TYRE JOB
+body: `🚨 NEW JOB LEAD
+
+🏢 Business:
+${business.name || "Business"}
 
 📞 Customer:
-${body.caller}
+${customerPhone}
+
+📍 Location:
+${location}
 
 📝 Job Details:
-${body.message}
+${jobMessage}
 
 ⚡ Respond ASAP`,
 from: process.env.TWILIO_FROM,
-to: "+447385182500",
+to: business.notification_phone,
 });
 
-console.log("SMS SENT:", res.sid);
-
-// ✅ AUTO REPLY TO CUSTOMER (NEW 🔥)
-await client.messages.create({
-body: `Hi, we’ve received your tyre request and will call you shortly.`,
-from: process.env.TWILIO_FROM,
-to: body.caller,
-});
-const { data: business } = await supabase
-.from("businesses")
-.select("*")
-.eq("email", body.email?.toLowerCase().trim())
-.single();
-
-if (!business?.notification_phone) {
-return NextResponse.json({
-error: "Business phone not found",
-});
+console.log("SMS SENT TO BUSINESS:", res.sid);
 }
 
-await client.calls.create({
-url: "http://demo.twilio.com/docs/voice.xml",
-to: business.notification_phone,
+// AUTO REPLY TO CUSTOMER
+if (customerPhone !== "Unknown") {
+await client.messages.create({
+body: `Hi, we’ve received your request and will call you shortly.`,
 from: process.env.TWILIO_FROM,
+to: customerPhone,
 });
-
-console.log("CALL TRIGGERED");
-} catch (err) {
-console.error("ERROR:", err);
 }
 
 return NextResponse.json({ success: true });
+} catch (err: any) {
+console.error("LEADS API ERROR:", err);
+return NextResponse.json(
+{ error: err?.message || "Server error" },
+{ status: 500 }
+);
+}
 }
