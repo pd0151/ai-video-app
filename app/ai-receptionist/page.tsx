@@ -49,22 +49,23 @@ const {
 data: { user },
 } = await supabase.auth.getUser();
 
-const email = user?.email;
-
-if (!email) {
+if (!user?.email) {
 setIsPaid(false);
 return;
 }
 
-const res = await fetch(
-`/api/business-status?email=${encodeURIComponent(email)}`
-);
+const email = user.email.toLowerCase().trim();
 
-const data = await res.json();
+const { data, error } = await supabase
+.from("paid_users")
+.select("id,email,is_paid")
+.eq("email", email)
+.eq("is_paid", true)
+.maybeSingle();
 
-console.log("BUSINESS STATUS:", data);
+console.log("PAID CHECK:", { email, data, error });
 
-setIsPaid(data.isPaid === true);
+setIsPaid(!!data);
 } catch (err) {
 console.error("SUBSCRIPTION CHECK ERROR:", err);
 setIsPaid(false);
