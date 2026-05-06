@@ -197,9 +197,7 @@ straight to your dashboard.
 {loading ? "Sending..." : "🔥 Test Lead"}
 </button>
 
-<button onClick={upgrade} style={purpleBtn}>
-🚀 Upgrade
-</button>
+
 </div>
 </section>
 
