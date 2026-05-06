@@ -10,7 +10,6 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 
 export default function LoginPage() {
 const [mode, setMode] = useState<"login" | "signup">("login");
-
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 
@@ -60,7 +59,7 @@ location: location.trim(),
 phone: phone.trim(),
 whatsapp: whatsapp.trim(),
 website: website.trim(),
-tagline: "Local business • Fast response",
+tagline: "Mobile service • Fast response • Local business",
 });
 
 setMessage("Account created. Now log in.");
@@ -90,116 +89,15 @@ setLoading(false);
 }
 
 return (
-<main style={page}>
-<form onSubmit={handleSubmit} style={card}>
-<h1 style={title}>AdForge Login</h1>
-
-<p style={sub}>Login or create your business account</p>
-
-<div style={{ display: "flex", gap: 12 }}>
-<button
-type="button"
-onClick={() => {
-setMode("login");
-setMessage("");
-}}
-style={mode === "login" ? tabOn : tabOff}
->
-Login
-</button>
-
-<button
-type="button"
-onClick={() => {
-setMode("signup");
-setMessage("");
-}}
-style={mode === "signup" ? tabOn : tabOff}
->
-Sign up
-</button>
-</div>
-
-{mode === "signup" && (
-<>
-<input
-placeholder="Business name"
-value={businessName}
-onChange={(e) => setBusinessName(e.target.value)}
-style={input}
-/>
-
-<input
-placeholder="Location"
-value={location}
-onChange={(e) => setLocation(e.target.value)}
-style={input}
-/>
-
-<input
-placeholder="Phone number"
-value={phone}
-onChange={(e) => setPhone(e.target.value)}
-style={input}
-/>
-
-<input
-placeholder="WhatsApp number"
-value={whatsapp}
-onChange={(e) => setWhatsapp(e.target.value)}
-style={input}
-/>
-
-<input
-placeholder="Website"
-value={website}
-onChange={(e) => setWebsite(e.target.value)}
-style={input}
-/>
-</>
-)}
-
-<input
-type="email"
-placeholder="Email"
-value={email}
-onChange={(e) => setEmail(e.target.value)}
-style={input}
-/>
-
-<input
-type="password"
-placeholder="Password"
-value={password}
-onChange={(e) => setPassword(e.target.value)}
-style={input}
-/>
-
-<button type="submit" disabled={loading} style={submitBtn}>
-{loading
-? "Please wait..."
-: mode === "login"
-? "Login"
-: "Create account"}
-</button>
-
-{!!message && <div style={{ fontSize: 18, fontWeight: 700 }}>{message}</div>}
-</form>
-</main>
-);
-}
-
-const page: React.CSSProperties = {
+<main style={{
 minHeight: "100vh",
-background:
-"radial-gradient(circle at top, #1e3a8a 0%, #08142f 44%, #020617 100%)",
+background: "radial-gradient(circle at top, #1e3a8a 0%, #08142f 44%, #020617 100%)",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
 padding: 20,
-};
-
-const card: React.CSSProperties = {
+}}>
+<form onSubmit={handleSubmit} style={{
 width: "100%",
 maxWidth: 460,
 background: "rgba(16,34,74,0.92)",
@@ -210,50 +108,64 @@ flexDirection: "column",
 gap: 16,
 color: "white",
 border: "1px solid rgba(255,255,255,0.12)",
-boxShadow: "0 24px 80px rgba(0,0,0,0.45)",
-};
+}}>
+<h1 style={{ margin: 0, fontSize: 42 }}>AdForge Login</h1>
 
-const title: React.CSSProperties = {
-margin: 0,
-fontSize: 44,
-fontWeight: 900,
-};
+<div style={{ display: "flex", gap: 12 }}>
+<button type="button" onClick={() => setMode("login")} style={mode === "login" ? tabOn : tabOff}>Login</button>
+<button type="button" onClick={() => setMode("signup")} style={mode === "signup" ? tabOn : tabOff}>Sign up</button>
+</div>
 
-const sub: React.CSSProperties = {
-margin: 0,
-fontSize: 18,
-opacity: 0.85,
-};
+{mode === "signup" && (
+<>
+<input placeholder="Business name" value={businessName} onChange={(e) => setBusinessName(e.target.value)} style={input} />
+<input placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} style={input} />
+<input placeholder="Phone number" value={phone} onChange={(e) => setPhone(e.target.value)} style={input} />
+<input placeholder="WhatsApp number" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} style={input} />
+<input placeholder="Website" value={website} onChange={(e) => setWebsite(e.target.value)} style={input} />
+</>
+)}
 
-const input: React.CSSProperties = {
+<input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} style={input} />
+<input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} style={input} />
+
+<button type="submit" disabled={loading} style={submitBtn}>
+{loading ? "Please wait..." : mode === "login" ? "Login" : "Create account"}
+</button>
+
+{!!message && <div style={{ fontSize: 16, fontWeight: 700 }}>{message}</div>}
+</form>
+</main>
+);
+}
+
+const input = {
 height: 58,
 borderRadius: 16,
 border: "1px solid rgba(255,255,255,0.12)",
 padding: "0 18px",
 fontSize: 18,
-outline: "none",
 background: "#1a2f5f",
 color: "white",
 };
 
-const tabOn: React.CSSProperties = {
+const tabOn = {
 flex: 1,
 height: 54,
 borderRadius: 16,
 border: "none",
 fontSize: 22,
 fontWeight: 800,
-cursor: "pointer",
 background: "#7c3aed",
 color: "white",
 };
 
-const tabOff: React.CSSProperties = {
+const tabOff = {
 ...tabOn,
 background: "#334155",
 };
 
-const submitBtn: React.CSSProperties = {
+const submitBtn = {
 height: 58,
 borderRadius: 16,
 border: "none",
@@ -261,5 +173,4 @@ background: "linear-gradient(135deg, #7c3aed, #a855f7)",
 color: "white",
 fontSize: 22,
 fontWeight: 900,
-cursor: "pointer",
 };
