@@ -41,6 +41,17 @@ return;
 }
 
 setLeads(data || []);
+const {
+data: { user },
+} = await supabase.auth.getUser();
+
+const { data: business } = await supabase
+.from("businesses")
+.select("setup_complete")
+.eq("email", user?.email?.toLowerCase().trim())
+.maybeSingle();
+
+setSetupComplete(business?.setup_complete || false);
 }
 
 async function checkSubscription() {
