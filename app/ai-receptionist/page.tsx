@@ -45,7 +45,11 @@ setLeads(data || []);
 
 async function checkSubscription() {
 try {
-const email = localStorage.getItem("user");
+const {
+data: { user },
+} = await supabase.auth.getUser();
+
+const email = user?.email;
 
 if (!email) {
 setIsPaid(false);
