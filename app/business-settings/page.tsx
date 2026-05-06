@@ -38,7 +38,8 @@ const { data } = await supabase
 
 if (!data) return;
 
-setBusinessName(data.business_name || "");
+
+setBusinessName(data.name || "");
 setNotificationPhone(data.notification_phone || "");
 setServiceArea(data.service_area || "");
 setOpeningHours(data.opening_hours || "");
@@ -66,7 +67,7 @@ const { error } = await supabase
 .from("businesses")
 .upsert({
 email,
-business_name: businessName,
+name: businessName,
 notification_phone: notificationPhone,
 service_area: serviceArea,
 opening_hours: openingHours,
@@ -80,7 +81,7 @@ setLoading(false);
 
 if (error) {
 console.error(error);
-alert("Could not save settings");
+alert(error.message);
 return;
 }
 
