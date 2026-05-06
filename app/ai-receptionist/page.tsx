@@ -109,11 +109,25 @@ await loadLeads();
 }
 
 async function upgrade() {
-const res = await fetch("/api/create-checkout", { method: "POST" });
+const email = localStorage.getItem("user");
+
+if (!email) {
+alert("Please log in first");
+return;
+}
+
+const res = await fetch("/api/create-checkout", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({ email }),
+});
+
 const data = await res.json();
 
 if (data.url) window.location.href = data.url;
-else alert("Checkout failed");
+else alert(data.error || "Checkout failed");
 }
 
 useEffect(() => {
