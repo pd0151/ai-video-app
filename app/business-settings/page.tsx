@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -9,10 +10,12 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 );
 
 export default function BusinessSettingsPage() {
+ const router = useRouter();   
 const [loading, setLoading] = useState(false);
 
 const [businessName, setBusinessName] = useState("");
 const [notificationPhone, setNotificationPhone] = useState("");
+const [checkingPayment, setCheckingPayment] = useState(true);
 const [serviceArea, setServiceArea] = useState("");
 const [openingHours, setOpeningHours] = useState("");
 const [aiGreeting, setAiGreeting] = useState("");
@@ -20,9 +23,35 @@ const [twilioNumber, setTwilioNumber] = useState("");
 const [vapiAssistantId, setVapiAssistantId] = useState("");
 
 useEffect(() => {
+checkPaidAccess();
 loadBusiness();
 }, []);
+async function checkPaidAccess() {
+const {
+data: { user },
+} = await supabase.auth.getUser();
 
+if (!user?.email) {
+router.push("/login");
+return;
+}
+
+const email = user.email.toLowerCase().trim();
+
+const { data } = await supabase
+.from("paid_users")
+.select("*")
+.eq("email", email)
+.eq("is_paid", true)
+.maybeSingle();
+
+if (!data) {
+router.push("/ai-receptionist");
+return;
+}
+
+setCheckingPayment(false);
+}
 async function loadBusiness() {
 const {
 data: { user },
