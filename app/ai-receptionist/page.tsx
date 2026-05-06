@@ -45,8 +45,21 @@ setLeads(data || []);
 
 async function checkSubscription() {
 try {
-const res = await fetch("/api/business-status");
+const email = localStorage.getItem("user");
+
+if (!email) {
+setIsPaid(false);
+return;
+}
+
+const res = await fetch(
+`/api/business-status?email=${encodeURIComponent(email)}`
+);
+
 const data = await res.json();
+
+console.log("BUSINESS STATUS:", data);
+
 setIsPaid(data.isPaid === true);
 } catch (err) {
 console.error("SUBSCRIPTION CHECK ERROR:", err);
