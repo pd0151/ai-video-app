@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
-const BUSINESS_ID = "b2c4a284-8aab-4687-9f77-4547a3dfe53b";
+
 
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL as string,
@@ -28,10 +28,23 @@ const [loading, setLoading] = useState(false);
 const [isPaid, setIsPaid] = useState(false);
 const [setupComplete, setSetupComplete] = useState(false);
 async function loadLeads() {
+ const {
+data: { user },
+} = await supabase.auth.getUser();
+
+if (!user?.email) return;
+
+const { data: business } = await supabase
+.from("businesses")
+.select("*")
+.eq("email", user.email)
+.single();
+
+if (!business) return;   
 const { data, error } = await supabase
 .from("leads")
 .select("*")
-.eq("business_id", BUSINESS_ID)
+.eq("business_id", business.id)
 .order("created_at", { ascending: false });
 
 if (error) {
