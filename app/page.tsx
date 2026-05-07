@@ -286,105 +286,89 @@ Ad<span style={{ color: "#a855f7" }}>Forge</span>✦
 onClick={() => router.push("/ai-receptionist")}
 style={{
 marginTop: 18,
+borderRadius: 28,
 padding: 24,
-borderRadius: 30,
 position: "relative",
 overflow: "hidden",
 cursor: "pointer",
 background:
-"linear-gradient(145deg, rgba(124,58,237,0.35), rgba(5,5,7,0.96))",
-border: "2px solid rgba(168,85,247,0.75)",
-boxShadow:
-"0 0 45px rgba(168,85,247,0.35), inset 0 0 30px rgba(255,255,255,0.04)",
+"linear-gradient(145deg, rgba(88,28,135,0.96), rgba(8,8,12,0.98))",
+border: "1px solid rgba(168,85,247,0.45)",
+boxShadow: "0 0 35px rgba(168,85,247,0.22)",
+display: "flex",
+alignItems: "center",
+justifyContent: "space-between",
+gap: 20,
 }}
 >
-<div style={{ position: "relative", zIndex: 2 }}>
+<div style={{ flex: 1, zIndex: 2 }}>
 <div
 style={{
 display: "inline-flex",
 alignItems: "center",
 gap: 8,
-padding: "8px 14px",
+background: "#7c3aed",
+padding: "6px 12px",
 borderRadius: 999,
-background: "rgba(34,197,94,0.18)",
-border: "1px solid rgba(34,197,94,0.5)",
-marginBottom: 20,
+fontSize: 12,
+fontWeight: 900,
+marginBottom: 16,
 }}
 >
-<span
-style={{
-width: 10,
-height: 10,
-borderRadius: "50%",
-background: "#22c55e",
-boxShadow: "0 0 14px #22c55e",
-}}
-/>
-<b style={{ color: "#86efac", fontSize: 12 }}>
-LIVE AI CALL SYSTEM
-</b>
+✨ NEW
 </div>
 
-<h2 style={{ margin: 0, fontSize: 38, lineHeight: 1 }}>
-Never miss a
-<br />
-customer call again
+<h2
+style={{
+margin: 0,
+fontSize: 34,
+lineHeight: 1,
+fontWeight: 950,
+}}
+>
+AI Receptionist
 </h2>
 
 <p
 style={{
-marginTop: 16,
+marginTop: 14,
 color: "rgba(255,255,255,0.78)",
-fontSize: 17,
+fontSize: 16,
 lineHeight: 1.5,
+maxWidth: 320,
 }}
 >
-AI answers missed calls, captures customer details and sends jobs
-straight to your dashboard.
+Never miss a call again. AI answers calls, books jobs and captures leads 24/7.
 </p>
 
 <div
 style={{
-display: "flex",
-gap: 8,
-flexWrap: "wrap",
 marginTop: 18,
-}}
->
-{["24/7 Answering", "Lead Capture", "SMS Alerts", "Missed Call Recovery"].map(
-(item) => (
-<span
-key={item}
-style={{
-padding: "10px 12px",
-borderRadius: 999,
-background: "rgba(255,255,255,0.08)",
-border: "1px solid rgba(255,255,255,0.1)",
-fontSize: 12,
+display: "inline-flex",
+padding: "14px 22px",
+borderRadius: 18,
+background: "linear-gradient(135deg,#9333ea,#c084fc)",
+color: "#fff",
 fontWeight: 900,
+fontSize: 15,
+boxShadow: "0 0 20px rgba(168,85,247,0.45)",
 }}
 >
-⚡ {item}
-</span>
-)
-)}
+Activate Now
+</div>
 </div>
 
-<div
+<img
+src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1200&auto=format&fit=crop"
 style={{
-marginTop: 22,
-display: "inline-flex",
-padding: "15px 22px",
-borderRadius: 18,
-background: "linear-gradient(135deg,#22c55e,#86efac)",
-color: "#020617",
-fontWeight: 950,
-fontSize: 16,
+width: 180,
+height: 260,
+objectFit: "cover",
+borderRadius: 24,
+alignSelf: "flex-end",
+boxShadow: "0 0 35px rgba(168,85,247,0.35)",
 }}
->
-🔥 Open AI Receptionist
-</div>
-</div>
+/>
 </section>
 
 <section style={heroCard}>
