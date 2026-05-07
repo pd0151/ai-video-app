@@ -422,7 +422,7 @@ zIndex: 1,
 </div>
 
 <img
-src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1200&auto=format&fit=crop"
+src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1200&auto=format&fit=crop"
 style={{
 width: 150,
 height: 240,
