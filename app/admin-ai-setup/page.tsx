@@ -31,8 +31,8 @@ const { data, error } = await supabase
 .select("*")
 .eq("is_paid", true)
 .eq("setup_complete", true)
+.eq("ai_activated", false)
 .order("created_at", { ascending: false });
-
 if (error) {
 alert(error.message);
 return;
@@ -40,7 +40,20 @@ return;
 
 setBusinesses(data || []);
 }
+async function markActivated(id: string) {
+const { error } = await supabase
+.from("businesses")
+.update({ ai_activated: true })
+.eq("id", id);
 
+if (error) {
+alert(error.message);
+return;
+}
+
+alert("Customer marked activated");
+loadBusinesses();
+}
 return (
 <main style={page}>
 <h1 style={title}>AI Customer Setup</h1>
@@ -60,6 +73,21 @@ businesses.map((b) => (
 <p><b>Twilio number:</b> {b.twilio_number || "Not added yet"}</p>
 <p><b>Vapi assistant ID:</b> {b.vapi_assistant_id || "Not added yet"}</p>
 <p><b>Business ID:</b> {b.id}</p>
+<button
+onClick={() => markActivated(b.id)}
+style={{
+marginTop: 16,
+padding: "14px 18px",
+borderRadius: 14,
+border: "none",
+background: "linear-gradient(135deg,#22c55e,#86efac)",
+fontWeight: 900,
+fontSize: 16,
+cursor: "pointer",
+}}
+>
+✅ Mark Activated
+</button>
 </div>
 ))
 )}
