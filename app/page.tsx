@@ -465,18 +465,136 @@ onClick={() => router.push("/feed")}
 </div>
 </section>
 
-<section style={receptionistCard} onClick={() => router.push("/ai-receptionist")}>
-<div style={phoneGlow}>☎</div>
-<div style={{ flex: 1 }}>
-<div style={receptionistTitle}>
-AI Receptionist <span style={newBadge}>New</span>
+<section
+onClick={() => router.push("/ai-receptionist")}
+style={{
+marginTop: 18,
+padding: 24,
+borderRadius: 30,
+position: "relative",
+overflow: "hidden",
+cursor: "pointer",
+background:
+"linear-gradient(145deg, rgba(124,58,237,0.35), rgba(5,5,7,0.96))",
+border: "2px solid rgba(168,85,247,0.75)",
+boxShadow:
+"0 0 45px rgba(168,85,247,0.35), inset 0 0 30px rgba(255,255,255,0.04)",
+}}
+>
+<div
+style={{
+position: "absolute",
+top: -100,
+right: -100,
+width: 240,
+height: 240,
+borderRadius: "50%",
+background: "rgba(168,85,247,0.35)",
+filter: "blur(80px)",
+}}
+/>
+
+<div
+style={{
+display: "inline-flex",
+alignItems: "center",
+gap: 8,
+padding: "8px 14px",
+borderRadius: 999,
+background: "rgba(34,197,94,0.18)",
+border: "1px solid rgba(34,197,94,0.5)",
+marginBottom: 20,
+position: "relative",
+zIndex: 2,
+}}
+>
+<span
+style={{
+width: 10,
+height: 10,
+borderRadius: "50%",
+background: "#22c55e",
+boxShadow: "0 0 14px #22c55e",
+}}
+/>
+<b style={{ color: "#86efac", fontSize: 12 }}>
+LIVE AI CALL SYSTEM
+</b>
 </div>
-<p style={receptionistText}>
-Never miss a call again. AI answers, books jobs and captures leads 24/7.
+
+<h2
+style={{
+margin: 0,
+fontSize: 38,
+lineHeight: 1,
+fontWeight: 950,
+position: "relative",
+zIndex: 2,
+}}
+>
+Never miss a
+<br />
+customer call again
+</h2>
+
+<p
+style={{
+marginTop: 16,
+color: "rgba(255,255,255,0.78)",
+fontSize: 17,
+lineHeight: 1.5,
+position: "relative",
+zIndex: 2,
+}}
+>
+AI answers missed calls, captures customer details and sends jobs straight to your dashboard.
 </p>
-<span style={activeDot}>● Active</span>
+
+<div
+style={{
+display: "flex",
+gap: 8,
+flexWrap: "wrap",
+marginTop: 18,
+position: "relative",
+zIndex: 2,
+}}
+>
+{["24/7 Answering", "Lead Capture", "SMS Alerts", "Missed Call Recovery"].map(
+(item) => (
+<span
+key={item}
+style={{
+padding: "10px 12px",
+borderRadius: 999,
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(255,255,255,0.1)",
+fontSize: 12,
+fontWeight: 900,
+}}
+>
+⚡ {item}
+</span>
+)
+)}
 </div>
-<span style={arrowRight}>›</span>
+
+<div
+style={{
+marginTop: 22,
+display: "inline-flex",
+padding: "15px 22px",
+borderRadius: 18,
+background: "linear-gradient(135deg,#22c55e,#86efac)",
+color: "#020617",
+fontWeight: 950,
+fontSize: 16,
+position: "relative",
+zIndex: 2,
+}}
+>
+🔥 Open AI Receptionist
+</div>
 </section>
 
 <section style={chatBox}>
