@@ -279,7 +279,62 @@ Ad<span style={{ color: "#a855f7" }}>Forge</span>✦
 )}
 </div>
 </header>
+<section
+onClick={() => router.push("/ai-receptionist")}
+style={{
+marginTop: 18,
+padding: 24,
+borderRadius: 30,
+position: "relative",
+overflow: "hidden",
+cursor: "pointer",
+background:
+"linear-gradient(145deg, rgba(124,58,237,0.35), rgba(5,5,7,0.96))",
+border: "2px solid rgba(168,85,247,0.75)",
+boxShadow:
+"0 0 45px rgba(168,85,247,0.35), inset 0 0 30px rgba(255,255,255,0.04)",
+}}
+>
+<div
+style={{
+position: "absolute",
+top: -100,
+right: -100,
+width: 240,
+height: 240,
+borderRadius: "50%",
+background: "rgba(168,85,247,0.35)",
+filter: "blur(80px)",
+}}
+/>
 
+<div
+style={{
+display: "inline-flex",
+alignItems: "center",
+gap: 8,
+padding: "8px 14px",
+borderRadius: 999,
+background: "rgba(34,197,94,0.18)",
+border: "1px solid rgba(34,197,94,0.5)",
+marginBottom: 20,
+position: "relative",
+zIndex: 2,
+}}
+>
+<span
+style={{
+width: 10,
+height: 10,
+borderRadius: "50%",
+background: "#22c55e",
+boxShadow: "0 0 14px #22c55e",
+}}
+/>
+<b style={{ color: "#86efac", fontSize: 12 }}>
+LIVE AI CALL SYSTEM
+</b>
+</div>
 <section style={heroCard}>
 <h2 style={heroTitle}>
 Create high-converting ads in seconds with AI 🚀
@@ -465,62 +520,7 @@ onClick={() => router.push("/feed")}
 </div>
 </section>
 
-<section
-onClick={() => router.push("/ai-receptionist")}
-style={{
-marginTop: 18,
-padding: 24,
-borderRadius: 30,
-position: "relative",
-overflow: "hidden",
-cursor: "pointer",
-background:
-"linear-gradient(145deg, rgba(124,58,237,0.35), rgba(5,5,7,0.96))",
-border: "2px solid rgba(168,85,247,0.75)",
-boxShadow:
-"0 0 45px rgba(168,85,247,0.35), inset 0 0 30px rgba(255,255,255,0.04)",
-}}
->
-<div
-style={{
-position: "absolute",
-top: -100,
-right: -100,
-width: 240,
-height: 240,
-borderRadius: "50%",
-background: "rgba(168,85,247,0.35)",
-filter: "blur(80px)",
-}}
-/>
 
-<div
-style={{
-display: "inline-flex",
-alignItems: "center",
-gap: 8,
-padding: "8px 14px",
-borderRadius: 999,
-background: "rgba(34,197,94,0.18)",
-border: "1px solid rgba(34,197,94,0.5)",
-marginBottom: 20,
-position: "relative",
-zIndex: 2,
-}}
->
-<span
-style={{
-width: 10,
-height: 10,
-borderRadius: "50%",
-background: "#22c55e",
-boxShadow: "0 0 14px #22c55e",
-}}
-/>
-<b style={{ color: "#86efac", fontSize: 12 }}>
-LIVE AI CALL SYSTEM
-</b>
-</div>
 
 <h2
 style={{
