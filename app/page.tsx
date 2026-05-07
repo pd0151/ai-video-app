@@ -380,16 +380,29 @@ boxShadow: "0 0 22px rgba(168,85,247,0.5)",
 🔥 Activate Now ›
 </div>
 </div>
-
+<div
+style={{
+position: "absolute",
+right: 140,
+top: "50%",
+transform: "translateY(-50%)",
+fontSize: 90,
+color: "rgba(124,58,237,0.55)",
+fontWeight: 100,
+lineHeight: 0.7,
+}}
+>
+)))
+</div>
 <img
-src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=900&auto=format&fit=crop"
+src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1200&auto=format&fit=crop"
 style={{
 width: 150,
 height: 240,
 objectFit: "cover",
 borderRadius: 22,
-border: "1px solid rgba(168,85,247,0.5)",
-boxShadow: "0 0 30px rgba(168,85,247,0.35)",
+border: "1px solid rgba(168,85,247,0.55)",
+boxShadow: "0 0 40px rgba(168,85,247,0.45)",
 }}
 />
 </section>
