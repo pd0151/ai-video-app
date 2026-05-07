@@ -286,97 +286,47 @@ Ad<span style={{ color: "#a855f7" }}>Forge</span>✦
 onClick={() => router.push("/ai-receptionist")}
 style={{
 marginTop: 18,
-padding: 28,
-borderRadius: 34,
+borderRadius: 26,
+padding: 18,
 position: "relative",
 overflow: "hidden",
 cursor: "pointer",
 background:
-"radial-gradient(circle at top left, rgba(168,85,247,0.35), transparent 35%), linear-gradient(145deg,#12051f,#050507)",
-border: "1px solid rgba(168,85,247,0.45)",
-boxShadow:
-"0 0 60px rgba(168,85,247,0.22), inset 0 0 25px rgba(255,255,255,0.03)",
+"linear-gradient(145deg, rgba(18,5,31,0.98), rgba(5,5,7,0.98))",
+border: "1px solid rgba(168,85,247,0.65)",
+boxShadow: "0 0 35px rgba(168,85,247,0.28)",
+display: "grid",
+gridTemplateColumns: "1fr 150px",
+gap: 12,
+alignItems: "center",
 }}
 >
-{/* glow */}
-<div
-style={{
-position: "absolute",
-top: -120,
-right: -120,
-width: 320,
-height: 320,
-borderRadius: "50%",
-background: "rgba(168,85,247,0.18)",
-filter: "blur(80px)",
-}}
-/>
-
-{/* wave */}
-<div
-style={{
-position: "absolute",
-right: 140,
-top: "50%",
-transform: "translateY(-50%)",
-fontSize: 120,
-opacity: 0.12,
-}}
->
-)))
-</div>
-
 <div style={{ position: "relative", zIndex: 2 }}>
 <div
 style={{
 display: "inline-flex",
 alignItems: "center",
-gap: 8,
-padding: "9px 16px",
+gap: 7,
+padding: "7px 11px",
 borderRadius: 999,
-background: "rgba(139,92,246,0.18)",
-border: "1px solid rgba(168,85,247,0.35)",
-marginBottom: 20,
-backdropFilter: "blur(10px)",
+background: "rgba(139,92,246,0.22)",
+border: "1px solid rgba(168,85,247,0.4)",
+marginBottom: 12,
+fontSize: 10,
+fontWeight: 900,
 }}
 >
-<div
-style={{
-width: 10,
-height: 10,
-borderRadius: "50%",
-background: "#22c55e",
-boxShadow: "0 0 12px #22c55e",
-}}
-/>
-<b
-style={{
-color: "#fff",
-fontSize: 12,
-letterSpacing: 1,
-}}
->
+<span style={{ width: 8, height: 8, borderRadius: 999, background: "#22c55e" }} />
 LIVE AI RECEPTIONIST
-</b>
 </div>
 
-<div
-style={{
-display: "flex",
-justifyContent: "space-between",
-alignItems: "center",
-gap: 20,
-flexWrap: "wrap",
-}}
->
-<div style={{ flex: 1 }}>
 <h2
 style={{
 margin: 0,
-fontSize: 54,
-lineHeight: 0.9,
+fontSize: 36,
+lineHeight: 0.92,
 fontWeight: 1000,
-letterSpacing: -2,
+letterSpacing: -1,
 }}
 >
 AI
@@ -386,80 +336,62 @@ Receptionist
 
 <p
 style={{
-marginTop: 18,
-color: "rgba(255,255,255,0.75)",
-fontSize: 18,
-lineHeight: 1.5,
-maxWidth: 420,
+marginTop: 10,
+marginBottom: 0,
+color: "rgba(255,255,255,0.76)",
+fontSize: 13,
+lineHeight: 1.35,
 }}
 >
-Never miss a customer call again. AI answers calls,
-captures leads and books jobs automatically 24/7.
+Never miss a customer call again. AI answers calls, captures leads and books jobs 24/7.
 </p>
 
-<div
-style={{
-display: "flex",
-flexWrap: "wrap",
-gap: 10,
-marginTop: 18,
-}}
->
-{[
-"24/7 Calls",
-"Lead Capture",
-"SMS Alerts",
-"Auto Booking",
-].map((item) => (
-<div
+<div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 12 }}>
+{["24/7 Calls", "Lead Capture", "SMS Alerts", "Auto Booking"].map((item) => (
+<span
 key={item}
 style={{
-padding: "10px 14px",
-borderRadius: 999,
-background: "rgba(255,255,255,0.06)",
-border: "1px solid rgba(255,255,255,0.08)",
-fontSize: 12,
+padding: "7px 9px",
+borderRadius: 10,
+background: "rgba(255,255,255,0.07)",
+border: "1px solid rgba(255,255,255,0.1)",
+fontSize: 10,
 fontWeight: 800,
-backdropFilter: "blur(10px)",
 }}
 >
 ⚡ {item}
-</div>
+</span>
 ))}
 </div>
 
 <div
 style={{
-marginTop: 24,
+marginTop: 14,
 display: "inline-flex",
-alignItems: "center",
-gap: 10,
-padding: "16px 26px",
-borderRadius: 18,
+padding: "13px 18px",
+borderRadius: 15,
 background: "linear-gradient(135deg,#7c3aed,#c084fc)",
 color: "#fff",
-fontWeight: 900,
-fontSize: 17,
-boxShadow: "0 10px 30px rgba(168,85,247,0.35)",
+fontWeight: 950,
+fontSize: 15,
+boxShadow: "0 0 22px rgba(168,85,247,0.5)",
 }}
 >
-🔥 Activate Now
+🔥 Activate Now ›
 </div>
 </div>
 
 <img
-src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1200&auto=format&fit=crop"
+src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=900&auto=format&fit=crop"
 style={{
-width: 260,
-height: 360,
+width: 150,
+height: 240,
 objectFit: "cover",
-borderRadius: 28,
-border: "1px solid rgba(255,255,255,0.08)",
-boxShadow: "0 20px 40px rgba(0,0,0,0.45)",
+borderRadius: 22,
+border: "1px solid rgba(168,85,247,0.5)",
+boxShadow: "0 0 30px rgba(168,85,247,0.35)",
 }}
 />
-</div>
-</div>
 </section>
 
 <section style={heroCard}>
