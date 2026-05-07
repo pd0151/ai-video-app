@@ -28,19 +28,30 @@ const [loading, setLoading] = useState(false);
 const [isPaid, setIsPaid] = useState(false);
 const [setupComplete, setSetupComplete] = useState(false);
 async function loadLeads() {
- const {
+setLeads([]);
+
+const {
 data: { user },
 } = await supabase.auth.getUser();
 
-if (!user?.email) return;
+if (!user?.email) {
+setLeads([]);
+return;
+}
+
+const email = user.email.toLowerCase().trim();
 
 const { data: business } = await supabase
 .from("businesses")
 .select("*")
-.eq("email", user.email)
-.single();
+.eq("email", email)
+.maybeSingle();
 
-if (!business) return;   
+if (!business?.id) {
+setLeads([]);
+return;
+}
+
 const { data, error } = await supabase
 .from("leads")
 .select("*")
@@ -54,18 +65,10 @@ return;
 }
 
 setLeads(data || []);
-const {
-data: { user },
-} = await supabase.auth.getUser();
-
-const { data: business } = await supabase
-.from("businesses")
-.select("setup_complete")
-.eq("email", user?.email?.toLowerCase().trim())
-.maybeSingle();
-
-setSetupComplete(business?.setup_complete || false);
 }
+
+
+
 
 async function checkSubscription() {
 try {
