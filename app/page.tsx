@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useState, useEffect } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
@@ -26,6 +26,7 @@ const [credits, setCredits] = useState(0);
 const [chatInput, setChatInput] = useState("");
 const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
 const [chatLoading, setChatLoading] = useState(false);
+
 useEffect(() => {
 const loadCredits = async () => {
 const { data } = await supabase.auth.getUser();
@@ -35,6 +36,7 @@ if (!currentUser) {
 window.location.href = "/login";
 return;
 }
+
 setUser(currentUser);
 
 const { data: creditRow } = await supabase
@@ -63,10 +65,9 @@ setCredits(creditRow.credits || 0);
 loadCredits();
 }, []);
 
-
 async function upgradeUser() {
 const res = await fetch("/api/create-checkout", {
-method: "POST"
+method: "POST",
 });
 
 const data = await res.json();
@@ -77,11 +78,13 @@ window.location.href = data.url;
 alert(data.error || "Checkout failed");
 }
 }
+
 async function generateAd() {
 if (!isPro && credits <= 0) {
 alert("You’ve used your free AI credits. Upgrade to continue 🚀");
 return;
-} 
+}
+
 if (!prompt.trim()) {
 alert("Enter what you want to advertise");
 return;
@@ -98,6 +101,7 @@ body: JSON.stringify({ prompt }),
 });
 
 const data = await res.json();
+
 const newCredits = Math.max(credits - 1, 0);
 setCredits(newCredits);
 
@@ -105,9 +109,7 @@ const { data: authData } = await supabase.auth.getUser();
 const currentUser = authData.user;
 
 if (currentUser) {
-const { error } = await supabase
-.from("user_credits")
-.upsert(
+const { error } = await supabase.from("user_credits").upsert(
 {
 user_id: currentUser.id,
 email: currentUser.email,
@@ -120,6 +122,7 @@ if (error) {
 alert("CREDIT SAVE FAILED: " + error.message);
 }
 }
+
 if (!res.ok) {
 alert(data.error || "Image failed");
 return;
@@ -166,7 +169,6 @@ const { data: urlData } = supabase.storage
 .getPublicUrl(filePath);
 
 const publicUrl = urlData.publicUrl;
-
 const isVideo = file.type.startsWith("video");
 
 const { error } = await supabase.from("posts").insert({
@@ -279,6 +281,7 @@ Ad<span style={{ color: "#a855f7" }}>Forge</span>✦
 )}
 </div>
 </header>
+
 <section
 onClick={() => router.push("/ai-receptionist")}
 style={{
@@ -295,19 +298,7 @@ boxShadow:
 "0 0 45px rgba(168,85,247,0.35), inset 0 0 30px rgba(255,255,255,0.04)",
 }}
 >
-<div
-style={{
-position: "absolute",
-top: -100,
-right: -100,
-width: 240,
-height: 240,
-borderRadius: "50%",
-background: "rgba(168,85,247,0.35)",
-filter: "blur(80px)",
-}}
-/>
-
+<div style={{ position: "relative", zIndex: 2 }}>
 <div
 style={{
 display: "inline-flex",
@@ -318,8 +309,6 @@ borderRadius: 999,
 background: "rgba(34,197,94,0.18)",
 border: "1px solid rgba(34,197,94,0.5)",
 marginBottom: 20,
-position: "relative",
-zIndex: 2,
 }}
 >
 <span
@@ -335,14 +324,76 @@ boxShadow: "0 0 14px #22c55e",
 LIVE AI CALL SYSTEM
 </b>
 </div>
-<section style={heroCard}>
-<h2 style={heroTitle}>
-Create high-converting ads in seconds with AI 🚀
+
+<h2 style={{ margin: 0, fontSize: 38, lineHeight: 1 }}>
+Never miss a
+<br />
+customer call again
 </h2>
+
+<p
+style={{
+marginTop: 16,
+color: "rgba(255,255,255,0.78)",
+fontSize: 17,
+lineHeight: 1.5,
+}}
+>
+AI answers missed calls, captures customer details and sends jobs
+straight to your dashboard.
+</p>
+
+<div
+style={{
+display: "flex",
+gap: 8,
+flexWrap: "wrap",
+marginTop: 18,
+}}
+>
+{["24/7 Answering", "Lead Capture", "SMS Alerts", "Missed Call Recovery"].map(
+(item) => (
+<span
+key={item}
+style={{
+padding: "10px 12px",
+borderRadius: 999,
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(255,255,255,0.1)",
+fontSize: 12,
+fontWeight: 900,
+}}
+>
+⚡ {item}
+</span>
+)
+)}
+</div>
+
+<div
+style={{
+marginTop: 22,
+display: "inline-flex",
+padding: "15px 22px",
+borderRadius: 18,
+background: "linear-gradient(135deg,#22c55e,#86efac)",
+color: "#020617",
+fontWeight: 950,
+fontSize: 16,
+}}
+>
+🔥 Open AI Receptionist
+</div>
+</div>
+</section>
+
+<section style={heroCard}>
+<h2 style={heroTitle}>Create high-converting ads in seconds with AI 🚀</h2>
 <p style={heroSub}>Describe your product or business</p>
 <p style={{ opacity: 0.8, marginBottom: 10 }}>
 Free users get limited access. Upgrade to unlock unlimited AI ads.
 </p>
+
 <div style={promptBox}>
 <textarea
 value={prompt}
@@ -396,7 +447,9 @@ style={{ display: "none" }}
 <section style={generatedCard}>
 <div style={sectionTop}>
 <b style={{ color: "#b36bff" }}>Your AI Generated Ad</b>
-<button style={smallDarkBtn} onClick={generateAd}>⟳ Regenerate</button>
+<button style={smallDarkBtn} onClick={generateAd}>
+⟳ Regenerate
+</button>
 </div>
 
 <div style={adPreview}>
@@ -428,7 +481,11 @@ alt="Preview"
 style={posterImg}
 />
 <div style={posterShade} />
-<div style={posterWords}>WE COME<br />TO YOU</div>
+<div style={posterWords}>
+WE COME
+<br />
+TO YOU
+</div>
 <div style={posterBadge}>FAST & RELIABLE</div>
 </>
 )}
@@ -439,7 +496,9 @@ style={posterImg}
 <section style={trendingCard}>
 <div style={sectionTop}>
 <h3 style={sectionTitle}>Trending Ads 🔥</h3>
-<button style={seeAll} onClick={() => router.push("/feed")}>See all ›</button>
+<button style={seeAll} onClick={() => router.push("/feed")}>
+See all ›
+</button>
 </div>
 
 <div style={trendRow}>
@@ -520,83 +579,6 @@ onClick={() => router.push("/feed")}
 </div>
 </section>
 
-
-
-<h2
-style={{
-margin: 0,
-fontSize: 38,
-lineHeight: 1,
-fontWeight: 950,
-position: "relative",
-zIndex: 2,
-}}
->
-Never miss a
-<br />
-customer call again
-</h2>
-
-<p
-style={{
-marginTop: 16,
-color: "rgba(255,255,255,0.78)",
-fontSize: 17,
-lineHeight: 1.5,
-position: "relative",
-zIndex: 2,
-}}
->
-AI answers missed calls, captures customer details and sends jobs straight to your dashboard.
-</p>
-
-<div
-style={{
-display: "flex",
-gap: 8,
-flexWrap: "wrap",
-marginTop: 18,
-position: "relative",
-zIndex: 2,
-}}
->
-{["24/7 Answering", "Lead Capture", "SMS Alerts", "Missed Call Recovery"].map(
-(item) => (
-<span
-key={item}
-style={{
-padding: "10px 12px",
-borderRadius: 999,
-background: "rgba(255,255,255,0.08)",
-border: "1px solid rgba(255,255,255,0.1)",
-fontSize: 12,
-fontWeight: 900,
-}}
->
-⚡ {item}
-</span>
-)
-)}
-</div>
-
-<div
-style={{
-marginTop: 22,
-display: "inline-flex",
-padding: "15px 22px",
-borderRadius: 18,
-background: "linear-gradient(135deg,#22c55e,#86efac)",
-color: "#020617",
-fontWeight: 950,
-fontSize: 16,
-position: "relative",
-zIndex: 2,
-}}
->
-🔥 Open AI Receptionist
-</div>
-</section>
-
 <section style={chatBox}>
 <h3 style={chatTitle}>💬 ChatGPT Ad Assistant</h3>
 <p style={chatSub}>Ask AI to write, improve, shorten or create advert ideas.</p>
@@ -636,11 +618,29 @@ if (e.key === "Enter") sendChatMessage();
 </section>
 
 <nav style={bottomNav}>
-<button style={navActive} onClick={() => router.push("/")}>⌂<br />Home</button>
-<button style={navBtn} onClick={() => router.push("/feed")}>▦<br />Feed</button>
-<button style={plusBtn} onClick={generateAd}>＋</button>
-<button style={navBtn} onClick={() => router.push("/video")}>✧<br />Create</button>
-<button style={navBtn} onClick={() => router.push("/profile")}>♙<br />Profile</button>
+<button style={navActive} onClick={() => router.push("/")}>
+⌂
+<br />
+Home
+</button>
+<button style={navBtn} onClick={() => router.push("/feed")}>
+▦
+<br />
+Feed
+</button>
+<button style={plusBtn} onClick={generateAd}>
+＋
+</button>
+<button style={navBtn} onClick={() => router.push("/video")}>
+✧
+<br />
+Create
+</button>
+<button style={navBtn} onClick={() => router.push("/profile")}>
+♙
+<br />
+Profile
+</button>
 </nav>
 </main>
 );
@@ -666,7 +666,9 @@ return (
 <span style={trendBadge}>{badge}</span>
 <b style={trendTitle}>{title}</b>
 <button style={playBtn}>▶</button>
-<div style={trendStats}>♡ {likes} &nbsp;&nbsp; ◉ {views}</div>
+<div style={trendStats}>
+♡ {likes} &nbsp;&nbsp; ◉ {views}
+</div>
 </div>
 );
 }
@@ -713,7 +715,6 @@ marginBottom: 22,
 };
 
 const logo: CSSProperties = { margin: 0, fontSize: 34, fontWeight: 950 };
-
 const topRight: CSSProperties = { display: "flex", gap: 10, alignItems: "center" };
 
 const creditBox: CSSProperties = {
@@ -748,6 +749,7 @@ background: "linear-gradient(135deg,#a855f7,#7c3aed)",
 };
 
 const heroCard: CSSProperties = {
+marginTop: 18,
 padding: 18,
 borderRadius: 24,
 background: "rgba(255,255,255,0.045)",
@@ -920,25 +922,6 @@ const actionOverlay: CSSProperties = { position: "absolute", inset: 0, backgroun
 const actionContent: CSSProperties = { position: "absolute", inset: 14, display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 5 };
 const actionIcon: CSSProperties = { width: 42, height: 42, borderRadius: 12, background: "linear-gradient(135deg,#a855f7,#6d28d9)", display: "grid", placeItems: "center", marginBottom: 8 };
 
-const receptionistCard: CSSProperties = {
-marginTop: 18,
-padding: 16,
-borderRadius: 22,
-display: "flex",
-gap: 14,
-alignItems: "center",
-background: "linear-gradient(135deg,rgba(139,92,246,0.2),rgba(0,0,0,0.45))",
-border: "1px solid #8b5cf6",
-cursor: "pointer",
-};
-
-const phoneGlow: CSSProperties = { width: 60, height: 60, borderRadius: 999, background: "linear-gradient(135deg,#a855f7,#7c3aed)", display: "grid", placeItems: "center", fontSize: 28 };
-const receptionistTitle: CSSProperties = { fontSize: 20, fontWeight: 950 };
-const newBadge: CSSProperties = { marginLeft: 8, background: "#a855f7", borderRadius: 999, padding: "4px 8px", fontSize: 11 };
-const receptionistText: CSSProperties = { opacity: 0.75, lineHeight: 1.35 };
-const activeDot: CSSProperties = { color: "#22c55e", fontWeight: 900 };
-const arrowRight: CSSProperties = { fontSize: 38, color: "#a855f7" };
-
 const chatBox: CSSProperties = {
 marginTop: 18,
 padding: 16,
@@ -989,4 +972,14 @@ zIndex: 50,
 
 const navBtn: CSSProperties = { border: "none", background: "transparent", color: "rgba(255,255,255,0.58)", fontWeight: 900 };
 const navActive: CSSProperties = { border: "none", background: "transparent", color: "#a855f7", fontWeight: 950 };
-const plusBtn: CSSProperties = { width: 64, height: 64, borderRadius: 999, border: "none", background: "linear-gradient(135deg,#a855f7,#7c3aed)", color: "white", fontSize: 38, fontWeight: 950 };
+
+const plusBtn: CSSProperties = {
+width: 64,
+height: 64,
+borderRadius: 999,
+border: "none",
+background: "linear-gradient(135deg,#a855f7,#7c3aed)",
+color: "white",
+fontSize: 38,
+fontWeight: 950,
+};
