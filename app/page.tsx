@@ -422,7 +422,7 @@ zIndex: 1,
 </div>
 
 <img
-src="/a_sharp_high_quality_studio_office_portrait_scene.png"
+src="receptionist-phone"
 
 style={{
 width: 150,
