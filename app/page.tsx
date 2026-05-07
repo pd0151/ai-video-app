@@ -366,6 +366,7 @@ display: "flex",
 justifyContent: "space-between",
 alignItems: "center",
 gap: 20,
+flexWrap: "wrap",
 }}
 >
 <div style={{ flex: 1 }}>
