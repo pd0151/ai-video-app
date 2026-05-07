@@ -422,7 +422,7 @@ zIndex: 1,
 </div>
 
 <img
-src="receptionist-phone"
+src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200&auto=format&fit=crop"
 
 style={{
 width: 150,
