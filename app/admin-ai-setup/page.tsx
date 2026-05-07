@@ -7,14 +7,24 @@ const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL as string,
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 );
-
+const ADMIN_EMAIL = "peterdillon809@gmail.com";
 export default function AdminAISetupPage() {
 const [businesses, setBusinesses] = useState<any[]>([]);
 
 useEffect(() => {
+checkAdmin();
 loadBusinesses();
 }, []);
+async function checkAdmin() {
+const {
+data: { user },
+} = await supabase.auth.getUser();
 
+if (!user || user.email !== ADMIN_EMAIL) {
+window.location.href = "/";
+return;
+}
+}
 async function loadBusinesses() {
 const { data, error } = await supabase
 .from("businesses")
