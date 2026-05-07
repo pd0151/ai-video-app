@@ -422,7 +422,7 @@ zIndex: 1,
 </div>
 
 <img
-src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop"
+src="/a_sharp_high_quality_studio_office_portrait_scene.png"
 
 style={{
 width: 150,
