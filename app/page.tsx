@@ -286,89 +286,179 @@ Ad<span style={{ color: "#a855f7" }}>Forge</span>✦
 onClick={() => router.push("/ai-receptionist")}
 style={{
 marginTop: 18,
-borderRadius: 28,
-padding: 24,
+padding: 28,
+borderRadius: 34,
 position: "relative",
 overflow: "hidden",
 cursor: "pointer",
 background:
-"linear-gradient(145deg, rgba(88,28,135,0.96), rgba(8,8,12,0.98))",
+"radial-gradient(circle at top left, rgba(168,85,247,0.35), transparent 35%), linear-gradient(145deg,#12051f,#050507)",
 border: "1px solid rgba(168,85,247,0.45)",
-boxShadow: "0 0 35px rgba(168,85,247,0.22)",
-display: "flex",
-alignItems: "center",
-justifyContent: "space-between",
-gap: 20,
+boxShadow:
+"0 0 60px rgba(168,85,247,0.22), inset 0 0 25px rgba(255,255,255,0.03)",
 }}
 >
-<div style={{ flex: 1, zIndex: 2 }}>
+{/* glow */}
+<div
+style={{
+position: "absolute",
+top: -120,
+right: -120,
+width: 320,
+height: 320,
+borderRadius: "50%",
+background: "rgba(168,85,247,0.18)",
+filter: "blur(80px)",
+}}
+/>
+
+{/* wave */}
+<div
+style={{
+position: "absolute",
+right: 140,
+top: "50%",
+transform: "translateY(-50%)",
+fontSize: 120,
+opacity: 0.12,
+}}
+>
+)))
+</div>
+
+<div style={{ position: "relative", zIndex: 2 }}>
 <div
 style={{
 display: "inline-flex",
 alignItems: "center",
 gap: 8,
-background: "#7c3aed",
-padding: "6px 12px",
+padding: "9px 16px",
 borderRadius: 999,
-fontSize: 12,
-fontWeight: 900,
-marginBottom: 16,
+background: "rgba(139,92,246,0.18)",
+border: "1px solid rgba(168,85,247,0.35)",
+marginBottom: 20,
+backdropFilter: "blur(10px)",
 }}
 >
-✨ NEW
+<div
+style={{
+width: 10,
+height: 10,
+borderRadius: "50%",
+background: "#22c55e",
+boxShadow: "0 0 12px #22c55e",
+}}
+/>
+<b
+style={{
+color: "#fff",
+fontSize: 12,
+letterSpacing: 1,
+}}
+>
+LIVE AI RECEPTIONIST
+</b>
 </div>
 
+<div
+style={{
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+gap: 20,
+}}
+>
+<div style={{ flex: 1 }}>
 <h2
 style={{
 margin: 0,
-fontSize: 34,
-lineHeight: 1,
-fontWeight: 950,
+fontSize: 54,
+lineHeight: 0.9,
+fontWeight: 1000,
+letterSpacing: -2,
 }}
 >
-AI Receptionist
+AI
+<br />
+Receptionist
 </h2>
 
 <p
 style={{
-marginTop: 14,
-color: "rgba(255,255,255,0.78)",
-fontSize: 16,
+marginTop: 18,
+color: "rgba(255,255,255,0.75)",
+fontSize: 18,
 lineHeight: 1.5,
-maxWidth: 320,
+maxWidth: 420,
 }}
 >
-Never miss a call again. AI answers calls, books jobs and captures leads 24/7.
+Never miss a customer call again. AI answers calls,
+captures leads and books jobs automatically 24/7.
 </p>
 
 <div
 style={{
+display: "flex",
+flexWrap: "wrap",
+gap: 10,
 marginTop: 18,
-display: "inline-flex",
-padding: "14px 22px",
-borderRadius: 18,
-background: "linear-gradient(135deg,#9333ea,#c084fc)",
-color: "#fff",
-fontWeight: 900,
-fontSize: 15,
-boxShadow: "0 0 20px rgba(168,85,247,0.45)",
 }}
 >
-Activate Now
+{[
+"24/7 Calls",
+"Lead Capture",
+"SMS Alerts",
+"Auto Booking",
+].map((item) => (
+<div
+key={item}
+style={{
+padding: "10px 14px",
+borderRadius: 999,
+background: "rgba(255,255,255,0.06)",
+border: "1px solid rgba(255,255,255,0.08)",
+fontSize: 12,
+fontWeight: 800,
+backdropFilter: "blur(10px)",
+}}
+>
+⚡ {item}
+</div>
+))}
+</div>
+
+<div
+style={{
+marginTop: 24,
+display: "inline-flex",
+alignItems: "center",
+gap: 10,
+padding: "16px 26px",
+borderRadius: 18,
+background: "linear-gradient(135deg,#7c3aed,#c084fc)",
+color: "#fff",
+fontWeight: 900,
+fontSize: 17,
+boxShadow: "0 10px 30px rgba(168,85,247,0.35)",
+}}
+>
+🔥 Activate Now
 </div>
 </div>
 
 <img
-src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1200&auto=format&fit=crop"
+src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1200&auto=format&fit=crop"
 style={{
-width: 180,
-height: 260,
+width: 260,
+height: 360,
 objectFit: "cover",
-borderRadius: 24,
-alignSelf: "flex-end",
-boxShadow: "0 0 35px rgba(168,85,247,0.35)",
+borderRadius: 28,
+border: "1px solid rgba(255,255,255,0.08)",
+boxShadow: "0 20px 40px rgba(0,0,0,0.45)",
 }}
 />
+</div>
+</div>
 </section>
 
 <section style={heroCard}>
