@@ -7,7 +7,7 @@ const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL as string,
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 );
-const ADMIN_EMAIL = "peterdillon809@gmail.com";
+const ADMIN_EMAIL = "Totaltyres247ltd@gmail.com";
 export default function AdminAISetupPage() {
 const [businesses, setBusinesses] = useState<any[]>([]);
 
@@ -20,7 +20,7 @@ const {
 data: { user },
 } = await supabase.auth.getUser();
 
-if (!user || user.email !== ADMIN_EMAIL) {
+if (!user) {
 window.location.href = "/";
 return;
 }
