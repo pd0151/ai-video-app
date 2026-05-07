@@ -316,7 +316,14 @@ fontSize: 10,
 fontWeight: 900,
 }}
 >
-<span style={{ width: 8, height: 8, borderRadius: 999, background: "#22c55e" }} />
+<span
+style={{
+width: 8,
+height: 8,
+borderRadius: 999,
+background: "#22c55e",
+}}
+/>
 LIVE AI RECEPTIONIST
 </div>
 
@@ -331,7 +338,7 @@ letterSpacing: -1,
 >
 AI
 <br />
-Receptionist
+<span style={{ color: "#c084fc" }}>Receptionist</span>
 </h2>
 
 <p
@@ -341,17 +348,31 @@ marginBottom: 0,
 color: "rgba(255,255,255,0.76)",
 fontSize: 13,
 lineHeight: 1.35,
+maxWidth: 240,
 }}
 >
-Never miss a customer call again. AI answers calls, captures leads and books jobs 24/7.
+Never miss a customer call again. AI answers calls,
+captures leads and books jobs automatically 24/7.
 </p>
 
-<div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 12 }}>
-{["24/7 Calls", "Lead Capture", "SMS Alerts", "Auto Booking"].map((item) => (
+<div
+style={{
+display: "flex",
+gap: 6,
+flexWrap: "wrap",
+marginTop: 14,
+}}
+>
+{[
+"📞 24/7 Calls",
+"👤 Lead Capture",
+"💬 SMS Alerts",
+"📅 Auto Booking",
+].map((item) => (
 <span
 key={item}
 style={{
-padding: "7px 9px",
+padding: "7px 10px",
 borderRadius: 10,
 background: "rgba(255,255,255,0.07)",
 border: "1px solid rgba(255,255,255,0.1)",
@@ -359,7 +380,7 @@ fontSize: 10,
 fontWeight: 800,
 }}
 >
-⚡ {item}
+{item}
 </span>
 ))}
 </div>
@@ -368,6 +389,8 @@ fontWeight: 800,
 style={{
 marginTop: 14,
 display: "inline-flex",
+alignItems: "center",
+gap: 10,
 padding: "13px 18px",
 borderRadius: 15,
 background: "linear-gradient(135deg,#7c3aed,#c084fc)",
@@ -377,23 +400,27 @@ fontSize: 15,
 boxShadow: "0 0 22px rgba(168,85,247,0.5)",
 }}
 >
-🔥 Activate Now ›
+🔥 Activate Now
+<span style={{ fontSize: 20 }}>›</span>
 </div>
 </div>
+
 <div
 style={{
 position: "absolute",
-right: 140,
+right: 150,
 top: "50%",
 transform: "translateY(-50%)",
 fontSize: 90,
 color: "rgba(124,58,237,0.55)",
 fontWeight: 100,
 lineHeight: 0.7,
+zIndex: 1,
 }}
 >
 )))
 </div>
+
 <img
 src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1200&auto=format&fit=crop"
 style={{
@@ -403,6 +430,7 @@ objectFit: "cover",
 borderRadius: 22,
 border: "1px solid rgba(168,85,247,0.55)",
 boxShadow: "0 0 40px rgba(168,85,247,0.45)",
+zIndex: 2,
 }}
 />
 </section>
