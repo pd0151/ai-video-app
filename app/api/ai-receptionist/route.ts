@@ -22,14 +22,21 @@ headers: {
 export async function POST(req: NextRequest) {
 const body = await req.json();
 
+const eventType = body?.message?.type;
+
+if (eventType !== "end-of-call-report") {
+return NextResponse.json({ ok: true, skipped: eventType });
+}
+
 const from =
-body?.caller ||
-body?.from ||
+body?.message?.call?.customer?.number ||
+body?.message?.customer?.number ||
 "Unknown";
 
 const speech =
-body?.message ||
-body?.transcript ||
+body?.message?.analysis?.summary ||
+body?.message?.summary ||
+body?.message?.transcript ||
 "New tyre job";
 
 if (speech === "New tyre job") {
