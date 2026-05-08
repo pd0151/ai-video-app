@@ -53,7 +53,7 @@ job_summary: speech || "No speech",
 status: "new",
 });
 await client.messages.create({
-body: `🔥 NEW TYRE JOB\n\n📞 ${from}\n🛞 ${speech}`,
+body: `🔥 NEW TYRE JOB\n\n📞 ${from}`,
 from: process.env.TWILIO_FROM!,
 to: "+447385182500"
 });
