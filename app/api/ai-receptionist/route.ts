@@ -43,12 +43,30 @@ message?.transcript ||
 body?.transcript ||
 "";
 
+const lower = transcript.toLowerCase();
 
-const speech =
-message?.analysis?.structuredData?.summary ||
-message?.analysis?.summary ||
-transcript ||
-"Tyre job captured";
+const tyreSize =
+transcript.match(/\b\d{3}\s?\/?\s?\d{2}\s?r?\s?\d{2}\b/i)?.[0] ||
+"Not given";
+
+const vehicle =
+transcript.match(/\b(BMW|Audi|Mercedes|Volkswagen|VW|Golf|Ford|Vauxhall|Range Rover|Toyota|Nissan|Peugeot|Renault|Kia|Hyundai)\b/i)?.[0] ||
+"Not given";
+
+const postcode =
+transcript.match(/\b[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}\b/i)?.[0] ||
+"Not given";
+
+const issue =
+lower.includes("flat") ? "Flat tyre" :
+lower.includes("puncture") ? "Puncture" :
+lower.includes("new tire") || lower.includes("new tyre") ? "New tyre" :
+"Tyre job";
+
+const speech = `Issue: ${issue}
+Vehicle: ${vehicle}
+Tyre size: ${tyreSize}
+Postcode: ${postcode}`;
 
 // Stop duplicate texts/leads for the same call.
 const { data: existing } = await supabase
