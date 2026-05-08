@@ -43,11 +43,12 @@ message?.transcript ||
 body?.transcript ||
 "";
 
+
 const speech =
 message?.analysis?.structuredData?.summary ||
 message?.analysis?.summary ||
-message?.summary ||
-"Tyre job captured - check dashboard for full details";
+transcript ||
+"Tyre job captured";
 
 // Stop duplicate texts/leads for the same call.
 const { data: existing } = await supabase
