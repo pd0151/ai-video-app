@@ -46,7 +46,14 @@ return "Tyre job";
 }
 
 function extractTyreSize(transcript: string) {
-const lower = transcript.toLowerCase();
+const lines = transcript.split(/\n|AI:|User:/i);
+
+const tyreLine =
+lines.find((line) =>
+/tyre size|tire size|size|two zero five|205|fifty five|55|sixteen|16/i.test(line)
+) || "";
+
+const lower = tyreLine.toLowerCase();
 
 if (
 (lower.includes("205") || lower.includes("two zero five")) &&
@@ -56,23 +63,12 @@ if (
 return "205/55/16";
 }
 
-const normal = wordsToNumbers(transcript)
-.replace(/two zero five/g, "205")
-.replace(/2 0 5/g, "205")
-.replace(/5 5/g, "55")
-.replace(/1 6/g, "16")
-.replace(/\s+/g, "");
-
-const match =
-normal.match(/\d{3}\/?\d{2}r?\d{2}/i) ||
-normal.match(/\d{7}/);
+const normal = wordsToNumbers(tyreLine).replace(/\s+/g, "");
+const match = normal.match(/\d{3}\d{2}\d{2}/);
 
 if (match?.[0]) {
-const raw = match[0].replace(/\D/g, "");
-if (raw.length >= 7) {
+const raw = match[0];
 return `${raw.slice(0, 3)}/${raw.slice(3, 5)}/${raw.slice(5, 7)}`;
-}
-return match[0];
 }
 
 return "Not given";
@@ -132,10 +128,17 @@ return "Not given";
 }
 
 function extractPhone(transcript: string, fallback: string) {
-const normal = wordsToNumbers(transcript).replace(/\s+/g, "");
+const phoneSection =
+transcript.match(/phone number.*?User:\s*([^\n.]+)/i)?.[1] ||
+transcript.match(/phone.*?User:\s*([^\n.]+)/i)?.[1] ||
+"";
+
+const normal = wordsToNumbers(phoneSection).replace(/\s+/g, "");
 const match = normal.match(/07\d{9}/);
 
-return match?.[0] || fallback || "Unknown";
+if (match?.[0]) return match[0];
+
+return fallback || "Unknown";
 }
 
 function extractName(transcript: string) {
