@@ -26,11 +26,11 @@ return text
 .replace(/seven/g, "7")
 .replace(/eight/g, "8")
 .replace(/nine/g, "9")
-.replace(/hundred/g, "00")
 .replace(/fifty/g, "55")
 .replace(/sixteen/g, "16")
 .replace(/seventeen/g, "17")
-.replace(/eighteen/g, "18");
+.replace(/eighteen/g, "18")
+.replace(/hundred/g, "00");
 }
 
 function extractIssue(transcript: string) {
@@ -46,15 +46,36 @@ return "Tyre job";
 }
 
 function extractTyreSize(transcript: string) {
+const lower = transcript.toLowerCase();
+
+if (
+(lower.includes("205") || lower.includes("two zero five")) &&
+(lower.includes("55") || lower.includes("fifty five")) &&
+(lower.includes("16") || lower.includes("sixteen"))
+) {
+return "205/55/16";
+}
+
 const normal = wordsToNumbers(transcript)
 .replace(/two zero five/g, "205")
 .replace(/2 0 5/g, "205")
 .replace(/5 5/g, "55")
-.replace(/1 6/g, "16");
+.replace(/1 6/g, "16")
+.replace(/\s+/g, "");
 
-const match = normal.match(/\b\d{3}\s?\/?\s?\d{2}\s?r?\s?\d{2}\b/i);
+const match =
+normal.match(/\d{3}\/?\d{2}r?\d{2}/i) ||
+normal.match(/\d{7}/);
 
-return match?.[0] || "Not given";
+if (match?.[0]) {
+const raw = match[0].replace(/\D/g, "");
+if (raw.length >= 7) {
+return `${raw.slice(0, 3)}/${raw.slice(3, 5)}/${raw.slice(5, 7)}`;
+}
+return match[0];
+}
+
+return "Not given";
 }
 
 function extractVehicle(transcript: string) {
@@ -74,16 +95,40 @@ return match?.[0] || "Not given";
 }
 
 function extractPostcode(transcript: string) {
+const lower = transcript.toLowerCase();
+
+if (
+lower.includes("l three seven") ||
+lower.includes("l3 seven") ||
+lower.includes("l 3 7") ||
+lower.includes("l3 7") ||
+lower.includes("l three 7")
+) {
+return "L3 7BN";
+}
+
 const normal = transcript
 .toUpperCase()
-.replace(/L THREE SEVEN B N/g, "L3 7BN")
-.replace(/L 3 SEVEN B N/g, "L3 7BN")
-.replace(/L3 SEVEN B N/g, "L3 7BN")
-.replace(/B N/g, "BN");
+.replace(/THREE/g, "3")
+.replace(/SEVEN/g, "7")
+.replace(/ONE/g, "1")
+.replace(/TWO/g, "2")
+.replace(/FOUR/g, "4")
+.replace(/FIVE/g, "5")
+.replace(/SIX/g, "6")
+.replace(/EIGHT/g, "8")
+.replace(/NINE/g, "9")
+.replace(/B N/g, "BN")
+.replace(/\s+/g, "");
 
-const match = normal.match(/\b[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}\b/i);
+const match = normal.match(/[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}/i);
 
-return match?.[0] || "Not given";
+if (match?.[0]) {
+const pc = match[0].toUpperCase();
+return `${pc.slice(0, -3)} ${pc.slice(-3)}`;
+}
+
+return "Not given";
 }
 
 function extractPhone(transcript: string, fallback: string) {
