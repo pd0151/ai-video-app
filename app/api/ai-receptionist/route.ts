@@ -24,7 +24,11 @@ const body = await req.json();
 
 const eventType = body?.message?.type;
 
-if (eventType !== "end-of-call-report") {
+if (
+eventType !== "end-of-call-report" &&
+eventType !== "call-ended" &&
+eventType !== "assistant-ended"
+) {
 return NextResponse.json({ ok: true, skipped: eventType });
 }
 
