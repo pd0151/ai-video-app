@@ -24,13 +24,10 @@ const body = await req.json();
 
 const eventType = body?.message?.type;
 
-if (
-eventType !== "end-of-call-report" &&
-eventType !== "call-ended" &&
-eventType !== "assistant-ended"
-) {
-return NextResponse.json({ ok: true, skipped: eventType });
+if (!body?.message?.analysis?.summary) {
+return NextResponse.json({ ok: true, skipped: true });
 }
+
 
 const from =
 body?.message?.call?.customer?.number ||
