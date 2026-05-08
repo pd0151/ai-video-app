@@ -45,9 +45,7 @@ body?.transcript ||
 
 const speech =
 message?.analysis?.summary ||
-message?.summary ||
-transcript ||
-"New tyre job";
+"Customer called for a tyre fitting quote";
 
 // Stop duplicate texts/leads for the same call.
 const { data: existing } = await supabase
