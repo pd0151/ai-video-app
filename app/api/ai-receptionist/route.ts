@@ -97,6 +97,7 @@ await client.messages.create({
 body: `🔥 NEW TYRE JOB
 
 📞 ${from}
+
 🛞 ${speech}`,
 from: process.env.TWILIO_FROM!,
 to: process.env.NOTIFY_PHONE!,
