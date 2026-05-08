@@ -66,11 +66,26 @@ body?.call?.customer?.number ||
 body?.message?.customer?.number ||
 "Unknown";
 
-const issue = body.issue || "New tyre needed";
-const vehicle = body.vehicle || "Not given";
-const tyreSize = body.tyre_size || "Not given";
-const postcode = body.postcode || body.location || "Not given";
-const customerName = body.customer_name || body.name || "Not given";
+const issue =
+typeof body.issue === "string" ? body.issue : "Not given";
+
+const vehicle =
+typeof body.vehicle === "string" ? body.vehicle : "Not given";
+
+const tyreSize =
+typeof body.tyre_size === "string"
+? body.tyre_size
+: "Not given";
+
+const postcode =
+typeof body.postcode === "string"
+? body.postcode
+: "Not given";
+
+const customerName =
+typeof body.customer_name === "string"
+? body.customer_name
+: "Not given";
 
 const jobMessage = `🔥 NEW TYRE JOB
 
