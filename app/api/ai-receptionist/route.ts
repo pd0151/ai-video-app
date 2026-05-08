@@ -244,7 +244,18 @@ transcript,
 job_summary: jobSummary,
 status: "new",
 });
-
+await supabase.from("leads").insert([
+{
+phone: customerPhone,
+job: `Issue: ${issue}
+Vehicle: ${vehicle}
+Tyre size: ${tyreSize}
+Name: ${name}`,
+location: postcode,
+status: "new",
+business_id: "b2c4a284-8aab-4687-9f77-4547a3dfe53b",
+},
+]);
 if (error) {
 console.error("❌ SUPABASE ERROR:", error.message);
 return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
