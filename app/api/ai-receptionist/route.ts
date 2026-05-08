@@ -244,7 +244,7 @@ transcript,
 job_summary: jobSummary,
 status: "new",
 });
-await supabase.from("leads").insert([
+const { error: liveLeadError } = await supabase.from("leads").insert([
 {
 phone: customerPhone,
 job: `Issue: ${issue}
@@ -256,6 +256,10 @@ status: "new",
 business_id: "b2c4a284-8aab-4687-9f77-4547a3dfe53b",
 },
 ]);
+
+if (liveLeadError) {
+console.error("LIVE LEADS INSERT ERROR:", liveLeadError);
+}
 if (error) {
 console.error("❌ SUPABASE ERROR:", error.message);
 return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
