@@ -39,6 +39,14 @@ return "";
 function wordsToDigits(text: string) {
 return text
 .toLowerCase()
+.replace(/double\s+(zero|oh|one|two|three|four|five|six|seven|eight|nine|\d)/g, (_m, d) => {
+const n = wordToDigit(d);
+return `${n}${n}`;
+})
+.replace(/triple\s+(zero|oh|one|two|three|four|five|six|seven|eight|nine|\d)/g, (_m, d) => {
+const n = wordToDigit(d);
+return `${n}${n}${n}`;
+})
 .replace(/zero|oh/g, "0")
 .replace(/one/g, "1")
 .replace(/two/g, "2")
@@ -50,60 +58,79 @@ return text
 .replace(/eight/g, "8")
 .replace(/nine/g, "9")
 .replace(/ten/g, "10")
+.replace(/eleven/g, "11")
+.replace(/twelve/g, "12")
+.replace(/thirteen/g, "13")
+.replace(/fourteen/g, "14")
+.replace(/fifteen/g, "15")
+.replace(/sixteen/g, "16")
+.replace(/seventeen/g, "17")
+.replace(/eighteen/g, "18")
+.replace(/nineteen/g, "19")
+.replace(/twenty/g, "20")
+.replace(/thirty/g, "30")
+.replace(/forty/g, "40")
+.replace(/fifty/g, "50")
+.replace(/sixty/g, "60")
+.replace(/seventy/g, "70")
+.replace(/eighty/g, "80")
+.replace(/ninety/g, "90")
 .replace(/hundred/g, "00");
 }
 
-function getUserAnswers(transcript: string) {
-return transcript
-.split(/\n/)
-.filter((line) => line.trim().toLowerCase().startsWith("user:"))
-.map((line) => line.replace(/^user:\s*/i, "").trim());
+function wordToDigit(word: string) {
+const w = word.toLowerCase();
+
+if (/^\d$/.test(w)) return w;
+if (w === "zero" || w === "oh") return "0";
+if (w === "one") return "1";
+if (w === "two") return "2";
+if (w === "three") return "3";
+if (w === "four") return "4";
+if (w === "five") return "5";
+if (w === "six") return "6";
+if (w === "seven") return "7";
+if (w === "eight") return "8";
+if (w === "nine") return "9";
+
+return "";
 }
 
-function extractPhone(transcript: string, callerId: string) {
-const answers = getUserAnswers(transcript);
+function extractPhone(transcript: string) {
+const text = wordsToDigits(transcript).replace(/\D/g, "");
 
-for (const answer of answers) {
-const normal = wordsToDigits(answer).replace(/\D/g, "");
+const mobile07 = text.match(/07\d{9}/);
+if (mobile07) return mobile07[0];
 
-const found07 = normal.match(/07\d{9}/);
-if (found07) return found07[0];
+const mobile44 = text.match(/447\d{9}/);
+if (mobile44) return `+${mobile44[0]}`;
 
-const found44 = normal.match(/447\d{9}/);
-if (found44) return `+${found44[0]}`;
-}
-
-const fullNormal = wordsToDigits(transcript).replace(/\D/g, "");
-
-const full07 = fullNormal.match(/07\d{9}/);
-if (full07) return full07[0];
-
-const full44 = fullNormal.match(/447\d{9}/);
-if (full44) return `+${full44[0]}`;
-
-return callerId && callerId !== "Unknown" ? callerId : "Not given";
+return "Not given";
 }
 
 function extractTyreSize(transcript: string) {
-const text = wordsToDigits(transcript)
-.replace(/fifty five/g, "55")
+const lower = transcript.toLowerCase();
+
+const tyreArea =
+lower.match(/tyre size.{0,120}/i)?.[0] ||
+lower.match(/tire size.{0,120}/i)?.[0] ||
+lower.match(/size is.{0,120}/i)?.[0] ||
+lower.match(/it is.{0,120}/i)?.[0] ||
+lower;
+
+const normal = wordsToDigits(tyreArea)
+.replace(/fifty\s*five/g, "55")
 .replace(/sixteen/g, "16")
 .replace(/seventeen/g, "17")
 .replace(/eighteen/g, "18")
 .replace(/nineteen/g, "19")
 .replace(/\s+/g, "");
 
-const found = text.match(/\d{3}\/?\d{2}r?\d{2}/i);
+const found = normal.match(/(\d{3})\/?(\d{2})r?(\d{2})/i);
 
 if (!found) return "Not given";
 
-const raw = found[0].replace(/\D/g, "");
-
-if (raw.length >= 7) {
-return `${raw.slice(0, 3)}/${raw.slice(3, 5)}/${raw.slice(5, 7)}`;
-}
-
-return "Not given";
+return `${found[1]}/${found[2]}/${found[3]}`;
 }
 
 function extractPostcode(transcript: string) {
@@ -183,21 +210,14 @@ message?.call?.sid ||
 message?.callId ||
 `call-${Date.now()}`;
 
-const callerId =
-message?.call?.customer?.number ||
-message?.customer?.number ||
-body?.caller ||
-body?.from ||
-"Unknown";
-
 const transcript = buildTranscript(message, body);
 
 const name = extractName(transcript);
 const issue = extractIssue(transcript);
 const vehicle = extractVehicle(transcript);
-const tyreSize = "Not given";
+const tyreSize = extractTyreSize(transcript);
 const postcode = extractPostcode(transcript);
-const customerPhone = extractPhone(transcript, '') || "Not given";
+const customerPhone = extractPhone(transcript);
 
 const jobSummary = `Name: ${name}
 Issue: ${issue}
