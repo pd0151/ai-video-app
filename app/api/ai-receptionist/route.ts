@@ -36,7 +36,6 @@ body?.message?.customer?.number ||
 const speech =
 body?.message?.analysis?.summary ||
 body?.message?.summary ||
-body?.message?.transcript ||
 "New tyre job";
 
 if (speech === "New tyre job") {
