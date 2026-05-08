@@ -195,9 +195,9 @@ const transcript = buildTranscript(message, body);
 const name = extractName(transcript);
 const issue = extractIssue(transcript);
 const vehicle = extractVehicle(transcript);
-const tyreSize = extractTyreSize(transcript);
+const tyreSize = "Not given";
 const postcode = extractPostcode(transcript);
-const customerPhone = extractPhone(transcript, callerId);
+const customerPhone = extractPhone(transcript, '') || "Not given";
 
 const jobSummary = `Name: ${name}
 Issue: ${issue}
