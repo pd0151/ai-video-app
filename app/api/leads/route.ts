@@ -57,9 +57,32 @@ return NextResponse.json(
 );
 }
 
-const customerPhone = body.caller || body.phone || "Unknown";
-const jobMessage = body.message || body.job || "New customer enquiry";
-const location = body.location || business.service_area || "Unknown";
+const customerPhone =
+body.customer_phone ||
+body.phone ||
+body.caller ||
+body?.customer?.number ||
+body?.call?.customer?.number ||
+body?.message?.customer?.number ||
+"Unknown";
+
+const issue = body.issue || "New tyre needed";
+const vehicle = body.vehicle || "Not given";
+const tyreSize = body.tyre_size || "Not given";
+const postcode = body.postcode || body.location || "Not given";
+const customerName = body.customer_name || body.name || "Not given";
+
+const jobMessage = `🔥 NEW TYRE JOB
+
+📞 Customer phone: ${customerPhone}
+
+🛞 Issue: ${issue}
+🚗 Vehicle: ${vehicle}
+📏 Tyre size: ${tyreSize}
+📍 Postcode: ${postcode}
+👤 Name: ${customerName}`;
+
+const location = postcode || business.service_area || "Unknown";
 // STOP DUPLICATE VAPI SPAM
 const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
 
