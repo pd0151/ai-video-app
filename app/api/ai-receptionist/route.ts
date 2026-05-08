@@ -1,4 +1,3 @@
-
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import twilio from "twilio";
@@ -7,67 +6,89 @@ const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL!,
 process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
+
 const client = twilio(
 process.env.TWILIO_ACCOUNT_SID!,
 process.env.TWILIO_AUTH_TOKEN!
 );
-function xmlResponse(twiml: string) {
-return new NextResponse(twiml, {
-headers: {
-"Content-Type": "text/xml",
-},
-});
-}
 
 export async function POST(req: NextRequest) {
+try {
 const body = await req.json();
+const message = body?.message || body;
 
-const eventType = body?.message?.type;
+const eventType = message?.type || "";
 
-if (!body?.message?.analysis?.summary) {
-return NextResponse.json({ ok: true, skipped: true });
+// Only act at the end of the call. This stops spam.
+if (eventType !== "end-of-call-report") {
+return NextResponse.json({ ok: true, skipped: eventType });
 }
 
+const callId =
+message?.call?.id ||
+message?.call?.sid ||
+message?.callId ||
+`call-${Date.now()}`;
 
 const from =
-body?.message?.call?.customer?.number ||
-body?.message?.customer?.number ||
+message?.call?.customer?.number ||
+message?.customer?.number ||
+body?.caller ||
+body?.from ||
 "Unknown";
 
+const transcript =
+message?.artifact?.transcript ||
+message?.transcript ||
+body?.transcript ||
+"";
+
 const speech =
-body?.message?.analysis?.summary ||
-body?.message?.summary ||
+message?.analysis?.summary ||
+message?.summary ||
+transcript ||
 "New tyre job";
 
-if (speech === "New tyre job") {
-return NextResponse.json({ ok: true });
+// Stop duplicate texts/leads for the same call.
+const { data: existing } = await supabase
+.from("ai_call_leads")
+.select("id")
+.eq("call_sid", callId)
+.maybeSingle();
+
+if (existing) {
+return NextResponse.json({ ok: true, duplicate: true });
 }
 
-console.log("🔥 TEST HIT:", from, speech);
-
-const { data, error } = await supabase.from("ai_call_leads").insert({
+const { error } = await supabase.from("ai_call_leads").insert({
 business_id: "test",
-call_sid: from,
+call_sid: callId,
 customer_phone: from,
-transcript: speech || "No speech",
-job_summary: speech || "No speech",
+transcript: transcript || speech,
+job_summary: speech,
 status: "new",
 });
-await client.messages.create({
-body: `🔥 NEW TYRE JOB\n\n📞 ${from}`,
-from: process.env.TWILIO_FROM!,
-to: "+447385182500"
-});
+
 if (error) {
 console.error("❌ SUPABASE ERROR:", error.message);
+return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
 }
 
-const response = new twilio.twiml.VoiceResponse();
+await client.messages.create({
+body: `🔥 NEW TYRE JOB
 
-response.say(
-{ voice: "Polly.Amy" },
-"Thanks, we have received your request."
+📞 ${from}
+🛞 ${speech}`,
+from: process.env.TWILIO_FROM!,
+to: process.env.NOTIFY_PHONE!,
+});
+
+return NextResponse.json({ ok: true });
+} catch (err: any) {
+console.error("❌ API ERROR:", err?.message || err);
+return NextResponse.json(
+{ ok: false, error: err?.message || "Server error" },
+{ status: 500 }
 );
-
-return xmlResponse(response.toString());
+}
 }
