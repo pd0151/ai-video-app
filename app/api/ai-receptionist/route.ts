@@ -50,23 +50,33 @@ transcript.match(/\b\d{3}\s?\/?\s?\d{2}\s?r?\s?\d{2}\b/i)?.[0] ||
 "Not given";
 
 const vehicle =
-transcript.match(/\b(BMW|Audi|Mercedes|Volkswagen|VW|Golf|Ford|Vauxhall|Range Rover|Toyota|Nissan|Peugeot|Renault|Kia|Hyundai)\b/i)?.[0] ||
-"Not given";
+transcript.match(
+/\b(BMW|Audi|Mercedes|Volkswagen|VW|Golf|Ford|Vauxhall|Range Rover|Toyota|Nissan|Peugeot|Renault|Kia|Hyundai)\b/i
+)?.[0] || "Not given";
 
 const postcode =
 transcript.match(/\b[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}\b/i)?.[0] ||
 "Not given";
 
 const issue =
-lower.includes("flat") ? "Flat tyre" :
-lower.includes("puncture") ? "Puncture" :
-lower.includes("new tire") || lower.includes("new tyre") ? "New tyre" :
-"Tyre job";
+lower.includes("flat")
+? "Flat tyre"
+: lower.includes("puncture")
+? "Puncture"
+: lower.includes("new tire") || lower.includes("new tyre")
+? "New tyre"
+: "Tyre job";
 
-const speech = `Issue: ${issue}
+const fallbackSpeech = `Issue: ${issue}
 Vehicle: ${vehicle}
 Tyre size: ${tyreSize}
 Postcode: ${postcode}`;
+
+const speech =
+message?.analysis?.summary ||
+message?.summary ||
+transcript ||
+fallbackSpeech;
 
 // Stop duplicate texts/leads for the same call.
 const { data: existing } = await supabase
@@ -90,7 +100,10 @@ status: "new",
 
 if (error) {
 console.error("❌ SUPABASE ERROR:", error.message);
-return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+return NextResponse.json(
+{ ok: false, error: error.message },
+{ status: 500 }
+);
 }
 
 await client.messages.create({
