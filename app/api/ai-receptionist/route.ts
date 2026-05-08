@@ -20,8 +20,21 @@ headers: {
 }
 
 export async function POST(req: NextRequest) {
-const from = "+447123456789";
-const speech = "Test tyre job Liverpool ASAP";
+const body = await req.json();
+
+const from =
+body?.caller ||
+body?.from ||
+"Unknown";
+
+const speech =
+body?.message ||
+body?.transcript ||
+"New tyre job";
+
+if (speech === "New tyre job") {
+return NextResponse.json({ ok: true });
+}
 
 console.log("🔥 TEST HIT:", from, speech);
 
