@@ -44,8 +44,10 @@ body?.transcript ||
 "";
 
 const speech =
+message?.analysis?.structuredData?.summary ||
 message?.analysis?.summary ||
-"Customer called for a tyre fitting quote";
+message?.summary ||
+"Tyre job captured - check dashboard for full details";
 
 // Stop duplicate texts/leads for the same call.
 const { data: existing } = await supabase
