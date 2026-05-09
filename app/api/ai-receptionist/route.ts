@@ -209,13 +209,50 @@ message?.callId ||
 `call-${Date.now()}`;
 
 const transcript = buildTranscript(message, body);
+const toolArgs =
+message?.toolCalls?.[0]?.function?.arguments ||
+message?.toolCalls?.[0]?.arguments ||
+body?.message?.toolCalls?.[0]?.function?.arguments ||
+body?.message?.toolCalls?.[0]?.arguments ||
+body?.toolCall?.function?.arguments ||
+body?.toolCall?.arguments ||
+body;
 
-const name = extractName(transcript);
-const issue = extractIssue(transcript);
-const vehicle = extractVehicle(transcript);
-const tyreSize = extractTyreSize(transcript);
-const postcode = extractPostcode(transcript);
-const customerPhone = extractPhone(transcript);
+const args =
+typeof toolArgs === "string"
+? JSON.parse(toolArgs)
+: toolArgs;
+const name = args.name || extractName(transcript) || "Not given";
+
+const issue =
+args.issue ||
+args.problem ||
+extractIssue(transcript) ||
+"Tyre job";
+
+const vehicle =
+args.vehicle ||
+extractVehicle(transcript) ||
+"Not given";
+
+const tyreSize =
+args.tyre_size ||
+args.tyreSize ||
+extractTyreSize(transcript) ||
+"Not given";
+
+const postcode =
+args.postcode ||
+args.location ||
+extractPostcode(transcript) ||
+"Not given";
+
+const customerPhone =
+args.customer_phone ||
+args.phone ||
+args.caller ||
+extractPhone(transcript) ||
+"Not given";
 
 const jobSummary = `Name: ${name}
 Issue: ${issue}
