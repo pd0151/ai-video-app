@@ -29,7 +29,31 @@ const vehicle = clean(body.vehicle);
 const tyre_size = clean(body.tyre_size);
 const postcode = clean(body.postcode);
 const issue = clean(body.issue);
+const badValues = ["", "not given", "unknown", "sorry", "not provided", "i"];
 
+function isBad(value: string) {
+return badValues.includes(value.toLowerCase().trim());
+}
+
+if (
+isBad(name) ||
+isBad(customer_phone) ||
+isBad(vehicle) ||
+isBad(tyre_size) ||
+isBad(postcode) ||
+isBad(issue)
+) {
+console.log("LEAD REJECTED - MISSING DETAILS:", body);
+
+return NextResponse.json(
+{
+success: false,
+error: "Missing required lead details",
+received: body,
+},
+{ status: 400 }
+);
+}
 if (!business_id) {
 return NextResponse.json(
 { success: false, error: "Missing business_id" },
