@@ -32,7 +32,9 @@ const issue = clean(body.issue);
 const badValues = ["", "not given", "unknown", "sorry", "not provided", "i", "in"];
 
 function isBad(value: string) {
-return badValues.includes(value.toLowerCase().trim());
+const cleaned = value.toLowerCase().trim();
+
+return badValues.some((bad) => cleaned.includes(bad));
 }
 
 if (
