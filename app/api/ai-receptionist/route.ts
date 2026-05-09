@@ -200,9 +200,7 @@ const message = body?.message || body;
 
 const eventType = message?.type || "";
 
-if (eventType !== "end-of-call-report") {
-return NextResponse.json({ ok: true, skipped: eventType });
-}
+
 
 const callId =
 message?.call?.id ||
