@@ -262,7 +262,10 @@ console.error("LIVE LEADS INSERT ERROR:", liveLeadError);
 }
 if (error) {
 console.error("❌ SUPABASE ERROR:", error.message);
-return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+const client = twilio(
+process.env.TWILIO_ACCOUNT_SID!,
+process.env.TWILIO_AUTH_TOKEN!
+);
 }
 
 await client.messages.create({
