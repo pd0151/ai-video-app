@@ -169,14 +169,18 @@ loop
 playsInline
 preload="auto"
 style={media}
-onClick={() => window.open(post.image_url || post.video_url, "_blank")}
+onClick={() => {
+const url = post.image_url || post.video_url;
+if (url) window.location.href = url;
+}}
 />
 ) : (
 <img
 src={post.image_url || ""}
 style={media}
 onClick={() => {
-window.open(post.image_url || post.video_url, "_blank");
+const url = post.image_url || post.video_url;
+if (url) window.location.href = url;
 }}
 />
 )}
