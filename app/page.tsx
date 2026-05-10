@@ -108,7 +108,18 @@ try {
 const res = await fetch("/api/generate-image", {
 method: "POST",
 headers: { "Content-Type": "application/json" },
-body: JSON.stringify({ prompt }),
+body: JSON.stringify({
+prompt: `
+Create a premium social media advertisement for ${businessName}.
+
+Business type: ${prompt}
+
+Modern cinematic marketing image.
+Luxury lighting.
+Professional branding.
+High quality viral advertisement.
+`,
+}),
 });
 
 const data = await res.json();
@@ -433,7 +444,7 @@ zIndex: 1,
 </div>
 
 <img
-src="/receptionist-phone.png"
+src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
 style={{
 width: 150,
 height: 240,
