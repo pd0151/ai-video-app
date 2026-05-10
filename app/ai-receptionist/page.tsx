@@ -105,15 +105,43 @@ return;
 
 setLoading(true);
 
+const {
+data: { user },
+} = await supabase.auth.getUser();
+
+if (!user?.email) {
+alert("Please log in again");
+setLoading(false);
+return;
+}
+
+const email = user.email.toLowerCase().trim();
+
+const { data: business, error: businessError } = await supabase
+.from("businesses")
+.select("id")
+.eq("email", email)
+.maybeSingle();
+
+if (businessError || !business?.id) {
+alert("Business profile not found");
+setLoading(false);
+return;
+}
+
 await fetch("/api/leads", {
 method: "POST",
 headers: {
 "Content-Type": "application/json",
 },
 body: JSON.stringify({
-caller: "+447123456789",
-message:
-"Customer needs a new tyre fitted. Tyre size: 215/45/17. Vehicle: BMW. Phone number: 07385182500. Postcode: L97JX.",
+business_id: business.id,
+name: "Test Customer",
+customer_phone: "07385182500",
+vehicle: "BMW",
+tyre_size: "215/45/17",
+postcode: "L9 7JX",
+issue: "Needs a new tyre fitted",
 }),
 });
 
