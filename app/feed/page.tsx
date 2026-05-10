@@ -34,6 +34,7 @@ const [posts, setPosts] = useState<Post[]>([]);
 const [loading, setLoading] = useState(true);
 const [liked, setLiked] = useState<Record<string, boolean>>({});
 const [activeVideo, setActiveVideo] = useState<string | null>(null);
+const [openMedia, setOpenMedia] = useState<string | null>(null);
 
 const [commentPost, setCommentPost] = useState<Post | null>(null);
 const [comments, setComments] = useState<Comment[]>([]);
@@ -158,12 +159,6 @@ const whatsapp = phone.replace("+", "").replace(/\s/g, "");
 return (
 <section key={post.id} style={slide}>
 {post.video_url ? (
-<a
-href={post.video_url}
-target="_blank"
-rel="noreferrer"
-style={{ position: "absolute", inset: 0, zIndex: 5 }}
->
 <video
 ref={(el) => {
 videoRefs.current[post.id] = el;
@@ -175,29 +170,23 @@ loop
 playsInline
 preload="auto"
 style={media}
-/>
-</a>
-) : (
-<a
-href={post.image_url || "#"}
-target="_blank"
-rel="noreferrer"
-style={{ position: "absolute", inset: 0, zIndex: 5 }}
->
-<img src={post.image_url || ""} style={media} />
-</a>
-)}
-
-<div
-style={{
-...overlay,
-pointerEvents: "none",
+onClick={() => {
+const url = post.video_url || post.image_url;
+if (url) setOpenMedia(url);
 }}
 />
+) : (
+<img
+src={post.image_url || ""}
+style={media}
+onClick={() => {
+const url = post.image_url || post.video_url;
+if (url) setOpenMedia(url);
+}}
+/>
+)}
 
 <div style={content}>
-
-
 <div style={checks}>
 <p>✓ Fast Service</p>
 <p>✓ Expert Fitters</p>
@@ -239,6 +228,28 @@ style={circleBtn}
 </section>
 );
 })}
+
+{openMedia && (
+<div
+onClick={() => setOpenMedia(null)}
+style={mediaPopup}
+>
+<button
+onClick={(e) => {
+e.stopPropagation();
+setOpenMedia(null);
+}}
+style={mediaCloseBtn}
+>
+×
+</button>
+
+<img
+src={openMedia}
+style={mediaPopupImg}
+/>
+</div>
+)}
 
 {commentPost && (
 <div style={commentOverlay}>
@@ -336,12 +347,7 @@ objectFit: "contain",
 backgroundColor: "#000",
 position: "absolute",
 inset: 0,
-};
-
-const overlay: React.CSSProperties = {
-position: "absolute",
-inset: 0,
-background: "linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.18), rgba(0,0,0,0.55))",
+cursor: "pointer",
 };
 
 const content: React.CSSProperties = {
@@ -350,17 +356,6 @@ left: 24,
 right: 92,
 bottom: 135,
 zIndex: 5,
-};
-
-const headline: React.CSSProperties = {
-fontSize: 34,
-lineHeight: 1.05,
-fontWeight: 950,
-margin: 0,
-};
-
-const purple: React.CSSProperties = {
-color: "#a855f7",
 };
 
 const checks: React.CSSProperties = {
@@ -447,6 +442,38 @@ fontSize: 12,
 fontWeight: 800,
 };
 
+const mediaPopup: React.CSSProperties = {
+position: "fixed",
+inset: 0,
+zIndex: 999999,
+background: "black",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+padding: 10,
+};
+
+const mediaPopupImg: React.CSSProperties = {
+maxWidth: "100%",
+maxHeight: "100%",
+objectFit: "contain",
+};
+
+const mediaCloseBtn: React.CSSProperties = {
+position: "absolute",
+top: 28,
+right: 22,
+zIndex: 1000000,
+width: 44,
+height: 44,
+borderRadius: "50%",
+border: "1px solid rgba(255,255,255,0.25)",
+background: "rgba(255,255,255,0.12)",
+color: "white",
+fontSize: 30,
+fontWeight: 900,
+};
+
 const commentOverlay: React.CSSProperties = {
 position: "fixed",
 inset: 0,
@@ -501,7 +528,6 @@ marginTop: "auto",
 paddingTop: 10,
 background: "#111827",
 };
-
 
 const commentInput: React.CSSProperties = {
 flex: 1,
