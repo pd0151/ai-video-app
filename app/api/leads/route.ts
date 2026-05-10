@@ -29,12 +29,20 @@ const vehicle = clean(body.vehicle);
 const tyre_size = clean(body.tyre_size);
 const postcode = clean(body.postcode);
 const issue = clean(body.issue);
-const badValues = ["", "not given", "unknown", "sorry", "not provided", "i", "in"];
+
+const badValues = [
+"",
+"not given",
+"unknown",
+"sorry",
+"not provided",
+"i",
+"in",
+];
 
 function isBad(value: string) {
 const cleaned = value.toLowerCase().trim();
-
-return badValues.some((bad) => cleaned.includes(bad));
+return badValues.some((bad) => cleaned === bad);
 }
 
 if (
@@ -56,6 +64,7 @@ received: body,
 { status: 400 }
 );
 }
+
 if (!business_id) {
 return NextResponse.json(
 { success: false, error: "Missing business_id" },
@@ -77,8 +86,9 @@ return NextResponse.json(
 }
 
 const smsTo =
+business.notification_phone ||
 business.phone ||
-business.customer_phone ||
+business.whatsapp ||
 business.mobile ||
 business.owner_phone;
 
@@ -111,6 +121,7 @@ status: "new",
 
 if (leadError) {
 console.error("SUPABASE LEAD ERROR:", leadError);
+
 return NextResponse.json(
 { success: false, error: leadError.message },
 { status: 500 }
@@ -125,10 +136,11 @@ body: jobMessage,
 
 return NextResponse.json({
 success: true,
-message: "Lead saved and SMS sent",
+message: "Lead saved, SMS sent, and dashboard updated",
 });
 } catch (error: any) {
 console.error("LEADS API ERROR:", error);
+
 return NextResponse.json(
 { success: false, error: error.message || "Server error" },
 { status: 500 }
