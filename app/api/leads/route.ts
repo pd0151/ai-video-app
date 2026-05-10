@@ -16,6 +16,31 @@ function clean(value: any) {
 return String(value || "").trim();
 }
 
+function cleanPhone(value: any) {
+let phone = clean(value).replace(/\D/g, "");
+
+if (phone.startsWith("44")) return `+${phone}`;
+if (phone.startsWith("0")) return `+44${phone.slice(1)}`;
+
+return phone || "Unknown";
+}
+
+function cleanPostcode(value: any) {
+return clean(value)
+.toUpperCase()
+.replace(/\s+/g, "")
+.replace(/(.{3})$/, " $1");
+}
+
+function goodValue(value: string, fallback = "Not provided") {
+const bad = ["", "not given", "unknown", "sorry", "not provided", "i", "in"];
+const cleaned = clean(value);
+
+if (bad.includes(cleaned.toLowerCase())) return fallback;
+
+return cleaned;
+}
+
 export async function POST(req: Request) {
 try {
 const body = await req.json();
@@ -29,42 +54,18 @@ clean(body.to) ||
 clean(body.called_number) ||
 clean(body.phone_number);
 
-const name = clean(body.name);
-const customer_phone = clean(body.customer_phone);
-const vehicle = clean(body.vehicle);
-const tyre_size = clean(body.tyre_size);
-const postcode = clean(body.postcode);
-const issue = clean(body.issue);
+const name = goodValue(body.name, "Customer");
+const customer_phone = cleanPhone(body.customer_phone);
+const vehicle = goodValue(body.vehicle, "Not provided");
+const tyre_size = goodValue(body.tyre_size, "Not provided");
+const postcode = cleanPostcode(body.postcode);
+const issue = goodValue(body.issue, "New enquiry");
 
-const badValues = [
-"",
-"not given",
-"unknown",
-"sorry",
-"not provided",
-"i",
-"in",
-];
-
-function isBad(value: string) {
-const cleaned = value.toLowerCase().trim();
-return badValues.some((bad) => cleaned === bad);
-}
-
-if (
-isBad(name) ||
-isBad(customer_phone) ||
-isBad(vehicle) ||
-isBad(tyre_size) ||
-isBad(postcode) ||
-isBad(issue)
-) {
-console.log("LEAD REJECTED - MISSING DETAILS:", body);
-
+if (!incomingBusinessId && !incomingTwilioNumber) {
 return NextResponse.json(
 {
 success: false,
-error: "Missing required lead details",
+error: "Missing business_id or twilio_number",
 received: body,
 },
 { status: 400 }
@@ -120,22 +121,25 @@ return NextResponse.json(
 }
 
 const jobMessage = `
-New tyre job for ${name || "Unknown customer"}
+New job for ${name}
 
-Phone: ${customer_phone || "Not provided"}
-Vehicle: ${vehicle || "Not provided"}
-Tyre size: ${tyre_size || "Not provided"}
+Phone: ${customer_phone}
+Vehicle: ${vehicle}
+Tyre size: ${tyre_size}
 Postcode: ${postcode || "Not provided"}
-Issue: ${issue || "Not provided"}
+Issue: ${issue}
 `.trim();
 
 const { error: leadError } = await supabase.from("leads").insert([
 {
 business_id: business.id,
+name,
 phone: customer_phone,
 job: jobMessage,
-location: postcode,
+location: postcode || "Not provided",
 status: "new",
+vehicle,
+tyre_size,
 },
 ]);
 
