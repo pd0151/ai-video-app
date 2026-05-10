@@ -186,7 +186,26 @@ if (url) window.location.href = url;
 )}
 
 <div style={overlay} /> 
-
+<button
+onClick={() => {
+const url = post.image_url || post.video_url;
+if (url) window.location.href = url;
+}}
+style={{
+position: "absolute",
+top: 90,
+right: 18,
+zIndex: 99,
+background: "rgba(0,0,0,0.65)",
+color: "white",
+border: "1px solid rgba(255,255,255,0.25)",
+borderRadius: 999,
+padding: "10px 14px",
+fontWeight: 800,
+}}
+>
+Expand
+</button>
 <div style={content}>
 
 
