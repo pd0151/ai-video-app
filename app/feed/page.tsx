@@ -179,11 +179,7 @@ onClick={() => window.open(post.image_url || post.video_url, "_blank")}/>
 <div style={overlay} />
 
 <div style={content}>
-<h1 style={headline}>
-PREMIUM TYRE <span style={purple}>FITTING</span>
-<br />
-AT YOUR DOORSTEP
-</h1>
+
 
 <div style={checks}>
 <p>✓ Fast Service</p>
