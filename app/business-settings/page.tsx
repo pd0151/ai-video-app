@@ -118,7 +118,8 @@ alert(error.message);
 return;
 }
 
-alert("Business settings saved");
+alert("Business settings saved. We’ll now set up your AI receptionist.");
+router.push("/ai-receptionist");
 }
 
 return (
