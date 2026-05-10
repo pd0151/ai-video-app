@@ -191,6 +191,13 @@ else alert(data.error || "Checkout failed");
 useEffect(() => {
 loadLeads();
 checkSubscription();
+
+const interval = setInterval(() => {
+loadLeads();
+checkSubscription();
+}, 5000);
+
+return () => clearInterval(interval);
 }, []);
 
 const stats = useMemo(() => {
