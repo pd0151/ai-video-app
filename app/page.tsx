@@ -41,13 +41,15 @@ return;
 setUser(currentUser);
 const { data: business } = await supabase
 .from("businesses")
-.select("business_name")
+.select("name")
 .eq("email", currentUser.email?.toLowerCase().trim())
 .single();
 
-if (business?.business_name) {
-setBusinessName(business.business_name);
+if (business?.name) {
+setBusinessName(business.name);
 }
+
+
 const { data: creditRow } = await supabase
 .from("user_credits")
 .select("*")
