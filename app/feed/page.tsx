@@ -172,11 +172,16 @@ style={media}
 onClick={() => window.open(post.image_url || post.video_url, "_blank")}
 />
 ) : (
-<img src={post.image_url || ""} style={media} 
-onClick={() => window.open(post.image_url || post.video_url, "_blank")}/>
+<img
+src={post.image_url || ""}
+style={media}
+onClick={() => {
+window.open(post.image_url || post.video_url, "_blank");
+}}
+/>
 )}
 
-<div style={overlay} />
+<div style={overlay} /> 
 
 <div style={content}>
 
