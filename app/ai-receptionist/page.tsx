@@ -4,8 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
-
-
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL as string,
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
@@ -27,13 +25,13 @@ issue?: string | null;
 
 export default function AIReceptionistPage() {
 const router = useRouter();
+
 const [leads, setLeads] = useState<Lead[]>([]);
 const [loading, setLoading] = useState(false);
 const [isPaid, setIsPaid] = useState(false);
 const [setupComplete, setSetupComplete] = useState(false);
-async function loadLeads() {
-setLeads([]);
 
+async function loadLeads() {
 const {
 data: { user },
 } = await supabase.auth.getUser();
@@ -47,11 +45,14 @@ const email = user.email.toLowerCase().trim();
 
 const { data: business } = await supabase
 .from("businesses")
-.select("*")
+.select("id")
 .eq("email", email)
 .maybeSingle();
 
-
+if (!business?.id) {
+setLeads([]);
+return;
+}
 
 const { data, error } = await supabase
 .from("leads")
@@ -68,9 +69,6 @@ return;
 setLeads(data || []);
 }
 
-
-
-
 async function checkSubscription() {
 try {
 const {
@@ -83,7 +81,7 @@ return;
 }
 
 const email = user.email.toLowerCase().trim();
-console.log("CURRENT USER EMAIL:", email);
+
 const { data, error } = await supabase
 .from("businesses")
 .select("id,email,is_paid,setup_complete,ai_activated")
@@ -214,6 +212,8 @@ newJobs: isPaid
 };
 }, [leads, isPaid]);
 
+const latestLead = leads[0];
+
 return (
 <main style={page}>
 <button onClick={() => router.push("/")} style={backBtn}>
@@ -221,44 +221,77 @@ return (
 </button>
 
 <section style={hero}>
-<div style={badge}>LIVE AI CALL SYSTEM</div>
+<div style={heroTop}>
+<div style={badge}>● LIVE AI CALL SYSTEM</div>
+<div style={onlineBadge}>🟢 AI Online</div>
+</div>
 
-<h1 style={title}>Never miss a tyre job again</h1>
-<div
-style={{
-background: setupComplete
-? "rgba(34,197,94,0.2)"
-: "rgba(234,179,8,0.2)",
-padding: 16,
-borderRadius: 16,
-marginBottom: 20,
-fontWeight: 800,
-fontSize: 18,
-}}
->
+<div style={heroGrid}>
+<div>
+<h1 style={title}>
+Never miss <span style={purpleText}>another job</span>
+</h1>
+
+<div style={setupBox}>
 {setupComplete
 ? "✅ AI Receptionist Setup Complete"
 : "⏳ Waiting For Setup"}
 </div>
+
 <p style={sub}>
-AI answers missed calls, captures customer details and sends the job
-straight to your dashboard.
+AI answers missed calls, captures customer details and sends the
+job straight to your dashboard.
 </p>
 
-<div style={buttonRow}>
 <button onClick={testLead} style={greenBtn}>
 {loading ? "Sending..." : "🔥 Test Lead"}
 </button>
+</div>
 
+<div style={botWrap}>
+<div style={botGlow}></div>
+<div style={botHead}>
+<div style={botEye}></div>
+<div style={botEye}></div>
+<div style={botSmile}>⌣</div>
+</div>
+<div style={botBase}>AI</div>
+</div>
+</div>
 
+<div style={featureGrid}>
+<Feature icon="📞" title="AI Online" text="Always ready to answer" />
+<Feature icon="🕘" title="24/7 Coverage" text="Never miss a call" />
+<Feature icon="⚡" title="Instant Alerts" text="SMS as soon as it lands" />
+<Feature icon="🔒" title="Secure Leads" text="Stored safely in your app" />
 </div>
 </section>
 
-
 <section style={statsRow}>
-<Stat value={String(stats.calls)} label="Calls handled" />
-<Stat value={String(stats.captured)} label="Leads captured" />
-<Stat value={String(stats.newJobs)} label="New jobs" />
+<Stat value={String(stats.calls)} label="Calls handled" icon="☎️" />
+<Stat value={String(stats.captured)} label="Leads captured" icon="👥" />
+<Stat value={String(stats.newJobs)} label="New jobs" icon="💼" />
+</section>
+
+<section style={systemRow}>
+<div style={systemCard}>
+<p style={smallLabel}>LAST LEAD</p>
+<h3 style={systemValue}>
+{latestLead?.created_at
+? new Date(latestLead.created_at).toLocaleTimeString("en-GB", {
+hour: "2-digit",
+minute: "2-digit",
+})
+: "No leads yet"}
+</h3>
+</div>
+
+<div style={systemCard}>
+<p style={smallLabel}>AI STATUS</p>
+<h3 style={{ ...systemValue, color: setupComplete ? "#4ade80" : "#facc15" }}>
+{setupComplete ? "Live" : "Waiting"}
+</h3>
+</div>
 </section>
 
 <section style={panel}>
@@ -293,25 +326,12 @@ return (
 </div>
 
 <div style={infoBox}>
-<p>
-<b>👤 Customer:</b> {lead.name || "Not provided"}
-</p>
+<p><b>👤 Customer:</b> {lead.name || "Not provided"}</p>
+<p><b>🚗 Vehicle:</b> {lead.vehicle || "Not provided"}</p>
+<p><b>🛞 Tyre size:</b> {lead.tyre_size || "Not provided"}</p>
+<p><b>⚠️ Issue:</b> {lead.issue || lead.job || "No details"}</p>
+<p><b>📍 Location:</b> {lead.location || "Unknown"}</p>
 
-<p>
-<b>🚗 Vehicle:</b> {lead.vehicle || "Not provided"}
-</p>
-
-<p>
-<b>🛞 Tyre size:</b> {lead.tyre_size || "Not provided"}
-</p>
-
-<p>
-<b>⚠️ Issue:</b> {lead.issue || lead.job || "No details"}
-</p>
-
-<p>
-<b>📍 Location:</b> {lead.location || "Unknown"}
-</p>
 <p style={{ opacity: 0.6, fontSize: 13 }}>
 {lead.created_at
 ? new Date(lead.created_at).toLocaleString("en-GB")
@@ -327,35 +347,17 @@ return (
 )}
 
 {whatsapp && (
-<a
-href={`https://wa.me/${whatsapp}`}
-target="_blank"
-style={waBtn}
->
+<a href={`https://wa.me/${whatsapp}`} target="_blank" style={waBtn}>
 💬 WhatsApp
 </a>
 )}
 </div>
 
 <div style={statusRow}>
-<button onClick={() => updateStatus(lead.id, "new")} style={miniBtn}>
-New
-</button>
-<button
-onClick={() => updateStatus(lead.id, "contacted")}
-style={miniBtn}
->
-Contacted
-</button>
-<button
-onClick={() => updateStatus(lead.id, "booked")}
-style={miniBtn}
->
-Booked
-</button>
-<button onClick={() => updateStatus(lead.id, "done")} style={miniBtn}>
-Done
-</button>
+<button onClick={() => updateStatus(lead.id, "new")} style={miniBtn}>New</button>
+<button onClick={() => updateStatus(lead.id, "contacted")} style={miniBtn}>Contacted</button>
+<button onClick={() => updateStatus(lead.id, "booked")} style={miniBtn}>Booked</button>
+<button onClick={() => updateStatus(lead.id, "done")} style={miniBtn}>Done</button>
 </div>
 </div>
 );
@@ -366,11 +368,22 @@ Done
 );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
+function Stat({ value, label, icon }: { value: string; label: string; icon: string }) {
 return (
 <div style={statCard}>
+<div style={statIcon}>{icon}</div>
 <h2 style={statValue}>{value}</h2>
 <p style={statLabel}>{label}</p>
+</div>
+);
+}
+
+function Feature({ icon, title, text }: { icon: string; title: string; text: string }) {
+return (
+<div style={featureCard}>
+<div style={featureIcon}>{icon}</div>
+<b>{title}</b>
+<p>{text}</p>
 </div>
 );
 }
@@ -382,7 +395,7 @@ padding: 22,
 paddingBottom: 160,
 paddingTop: 70,
 background:
-"radial-gradient(circle at top, #4c1d95 0%, #16072f 35%, #020617 100%)",
+"radial-gradient(circle at top, #5b21b6 0%, #16072f 35%, #020617 100%)",
 color: "white",
 fontFamily: "Arial, sans-serif",
 };
@@ -403,13 +416,20 @@ fontWeight: 600,
 
 const hero: React.CSSProperties = {
 background:
-"linear-gradient(145deg, rgba(126,34,206,0.45), rgba(15,23,42,0.9))",
-border: "1px solid rgba(168,85,247,0.45)",
+"linear-gradient(145deg, rgba(126,34,206,0.52), rgba(15,23,42,0.95))",
+border: "1px solid rgba(168,85,247,0.55)",
 borderRadius: 30,
-paddingTop: 90,
 padding: 24,
-boxShadow: "0 25px 70px rgba(0,0,0,0.45)",
+boxShadow: "0 25px 90px rgba(124,58,237,0.25)",
 marginBottom: 18,
+};
+
+const heroTop: React.CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+gap: 10,
+alignItems: "center",
+marginBottom: 22,
 };
 
 const badge: React.CSSProperties = {
@@ -420,15 +440,46 @@ padding: "8px 12px",
 borderRadius: 999,
 fontSize: 12,
 fontWeight: 900,
-marginBottom: 18,
+};
+
+const onlineBadge: React.CSSProperties = {
+background: "rgba(15,23,42,0.7)",
+border: "1px solid rgba(255,255,255,0.14)",
+padding: "8px 12px",
+borderRadius: 999,
+fontSize: 12,
+fontWeight: 900,
+};
+
+const heroGrid: React.CSSProperties = {
+display: "grid",
+gridTemplateColumns: "1fr",
+gap: 18,
 };
 
 const title: React.CSSProperties = {
-fontSize: 58,
-fontWeight: 900,
-lineHeight: 1,
-marginBottom: 24,
+fontSize: 54,
+fontWeight: 950,
+lineHeight: 0.95,
+margin: "0 0 22px",
 color: "white",
+};
+
+const purpleText: React.CSSProperties = {
+display: "block",
+background: "linear-gradient(90deg,#ffffff,#a855f7,#c084fc)",
+WebkitBackgroundClip: "text",
+color: "transparent",
+};
+
+const setupBox: React.CSSProperties = {
+background: "rgba(34,197,94,0.18)",
+padding: 16,
+borderRadius: 16,
+marginBottom: 20,
+fontWeight: 900,
+fontSize: 18,
+border: "1px solid rgba(255,255,255,0.08)",
 };
 
 const sub: React.CSSProperties = {
@@ -437,31 +488,90 @@ lineHeight: 1.45,
 opacity: 0.78,
 };
 
-const buttonRow: React.CSSProperties = {
-display: "grid",
-gridTemplateColumns: "1fr 1fr",
-gap: 12,
-marginTop: 20,
-};
-
 const greenBtn: React.CSSProperties = {
-padding: 16,
+padding: "16px 28px",
 borderRadius: 18,
 border: "1px solid rgba(255,255,255,0.25)",
 background: "linear-gradient(90deg,#22c55e,#86efac)",
 color: "#06120a",
 fontWeight: 900,
 fontSize: 16,
+minWidth: 190,
 };
 
-const purpleBtn: React.CSSProperties = {
-padding: 16,
-borderRadius: 18,
-border: "1px solid rgba(255,255,255,0.25)",
-background: "linear-gradient(90deg,#7c3aed,#c084fc)",
-color: "white",
+const botWrap: React.CSSProperties = {
+position: "relative",
+height: 150,
+display: "flex",
+justifyContent: "center",
+alignItems: "center",
+};
+
+const botGlow: React.CSSProperties = {
+position: "absolute",
+width: 140,
+height: 140,
+borderRadius: "50%",
+background: "radial-gradient(circle,#a855f7,transparent 65%)",
+opacity: 0.5,
+};
+
+const botHead: React.CSSProperties = {
+position: "relative",
+width: 110,
+height: 88,
+borderRadius: 34,
+background: "linear-gradient(145deg,#1e1b4b,#050816)",
+border: "3px solid #8b5cf6",
+boxShadow: "0 0 35px rgba(168,85,247,0.65)",
+display: "flex",
+justifyContent: "center",
+alignItems: "center",
+gap: 18,
+};
+
+const botEye: React.CSSProperties = {
+width: 14,
+height: 14,
+borderRadius: "50%",
+background: "#4ade80",
+boxShadow: "0 0 14px #4ade80",
+};
+
+const botSmile: React.CSSProperties = {
+position: "absolute",
+bottom: 12,
+color: "#4ade80",
+fontSize: 24,
+};
+
+const botBase: React.CSSProperties = {
+position: "absolute",
+bottom: 8,
+background: "linear-gradient(135deg,#7c3aed,#c084fc)",
+padding: "8px 18px",
+borderRadius: 999,
 fontWeight: 900,
-fontSize: 16,
+};
+
+const featureGrid: React.CSSProperties = {
+display: "grid",
+gridTemplateColumns: "repeat(2, 1fr)",
+gap: 10,
+marginTop: 18,
+};
+
+const featureCard: React.CSSProperties = {
+background: "rgba(15,23,42,0.72)",
+border: "1px solid rgba(255,255,255,0.1)",
+borderRadius: 18,
+padding: 14,
+minHeight: 105,
+};
+
+const featureIcon: React.CSSProperties = {
+fontSize: 26,
+marginBottom: 8,
 };
 
 const statsRow: React.CSSProperties = {
@@ -479,6 +589,11 @@ padding: 16,
 textAlign: "center",
 };
 
+const statIcon: React.CSSProperties = {
+fontSize: 22,
+marginBottom: 6,
+};
+
 const statValue: React.CSSProperties = {
 fontSize: 32,
 margin: 0,
@@ -489,6 +604,26 @@ const statLabel: React.CSSProperties = {
 fontSize: 13,
 opacity: 0.75,
 marginBottom: 0,
+};
+
+const systemRow: React.CSSProperties = {
+display: "grid",
+gridTemplateColumns: "1fr 1fr",
+gap: 12,
+marginBottom: 18,
+};
+
+const systemCard: React.CSSProperties = {
+background: "rgba(15,23,42,0.78)",
+border: "1px solid rgba(255,255,255,0.1)",
+borderRadius: 20,
+padding: 16,
+};
+
+const systemValue: React.CSSProperties = {
+margin: "6px 0 0",
+fontSize: 20,
+fontWeight: 900,
 };
 
 const panel: React.CSSProperties = {
@@ -590,6 +725,16 @@ borderRadius: 18,
 padding: 18,
 marginBottom: 16,
 textAlign: "center",
+};
+
+const purpleBtn: React.CSSProperties = {
+padding: 16,
+borderRadius: 18,
+border: "1px solid rgba(255,255,255,0.25)",
+background: "linear-gradient(90deg,#7c3aed,#c084fc)",
+color: "white",
+fontWeight: 900,
+fontSize: 16,
 };
 
 const statusRow: React.CSSProperties = {
