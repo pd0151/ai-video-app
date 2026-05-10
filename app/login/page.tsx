@@ -23,6 +23,26 @@ const [password, setPassword] = useState("");
 const [message, setMessage] = useState("");
 const [loading, setLoading] = useState(false);
 
+async function resetPassword() {
+const cleanEmail = email.toLowerCase().trim();
+
+if (!cleanEmail) {
+setMessage("Enter your email first, then press Forgot password.");
+return;
+}
+
+const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
+redirectTo: "https://ai-video-app-live.vercel.app/reset-password",
+});
+
+if (error) {
+setMessage(error.message);
+return;
+}
+
+setMessage("Password reset email sent. Check your inbox.");
+}
+
 async function handleSubmit(e: React.FormEvent) {
 e.preventDefault();
 setLoading(true);
@@ -220,6 +240,23 @@ opacity: loading ? 0.7 : 1,
 >
 {loading ? "Please wait..." : mode === "login" ? "Login" : "Create account"}
 </button>
+
+{mode === "login" && (
+<button
+type="button"
+onClick={resetPassword}
+style={{
+background: "transparent",
+border: "none",
+color: "#c084fc",
+fontWeight: 800,
+fontSize: 16,
+cursor: "pointer",
+}}
+>
+Forgot password?
+</button>
+)}
 
 {!!message && <div style={{ fontSize: 18, fontWeight: 700 }}>{message}</div>}
 </form>
