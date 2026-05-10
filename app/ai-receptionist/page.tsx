@@ -406,6 +406,7 @@ background:
 "linear-gradient(145deg, rgba(126,34,206,0.45), rgba(15,23,42,0.9))",
 border: "1px solid rgba(168,85,247,0.45)",
 borderRadius: 30,
+paddingTop: 90,
 padding: 24,
 boxShadow: "0 25px 70px rgba(0,0,0,0.45)",
 marginBottom: 18,
@@ -423,10 +424,11 @@ marginBottom: 18,
 };
 
 const title: React.CSSProperties = {
-fontSize: 42,
-lineHeight: 1.05,
-margin: 0,
+fontSize: 58,
 fontWeight: 900,
+lineHeight: 1,
+marginBottom: 24,
+color: "white",
 };
 
 const sub: React.CSSProperties = {
