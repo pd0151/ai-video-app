@@ -82,7 +82,7 @@ const email = user.email.toLowerCase().trim();
 console.log("CURRENT USER EMAIL:", email);
 const { data, error } = await supabase
 .from("businesses")
-.select("id,email,is_paid")
+.select("id,email,is_paid,setup_complete,ai_activated")
 .eq("email", email)
 .eq("is_paid", true)
 .maybeSingle();
@@ -90,6 +90,7 @@ const { data, error } = await supabase
 console.log("PAID CHECK:", { email, data, error });
 
 setIsPaid(!!data);
+setSetupComplete(!!data?.ai_activated);
 } catch (err) {
 console.error("SUBSCRIPTION CHECK ERROR:", err);
 setIsPaid(false);
