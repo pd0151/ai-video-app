@@ -18,6 +18,7 @@ export default function Home() {
 const router = useRouter();
 
 const [prompt, setPrompt] = useState("");
+const [businessName, setBusinessName] = useState("");
 const [image, setImage] = useState<string | null>(null);
 const [loadingImage, setLoadingImage] = useState(false);
 const [isPro, setIsPro] = useState(false);
@@ -38,7 +39,15 @@ return;
 }
 
 setUser(currentUser);
+const { data: business } = await supabase
+.from("businesses")
+.select("business_name")
+.eq("email", currentUser.email?.toLowerCase().trim())
+.single();
 
+if (business?.business_name) {
+setBusinessName(business.business_name);
+}
 const { data: creditRow } = await supabase
 .from("user_credits")
 .select("*")
@@ -504,14 +513,16 @@ style={{ display: "none" }}
 <div style={adPreview}>
 <div>
 <h2 style={adHeading}>
-Premium Tyre Fitting <br />
-at <span style={{ color: "#8b5cf6" }}>Your Doorstep</span>
+{businessName || "Your Business"} <br />
+<span style={{ color: "#8b5cf6" }}>
+{prompt || "AI Generated Ad"}
+</span>
 </h2>
 
 <p style={adText}>
-Fast. Reliable. Professional.
+Professional AI advertising for your business.
 <br />
-We come to you, so you can stay on the move.
+Generate viral ads in seconds.
 </p>
 
 <button style={useBtn} onClick={useThisAd}>
