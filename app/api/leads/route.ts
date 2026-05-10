@@ -22,7 +22,13 @@ const body = await req.json();
 
 console.log("NEW VAPI LEAD BODY:", body);
 
-const business_id = clean(body.business_id);
+const incomingBusinessId = clean(body.business_id);
+const incomingTwilioNumber =
+clean(body.twilio_number) ||
+clean(body.to) ||
+clean(body.called_number) ||
+clean(body.phone_number);
+
 const name = clean(body.name);
 const customer_phone = clean(body.customer_phone);
 const vehicle = clean(body.vehicle);
@@ -65,22 +71,36 @@ received: body,
 );
 }
 
-if (!business_id) {
-return NextResponse.json(
-{ success: false, error: "Missing business_id" },
-{ status: 400 }
-);
-}
+let business: any = null;
 
-const { data: business, error: businessError } = await supabase
+if (incomingBusinessId) {
+const lookup = await supabase
 .from("businesses")
 .select("*")
-.eq("id", business_id)
+.eq("id", incomingBusinessId)
 .maybeSingle();
 
-if (businessError || !business) {
+business = lookup.data;
+}
+
+if (!business && incomingTwilioNumber) {
+const lookup = await supabase
+.from("businesses")
+.select("*")
+.eq("twilio_number", incomingTwilioNumber)
+.maybeSingle();
+
+business = lookup.data;
+}
+
+if (!business) {
 return NextResponse.json(
-{ success: false, error: "Business not found" },
+{
+success: false,
+error: "Business not found",
+received_business_id: incomingBusinessId,
+received_twilio_number: incomingTwilioNumber,
+},
 { status: 404 }
 );
 }
@@ -111,7 +131,7 @@ Issue: ${issue || "Not provided"}
 
 const { error: leadError } = await supabase.from("leads").insert([
 {
-business_id,
+business_id: business.id,
 phone: customer_phone,
 job: jobMessage,
 location: postcode,
@@ -137,6 +157,7 @@ body: jobMessage,
 return NextResponse.json({
 success: true,
 message: "Lead saved, SMS sent, and dashboard updated",
+business_id: business.id,
 });
 } catch (error: any) {
 console.error("LEADS API ERROR:", error);
