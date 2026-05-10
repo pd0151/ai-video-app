@@ -234,8 +234,8 @@ const vehicle =
 args.vehicle ||
 args.car ||
 args.vehicle_make ||
+args.vehicle_model ||
 extractVehicle(transcript) ||
-transcript.match(/(bmw|audi|ford|vw|volkswagen|mercedes|vauxhall|toyota|nissan|kia|hyundai|peugeot|renault)/i)?.[0] ||
 "Not given";
 
 const tyreSize =
