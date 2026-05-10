@@ -43,7 +43,10 @@ setBusinesses(data || []);
 async function markActivated(id: string) {
 const { error } = await supabase
 .from("businesses")
-.update({ ai_activated: true })
+.update({
+ai_activated: true,
+setup_complete: true,
+})
 .eq("id", id);
 
 if (error) {
