@@ -47,15 +47,11 @@ const { data: business } = await supabase
 .eq("email", email)
 .maybeSingle();
 
-if (!business?.id) {
-setLeads([]);
-return;
-}
+
 
 const { data, error } = await supabase
 .from("leads")
 .select("*")
-.eq("business_id", business.id)
 .order("created_at", { ascending: false });
 
 if (error) {
