@@ -545,4 +545,4 @@ background: "linear-gradient(90deg,#7c3aed,#a855f7)",
 color: "white",
 padding: "0 18px",
 fontWeight: 900,
-};
+};  
