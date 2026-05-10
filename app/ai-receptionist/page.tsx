@@ -19,6 +19,10 @@ location: string | null;
 created_at: string | null;
 status: string | null;
 business_id?: string | null;
+name?: string | null;
+vehicle?: string | null;
+tyre_size?: string | null;
+issue?: string | null;
 };
 
 export default function AIReceptionistPage() {
@@ -290,8 +294,21 @@ return (
 
 <div style={infoBox}>
 <p>
-<b>🛞 Job:</b> {lead.job || "No details"}
+<b>👤 Customer:</b> {lead.name || "Not provided"}
 </p>
+
+<p>
+<b>🚗 Vehicle:</b> {lead.vehicle || "Not provided"}
+</p>
+
+<p>
+<b>🛞 Tyre size:</b> {lead.tyre_size || "Not provided"}
+</p>
+
+<p>
+<b>⚠️ Issue:</b> {lead.issue || lead.job || "No details"}
+</p>
+
 <p>
 <b>📍 Location:</b> {lead.location || "Unknown"}
 </p>
