@@ -433,8 +433,7 @@ zIndex: 1,
 </div>
 
 <img
-src="receptionist-phone"
-
+src="/receptionist-phone.png"
 style={{
 width: 150,
 height: 240,
@@ -538,7 +537,7 @@ Generate viral ads in seconds.
 ) : (
 <>
 <img
-src={image || "https://images.unsplash.com/photo-1503376780353-7e6692767b70"}
+src={image || "https://images.unsplash.com/photo-1556745757-8d76bdb6984b"}
 style={posterImg}
 />
 <div style={posterShade} />
