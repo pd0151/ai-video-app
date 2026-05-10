@@ -35,7 +35,7 @@ await supabase
 .update({ is_paid: true })
 .eq("email", email);
 
-router.push("/business-setup");
+router.push("/business-settings");
 }
 
 unlockUser();
