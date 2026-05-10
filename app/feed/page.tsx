@@ -158,6 +158,12 @@ const whatsapp = phone.replace("+", "").replace(/\s/g, "");
 return (
 <section key={post.id} style={slide}>
 {post.video_url ? (
+<a
+href={post.video_url}
+target="_blank"
+rel="noreferrer"
+style={{ position: "absolute", inset: 0, zIndex: 5 }}
+>
 <video
 ref={(el) => {
 videoRefs.current[post.id] = el;
@@ -169,43 +175,26 @@ loop
 playsInline
 preload="auto"
 style={media}
-onClick={() => {
-const url = post.image_url || post.video_url;
-if (url) window.location.href = url;
-}}
 />
+</a>
 ) : (
-<img
-src={post.image_url || ""}
-style={media}
-onClick={() => {
-const url = post.image_url || post.video_url;
-if (url) window.location.href = url;
-}}
-/>
+<a
+href={post.image_url || "#"}
+target="_blank"
+rel="noreferrer"
+style={{ position: "absolute", inset: 0, zIndex: 5 }}
+>
+<img src={post.image_url || ""} style={media} />
+</a>
 )}
 
-<div style={overlay} /> 
-<button
-onClick={() => {
-const url = post.image_url || post.video_url;
-if (url) window.location.href = url;
-}}
+<div
 style={{
-position: "absolute",
-top: 90,
-right: 18,
-zIndex: 99,
-background: "rgba(0,0,0,0.65)",
-color: "white",
-border: "1px solid rgba(255,255,255,0.25)",
-borderRadius: 999,
-padding: "10px 14px",
-fontWeight: 800,
+...overlay,
+pointerEvents: "none",
 }}
->
-Expand
-</button>
+/>
+
 <div style={content}>
 
 
