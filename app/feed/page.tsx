@@ -169,12 +169,11 @@ loop
 playsInline
 preload="auto"
 style={media}
-onClick={(e) => {
-e.currentTarget.muted = !e.currentTarget.muted;
-}}
+onClick={() => window.open(post.image_url || post.video_url, "_blank")}
 />
 ) : (
-<img src={post.image_url || ""} style={media} />
+<img src={post.image_url || ""} style={media} 
+onClick={() => window.open(post.image_url || post.video_url, "_blank")}/>
 )}
 
 <div style={overlay} />
