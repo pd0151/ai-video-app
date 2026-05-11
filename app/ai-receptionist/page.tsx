@@ -459,13 +459,13 @@ fontWeight: 900,
 };
 
 const hero: React.CSSProperties = {
-borderRadius: 28,
-border: "1px solid rgba(168,85,247,0.72)",
 background:
-"linear-gradient(145deg, rgba(56,20,112,0.96), rgba(7,10,30,0.97))",
-boxShadow: "0 0 90px rgba(124,58,237,0.22)",
+"linear-gradient(145deg, rgba(126,34,206,0.52), rgba(15,23,42,0.95))",
+border: "1px solid rgba(168,85,247,0.45)",
+borderRadius: 28,
 padding: 16,
-marginBottom: 16,
+paddingBottom: 0,
+marginBottom: 14,
 overflow: "hidden",
 };
 
@@ -695,8 +695,8 @@ border: "1px solid rgba(168,85,247,0.55)",
 const featureGrid: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "repeat(2, 1fr)",
-gap: 12,
-marginTop: 20,
+gap: 10,
+marginTop: 6,
 };
 
 const featureCard: React.CSSProperties = {
