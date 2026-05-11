@@ -186,7 +186,30 @@ const data = await res.json();
 if (data.url) window.location.href = data.url;
 else alert(data.error || "Checkout failed");
 }
+async function manageBilling() {
+const email = localStorage.getItem("user");
 
+if (!email) {
+alert("Please log in first");
+return;
+}
+
+const res = await fetch("/api/create-billing-portal", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({ email }),
+});
+
+const data = await res.json();
+
+if (data.url) {
+window.location.href = data.url;
+} else {
+alert(data.error || "Billing portal failed");
+}
+}
 useEffect(() => {
 loadLeads();
 checkSubscription();
@@ -419,7 +442,16 @@ minute: "2-digit",
 </button>
 </div>
 )}
-
+<button
+onClick={manageBilling}
+style={{
+...upgradeBtn,
+marginTop: 12,
+background: "rgba(255,255,255,0.08)",
+}}
+>
+⚙️ Manage Billing
+</button>
 {isPaid && leads.length === 0 ? (
 <p style={empty}>No leads yet. Press Test Lead.</p>
 ) : isPaid ? (
