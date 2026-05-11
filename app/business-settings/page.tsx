@@ -207,7 +207,10 @@ style={input}
 <input
 placeholder="Service area"
 value={serviceArea}
-onChange={(e) => setServiceArea(e.target.value)}
+onChange={(e) => {
+setServiceArea(e.target.value);
+autoSaveSettings("service_area", e.target.value);
+}}
 style={input}
 />
 
