@@ -140,6 +140,7 @@ location: postcode || "Not provided",
 status: "new",
 vehicle,
 tyre_size,
+issue,
 },
 ]);
 
