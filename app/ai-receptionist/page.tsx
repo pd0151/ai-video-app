@@ -191,12 +191,25 @@ useEffect(() => {
 loadLeads();
 checkSubscription();
 
-const interval = setInterval(() => {
+const channel = supabase
+.channel("realtime-leads")
+.on(
+"postgres_changes",
+{
+event: "*",
+schema: "public",
+table: "leads",
+},
+() => {
 loadLeads();
 checkSubscription();
-}, 5000);
+}
+)
+.subscribe();
 
-return () => clearInterval(interval);
+return () => {
+supabase.removeChannel(channel);
+};
 }, []);
 
 const stats = useMemo(() => {
