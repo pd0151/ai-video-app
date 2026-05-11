@@ -223,17 +223,16 @@ return (
 <button style={logoutBtn}>Logout</button>
 
 <section style={hero}>
-<div style={heroTop}>
-<div style={badge}>● LIVE AI CALL SYSTEM</div>
-<div style={onlineBadge}>🟢 AI Online</div>
+<div style={topRow}>
+<span style={livePill}>● LIVE AI CALL SYSTEM</span>
+<span style={onlinePill}>🟢 AI Online</span>
 </div>
 
-<div style={heroGrid}>
-<div>
+<div style={heroVisual}>
+<div style={heroText}>
 <h1 style={title}>
 Never miss
-<br />
-<span style={purpleText}>another job</span>
+<span style={titlePurple}>another job</span>
 </h1>
 
 <div style={setupBox}>
@@ -242,26 +241,36 @@ Never miss
 : "⏳ Waiting For Setup"}
 </div>
 
-<p style={sub}>
-AI answers missed calls, captures customer details and sends the job straight to your dashboard.
+<p style={subText}>
+AI answers missed calls, captures customer details and sends the
+job straight to your dashboard.
 </p>
 
-<button onClick={testLead} style={greenBtn}>
+<button onClick={testLead} style={testButton}>
 {loading ? "Sending..." : "🔥 Test Lead"}
 </button>
 </div>
 
-<div style={botWrap}>
-<div style={botGlow}></div>
+<div style={robotStage}>
+<div style={robotGlow}></div>
+<div style={robotHalo}></div>
 
-<div style={botHead}>
-<div style={botEye}></div>
-<div style={botEye}></div>
-<div style={botSmile}>⌣</div>
+<div style={robotHead}>
+<div style={robotFace}>
+<div style={robotEyes}>
+<span style={eye}></span>
+<span style={eye}></span>
+</div>
+<div style={smile}>⌣</div>
+</div>
 </div>
 
-<div style={botBase}>AI</div>
-<div style={botRing}></div>
+<div style={headsetLeft}></div>
+<div style={headsetRight}></div>
+<div style={mic}></div>
+<div style={robotBody}></div>
+<div style={aiBadge}>AI</div>
+<div style={baseRing}></div>
 </div>
 </div>
 
@@ -273,35 +282,44 @@ AI answers missed calls, captures customer details and sends the job straight to
 </div>
 </section>
 
-<section style={statsRow}>
+<section style={statsGrid}>
 <Stat value={String(stats.calls)} label="Calls handled" icon="☎️" />
 <Stat value={String(stats.captured)} label="Leads captured" icon="👥" />
 <Stat value={String(stats.newJobs)} label="New jobs" icon="💼" />
 </section>
 
-<section style={activityRow}>
-<div style={activityCard}>
-<p style={smallLabel}>LAST LEAD RECEIVED</p>
-<h2 style={activityBig}>
+<section style={systemStrip}>
+<div style={systemItem}>
+<span style={systemIcon}>🕘</span>
+<div>
+<p style={systemLabel}>Last lead received</p>
+<h3 style={greenText}>
 {latestLead?.created_at
 ? new Date(latestLead.created_at).toLocaleTimeString("en-GB", {
 hour: "2-digit",
 minute: "2-digit",
 })
 : "No leads"}
-</h2>
+</h3>
 <p style={muted}>From {latestLead?.phone || "No calls yet"}</p>
 </div>
-
-<div style={activityCard}>
-<p style={smallLabel}>YOUR AI NUMBER</p>
-<h2 style={aiNumber}>07385 182510</h2>
 </div>
 
-<div style={activityCard}>
-<p style={smallLabel}>AI IS LISTENING</p>
-<h2 style={liveText}>{setupComplete ? "Live" : "Waiting"}</h2>
+<div style={systemItem}>
+<span style={systemIcon}>📱</span>
+<div>
+<p style={systemLabel}>Your AI number</p>
+<h3 style={purpleNumber}>07385 182510</h3>
+</div>
+</div>
+
+<div style={systemItem}>
+<span style={systemIcon}>〽️</span>
+<div>
+<p style={systemLabel}>AI is listening</p>
+<h3 style={greenText}>{setupComplete ? "Live" : "Waiting"}</h3>
 <p style={activeDot}>● All systems active</p>
+</div>
 </div>
 </section>
 
@@ -315,7 +333,7 @@ minute: "2-digit",
 <div style={lockBox}>
 <h3>🔒 Upgrade required</h3>
 <p>Subscribe to unlock live AI receptionist leads.</p>
-<button onClick={upgrade} style={purpleBtn}>
+<button onClick={upgrade} style={upgradeBtn}>
 🚀 Upgrade Now
 </button>
 </div>
@@ -332,11 +350,10 @@ return (
 <div key={lead.id} style={leadCard}>
 <div style={leadTop}>
 <div>
-<p style={smallLabel}>PHONE</p>
+<p style={miniLabel}>PHONE</p>
 <h3 style={phone}>{lead.phone || "Unknown"}</h3>
 </div>
-
-<span style={hotBadge}>{status.toUpperCase()}</span>
+<span style={statusBadge}>{status.toUpperCase()}</span>
 </div>
 
 <div style={infoBox}>
@@ -345,11 +362,8 @@ return (
 <p><b>🛞 Tyre size:</b> {lead.tyre_size || "Not provided"}</p>
 <p><b>⚠️ Issue:</b> {lead.issue || lead.job || "No details"}</p>
 <p><b>📍 Location:</b> {lead.location || "Unknown"}</p>
-
 <p style={{ opacity: 0.6, fontSize: 13 }}>
-{lead.created_at
-? new Date(lead.created_at).toLocaleString("en-GB")
-: ""}
+{lead.created_at ? new Date(lead.created_at).toLocaleString("en-GB") : ""}
 </p>
 </div>
 
@@ -368,10 +382,10 @@ return (
 </div>
 
 <div style={statusRow}>
-<button onClick={() => updateStatus(lead.id, "new")} style={miniBtn}>New</button>
-<button onClick={() => updateStatus(lead.id, "contacted")} style={miniBtn}>Contacted</button>
-<button onClick={() => updateStatus(lead.id, "booked")} style={miniBtn}>Booked</button>
-<button onClick={() => updateStatus(lead.id, "done")} style={miniBtn}>Done</button>
+<button onClick={() => updateStatus(lead.id, "new")} style={smallBtn}>New</button>
+<button onClick={() => updateStatus(lead.id, "contacted")} style={smallBtn}>Contacted</button>
+<button onClick={() => updateStatus(lead.id, "booked")} style={smallBtn}>Booked</button>
+<button onClick={() => updateStatus(lead.id, "done")} style={smallBtn}>Done</button>
 </div>
 </div>
 );
@@ -379,6 +393,16 @@ return (
 ) : null}
 </section>
 </main>
+);
+}
+
+function Feature({ icon, title, text }: { icon: string; title: string; text: string }) {
+return (
+<div style={featureCard}>
+<div style={featureIcon}>{icon}</div>
+<h3 style={featureTitle}>{title}</h3>
+<p style={featureText}>{text}</p>
+</div>
 );
 }
 
@@ -393,26 +417,16 @@ return (
 );
 }
 
-function Feature({ icon, title, text }: { icon: string; title: string; text: string }) {
-return (
-<div style={featureCard}>
-<div style={featureIcon}>{icon}</div>
-<h3 style={featureTitle}>{title}</h3>
-<p style={featureText}>{text}</p>
-</div>
-);
-}
-
 const page: React.CSSProperties = {
 position: "relative",
 minHeight: "100vh",
 padding: 22,
-paddingTop: 86,
+paddingTop: 88,
 paddingBottom: 170,
-background:
-"radial-gradient(circle at top, #2e1065 0%, #120725 38%, #020617 100%)",
 color: "white",
 fontFamily: "Arial, sans-serif",
+background:
+"radial-gradient(circle at top, #24105a 0%, #10051f 38%, #020617 100%)",
 overflowX: "hidden",
 };
 
@@ -420,12 +434,14 @@ const backBtn: React.CSSProperties = {
 position: "absolute",
 top: 20,
 left: 20,
-zIndex: 10,
-background: "rgba(255,255,255,0.08)",
-border: "1px solid rgba(255,255,255,0.15)",
+zIndex: 20,
+width: 48,
+height: 48,
+borderRadius: 15,
+border: "1px solid rgba(255,255,255,0.14)",
+background: "rgba(255,255,255,0.07)",
 color: "white",
-borderRadius: 14,
-padding: "10px 16px",
+fontSize: 22,
 fontWeight: 900,
 };
 
@@ -433,132 +449,167 @@ const logoutBtn: React.CSSProperties = {
 position: "absolute",
 top: 20,
 right: 20,
-zIndex: 10,
-background: "rgba(255,255,255,0.08)",
-border: "1px solid rgba(255,255,255,0.15)",
+zIndex: 20,
+borderRadius: 16,
+border: "1px solid rgba(255,255,255,0.14)",
+background: "rgba(255,255,255,0.07)",
 color: "white",
-borderRadius: 14,
-padding: "10px 18px",
+padding: "13px 18px",
 fontWeight: 900,
 };
 
 const hero: React.CSSProperties = {
-position: "relative",
-overflow: "hidden",
+borderRadius: 30,
+border: "1px solid rgba(168,85,247,0.72)",
 background:
-"linear-gradient(145deg, rgba(126,34,206,0.52), rgba(15,23,42,0.96))",
-border: "1px solid rgba(168,85,247,0.55)",
-borderRadius: 32,
-padding: 26,
-boxShadow: "0 25px 90px rgba(124,58,237,0.25)",
-marginBottom: 18,
+"linear-gradient(145deg, rgba(56,20,112,0.96), rgba(7,10,30,0.97))",
+boxShadow: "0 0 90px rgba(124,58,237,0.22)",
+padding: 20,
+marginBottom: 22,
+overflow: "hidden",
 };
 
-const heroTop: React.CSSProperties = {
+const topRow: React.CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
-gap: 10,
 alignItems: "center",
-marginBottom: 28,
+gap: 10,
+marginBottom: 26,
 };
 
-const badge: React.CSSProperties = {
-background: "rgba(34,197,94,0.16)",
+const livePill: React.CSSProperties = {
 color: "#4ade80",
-padding: "10px 14px",
+background: "rgba(34,197,94,0.13)",
+padding: "9px 12px",
 borderRadius: 999,
-fontSize: 13,
-fontWeight: 900,
+fontSize: 12,
+fontWeight: 950,
 };
 
-const onlineBadge: React.CSSProperties = {
-background: "rgba(15,23,42,0.78)",
-border: "1px solid rgba(255,255,255,0.15)",
-padding: "10px 14px",
+const onlinePill: React.CSSProperties = {
+background: "rgba(15,23,42,0.82)",
+border: "1px solid rgba(255,255,255,0.13)",
 borderRadius: 999,
-fontSize: 13,
-fontWeight: 900,
+padding: "9px 12px",
+fontSize: 12,
+fontWeight: 950,
 whiteSpace: "nowrap",
 };
 
-const heroGrid: React.CSSProperties = {
+const heroVisual: React.CSSProperties = {
+position: "relative",
 display: "grid",
-gridTemplateColumns: "1.15fr 0.85fr",
-gap: 22,
-alignItems: "center",
+gridTemplateColumns: "1fr",
+};
+
+const heroText: React.CSSProperties = {
+position: "relative",
+zIndex: 2,
 };
 
 const title: React.CSSProperties = {
+margin: 0,
 fontSize: 64,
-lineHeight: 0.92,
+lineHeight: 0.88,
 fontWeight: 950,
-margin: "0 0 24px",
 letterSpacing: -2,
 };
 
-const purpleText: React.CSSProperties = {
+const titlePurple: React.CSSProperties = {
+display: "block",
 color: "#a855f7",
+marginTop: 8,
 };
 
 const setupBox: React.CSSProperties = {
-background: "rgba(255,255,255,0.1)",
+marginTop: 26,
+background: "rgba(255,255,255,0.11)",
 border: "1px solid rgba(255,255,255,0.1)",
 borderRadius: 18,
 padding: 16,
-marginBottom: 20,
-fontWeight: 900,
-};
-
-const sub: React.CSSProperties = {
-opacity: 0.78,
-lineHeight: 1.55,
-fontSize: 18,
-};
-
-const greenBtn: React.CSSProperties = {
-marginTop: 22,
-padding: "17px 30px",
-borderRadius: 18,
-border: "none",
-background: "linear-gradient(90deg,#22c55e,#86efac)",
-color: "#02140a",
 fontWeight: 950,
+fontSize: 17,
+maxWidth: 440,
+};
+
+const subText: React.CSSProperties = {
+marginTop: 22,
+maxWidth: 440,
+color: "rgba(255,255,255,0.78)",
 fontSize: 18,
+lineHeight: 1.5,
 };
 
-const botWrap: React.CSSProperties = {
+const testButton: React.CSSProperties = {
+marginTop: 22,
+width: 250,
+maxWidth: "100%",
+border: "none",
+borderRadius: 18,
+padding: "17px 24px",
+background: "linear-gradient(90deg,#22c55e,#86efac)",
+color: "#06120a",
+fontSize: 18,
+fontWeight: 950,
+};
+
+const robotStage: React.CSSProperties = {
 position: "relative",
-height: 270,
+height: 260,
+marginTop: 18,
 display: "flex",
-justifyContent: "center",
 alignItems: "center",
+justifyContent: "center",
 };
 
-const botGlow: React.CSSProperties = {
+const robotGlow: React.CSSProperties = {
 position: "absolute",
-width: 230,
-height: 230,
+width: 250,
+height: 250,
 borderRadius: "50%",
 background: "radial-gradient(circle,#9333ea,transparent 70%)",
 filter: "blur(14px)",
-opacity: 0.75,
+opacity: 0.9,
 };
 
-const botHead: React.CSSProperties = {
+const robotHalo: React.CSSProperties = {
+position: "absolute",
+width: 230,
+height: 70,
+borderRadius: "50%",
+bottom: 18,
+border: "1px solid rgba(168,85,247,0.45)",
+boxShadow: "0 0 35px rgba(168,85,247,0.45)",
+};
+
+const robotHead: React.CSSProperties = {
 position: "relative",
 width: 170,
-height: 150,
-borderRadius: 42,
-background: "linear-gradient(145deg,#111827,#020617)",
+height: 145,
+borderRadius: 44,
+background: "linear-gradient(145deg,#1e1b4b,#020617)",
 border: "5px solid #8b5cf6",
-display: "flex",
-justifyContent: "center",
-alignItems: "center",
-gap: 22,
-boxShadow: "0 0 55px rgba(168,85,247,0.7)",
+boxShadow: "0 0 55px rgba(168,85,247,0.75)",
+zIndex: 2,
 };
 
-const botEye: React.CSSProperties = {
+const robotFace: React.CSSProperties = {
+width: "100%",
+height: "100%",
+position: "relative",
+};
+
+const robotEyes: React.CSSProperties = {
+position: "absolute",
+top: 52,
+left: 0,
+right: 0,
+display: "flex",
+justifyContent: "center",
+gap: 28,
+};
+
+const eye: React.CSSProperties = {
 width: 18,
 height: 18,
 borderRadius: "50%",
@@ -566,139 +617,188 @@ background: "#4ade80",
 boxShadow: "0 0 18px #4ade80",
 };
 
-const botSmile: React.CSSProperties = {
+const smile: React.CSSProperties = {
 position: "absolute",
-bottom: 28,
+left: 0,
+right: 0,
+bottom: 30,
+textAlign: "center",
 color: "#4ade80",
 fontSize: 30,
 };
 
-const botBase: React.CSSProperties = {
+const headsetLeft: React.CSSProperties = {
 position: "absolute",
-bottom: 24,
+width: 28,
+height: 70,
+borderRadius: 20,
+background: "linear-gradient(#7c3aed,#4c1d95)",
+left: "calc(50% - 112px)",
+top: 82,
+zIndex: 3,
+};
+
+const headsetRight: React.CSSProperties = {
+position: "absolute",
+width: 28,
+height: 70,
+borderRadius: 20,
+background: "linear-gradient(#7c3aed,#4c1d95)",
+right: "calc(50% - 112px)",
+top: 82,
+zIndex: 3,
+};
+
+const mic: React.CSSProperties = {
+position: "absolute",
+width: 52,
+height: 8,
+borderRadius: 10,
+background: "#8b5cf6",
+right: "calc(50% - 112px)",
+top: 145,
+zIndex: 4,
+};
+
+const robotBody: React.CSSProperties = {
+position: "absolute",
+width: 120,
+height: 75,
+borderRadius: "55px 55px 35px 35px",
+background: "linear-gradient(145deg,#8b5cf6,#4c1d95)",
+bottom: 32,
+zIndex: 1,
+};
+
+const aiBadge: React.CSSProperties = {
+position: "absolute",
+bottom: 8,
+zIndex: 5,
 background: "linear-gradient(90deg,#7c3aed,#c084fc)",
 padding: "10px 22px",
 borderRadius: 999,
 fontWeight: 950,
+fontSize: 18,
 };
 
-const botRing: React.CSSProperties = {
+const baseRing: React.CSSProperties = {
 position: "absolute",
-bottom: 2,
-width: 190,
-height: 42,
+bottom: 0,
+width: 220,
+height: 44,
 borderRadius: "50%",
 border: "1px solid rgba(168,85,247,0.55)",
-boxShadow: "0 0 30px rgba(168,85,247,0.45)",
 };
 
 const featureGrid: React.CSSProperties = {
 display: "grid",
-gridTemplateColumns: "repeat(4, 1fr)",
-gap: 14,
-marginTop: 26,
+gridTemplateColumns: "repeat(2, 1fr)",
+gap: 12,
+marginTop: 20,
 };
 
 const featureCard: React.CSSProperties = {
 background: "rgba(15,23,42,0.78)",
 border: "1px solid rgba(255,255,255,0.09)",
-borderRadius: 22,
-padding: 18,
-minHeight: 130,
+borderRadius: 20,
+padding: 16,
 textAlign: "center",
+minHeight: 120,
 };
 
 const featureIcon: React.CSSProperties = {
-fontSize: 34,
-marginBottom: 12,
+fontSize: 30,
+marginBottom: 10,
 };
 
 const featureTitle: React.CSSProperties = {
-fontSize: 17,
+fontSize: 16,
 margin: "0 0 8px",
 };
 
 const featureText: React.CSSProperties = {
-opacity: 0.68,
+opacity: 0.7,
 margin: 0,
-lineHeight: 1.4,
+lineHeight: 1.35,
+fontSize: 14,
 };
 
-const statsRow: React.CSSProperties = {
+const statsGrid: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "repeat(3, 1fr)",
-gap: 14,
+gap: 12,
 marginBottom: 18,
 };
 
 const statCard: React.CSSProperties = {
 background: "rgba(15,23,42,0.85)",
 border: "1px solid rgba(255,255,255,0.08)",
-borderRadius: 24,
-padding: 20,
+borderRadius: 22,
+padding: 16,
 };
 
 const statIcon: React.CSSProperties = {
-fontSize: 28,
-marginBottom: 10,
+fontSize: 24,
+marginBottom: 8,
 };
 
 const statValue: React.CSSProperties = {
-fontSize: 42,
+fontSize: 36,
 margin: 0,
 fontWeight: 950,
 };
 
 const statLabel: React.CSSProperties = {
 opacity: 0.82,
+fontSize: 13,
 margin: "8px 0 0",
 };
 
 const growth: React.CSSProperties = {
 color: "#4ade80",
-marginTop: 12,
+fontSize: 12,
+marginTop: 10,
 fontWeight: 800,
+};
+
+const systemStrip: React.CSSProperties = {
+background: "rgba(15,23,42,0.8)",
+border: "1px solid rgba(255,255,255,0.08)",
+borderRadius: 22,
+padding: 16,
+display: "grid",
+gap: 14,
+marginBottom: 18,
+};
+
+const systemItem: React.CSSProperties = {
+display: "flex",
+gap: 12,
+alignItems: "flex-start",
+};
+
+const systemIcon: React.CSSProperties = {
+fontSize: 24,
+};
+
+const systemLabel: React.CSSProperties = {
+opacity: 0.65,
+margin: 0,
 fontSize: 13,
 };
 
-const activityRow: React.CSSProperties = {
-display: "grid",
-gridTemplateColumns: "repeat(3, 1fr)",
-gap: 14,
-marginBottom: 20,
-};
-
-const activityCard: React.CSSProperties = {
-background: "rgba(15,23,42,0.82)",
-border: "1px solid rgba(255,255,255,0.08)",
-borderRadius: 24,
-padding: 20,
-};
-
-const activityBig: React.CSSProperties = {
+const greenText: React.CSSProperties = {
 color: "#4ade80",
-margin: "8px 0",
-fontSize: 28,
+margin: "4px 0",
+fontSize: 24,
 fontWeight: 950,
 };
 
-const aiNumber: React.CSSProperties = {
+const purpleNumber: React.CSSProperties = {
 color: "#c084fc",
-margin: "8px 0",
-fontSize: 26,
+margin: "4px 0",
+fontSize: 24,
 fontWeight: 950,
-};
-
-const liveText: React.CSSProperties = {
-color: "#4ade80",
-margin: "8px 0",
-fontSize: 30,
-fontWeight: 950,
-};
-
-const activeDot: React.CSSProperties = {
-color: "#4ade80",
-margin: 0,
 };
 
 const muted: React.CSSProperties = {
@@ -706,11 +806,16 @@ opacity: 0.65,
 margin: 0,
 };
 
+const activeDot: React.CSSProperties = {
+color: "#4ade80",
+margin: 0,
+};
+
 const panel: React.CSSProperties = {
 background: "rgba(15,23,42,0.72)",
 border: "1px solid rgba(255,255,255,0.09)",
 borderRadius: 28,
-padding: 20,
+padding: 18,
 };
 
 const panelHeader: React.CSSProperties = {
@@ -720,8 +825,8 @@ alignItems: "center",
 };
 
 const panelTitle: React.CSSProperties = {
-fontSize: 30,
-marginTop: 0,
+fontSize: 28,
+margin: 0,
 };
 
 const viewAll: React.CSSProperties = {
@@ -729,21 +834,17 @@ color: "#c084fc",
 fontWeight: 900,
 };
 
-const empty: React.CSSProperties = {
-opacity: 0.65,
-fontSize: 17,
-};
-
 const lockBox: React.CSSProperties = {
 background: "rgba(0,0,0,0.35)",
 border: "1px solid rgba(255,255,255,0.16)",
 borderRadius: 18,
 padding: 18,
+marginTop: 16,
 marginBottom: 16,
 textAlign: "center",
 };
 
-const purpleBtn: React.CSSProperties = {
+const upgradeBtn: React.CSSProperties = {
 padding: 16,
 borderRadius: 18,
 border: "1px solid rgba(255,255,255,0.25)",
@@ -753,12 +854,17 @@ fontWeight: 900,
 fontSize: 16,
 };
 
+const empty: React.CSSProperties = {
+opacity: 0.65,
+fontSize: 17,
+};
+
 const leadCard: React.CSSProperties = {
 background: "linear-gradient(145deg, rgba(15,23,42,0.98), rgba(30,12,60,0.95))",
 border: "1px solid rgba(168,85,247,0.28)",
 borderRadius: 24,
-padding: 18,
-marginBottom: 14,
+padding: 16,
+marginTop: 14,
 };
 
 const leadTop: React.CSSProperties = {
@@ -767,7 +873,7 @@ justifyContent: "space-between",
 alignItems: "center",
 };
 
-const smallLabel: React.CSSProperties = {
+const miniLabel: React.CSSProperties = {
 fontSize: 11,
 opacity: 0.55,
 fontWeight: 900,
@@ -780,7 +886,7 @@ fontSize: 24,
 margin: "4px 0 0",
 };
 
-const hotBadge: React.CSSProperties = {
+const statusBadge: React.CSSProperties = {
 background: "rgba(239,68,68,0.18)",
 color: "#fca5a5",
 padding: "8px 10px",
@@ -831,7 +937,7 @@ gap: 8,
 marginTop: 12,
 };
 
-const miniBtn: React.CSSProperties = {
+const smallBtn: React.CSSProperties = {
 padding: "8px 6px",
 borderRadius: 12,
 border: "1px solid rgba(255,255,255,0.16)",
