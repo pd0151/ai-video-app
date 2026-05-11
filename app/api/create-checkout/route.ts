@@ -36,7 +36,7 @@ payment_method_types: ["card"],
 customer_email: email,
 line_items: [
 {
-price: "price_1TVY5AHEvcDZqpFQBqKRWln2",
+price: "price_1TVwoDHEvcDZqpFQ8lPV8YqP",
 quantity: 1,
 },
 ],
