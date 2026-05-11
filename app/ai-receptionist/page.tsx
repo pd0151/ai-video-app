@@ -217,7 +217,7 @@ const latestLead = leads[0];
 return (
 <main style={page}>
 <button onClick={() => router.push("/")} style={backBtn}>‹</button>
-<button style={logoutBtn}>Logout</button>
+<button style={logoutBtn}>↪ Logout</button>
 
 <section style={hero}>
 <div style={topRow}>
@@ -248,22 +248,20 @@ job straight to your dashboard.
 </div>
 
 <div style={robotWrap}>
-<div style={orb}></div>
-<div style={ring1}></div>
-<div style={ring2}></div>
-
+<div style={botGlow}></div>
+<div style={botRingBig}></div>
+<div style={botRingSmall}></div>
+<div style={botBody}></div>
 <div style={botHead}>
-<div style={botEyes}>
+<div style={botFace}>
 <span style={botEye}></span>
 <span style={botEye}></span>
-</div>
 <div style={botSmile}></div>
 </div>
-
+</div>
 <div style={earLeft}></div>
 <div style={earRight}></div>
 <div style={micBar}></div>
-<div style={botBody}></div>
 <div style={floorRing}></div>
 </div>
 </div>
@@ -406,51 +404,56 @@ return (
 
 const page: React.CSSProperties = {
 minHeight: "100vh",
-padding: "86px 18px 150px",
+padding: "86px 18px 155px",
 color: "white",
 fontFamily: "Inter, Arial, sans-serif",
 background:
-"radial-gradient(circle at 50% -10%, rgba(168,85,247,0.55), transparent 32%), linear-gradient(180deg,#10002f 0%,#080116 55%,#020617 100%)",
+"radial-gradient(circle at 50% -8%, rgba(124,58,237,0.38), transparent 34%), linear-gradient(180deg,#08001f 0%,#070018 48%,#020617 100%)",
 overflowX: "hidden",
 };
 
 const backBtn: React.CSSProperties = {
 position: "absolute",
-top: 28,
+top: 26,
 left: 18,
-width: 54,
-height: 54,
-borderRadius: 18,
+width: 46,
+height: 46,
+borderRadius: 14,
 border: "1px solid rgba(255,255,255,0.14)",
-background: "rgba(255,255,255,0.08)",
-backdropFilter: "blur(18px)",
+background: "rgba(255,255,255,0.07)",
+backdropFilter: "blur(16px)",
 color: "white",
-fontSize: 36,
+fontSize: 34,
+lineHeight: 0,
 zIndex: 20,
 };
 
 const logoutBtn: React.CSSProperties = {
 position: "absolute",
-top: 28,
+top: 26,
 right: 18,
-padding: "14px 20px",
-borderRadius: 18,
+padding: "12px 17px",
+borderRadius: 15,
 border: "1px solid rgba(255,255,255,0.14)",
-background: "rgba(255,255,255,0.08)",
-backdropFilter: "blur(18px)",
+background: "rgba(255,255,255,0.07)",
+backdropFilter: "blur(16px)",
 color: "white",
 fontWeight: 900,
+fontSize: 14,
 zIndex: 20,
 };
 
 const hero: React.CSSProperties = {
-borderRadius: 34,
-padding: 18,
-marginBottom: 16,
+position: "relative",
+borderRadius: 30,
+padding: 16,
+marginBottom: 14,
+minHeight: 565,
 background:
-"linear-gradient(145deg, rgba(111,25,191,0.72), rgba(12,10,35,0.96))",
-border: "1px solid rgba(168,85,247,0.65)",
-boxShadow: "0 0 40px rgba(126,34,206,0.28), inset 0 0 40px rgba(255,255,255,0.03)",
+"radial-gradient(circle at 82% 28%, rgba(147,51,234,0.36), transparent 32%), linear-gradient(145deg, rgba(67,15,130,0.68), rgba(8,7,30,0.98))",
+border: "1px solid rgba(168,85,247,0.72)",
+boxShadow:
+"0 0 34px rgba(126,34,206,0.25), inset 0 0 40px rgba(255,255,255,0.025)",
 overflow: "hidden",
 };
 
@@ -458,32 +461,34 @@ const topRow: React.CSSProperties = {
 display: "flex",
 alignItems: "center",
 justifyContent: "space-between",
-gap: 10,
-marginBottom: 18,
+gap: 8,
+marginBottom: 14,
 };
 
 const livePill: React.CSSProperties = {
 display: "inline-flex",
 alignItems: "center",
-gap: 8,
-padding: "10px 14px",
+gap: 7,
+padding: "8px 12px",
 borderRadius: 999,
-background: "rgba(255,255,255,0.08)",
+background: "rgba(255,255,255,0.075)",
 color: "#4ade80",
-fontSize: 13,
+fontSize: 12,
 fontWeight: 950,
+whiteSpace: "nowrap",
 };
 
 const onlinePill: React.CSSProperties = {
 display: "inline-flex",
 alignItems: "center",
 gap: 8,
-padding: "10px 15px",
+padding: "8px 12px",
 borderRadius: 999,
-background: "rgba(3,7,18,0.7)",
+background: "rgba(3,7,18,0.72)",
 border: "1px solid rgba(255,255,255,0.12)",
-fontSize: 13,
+fontSize: 12,
 fontWeight: 950,
+whiteSpace: "nowrap",
 };
 
 const greenDot: React.CSSProperties = {
@@ -494,29 +499,28 @@ background: "#4ade80",
 };
 
 const bigGreenDot: React.CSSProperties = {
-width: 18,
-height: 18,
+width: 17,
+height: 17,
 borderRadius: "50%",
 background: "linear-gradient(135deg,#22c55e,#86efac)",
-boxShadow: "0 0 18px rgba(34,197,94,0.8)",
+boxShadow: "0 0 16px rgba(34,197,94,0.8)",
 };
 
 const heroInner: React.CSSProperties = {
-display: "grid",
-gridTemplateColumns: "1.1fr 0.9fr",
-alignItems: "center",
-gap: 10,
+position: "relative",
+minHeight: 355,
 };
 
 const heroText: React.CSSProperties = {
 position: "relative",
-zIndex: 2,
+zIndex: 3,
+width: "58%",
 };
 
 const title: React.CSSProperties = {
 margin: 0,
-fontSize: 50,
-lineHeight: 0.9,
+fontSize: "clamp(34px, 8.5vw, 54px)",
+lineHeight: 0.88,
 letterSpacing: -2,
 fontWeight: 950,
 };
@@ -524,26 +528,28 @@ fontWeight: 950,
 const titlePurple: React.CSSProperties = {
 display: "block",
 marginTop: 6,
-color: "#a855f7",
+color: "#9b4dff",
 };
 
 const setupBox: React.CSSProperties = {
 display: "flex",
 alignItems: "center",
-gap: 10,
-marginTop: 22,
-padding: "13px 15px",
-borderRadius: 17,
+gap: 8,
+marginTop: 17,
+padding: "10px 12px",
+borderRadius: 14,
 background: "rgba(255,255,255,0.12)",
-border: "1px solid rgba(255,255,255,0.12)",
+border: "1px solid rgba(255,255,255,0.1)",
 fontWeight: 900,
-fontSize: 15,
+fontSize: 13,
 width: "fit-content",
+maxWidth: 300,
 };
 
 const tickBox: React.CSSProperties = {
-width: 25,
-height: 25,
+width: 24,
+height: 24,
+minWidth: 24,
 borderRadius: 7,
 display: "grid",
 placeItems: "center",
@@ -553,86 +559,94 @@ fontWeight: 950,
 };
 
 const subText: React.CSSProperties = {
-margin: "18px 0 0",
+margin: "16px 0 0",
 color: "rgba(255,255,255,0.76)",
-fontSize: 16,
-lineHeight: 1.45,
-maxWidth: 460,
+fontSize: 14,
+lineHeight: 1.42,
+maxWidth: 310,
 };
 
 const testButton: React.CSSProperties = {
-marginTop: 22,
-width: 260,
+marginTop: 18,
+width: 210,
 maxWidth: "100%",
-padding: "18px 20px",
-borderRadius: 18,
+padding: "15px 16px",
+borderRadius: 15,
 border: "none",
 background: "linear-gradient(90deg,#22c55e,#86efac)",
 color: "#04130a",
-fontSize: 18,
+fontSize: 16,
 fontWeight: 950,
-boxShadow: "0 16px 35px rgba(34,197,94,0.22)",
+boxShadow: "0 16px 35px rgba(34,197,94,0.2)",
 };
 
 const robotWrap: React.CSSProperties = {
-position: "relative",
-height: 250,
+position: "absolute",
+right: -10,
+top: 44,
+width: 215,
+height: 240,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
+transform: "scale(0.92)",
+transformOrigin: "center",
+zIndex: 2,
 };
 
-const orb: React.CSSProperties = {
+const botGlow: React.CSSProperties = {
 position: "absolute",
-width: 210,
-height: 210,
+width: 220,
+height: 220,
 borderRadius: "50%",
-background: "radial-gradient(circle, rgba(168,85,247,0.8), transparent 68%)",
-filter: "blur(12px)",
+background: "radial-gradient(circle, rgba(147,51,234,0.9), transparent 66%)",
+filter: "blur(14px)",
+opacity: 0.85,
 };
 
-const ring1: React.CSSProperties = {
+const botRingBig: React.CSSProperties = {
 position: "absolute",
-bottom: 42,
-width: 190,
-height: 54,
+bottom: 36,
+width: 180,
+height: 50,
 borderRadius: "50%",
-border: "1px solid rgba(168,85,247,0.45)",
+border: "1px solid rgba(168,85,247,0.48)",
+boxShadow: "0 0 24px rgba(168,85,247,0.36)",
 };
 
-const ring2: React.CSSProperties = {
+const botRingSmall: React.CSSProperties = {
 position: "absolute",
-bottom: 54,
-width: 128,
-height: 36,
+bottom: 48,
+width: 118,
+height: 34,
 borderRadius: "50%",
-border: "1px solid rgba(255,255,255,0.1)",
+border: "1px solid rgba(255,255,255,0.11)",
 };
 
 const botHead: React.CSSProperties = {
 position: "relative",
-width: 138,
-height: 118,
-borderRadius: 38,
-background: "linear-gradient(145deg,#111827,#020617)",
+width: 128,
+height: 110,
+borderRadius: 34,
+background: "linear-gradient(145deg,#15142f,#020617)",
 border: "5px solid #8b5cf6",
 boxShadow: "0 0 38px rgba(168,85,247,0.72)",
 zIndex: 5,
 };
 
-const botEyes: React.CSSProperties = {
-position: "absolute",
-top: 42,
-left: 0,
-right: 0,
-display: "flex",
-justifyContent: "center",
-gap: 28,
+const botFace: React.CSSProperties = {
+position: "relative",
+width: "100%",
+height: "100%",
 };
 
 const botEye: React.CSSProperties = {
+position: "relative",
+top: 40,
+display: "inline-block",
 width: 18,
 height: 18,
+marginLeft: 29,
 borderRadius: "50%",
 background: "#5eead4",
 boxShadow: "0 0 18px #5eead4",
@@ -641,7 +655,7 @@ boxShadow: "0 0 18px #5eead4",
 const botSmile: React.CSSProperties = {
 position: "absolute",
 left: "50%",
-bottom: 26,
+bottom: 25,
 width: 34,
 height: 16,
 transform: "translateX(-50%)",
@@ -651,68 +665,70 @@ borderRadius: "0 0 30px 30px",
 
 const earLeft: React.CSSProperties = {
 position: "absolute",
-width: 24,
+width: 25,
 height: 62,
 borderRadius: 18,
 background: "linear-gradient(#8b5cf6,#4c1d95)",
-left: "calc(50% - 92px)",
-top: 95,
+left: 33,
+top: 92,
 zIndex: 6,
 };
 
 const earRight: React.CSSProperties = {
 position: "absolute",
-width: 24,
+width: 25,
 height: 62,
 borderRadius: 18,
 background: "linear-gradient(#8b5cf6,#4c1d95)",
-right: "calc(50% - 92px)",
-top: 95,
+right: 33,
+top: 92,
 zIndex: 6,
 };
 
 const micBar: React.CSSProperties = {
 position: "absolute",
-width: 56,
+width: 52,
 height: 8,
 borderRadius: 999,
 background: "#8b5cf6",
-right: "calc(50% - 96px)",
-top: 157,
+right: 25,
+top: 154,
 zIndex: 7,
 };
 
 const botBody: React.CSSProperties = {
 position: "absolute",
-width: 110,
-height: 68,
-bottom: 45,
-borderRadius: "55px 55px 32px 32px",
+width: 104,
+height: 64,
+bottom: 48,
+borderRadius: "50px 50px 32px 32px",
 background: "linear-gradient(145deg,#8b5cf6,#4c1d95)",
 zIndex: 3,
 };
 
 const floorRing: React.CSSProperties = {
 position: "absolute",
-bottom: 28,
-width: 190,
-height: 44,
+bottom: 24,
+width: 178,
+height: 42,
 borderRadius: "50%",
 border: "1px solid rgba(168,85,247,0.55)",
-boxShadow: "0 0 28px rgba(168,85,247,0.35)",
 };
 
 const featureGrid: React.CSSProperties = {
+position: "absolute",
+left: 16,
+right: 16,
+bottom: 16,
 display: "grid",
 gridTemplateColumns: "repeat(4, 1fr)",
-gap: 14,
-marginTop: 14,
+gap: 8,
 };
 
 const featureCard: React.CSSProperties = {
-minHeight: 112,
-padding: 15,
-borderRadius: 20,
+minHeight: 96,
+padding: "10px 6px",
+borderRadius: 16,
 background: "rgba(8,13,35,0.78)",
 border: "1px solid rgba(255,255,255,0.08)",
 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
@@ -720,129 +736,131 @@ textAlign: "center",
 };
 
 const featureIcon: React.CSSProperties = {
-fontSize: 30,
-marginBottom: 10,
+fontSize: 25,
+marginBottom: 8,
 color: "#a855f7",
 };
 
 const featureTitle: React.CSSProperties = {
-margin: "0 0 8px",
-fontSize: 16,
+margin: "0 0 6px",
+fontSize: 12,
 fontWeight: 950,
 };
 
 const featureText: React.CSSProperties = {
 margin: 0,
 color: "rgba(255,255,255,0.68)",
-fontSize: 13,
-lineHeight: 1.35,
+fontSize: 10.5,
+lineHeight: 1.25,
 };
 
 const statsGrid: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "repeat(3, 1fr)",
-gap: 14,
-marginBottom: 18,
+gap: 8,
+marginBottom: 14,
 };
 
 const statCard: React.CSSProperties = {
 position: "relative",
-minHeight: 130,
-padding: 20,
-borderRadius: 22,
+minHeight: 106,
+padding: 12,
+borderRadius: 18,
 background: "rgba(8,13,35,0.82)",
 border: "1px solid rgba(255,255,255,0.08)",
 };
 
 const statIcon: React.CSSProperties = {
 position: "absolute",
-top: 18,
-right: 18,
-width: 42,
-height: 42,
+top: 12,
+right: 12,
+width: 34,
+height: 34,
 display: "grid",
 placeItems: "center",
-borderRadius: 12,
+borderRadius: 10,
 background: "rgba(168,85,247,0.16)",
 color: "#c084fc",
-fontSize: 22,
+fontSize: 18,
 };
 
 const statValue: React.CSSProperties = {
 margin: 0,
-fontSize: 42,
+fontSize: 34,
 fontWeight: 950,
 };
 
 const statLabel: React.CSSProperties = {
-margin: "13px 0 0",
+margin: "12px 0 0",
 color: "rgba(255,255,255,0.82)",
-fontSize: 14,
+fontSize: 12,
 fontWeight: 800,
 };
 
 const growth: React.CSSProperties = {
-margin: "12px 0 0",
+margin: "10px 0 0",
 color: "#4ade80",
-fontSize: 13,
+fontSize: 11,
 fontWeight: 900,
 };
 
 const systemStrip: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "repeat(3, 1fr)",
-gap: 12,
-marginBottom: 18,
-padding: 16,
-borderRadius: 24,
+gap: 8,
+marginBottom: 14,
+padding: 13,
+borderRadius: 20,
 background: "rgba(8,13,35,0.78)",
 border: "1px solid rgba(255,255,255,0.08)",
 };
 
 const systemItem: React.CSSProperties = {
 display: "flex",
-gap: 12,
+gap: 8,
 alignItems: "flex-start",
 };
 
 const systemIcon: React.CSSProperties = {
 color: "#a78bfa",
-fontSize: 28,
+fontSize: 22,
 };
 
 const systemLabel: React.CSSProperties = {
 margin: 0,
 color: "rgba(255,255,255,0.62)",
-fontSize: 13,
+fontSize: 11,
 };
 
 const greenText: React.CSSProperties = {
 margin: "4px 0",
 color: "#4ade80",
-fontSize: 24,
+fontSize: 18,
 fontWeight: 950,
 };
 
 const purpleNumber: React.CSSProperties = {
 margin: "4px 0",
 color: "#c084fc",
-fontSize: 23,
+fontSize: 17,
 fontWeight: 950,
 };
 
 const muted: React.CSSProperties = {
 margin: 0,
 color: "rgba(255,255,255,0.62)",
+fontSize: 11,
 };
 
 const activeDot: React.CSSProperties = {
 margin: 0,
 color: "#4ade80",
+fontSize: 11,
 };
 
 const panel: React.CSSProperties = {
-borderRadius: 24,
-padding: 18,
+borderRadius: 22,
+padding: 16,
 background: "rgba(8,13,35,0.78)",
 border: "1px solid rgba(255,255,255,0.08)",
 };
@@ -855,7 +873,7 @@ alignItems: "center",
 
 const panelTitle: React.CSSProperties = {
 margin: 0,
-fontSize: 24,
+fontSize: 22,
 };
 
 const viewAll: React.CSSProperties = {
