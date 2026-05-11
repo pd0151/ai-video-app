@@ -399,7 +399,7 @@ return (
 <p><b>🛞 Tyre size:</b> {lead.tyre_size || "Not provided"}</p>
 <p>
 <b>⚠️ Issue:</b>{" "}
-{lead.issue || "No details"}
+{lead.issue || lead.job?.split("Phone:")[0] || "No details"}
 </p>
 <p><b>📍 Location:</b> {lead.location || "Unknown"}</p>
 <p style={{ opacity: 0.6, fontSize: 13 }}>
