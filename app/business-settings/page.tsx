@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
@@ -13,6 +13,9 @@ export default function BusinessSettingsPage() {
 const router = useRouter();
 
 const [loading, setLoading] = useState(false);
+const saveTimer = useRef<NodeJS.Timeout | null>(null);
+const [autoSaving, setAutoSaving] = useState(false);
+const [lastSaved, setLastSaved] = useState("");
 const [checkingPayment, setCheckingPayment] = useState(true);
 
 const [businessName, setBusinessName] = useState("");
@@ -123,7 +126,33 @@ return;
 alert("Business settings saved. We’ll now set up your AI receptionist.");
 router.push("/ai-receptionist");
 }
+async function autoSaveSettings(field: string, value: string) {
+if (saveTimer.current) {
+clearTimeout(saveTimer.current);
+}
 
+setAutoSaving(true);
+
+saveTimer.current = setTimeout(async () => {
+const {
+data: { user },
+} = await supabase.auth.getUser();
+
+if (!user?.email) return;
+
+const email = user.email.toLowerCase().trim();
+
+await supabase
+.from("businesses")
+.update({
+[field]: value,
+})
+.eq("email", email);
+
+setAutoSaving(false);
+setLastSaved(new Date().toLocaleTimeString());
+}, 900);
+}
 if (checkingPayment) {
 return (
 <main style={page}>
@@ -161,7 +190,10 @@ customer.
 <input
 placeholder="Business name"
 value={businessName}
-onChange={(e) => setBusinessName(e.target.value)}
+onChange={(e) => {
+setServiceArea(e.target.value);
+autoSaveSettings("service_area", e.target.value);
+}}
 style={input}
 />
 
