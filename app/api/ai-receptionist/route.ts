@@ -222,6 +222,27 @@ const args =
 typeof toolArgs === "string"
 ? JSON.parse(toolArgs)
 : toolArgs;
+const twilioNumber =
+body?.to ||
+body?.phoneNumber ||
+body?.twilio_number ||
+"";
+
+const cleanTwilio = String(twilioNumber)
+.replace(/\s/g, "")
+.trim();
+
+const { data: matchedBusiness } = await supabase
+.from("businesses")
+.select("id")
+.eq("twilio_number", cleanTwilio)
+.maybeSingle();
+
+const businessId =
+matchedBusiness?.id ||
+args.business_id ||
+body.business_id ||
+"5cb25f80-26e4-48bb-8ab6-5dcda21c8e97";
 const name = args.name || extractName(transcript) || "Not given";
 
 const issue =
