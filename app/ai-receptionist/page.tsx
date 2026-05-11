@@ -459,13 +459,13 @@ fontWeight: 900,
 };
 
 const hero: React.CSSProperties = {
-borderRadius: 30,
+borderRadius: 28,
 border: "1px solid rgba(168,85,247,0.72)",
 background:
 "linear-gradient(145deg, rgba(56,20,112,0.96), rgba(7,10,30,0.97))",
 boxShadow: "0 0 90px rgba(124,58,237,0.22)",
-padding: 20,
-marginBottom: 22,
+padding: 16,
+marginBottom: 16,
 overflow: "hidden",
 };
 
@@ -509,7 +509,7 @@ zIndex: 2,
 
 const title: React.CSSProperties = {
 margin: 0,
-fontSize: 54,
+fontSize: 46,
 lineHeight: 0.9,
 fontWeight: 950,
 letterSpacing: -2,
@@ -522,34 +522,34 @@ marginTop: 8,
 };
 
 const setupBox: React.CSSProperties = {
-marginTop: 26,
+marginTop: 18,
 background: "rgba(255,255,255,0.11)",
 border: "1px solid rgba(255,255,255,0.1)",
-borderRadius: 18,
-padding: 16,
+borderRadius: 16,
+padding: 14,
 fontWeight: 950,
-fontSize: 17,
+fontSize: 15,
 maxWidth: 440,
 };
 
 const subText: React.CSSProperties = {
-marginTop: 22,
+marginTop: 16,
 maxWidth: 440,
 color: "rgba(255,255,255,0.78)",
-fontSize: 18,
-lineHeight: 1.5,
+fontSize: 16,
+lineHeight: 1.45,
 };
 
 const testButton: React.CSSProperties = {
-marginTop: 22,
-width: 250,
+marginTop: 18,
+width: 220,
 maxWidth: "100%",
 border: "none",
-borderRadius: 18,
-padding: "17px 24px",
+borderRadius: 16,
+padding: "15px 20px",
 background: "linear-gradient(90deg,#22c55e,#86efac)",
 color: "#06120a",
-fontSize: 18,
+fontSize: 16,
 fontWeight: 950,
 };
 
@@ -702,27 +702,27 @@ marginTop: 20,
 const featureCard: React.CSSProperties = {
 background: "rgba(15,23,42,0.78)",
 border: "1px solid rgba(255,255,255,0.09)",
-borderRadius: 20,
-padding: 16,
+borderRadius: 18,
+padding: 12,
 textAlign: "center",
-minHeight: 120,
+minHeight: 95,
 };
 
 const featureIcon: React.CSSProperties = {
-fontSize: 30,
-marginBottom: 10,
+fontSize: 24,
+marginBottom: 6,
 };
 
 const featureTitle: React.CSSProperties = {
-fontSize: 16,
-margin: "0 0 8px",
+fontSize: 14,
+margin: "0 0 6px",
 };
 
 const featureText: React.CSSProperties = {
 opacity: 0.7,
 margin: 0,
-lineHeight: 1.35,
-fontSize: 14,
+lineHeight: 1.25,
+fontSize: 12,
 };
 
 const statsGrid: React.CSSProperties = {
