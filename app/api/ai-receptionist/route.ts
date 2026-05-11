@@ -275,7 +275,7 @@ return NextResponse.json({ ok: true, duplicate: true });
 }
 
 const { error } = await supabase.from("ai_call_leads").insert({
-business_id: args.business_id || "5cb25f80-26e4-48bb-8ab6-5dcda21c8e97",
+business_id: args.business_id,
 call_sid: callId,
 customer_phone: customerPhone,
 transcript,
@@ -284,7 +284,7 @@ status: "new",
 });
 const { error: liveLeadError } = await supabase.from("leads").insert([
 {
-  business_id: args.business_id || "5cb25f80-26e4-48bb-8ab6-5dcda21c8e97", 
+  business_id: args.business_id,
 phone: customerPhone,
 job: `Issue: ${issue}
 Vehicle: ${vehicle}
