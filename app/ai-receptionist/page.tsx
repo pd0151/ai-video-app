@@ -914,11 +914,16 @@ fontSize: 17,
 };
 
 const leadCard: React.CSSProperties = {
-background: "linear-gradient(145deg, rgba(15,23,42,0.98), rgba(30,12,60,0.95))",
-border: "1px solid rgba(168,85,247,0.28)",
-borderRadius: 24,
-padding: 16,
-marginTop: 14,
+position: "relative",
+overflow: "hidden",
+background:
+"linear-gradient(145deg, rgba(10,15,35,0.98), rgba(35,12,70,0.96))",
+border: "1px solid rgba(168,85,247,0.24)",
+borderRadius: 28,
+padding: 18,
+marginTop: 16,
+boxShadow:
+"0 0 24px rgba(124,58,237,0.12), inset 0 1px 0 rgba(255,255,255,0.03)",
 };
 
 const leadTop: React.CSSProperties = {
@@ -950,11 +955,13 @@ fontWeight: 900,
 };
 
 const infoBox: React.CSSProperties = {
-marginTop: 14,
-background: "rgba(0,0,0,0.28)",
-padding: 14,
-borderRadius: 16,
-lineHeight: 1.5,
+marginTop: 16,
+background: "rgba(0,0,0,0.24)",
+padding: 16,
+borderRadius: 18,
+lineHeight: 1.6,
+border: "1px solid rgba(255,255,255,0.04)",
+backdropFilter: "blur(10px)",
 };
 
 const leadButtons: React.CSSProperties = {
@@ -965,13 +972,14 @@ marginTop: 14,
 };
 
 const callBtn: React.CSSProperties = {
-padding: 14,
+padding: 15,
 borderRadius: 16,
 background: "linear-gradient(90deg,#7c3aed,#a855f7)",
 color: "white",
 textDecoration: "none",
 textAlign: "center",
 fontWeight: 900,
+boxShadow: "0 10px 25px rgba(124,58,237,0.28)",
 };
 
 const waBtn: React.CSSProperties = {
