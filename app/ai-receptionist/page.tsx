@@ -700,29 +700,29 @@ marginTop: 20,
 };
 
 const featureCard: React.CSSProperties = {
-background: "rgba(15,23,42,0.78)",
-border: "1px solid rgba(255,255,255,0.09)",
-borderRadius: 18,
-padding: 12,
+background: "rgba(15,23,42,0.82)",
+border: "1px solid rgba(255,255,255,0.08)",
+borderRadius: 16,
+padding: 10,
+minHeight: 86,
 textAlign: "center",
-minHeight: 95,
 };
 
 const featureIcon: React.CSSProperties = {
-fontSize: 24,
+fontSize: 22,
 marginBottom: 6,
 };
 
 const featureTitle: React.CSSProperties = {
-fontSize: 14,
-margin: "0 0 6px",
+fontSize: 13,
+margin: "0 0 4px",
 };
 
 const featureText: React.CSSProperties = {
-opacity: 0.7,
+opacity: 0.68,
 margin: 0,
 lineHeight: 1.25,
-fontSize: 12,
+fontSize: 11,
 };
 
 const statsGrid: React.CSSProperties = {
