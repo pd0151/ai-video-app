@@ -231,7 +231,17 @@ transform: translateY(0px);
 transform: translateY(-10px);
 }
 }
+@keyframes ambientGlow {
+0%, 100% {
+transform: translate3d(0, 0, 0) scale(1);
+opacity: 0.45;
+}
 
+50% {
+transform: translate3d(-18px, 14px, 0) scale(1.08);
+opacity: 0.75;
+}
+}
 @keyframes aiNavGlow {
 0%, 100% {
 filter: drop-shadow(0 0 5px rgba(168,85,247,0.55));
@@ -247,6 +257,8 @@ filter: drop-shadow(0 0 16px rgba(168,85,247,1));
 </button>
 
 <section style={hero}>
+<div style={ambientOne}></div>
+<div style={ambientTwo}></div>   
 <div style={topRow}>
 <span style={livePill}>
 <span style={greenDot}></span> LIVE AI CALL SYSTEM
@@ -753,7 +765,31 @@ height: 29,
 borderRadius: "50%",
 border: "1px solid rgba(255,255,255,0.1)",
 };
+const ambientOne: React.CSSProperties = {
+position: "absolute",
+width: 320,
+height: 320,
+borderRadius: "50%",
+background: "radial-gradient(circle, rgba(168,85,247,0.22), transparent 70%)",
+top: -80,
+right: -60,
+filter: "blur(20px)",
+animation: "ambientGlow 7s ease-in-out infinite",
+pointerEvents: "none",
+};
 
+const ambientTwo: React.CSSProperties = {
+position: "absolute",
+width: 260,
+height: 260,
+borderRadius: "50%",
+background: "radial-gradient(circle, rgba(124,58,237,0.18), transparent 70%)",
+bottom: 40,
+left: -100,
+filter: "blur(24px)",
+animation: "ambientGlow 9s ease-in-out infinite reverse",
+pointerEvents: "none",
+};
 const featureGrid: React.CSSProperties = {
 position: "absolute",
 left: 16,
