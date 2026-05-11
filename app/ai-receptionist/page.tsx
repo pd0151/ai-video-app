@@ -502,7 +502,7 @@ minHeight: 315,
 const heroText: React.CSSProperties = {
 position: "relative",
 zIndex: 5,
-width: "55%",
+width: "52%",
 };
 
 const title: React.CSSProperties = {
@@ -523,14 +523,14 @@ const setupBox: React.CSSProperties = {
 display: "flex",
 alignItems: "center",
 gap: 8,
-marginTop: 16,
-padding: "10px 12px",
+marginTop: 14,
+padding: "8px 12px",
 borderRadius: 14,
 background: "rgba(255,255,255,0.12)",
 border: "1px solid rgba(255,255,255,0.1)",
 fontWeight: 900,
 fontSize: 13,
-maxWidth: 285,
+maxWidth: 270,
 };
 
 const tickBox: React.CSSProperties = {
@@ -546,11 +546,11 @@ fontWeight: 950,
 };
 
 const subText: React.CSSProperties = {
-margin: "16px 0 0",
+margin: "14px 0 0",
 color: "rgba(255,255,255,0.76)",
 fontSize: 14,
 lineHeight: 1.42,
-maxWidth: 300,
+maxWidth: 250,
 };
 
 const testButton: React.CSSProperties = {
@@ -569,10 +569,10 @@ boxShadow: "0 16px 35px rgba(34,197,94,0.2)",
 
 const robotWrap: React.CSSProperties = {
 position: "absolute",
-right: -18,
-top: 56,
-width: 228,
-height: 245,
+right: -8,
+top: 70,
+width: 210,
+height: 220,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
@@ -731,8 +731,9 @@ minHeight: 88,
 padding: "10px 6px",
 borderRadius: 16,
 background: "rgba(8,13,35,0.82)",
-border: "1px solid rgba(255,255,255,0.08)",
-boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
+border: "1px solid rgba(168,85,247,0.14)",
+boxShadow:
+"0 0 18px rgba(124,58,237,0.14), inset 0 1px 0 rgba(255,255,255,0.06)",
 textAlign: "center",
 };
 
