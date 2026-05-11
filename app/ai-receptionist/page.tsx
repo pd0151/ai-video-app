@@ -234,7 +234,13 @@ return (
   <div style={progressWrap}>
 <div style={progressTop}>
 <span>AI Setup Progress</span>
-<span>{Math.round(progress)}%</span>
+<span>
+{progress === 100
+? "AI Live"
+: progress > 50
+? "AI Training"
+: "Pending Activation"}
+</span>
 </div>
 
 <div style={progressBarBg}>
@@ -517,7 +523,8 @@ const progressBar: React.CSSProperties = {
 height: "100%",
 borderRadius: 999,
 background: "linear-gradient(90deg,#8b5cf6,#d946ef)",
-transition: "0.4s",
+transition: "width 1s ease",
+boxShadow: "0 0 20px rgba(168,85,247,0.8)",
 };
 const page: React.CSSProperties = {
 minHeight: "100vh",
