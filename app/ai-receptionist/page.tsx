@@ -501,7 +501,7 @@ minHeight: 315,
 
 const heroText: React.CSSProperties = {
 position: "relative",
-zIndex: 5,
+zIndex: 3,
 width: "52%",
 };
 
@@ -569,13 +569,15 @@ boxShadow: "0 16px 35px rgba(34,197,94,0.2)",
 
 const robotWrap: React.CSSProperties = {
 position: "absolute",
-right: -8,
-top: 70,
-width: 210,
-height: 220,
+right: -18,
+top: 52,
+width: 215,
+height: 240,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
+transform: "scale(0.94)",
+transformOrigin: "center",
 zIndex: 2,
 };
 
@@ -765,11 +767,14 @@ marginBottom: 14,
 
 const statCard: React.CSSProperties = {
 position: "relative",
-minHeight: 102,
+minHeight: 106,
 padding: 12,
 borderRadius: 18,
-background: "rgba(8,13,35,0.82)",
-border: "1px solid rgba(255,255,255,0.08)",
+background:
+"linear-gradient(180deg, rgba(8,13,35,0.92), rgba(15,10,40,0.95))",
+border: "1px solid rgba(168,85,247,0.14)",
+boxShadow:
+"0 0 18px rgba(124,58,237,0.12), inset 0 1px 0 rgba(255,255,255,0.03)",
 };
 
 const statIcon: React.CSSProperties = {
