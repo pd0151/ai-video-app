@@ -268,17 +268,17 @@ straight to your dashboard.
 </div>
 
 <div style={featureGrid}>
-<Feature icon="☎" title="AI Online" text="Always ready to answer" />
-<Feature icon="◷" title="24/7 Coverage" text="Never miss a call again" />
-<Feature icon="ϟ" title="Instant Alerts" text="Get SMS as soon as it lands" />
-<Feature icon="◇" title="Secure & Safe" text="Your data is always protected" />
+<Feature icon="◉" title="AI Online" text="Always ready to answer" />
+<Feature icon="◔" title="24/7 Coverage" text="Never miss a call again" />
+<Feature icon="⌁" title="Instant Alerts" text="Get SMS as soon as it lands" />
+<Feature icon="⬡" title="Secure & Safe" text="Your data is always protected" />
 </div>
 </section>
 
 <section style={statsGrid}>
-<Stat value={String(stats.calls)} label="Calls handled" icon="☎" />
-<Stat value={String(stats.captured)} label="Leads captured" icon="◌" />
-<Stat value={String(stats.newJobs)} label="New jobs" icon="□" />
+<Stat value={String(stats.calls)} label="Calls handled" icon="◉" />
+<Stat value={String(stats.captured)} label="Leads captured" icon="◎" />
+<Stat value={String(stats.newJobs)} label="New jobs" icon="⬒" />
 </section>
 
 <section style={systemStrip}>
