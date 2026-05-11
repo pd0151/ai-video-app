@@ -509,8 +509,8 @@ zIndex: 2,
 
 const title: React.CSSProperties = {
 margin: 0,
-fontSize: 64,
-lineHeight: 0.88,
+fontSize: 54,
+lineHeight: 0.9,
 fontWeight: 950,
 letterSpacing: -2,
 };
@@ -555,11 +555,13 @@ fontWeight: 950,
 
 const robotStage: React.CSSProperties = {
 position: "relative",
-height: 260,
-marginTop: 18,
+height: 190,
+marginTop: 8,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
+transform: "scale(0.72)",
+transformOrigin: "center top",
 };
 
 const robotGlow: React.CSSProperties = {
