@@ -28,6 +28,7 @@ const router = useRouter();
 
 const [leads, setLeads] = useState<Lead[]>([]);
 const [loading, setLoading] = useState(false);
+const [isAdmin] = useState(false);
 const [isPaid, setIsPaid] = useState(false);
 const [setupComplete, setSetupComplete] = useState(false);
 
@@ -288,9 +289,11 @@ AI answers missed calls, captures customer details and sends the job
 straight to your dashboard.
 </p>
 
+{isAdmin && (
 <button onClick={testLead} style={testButton}>
 {loading ? "Sending..." : "Test Lead"}
 </button>
+)}
 </div>
 
 <div style={robotWrap}>
