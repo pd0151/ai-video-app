@@ -210,6 +210,29 @@ const latestLead = leads[0];
 
 return (
 <main style={page}>
+ <style>{`
+@keyframes fadeUp {
+from {
+opacity: 0;
+transform: translateY(18px);
+}
+
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+@keyframes aiNavGlow {
+0%, 100% {
+filter: drop-shadow(0 0 5px rgba(168,85,247,0.55));
+}
+
+50% {
+filter: drop-shadow(0 0 16px rgba(168,85,247,1));
+}
+}
+`}</style>   
 <button onClick={() => router.push("/")} style={backBtn}>
 ‹
 </button>
@@ -433,6 +456,7 @@ zIndex: 30,
 
 const hero: React.CSSProperties = {
 position: "relative",
+animation: "fadeUp 0.55s ease both",
 borderRadius: 30,
 padding: 16,
 marginBottom: 14,
@@ -555,6 +579,7 @@ maxWidth: 250,
 
 const testButton: React.CSSProperties = {
 marginTop: 18,
+transition: "transform 0.18s ease, filter 0.18s ease",
 width: 205,
 maxWidth: "100%",
 padding: "15px 16px",
@@ -730,6 +755,7 @@ gap: 8,
 
 const featureCard: React.CSSProperties = {
 minHeight: 88,
+transition: "transform 0.18s ease, box-shadow 0.18s ease",
 padding: "10px 6px",
 borderRadius: 16,
 background: "rgba(8,13,35,0.82)",
@@ -760,6 +786,7 @@ lineHeight: 1.22,
 
 const statsGrid: React.CSSProperties = {
 display: "grid",
+animation: "fadeUp 0.7s ease both",
 gridTemplateColumns: "repeat(3, 1fr)",
 gap: 8,
 marginBottom: 14,
@@ -767,14 +794,16 @@ marginBottom: 14,
 
 const statCard: React.CSSProperties = {
 position: "relative",
-minHeight: 106,
+minHeight: 102,
 padding: 12,
 borderRadius: 18,
 background:
-"linear-gradient(180deg, rgba(8,13,35,0.92), rgba(15,10,40,0.95))",
-border: "1px solid rgba(168,85,247,0.14)",
+"linear-gradient(180deg, rgba(12,18,42,0.88), rgba(18,10,45,0.92))",
+border: "1px solid rgba(168,85,247,0.16)",
 boxShadow:
-"0 0 18px rgba(124,58,237,0.12), inset 0 1px 0 rgba(255,255,255,0.03)",
+"0 0 22px rgba(124,58,237,0.16), inset 0 1px 0 rgba(255,255,255,0.06)",
+backdropFilter: "blur(14px)",
+transition: "transform 0.18s ease, box-shadow 0.18s ease",
 };
 
 const statIcon: React.CSSProperties = {
@@ -813,6 +842,7 @@ fontWeight: 900,
 
 const systemStrip: React.CSSProperties = {
 display: "grid",
+animation: "fadeUp 0.85s ease both",
 gridTemplateColumns: "repeat(3, 1fr)",
 gap: 8,
 marginBottom: 14,
@@ -867,6 +897,7 @@ fontSize: 11,
 
 const panel: React.CSSProperties = {
 borderRadius: 22,
+animation: "fadeUp 1s ease both",
 padding: 16,
 background: "rgba(8,13,35,0.78)",
 border: "1px solid rgba(255,255,255,0.08)",

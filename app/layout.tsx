@@ -147,6 +147,7 @@ alignItems: "center",
 
 const active = {
 ...item,
+animation: "aiNavGlow 1.8s ease-in-out infinite",
 color: "#a855f7",
 textShadow: "0 0 12px rgba(168,85,247,0.9)",
 };
