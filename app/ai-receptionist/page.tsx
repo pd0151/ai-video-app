@@ -397,7 +397,10 @@ return (
 <p><b>👤 Customer:</b> {lead.name || "Not provided"}</p>
 <p><b>🚗 Vehicle:</b> {lead.vehicle || "Not provided"}</p>
 <p><b>🛞 Tyre size:</b> {lead.tyre_size || "Not provided"}</p>
-<p><b>⚠️ Issue:</b> {lead.issue || lead.job || "No details"}</p>
+<p>
+<b>⚠️ Issue:</b>{" "}
+{lead.issue || "No details"}
+</p>
 <p><b>📍 Location:</b> {lead.location || "Unknown"}</p>
 <p style={{ opacity: 0.6, fontSize: 13 }}>
 {lead.created_at ? new Date(lead.created_at).toLocaleString("en-GB") : ""}
@@ -1026,20 +1029,21 @@ margin: "4px 0 0",
 const statusBadge: React.CSSProperties = {
 background: "rgba(239,68,68,0.18)",
 color: "#fca5a5",
-padding: "8px 10px",
+padding: "9px 13px",
 borderRadius: 999,
 fontSize: 11,
-fontWeight: 900,
+fontWeight: 950,
+boxShadow: "0 0 18px rgba(239,68,68,0.22)",
 };
 
 const infoBox: React.CSSProperties = {
 marginTop: 16,
-background: "rgba(0,0,0,0.24)",
+background: "rgba(0,0,0,0.22)",
 padding: 16,
-borderRadius: 18,
-lineHeight: 1.6,
-border: "1px solid rgba(255,255,255,0.04)",
-backdropFilter: "blur(10px)",
+borderRadius: 20,
+lineHeight: 1.65,
+border: "1px solid rgba(255,255,255,0.05)",
+boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
 };
 
 const leadButtons: React.CSSProperties = {
