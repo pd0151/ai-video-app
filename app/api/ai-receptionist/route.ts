@@ -268,7 +268,25 @@ Vehicle: ${vehicle}
 Tyre size: ${tyreSize}
 Customer phone: ${customerPhone}
 Postcode: ${postcode}`;
+const incomingTwilioNumber =
+args.twilio_number ||
+body.twilio_number ||
+body.to ||
+body.called_number ||
+"";
+let resolvedBusinessId = incomingBusinessId;
 
+if (incomingTwilioNumber) {
+const { data: business } = await supabase
+.from("businesses")
+.select("id")
+.eq("twilio_number", incomingTwilioNumber)
+.maybeSingle();
+
+if (business?.id) {
+resolvedBusinessId = business.id;
+}
+}
 const { data: existing } = await supabase
 .from("ai_call_leads")
 .select("id")
@@ -280,7 +298,7 @@ return NextResponse.json({ ok: true, duplicate: true });
 }
 
 const { error } = await supabase.from("ai_call_leads").insert({
-business_id: incomingBusinessId,
+business_id: resolvedBusinessId,
 call_sid: callId,
 customer_phone: customerPhone,
 transcript,
@@ -289,7 +307,7 @@ status: "new",
 });
 const { error: liveLeadError } = await supabase.from("leads").insert([
 {
-business_id: incomingBusinessId,
+business_id: resolvedBusinessId,
 phone: customerPhone,
 job: `Issue: ${issue}
 Vehicle: ${vehicle}
