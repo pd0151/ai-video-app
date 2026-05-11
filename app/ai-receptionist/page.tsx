@@ -509,10 +509,10 @@ zIndex: 2,
 
 const title: React.CSSProperties = {
 margin: 0,
-fontSize: 46,
+fontSize: 38,
 lineHeight: 0.9,
 fontWeight: 950,
-letterSpacing: -2,
+letterSpacing: -1,
 };
 
 const titlePurple: React.CSSProperties = {
@@ -522,22 +522,22 @@ marginTop: 8,
 };
 
 const setupBox: React.CSSProperties = {
-marginTop: 18,
+marginTop: 14,
 background: "rgba(255,255,255,0.11)",
 border: "1px solid rgba(255,255,255,0.1)",
-borderRadius: 16,
-padding: 14,
-fontWeight: 950,
-fontSize: 15,
+borderRadius: 14,
+padding: 12,
+fontWeight: 900,
+fontSize: 14,
 maxWidth: 440,
 };
 
 const subText: React.CSSProperties = {
-marginTop: 16,
+marginTop: 14,
 maxWidth: 440,
 color: "rgba(255,255,255,0.78)",
-fontSize: 16,
-lineHeight: 1.45,
+fontSize: 14,
+lineHeight: 1.35,
 };
 
 const testButton: React.CSSProperties = {
@@ -555,12 +555,12 @@ fontWeight: 950,
 
 const robotStage: React.CSSProperties = {
 position: "relative",
-height: 190,
-marginTop: 8,
+height: 120,
+marginTop: 0,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-transform: "scale(0.72)",
+transform: "scale(0.58)",
 transformOrigin: "center top",
 };
 
@@ -695,8 +695,8 @@ border: "1px solid rgba(168,85,247,0.55)",
 const featureGrid: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "repeat(2, 1fr)",
-gap: 10,
-marginTop: 6,
+gap: 8,
+marginTop: 0,
 };
 
 const featureCard: React.CSSProperties = {
