@@ -67,7 +67,24 @@ setLoading(false);
 return;
 }
 
-router.push("/ai-receptionist");
+const res = await fetch("/api/create-checkout", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({
+email: cleanEmail,
+businessId: data.user.id,
+}),
+});
+
+const checkout = await res.json();
+
+if (checkout.url) {
+window.location.href = checkout.url;
+} else {
+alert("Stripe checkout failed");
+}
 }
 
 return (
@@ -136,7 +153,7 @@ onChange={(e) => setPassword(e.target.value)}
 />
 
 <button style={btn} onClick={signupCustomer}>
-{loading ? "Creating..." : "Create AI Account"}
+{loading ? "Loading..." : "Continue to Payment"}
 </button>
 </div>
 
