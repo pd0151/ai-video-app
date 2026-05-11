@@ -221,9 +221,31 @@ newJobs: isPaid ? leads.filter((l) => !l.status || l.status === "new").length : 
 }, [leads, isPaid]);
 
 const latestLead = leads[0];
+const setupSteps = [
+setupComplete,
+isPaid,
+leads.length > 0,
+];
 
+const completedSteps = setupSteps.filter(Boolean).length;
+const progress = (completedSteps / setupSteps.length) * 100;
 return (
 <main style={page}>
+  <div style={progressWrap}>
+<div style={progressTop}>
+<span>AI Setup Progress</span>
+<span>{Math.round(progress)}%</span>
+</div>
+
+<div style={progressBarBg}>
+<div
+style={{
+...progressBar,
+width: `${progress}%`,
+}}
+/>
+</div>
+</div>  
  <style>{`
 @keyframes fadeUp {
 from {
@@ -467,7 +489,36 @@ return (
 </div>
 );
 }
+const progressWrap: React.CSSProperties = {
+marginBottom: 20,
+padding: 16,
+borderRadius: 20,
+background: "rgba(20,20,30,0.9)",
+border: "1px solid rgba(180,120,255,0.2)",
+};
 
+const progressTop: React.CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+marginBottom: 10,
+color: "#fff",
+fontWeight: 600,
+};
+
+const progressBarBg: React.CSSProperties = {
+width: "100%",
+height: 10,
+borderRadius: 999,
+background: "rgba(255,255,255,0.08)",
+overflow: "hidden",
+};
+
+const progressBar: React.CSSProperties = {
+height: "100%",
+borderRadius: 999,
+background: "linear-gradient(90deg,#8b5cf6,#d946ef)",
+transition: "0.4s",
+};
 const page: React.CSSProperties = {
 minHeight: "100vh",
 padding: "86px 18px 155px",
