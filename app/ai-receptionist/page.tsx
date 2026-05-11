@@ -217,10 +217,10 @@ const latestLead = leads[0];
 return (
 <main style={page}>
 <button onClick={() => router.push("/")} style={backBtn}>
-←
+‹
 </button>
 
-<button style={logoutBtn}>Logout</button>
+<button style={logoutBtn}>↪ Logout</button>
 
 <section style={hero}>
 <div style={topRow}>
@@ -228,8 +228,8 @@ return (
 <span style={onlinePill}>🟢 AI Online</span>
 </div>
 
-<div style={heroVisual}>
-<div style={heroText}>
+<div style={heroGrid}>
+<div>
 <h1 style={title}>
 Never miss
 <span style={titlePurple}>another job</span>
@@ -254,22 +254,17 @@ job straight to your dashboard.
 <div style={robotStage}>
 <div style={robotGlow}></div>
 <div style={robotHalo}></div>
-
 <div style={robotHead}>
-<div style={robotFace}>
 <div style={robotEyes}>
 <span style={eye}></span>
 <span style={eye}></span>
 </div>
 <div style={smile}>⌣</div>
 </div>
-</div>
-
 <div style={headsetLeft}></div>
 <div style={headsetRight}></div>
 <div style={mic}></div>
 <div style={robotBody}></div>
-<div style={aiBadge}>AI</div>
 <div style={baseRing}></div>
 </div>
 </div>
@@ -278,7 +273,7 @@ job straight to your dashboard.
 <Feature icon="📞" title="AI Online" text="Always ready to answer" />
 <Feature icon="☎️" title="24/7 Coverage" text="Never miss a call again" />
 <Feature icon="⚡" title="Instant Alerts" text="Get SMS as soon as it lands" />
-<Feature icon="🔒" title="Secure & Safe" text="Your data is always protected" />
+<Feature icon="🛡️" title="Secure & Safe" text="Your data is always protected" />
 </div>
 </section>
 
@@ -305,6 +300,8 @@ minute: "2-digit",
 </div>
 </div>
 
+<div style={divider}></div>
+
 <div style={systemItem}>
 <span style={systemIcon}>📱</span>
 <div>
@@ -312,6 +309,8 @@ minute: "2-digit",
 <h3 style={purpleNumber}>07385 182510</h3>
 </div>
 </div>
+
+<div style={divider}></div>
 
 <div style={systemItem}>
 <span style={systemIcon}>〽️</span>
@@ -363,7 +362,9 @@ return (
 <p><b>⚠️ Issue:</b> {lead.issue || lead.job || "No details"}</p>
 <p><b>📍 Location:</b> {lead.location || "Unknown"}</p>
 <p style={{ opacity: 0.6, fontSize: 13 }}>
-{lead.created_at ? new Date(lead.created_at).toLocaleString("en-GB") : ""}
+{lead.created_at
+? new Date(lead.created_at).toLocaleString("en-GB")
+: ""}
 </p>
 </div>
 
@@ -420,52 +421,52 @@ return (
 const page: React.CSSProperties = {
 position: "relative",
 minHeight: "100vh",
-padding: 22,
-paddingTop: 88,
-paddingBottom: 170,
+padding: 18,
+paddingTop: 92,
+paddingBottom: 150,
 color: "white",
 fontFamily: "Arial, sans-serif",
 background:
-"radial-gradient(circle at top, #24105a 0%, #10051f 38%, #020617 100%)",
+"radial-gradient(circle at top, #170047 0%, #08021d 45%, #020617 100%)",
 overflowX: "hidden",
 };
 
 const backBtn: React.CSSProperties = {
 position: "absolute",
-top: 20,
-left: 20,
-zIndex: 20,
-width: 48,
-height: 48,
-borderRadius: 15,
+top: 26,
+left: 18,
+width: 46,
+height: 46,
+borderRadius: 14,
 border: "1px solid rgba(255,255,255,0.14)",
 background: "rgba(255,255,255,0.07)",
 color: "white",
-fontSize: 22,
-fontWeight: 900,
+fontSize: 34,
+lineHeight: 0,
+fontWeight: 500,
 };
 
 const logoutBtn: React.CSSProperties = {
 position: "absolute",
-top: 20,
-right: 20,
-zIndex: 20,
-borderRadius: 16,
+top: 26,
+right: 18,
+borderRadius: 15,
 border: "1px solid rgba(255,255,255,0.14)",
 background: "rgba(255,255,255,0.07)",
 color: "white",
 padding: "13px 18px",
-fontWeight: 900,
+fontWeight: 800,
+fontSize: 15,
 };
 
 const hero: React.CSSProperties = {
 background:
-"linear-gradient(145deg, rgba(126,34,206,0.52), rgba(15,23,42,0.95))",
-border: "1px solid rgba(168,85,247,0.45)",
+"linear-gradient(145deg, rgba(80, 18, 160, 0.55), rgba(10, 8, 35, 0.96))",
+border: "1px solid rgba(168,85,247,0.75)",
+boxShadow: "0 0 30px rgba(126,34,206,0.28)",
 borderRadius: 28,
-padding: 16,
-paddingBottom: 0,
-marginBottom: 14,
+padding: 20,
+marginBottom: 16,
 overflow: "hidden",
 };
 
@@ -474,146 +475,132 @@ display: "flex",
 justifyContent: "space-between",
 alignItems: "center",
 gap: 10,
-marginBottom: 26,
+marginBottom: 24,
 };
 
 const livePill: React.CSSProperties = {
 color: "#4ade80",
-background: "rgba(34,197,94,0.13)",
-padding: "9px 12px",
+background: "rgba(34,197,94,0.14)",
+padding: "10px 14px",
 borderRadius: 999,
 fontSize: 12,
 fontWeight: 950,
 };
 
 const onlinePill: React.CSSProperties = {
-background: "rgba(15,23,42,0.82)",
-border: "1px solid rgba(255,255,255,0.13)",
+background: "rgba(15,23,42,0.72)",
+border: "1px solid rgba(255,255,255,0.18)",
 borderRadius: 999,
-padding: "9px 12px",
+padding: "10px 14px",
 fontSize: 12,
 fontWeight: 950,
 whiteSpace: "nowrap",
 };
 
-const heroVisual: React.CSSProperties = {
-position: "relative",
+const heroGrid: React.CSSProperties = {
 display: "grid",
-gridTemplateColumns: "1fr",
-};
-
-const heroText: React.CSSProperties = {
-position: "relative",
-zIndex: 2,
+gridTemplateColumns: "1.15fr 0.85fr",
+gap: 8,
+alignItems: "center",
 };
 
 const title: React.CSSProperties = {
 margin: 0,
-fontSize: 38,
-lineHeight: 0.9,
+fontSize: 54,
+lineHeight: 0.88,
 fontWeight: 950,
-letterSpacing: -1,
+letterSpacing: -2,
 };
 
 const titlePurple: React.CSSProperties = {
 display: "block",
-color: "#a855f7",
+color: "#9b4dff",
 marginTop: 8,
 };
 
 const setupBox: React.CSSProperties = {
-marginTop: 14,
-background: "rgba(255,255,255,0.11)",
+marginTop: 20,
+background: "rgba(255,255,255,0.12)",
 border: "1px solid rgba(255,255,255,0.1)",
-borderRadius: 14,
-padding: 12,
+borderRadius: 15,
+padding: "12px 15px",
 fontWeight: 900,
-fontSize: 14,
-maxWidth: 440,
+fontSize: 16,
+width: "fit-content",
 };
 
 const subText: React.CSSProperties = {
-marginTop: 14,
+marginTop: 18,
 maxWidth: 440,
 color: "rgba(255,255,255,0.78)",
-fontSize: 14,
-lineHeight: 1.35,
+fontSize: 16,
+lineHeight: 1.45,
 };
 
 const testButton: React.CSSProperties = {
 marginTop: 18,
-width: 220,
-maxWidth: "100%",
+width: 250,
 border: "none",
 borderRadius: 16,
-padding: "15px 20px",
+padding: "18px 20px",
 background: "linear-gradient(90deg,#22c55e,#86efac)",
 color: "#06120a",
-fontSize: 16,
+fontSize: 18,
 fontWeight: 950,
 };
 
 const robotStage: React.CSSProperties = {
 position: "relative",
-height: 120,
-marginTop: 0,
+height: 250,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-transform: "scale(0.58)",
-transformOrigin: "center top",
 };
 
 const robotGlow: React.CSSProperties = {
 position: "absolute",
-width: 250,
-height: 250,
+width: 240,
+height: 240,
 borderRadius: "50%",
 background: "radial-gradient(circle,#9333ea,transparent 70%)",
-filter: "blur(14px)",
-opacity: 0.9,
+filter: "blur(18px)",
+opacity: 0.85,
 };
 
 const robotHalo: React.CSSProperties = {
 position: "absolute",
-width: 230,
+width: 210,
 height: 70,
 borderRadius: "50%",
-bottom: 18,
-border: "1px solid rgba(168,85,247,0.45)",
+bottom: 28,
+border: "1px solid rgba(168,85,247,0.48)",
 boxShadow: "0 0 35px rgba(168,85,247,0.45)",
 };
 
 const robotHead: React.CSSProperties = {
 position: "relative",
-width: 170,
-height: 145,
-borderRadius: 44,
+width: 128,
+height: 110,
+borderRadius: 35,
 background: "linear-gradient(145deg,#1e1b4b,#020617)",
 border: "5px solid #8b5cf6",
-boxShadow: "0 0 55px rgba(168,85,247,0.75)",
-zIndex: 2,
-};
-
-const robotFace: React.CSSProperties = {
-width: "100%",
-height: "100%",
-position: "relative",
+boxShadow: "0 0 50px rgba(168,85,247,0.8)",
+zIndex: 3,
 };
 
 const robotEyes: React.CSSProperties = {
 position: "absolute",
-top: 52,
+top: 40,
 left: 0,
 right: 0,
 display: "flex",
 justifyContent: "center",
-gap: 28,
+gap: 26,
 };
 
 const eye: React.CSSProperties = {
-width: 18,
-height: 18,
+width: 17,
+height: 17,
 borderRadius: "50%",
 background: "#4ade80",
 boxShadow: "0 0 18px #4ade80",
@@ -623,7 +610,7 @@ const smile: React.CSSProperties = {
 position: "absolute",
 left: 0,
 right: 0,
-bottom: 30,
+bottom: 22,
 textAlign: "center",
 color: "#4ade80",
 fontSize: 30,
@@ -631,175 +618,176 @@ fontSize: 30,
 
 const headsetLeft: React.CSSProperties = {
 position: "absolute",
-width: 28,
-height: 70,
+width: 25,
+height: 60,
 borderRadius: 20,
 background: "linear-gradient(#7c3aed,#4c1d95)",
-left: "calc(50% - 112px)",
+left: "calc(50% - 85px)",
 top: 82,
-zIndex: 3,
+zIndex: 4,
 };
 
 const headsetRight: React.CSSProperties = {
 position: "absolute",
-width: 28,
-height: 70,
+width: 25,
+height: 60,
 borderRadius: 20,
 background: "linear-gradient(#7c3aed,#4c1d95)",
-right: "calc(50% - 112px)",
+right: "calc(50% - 85px)",
 top: 82,
-zIndex: 3,
+zIndex: 4,
 };
 
 const mic: React.CSSProperties = {
 position: "absolute",
-width: 52,
+width: 48,
 height: 8,
 borderRadius: 10,
 background: "#8b5cf6",
-right: "calc(50% - 112px)",
-top: 145,
-zIndex: 4,
+right: "calc(50% - 82px)",
+top: 140,
+zIndex: 5,
 };
 
 const robotBody: React.CSSProperties = {
 position: "absolute",
-width: 120,
-height: 75,
-borderRadius: "55px 55px 35px 35px",
+width: 100,
+height: 65,
+borderRadius: "50px 50px 30px 30px",
 background: "linear-gradient(145deg,#8b5cf6,#4c1d95)",
-bottom: 32,
-zIndex: 1,
-};
-
-const aiBadge: React.CSSProperties = {
-position: "absolute",
-bottom: 8,
-zIndex: 5,
-background: "linear-gradient(90deg,#7c3aed,#c084fc)",
-padding: "10px 22px",
-borderRadius: 999,
-fontWeight: 950,
-fontSize: 18,
+bottom: 42,
+zIndex: 2,
 };
 
 const baseRing: React.CSSProperties = {
 position: "absolute",
-bottom: 0,
-width: 220,
-height: 44,
+bottom: 18,
+width: 180,
+height: 42,
 borderRadius: "50%",
 border: "1px solid rgba(168,85,247,0.55)",
 };
 
 const featureGrid: React.CSSProperties = {
 display: "grid",
-gridTemplateColumns: "repeat(2, 1fr)",
-gap: 8,
-marginTop: 0,
+gridTemplateColumns: "repeat(4, 1fr)",
+gap: 14,
+marginTop: 16,
 };
 
 const featureCard: React.CSSProperties = {
-background: "rgba(15,23,42,0.82)",
+background: "rgba(15,23,42,0.72)",
 border: "1px solid rgba(255,255,255,0.08)",
-borderRadius: 16,
-padding: 10,
-minHeight: 86,
+borderRadius: 18,
+padding: 16,
+minHeight: 118,
 textAlign: "center",
 };
 
 const featureIcon: React.CSSProperties = {
-fontSize: 22,
-marginBottom: 6,
+fontSize: 30,
+marginBottom: 10,
 };
 
 const featureTitle: React.CSSProperties = {
-fontSize: 13,
-margin: "0 0 4px",
+fontSize: 16,
+margin: "0 0 8px",
 };
 
 const featureText: React.CSSProperties = {
 opacity: 0.68,
 margin: 0,
-lineHeight: 1.25,
-fontSize: 11,
+lineHeight: 1.3,
+fontSize: 13,
 };
 
 const statsGrid: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "repeat(3, 1fr)",
-gap: 12,
+gap: 14,
 marginBottom: 18,
 };
 
 const statCard: React.CSSProperties = {
-background: "rgba(15,23,42,0.85)",
+position: "relative",
+background: "rgba(15,23,42,0.82)",
 border: "1px solid rgba(255,255,255,0.08)",
-borderRadius: 22,
-padding: 16,
+borderRadius: 20,
+padding: 22,
+minHeight: 125,
 };
 
 const statIcon: React.CSSProperties = {
-fontSize: 24,
-marginBottom: 8,
+position: "absolute",
+top: 24,
+right: 22,
+fontSize: 28,
+opacity: 0.9,
 };
 
 const statValue: React.CSSProperties = {
-fontSize: 36,
+fontSize: 42,
 margin: 0,
 fontWeight: 950,
 };
 
 const statLabel: React.CSSProperties = {
-opacity: 0.82,
-fontSize: 13,
-margin: "8px 0 0",
+opacity: 0.88,
+fontSize: 15,
+margin: "16px 0 0",
 };
 
 const growth: React.CSSProperties = {
 color: "#4ade80",
-fontSize: 12,
-marginTop: 10,
+fontSize: 13,
+marginTop: 13,
 fontWeight: 800,
 };
 
 const systemStrip: React.CSSProperties = {
-background: "rgba(15,23,42,0.8)",
+background: "rgba(15,23,42,0.78)",
 border: "1px solid rgba(255,255,255,0.08)",
-borderRadius: 22,
-padding: 16,
+borderRadius: 20,
+padding: 20,
 display: "grid",
-gap: 14,
+gridTemplateColumns: "1fr 1px 1fr 1px 1fr",
+gap: 18,
 marginBottom: 18,
 };
 
 const systemItem: React.CSSProperties = {
 display: "flex",
-gap: 12,
+gap: 14,
 alignItems: "flex-start",
 };
 
+const divider: React.CSSProperties = {
+width: 1,
+background: "rgba(255,255,255,0.08)",
+};
+
 const systemIcon: React.CSSProperties = {
-fontSize: 24,
+fontSize: 28,
+opacity: 0.8,
 };
 
 const systemLabel: React.CSSProperties = {
 opacity: 0.65,
 margin: 0,
-fontSize: 13,
+fontSize: 14,
 };
 
 const greenText: React.CSSProperties = {
 color: "#4ade80",
-margin: "4px 0",
-fontSize: 24,
+margin: "6px 0",
+fontSize: 26,
 fontWeight: 950,
 };
 
 const purpleNumber: React.CSSProperties = {
 color: "#c084fc",
-margin: "4px 0",
-fontSize: 24,
+margin: "6px 0",
+fontSize: 25,
 fontWeight: 950,
 };
 
@@ -816,7 +804,7 @@ margin: 0,
 const panel: React.CSSProperties = {
 background: "rgba(15,23,42,0.72)",
 border: "1px solid rgba(255,255,255,0.09)",
-borderRadius: 28,
+borderRadius: 24,
 padding: 18,
 };
 
@@ -827,7 +815,7 @@ alignItems: "center",
 };
 
 const panelTitle: React.CSSProperties = {
-fontSize: 28,
+fontSize: 24,
 margin: 0,
 };
 
