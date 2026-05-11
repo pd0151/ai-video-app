@@ -103,12 +103,12 @@ zIndex: 999,
 }}
 >
 <a href="/" style={isActive("/") ? active : item}>
-🏠
+⌂
 <span>Home</span>
 </a>
 
 <a href="/feed" style={isActive("/feed") ? active : item}>
-📺
+▤
 <span>Feed</span>
 </a>
 
@@ -120,12 +120,12 @@ zIndex: 999,
 href="/ai-receptionist"
 style={isActive("/ai-receptionist") ? active : item}
 >
-🤖
+◉
 <span>AI</span>
 </a>
 
 <a href="/profile/me" style={isActive("/profile") ? active : item}>
-👤
+◎
 <span>Profile</span>
 </a>
 </nav>
