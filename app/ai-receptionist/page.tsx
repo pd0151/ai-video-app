@@ -222,6 +222,15 @@ opacity: 1;
 transform: translateY(0);
 }
 }
+@keyframes floatBot {
+0%, 100% {
+transform: translateY(0px);
+}
+
+50% {
+transform: translateY(-10px);
+}
+}
 
 @keyframes aiNavGlow {
 0%, 100% {
@@ -579,8 +588,9 @@ maxWidth: 250,
 
 const testButton: React.CSSProperties = {
 marginTop: 18,
-transition: "transform 0.18s ease, filter 0.18s ease",
+transition: "all 0.18s ease",
 width: 205,
+cursor: "pointer",
 maxWidth: "100%",
 padding: "15px 16px",
 borderRadius: 15,
@@ -596,6 +606,7 @@ const robotWrap: React.CSSProperties = {
 position: "absolute",
 right: -18,
 top: 52,
+animation: "floatBot 4s ease-in-out infinite",
 width: 215,
 height: 240,
 display: "flex",
@@ -801,7 +812,7 @@ background:
 "linear-gradient(180deg, rgba(12,18,42,0.88), rgba(18,10,45,0.92))",
 border: "1px solid rgba(168,85,247,0.16)",
 boxShadow:
-"0 0 22px rgba(124,58,237,0.16), inset 0 1px 0 rgba(255,255,255,0.06)",
+"0 0 26px rgba(124,58,237,0.24), inset 0 1px 0 rgba(255,255,255,0.07)",
 backdropFilter: "blur(14px)",
 transition: "transform 0.18s ease, box-shadow 0.18s ease",
 };
