@@ -189,6 +189,10 @@ setChatLoading(false);
 }, 1000);
 }
 return (
+<>
+<div style={bgGlow1} />
+<div style={bgGlow2} />
+
 <main style={page}>
 <header style={topBar}>
 <h1 style={logo}>
@@ -446,6 +450,7 @@ Profile
 </button>
 </nav>
 </main>
+</>
 );
  
 window.location.href = "/feed";
@@ -492,11 +497,36 @@ minHeight: "100vh",
 background:
 "radial-gradient(circle at top,#1d0a36 0%,#07010f 40%,#020202 100%)",
 color: "white",
-padding: "18px 16px 120px",
+padding: "18px 16px 140px",
 fontFamily: "Inter, sans-serif",
 overflowX: "hidden",
+position: "relative",
+};
+const bgGlow1: CSSProperties = {
+position: "fixed",
+width: 280,
+height: 280,
+borderRadius: "50%",
+background: "rgba(168,85,247,0.18)",
+top: -80,
+right: -100,
+filter: "blur(80px)",
+pointerEvents: "none",
+zIndex: 0,
 };
 
+const bgGlow2: CSSProperties = {
+position: "fixed",
+width: 240,
+height: 240,
+borderRadius: "50%",
+background: "rgba(0,255,140,0.10)",
+bottom: 120,
+left: -100,
+filter: "blur(90px)",
+pointerEvents: "none",
+zIndex: 0,
+};
 const topBar: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
