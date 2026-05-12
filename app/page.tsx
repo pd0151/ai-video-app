@@ -999,7 +999,7 @@ boxShadow: "0 0 18px rgba(147,51,234,0.34)",
 };
 
 const poster: CSSProperties = {
-height: 170,
+height: 171,
 borderRadius: 20,
 overflow: "hidden",
 position: "relative",
