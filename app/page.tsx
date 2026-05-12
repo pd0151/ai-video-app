@@ -951,7 +951,7 @@ position: "relative",
 overflow: "hidden",
 cursor: "pointer",
 borderRadius: 30,
-padding: 26,
+padding: "20px 20px 24px",
 minHeight: 520,
 background:
 "radial-gradient(circle at 80% 20%, rgba(168,85,247,0.42), transparent 36%), linear-gradient(145deg, rgba(58,18,112,0.9), rgba(9,6,25,0.98))",
