@@ -829,11 +829,10 @@ const aiLeadCard: CSSProperties = {
 position: "relative",
 zIndex: 2,
 marginTop: 14,
-padding: 13,
-borderRadius: 22,
-background: "rgba(5,8,25,0.88)",
-border: "1px solid rgba(168,85,247,0.22)",
-boxShadow: "0 0 25px rgba(124,58,237,0.18)",
+padding: 12,
+borderRadius: 20,
+background: "rgba(5,8,25,0.86)",
+border: "1px solid rgba(168,85,247,0.2)",
 };
 
 const aiLeadTop: CSSProperties = {
@@ -845,10 +844,10 @@ fontWeight: 900,
 };
 
 const aiLeadInner: CSSProperties = {
-marginTop: 12,
-padding: 15,
-borderRadius: 18,
-background: "rgba(0,0,0,0.28)",
+marginTop: 10,
+padding: 14,
+borderRadius: 16,
+background: "rgba(0,0,0,0.26)",
 };
 
 const aiCta: CSSProperties = {
