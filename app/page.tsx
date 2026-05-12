@@ -968,7 +968,7 @@ overflow: "hidden",
 cursor: "pointer",
 borderRadius: 30,
 padding: 18,
-minHeight: 390,
+minHeight: 430,
 background:
 "radial-gradient(circle at 80% 25%, rgba(168,85,247,0.32), transparent 34%), linear-gradient(145deg, rgba(67,15,130,0.78), rgba(8,7,30,0.98))",
 border: "1px solid rgba(168,85,247,0.68)",
@@ -1001,7 +1001,7 @@ filter: "blur(22px)",
 const aiHeroContent: CSSProperties = {
 position: "relative",
 zIndex: 3,
-maxWidth: 330,
+maxWidth: 220,
 };
 
 const aiPill: CSSProperties = {
@@ -1071,15 +1071,16 @@ fontWeight: 950,
 
 const miniDashboard: CSSProperties = {
 position: "absolute",
-right: 16,
-bottom: 16,
-width: 190,
-padding: 13,
-borderRadius: 20,
-background: "rgba(8,13,35,0.88)",
+right: 14,
+bottom: 18,
+width: 165,
+padding: 12,
+borderRadius: 18,
+background: "rgba(8,13,35,0.92)",
 border: "1px solid rgba(168,85,247,0.22)",
 boxShadow: "0 0 25px rgba(124,58,237,0.22)",
 zIndex: 4,
+backdropFilter: "blur(10px)",
 };
 
 const miniTop: CSSProperties = {
