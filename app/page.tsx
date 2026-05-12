@@ -663,51 +663,168 @@ return (
 
 const page: CSSProperties = {
 minHeight: "100vh",
-background: "radial-gradient(circle at top,#141027 0%,#050507 48%,#020202 100%)",
+background:
+"radial-gradient(circle at top,#160828 0%,#050507 55%,#000 100%)",
 color: "white",
+padding: "20px 16px 120px",
 fontFamily: "Arial, sans-serif",
-padding: "24px 16px 120px",
 };
 
 const topBar: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
 alignItems: "center",
-marginBottom: 22,
+marginBottom: 18,
 };
 
-const logo: CSSProperties = { margin: 0, fontSize: 34, fontWeight: 950 };
-const topRight: CSSProperties = { display: "flex", gap: 10, alignItems: "center" };
+const logo: CSSProperties = {
+margin: 0,
+fontSize: 34,
+fontWeight: 950,
+};
+
+const topRight: CSSProperties = {
+display: "flex",
+gap: 10,
+alignItems: "center",
+};
 
 const creditBox: CSSProperties = {
 display: "flex",
 alignItems: "center",
-gap: 9,
-padding: "10px 13px",
-borderRadius: 18,
-background: "rgba(255,255,255,0.07)",
-border: "1px solid rgba(255,255,255,0.12)",
+gap: 10,
+padding: "10px 14px",
+borderRadius: 22,
+background: "rgba(255,255,255,0.08)",
 };
 
 const coin: CSSProperties = {
-width: 32,
-height: 32,
-borderRadius: 999,
-display: "grid",
-placeItems: "center",
-background: "linear-gradient(135deg,#a855f7,#6d28d9)",
-fontWeight: 950,
+width: 36,
+height: 36,
+borderRadius: "50%",
+background:
+"linear-gradient(135deg,#a855f7,#7c3aed)",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+fontWeight: 900,
 };
 
-const small: CSSProperties = { fontSize: 12, opacity: 0.65 };
+const small: CSSProperties = {
+fontSize: 12,
+opacity: 0.7,
+};
 
 const upgrade: CSSProperties = {
 border: "none",
-borderRadius: 20,
-padding: "17px 20px",
+borderRadius: 22,
+padding: "14px 18px",
+background:
+"linear-gradient(135deg,#a855f7,#7c3aed)",
 color: "white",
+fontWeight: 900,
+};
+
+const aiHero: CSSProperties = {
+position: "relative",
+overflow: "hidden",
+borderRadius: 34,
+padding: "22px",
+marginTop: 18,
+background:
+"radial-gradient(circle at top right, rgba(168,85,247,0.4), transparent 30%), linear-gradient(145deg,#2a0050,#090114)",
+border: "1px solid rgba(168,85,247,0.7)",
+boxShadow:
+"0 0 50px rgba(168,85,247,0.25)",
+};
+
+const aiGlow: CSSProperties = {
+position: "absolute",
+inset: 0,
+background:
+"radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08), transparent 30%)",
+};
+
+const aiPill: CSSProperties = {
+display: "inline-flex",
+alignItems: "center",
+gap: 8,
+padding: "10px 16px",
+borderRadius: 999,
+background: "rgba(255,255,255,0.08)",
+color: "#a7f3d0",
+fontWeight: 900,
+};
+
+const greenDot: CSSProperties = {
+width: 10,
+height: 10,
+borderRadius: "50%",
+background: "#4ade80",
+};
+
+const aiTitle: CSSProperties = {
+marginTop: 24,
+fontSize: 72,
+lineHeight: 0.88,
+letterSpacing: -4,
 fontWeight: 950,
-background: "linear-gradient(135deg,#a855f7,#7c3aed)",
+};
+
+const aiText: CSSProperties = {
+marginTop: 24,
+fontSize: 18,
+lineHeight: 1.5,
+color: "rgba(255,255,255,0.8)",
+};
+
+const aiFeatureGrid: CSSProperties = {
+display: "grid",
+gridTemplateColumns: "1fr 1fr",
+gap: 14,
+marginTop: 28,
+};
+
+const aiFeature: CSSProperties = {
+background: "rgba(5,5,20,0.75)",
+borderRadius: 22,
+padding: "22px 18px",
+fontWeight: 900,
+border: "1px solid rgba(168,85,247,0.2)",
+};
+
+const aiLeadCard: CSSProperties = {
+marginTop: 24,
+borderRadius: 28,
+padding: 20,
+background: "rgba(3,4,18,0.92)",
+};
+
+const aiLeadTop: CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+color: "#86efac",
+fontWeight: 900,
+};
+
+const aiLeadInner: CSSProperties = {
+marginTop: 18,
+borderRadius: 20,
+padding: 22,
+background: "rgba(0,0,0,0.35)",
+};
+
+const aiCta: CSSProperties = {
+width: "100%",
+marginTop: 24,
+border: "none",
+borderRadius: 24,
+padding: "22px",
+background:
+"linear-gradient(90deg,#22c55e,#86efac)",
+color: "#04130a",
+fontSize: 22,
+fontWeight: 950,
 };
 
 const heroCard: CSSProperties = {
@@ -715,80 +832,81 @@ marginTop: 18,
 padding: 24,
 borderRadius: 30,
 background:
-"linear-gradient(145deg, rgba(18,14,35,0.96), rgba(8,7,20,0.98))",
-border: "1px solid rgba(255,255,255,0.12)",
-boxShadow: "0 0 30px rgba(124,58,237,0.16)",
+"linear-gradient(145deg,#0c0918,#05050c)",
+border: "1px solid rgba(255,255,255,0.08)",
 };
 
-const heroTitle: CSSProperties = { margin: 0, fontSize: 25, fontWeight: 950 };
-const heroSub: CSSProperties = { opacity: 0.65, fontSize: 16 };
+const heroTitle: CSSProperties = {
+fontSize: 26,
+fontWeight: 950,
+};
+
+const heroSub: CSSProperties = {
+opacity: 0.7,
+};
 
 const promptBox: CSSProperties = {
-marginTop: 20,
-padding: 18,
+marginTop: 18,
 borderRadius: 24,
-border: "1px solid rgba(168,85,247,0.28)",
-background:
-"linear-gradient(145deg, rgba(15,12,30,0.96), rgba(7,7,18,0.98))",
-boxShadow: "inset 0 0 25px rgba(168,85,247,0.08)",
+padding: 18,
+background: "rgba(0,0,0,0.28)",
 };
 
 const promptInput: CSSProperties = {
 width: "100%",
-height: 110,
+height: 120,
 background: "transparent",
 border: "none",
-outline: "none",
 color: "white",
-fontSize: 19,
-resize: "none",
-lineHeight: 1.4,
+fontSize: 20,
+outline: "none",
 };
 
-const toolRow: CSSProperties = { display: "flex", gap: 8, alignItems: "center" };
+const toolRow: CSSProperties = {
+display: "flex",
+gap: 10,
+marginTop: 18,
+};
 
 const chip: CSSProperties = {
 border: "none",
-borderRadius: 999,
-padding: "11px 12px",
+borderRadius: 18,
+padding: "12px 16px",
+background: "rgba(255,255,255,0.08)",
 color: "white",
-background: "rgba(255,255,255,0.1)",
 fontWeight: 900,
-fontSize: 12,
 };
 
 const arrowBtn: CSSProperties = {
 marginLeft: "auto",
-width: 56,
-height: 56,
-borderRadius: 999,
+width: 60,
+height: 60,
+borderRadius: "50%",
 border: "none",
-background: "linear-gradient(135deg,#a855f7,#7c3aed)",
+background:
+"linear-gradient(135deg,#a855f7,#7c3aed)",
 color: "white",
-fontSize: 32,
-fontWeight: 950,
+fontSize: 34,
 };
 
 const uploadBubble: CSSProperties = {
-width: 52,
-height: 52,
-borderRadius: 999,
-display: "grid",
-placeItems: "center",
-border: "1px solid rgba(255,255,255,0.18)",
+width: 60,
+height: 60,
+borderRadius: "50%",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
 background: "rgba(255,255,255,0.08)",
-cursor: "pointer",
 };
 
 const generatedCard: CSSProperties = {
 marginTop: 18,
-padding: 20,
-borderRadius: 28,
+padding: 24,
+borderRadius: 30,
 background:
-"linear-gradient(145deg, rgba(15,12,30,0.96), rgba(6,6,16,0.98))",
-border: "1px solid rgba(255,255,255,0.1)",
-boxShadow: "0 0 28px rgba(124,58,237,0.14)",
+"linear-gradient(145deg,#0c0918,#05050c)",
 };
+
 const sectionTop: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
@@ -797,131 +915,171 @@ alignItems: "center",
 
 const smallDarkBtn: CSSProperties = {
 border: "none",
-borderRadius: 999,
-padding: "10px 14px",
-color: "white",
+borderRadius: 18,
+padding: "12px 16px",
 background: "rgba(255,255,255,0.08)",
-fontWeight: 900,
+color: "white",
 };
 
 const adPreview: CSSProperties = {
-marginTop: 18,
+marginTop: 20,
 display: "grid",
-gridTemplateColumns: "1fr 165px",
-gap: 14,
-alignItems: "center",
+gridTemplateColumns: "1fr 180px",
+gap: 20,
 };
 
-const adHeading: CSSProperties = { margin: 0, fontSize: 23, lineHeight: 1.15, fontWeight: 950 };
-const adText: CSSProperties = { opacity: 0.72, lineHeight: 1.45 };
-
-const useBtn: CSSProperties = {
-border: "none",
-borderRadius: 16,
-padding: "14px 18px",
-background: "linear-gradient(135deg,#9333ea,#7c3aed)",
-color: "white",
+const adHeading: CSSProperties = {
+fontSize: 42,
 fontWeight: 950,
 };
 
-const poster: CSSProperties = {
-height: 190,
-borderRadius: 18,
-overflow: "hidden",
-position: "relative",
-background: "#111",
+const adText: CSSProperties = {
+opacity: 0.75,
+lineHeight: 1.5,
 };
 
-const posterImg: CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
-const posterShade: CSSProperties = { position: "absolute", inset: 0, background: "linear-gradient(180deg,transparent,rgba(0,0,0,0.7))" };
-const posterWords: CSSProperties = { position: "absolute", left: 10, bottom: 40, fontWeight: 950, fontSize: 24, lineHeight: 0.95 };
-const posterBadge: CSSProperties = { position: "absolute", left: 10, bottom: 12, background: "#7c3aed", padding: "5px 7px", fontSize: 10, fontWeight: 950 };
+const useBtn: CSSProperties = {
+marginTop: 18,
+border: "none",
+borderRadius: 18,
+padding: "16px 22px",
+background:
+"linear-gradient(135deg,#9333ea,#7c3aed)",
+color: "white",
+fontWeight: 900,
+};
+
+const poster: CSSProperties = {
+height: 260,
+borderRadius: 24,
+overflow: "hidden",
+};
+
+const posterImg: CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "cover",
+};
+
+const posterShade: CSSProperties = {};
+const posterWords: CSSProperties = {};
+const posterBadge: CSSProperties = {};
 
 const trendingCard: CSSProperties = {
 marginTop: 18,
-padding: 14,
-borderRadius: 22,
-background: "rgba(255,255,255,0.035)",
-border: "1px solid rgba(255,255,255,0.09)",
 };
 
-const sectionTitle: CSSProperties = { margin: 0, fontSize: 20, fontWeight: 950 };
-const seeAll: CSSProperties = { border: "none", background: "transparent", color: "#a855f7", fontWeight: 950 };
+const sectionTitle: CSSProperties = {
+fontSize: 24,
+fontWeight: 950,
+};
 
-const trendRow: CSSProperties = { marginTop: 14, display: "flex", gap: 10, overflowX: "auto" };
-const trendCard: CSSProperties = { minWidth: 135, height: 210, borderRadius: 16, overflow: "hidden", position: "relative", background: "#111" };
-const trendImg: CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
-const trendShade: CSSProperties = { position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.75))" };
-const trendBadge: CSSProperties = { position: "absolute", top: 8, left: 8, background: "#7c3aed", padding: "4px 7px", borderRadius: 999, fontSize: 10, fontWeight: 900 };
-const trendTitle: CSSProperties = { position: "absolute", left: 10, top: 42, right: 8, fontSize: 18, lineHeight: 1.05 };
-const playBtn: CSSProperties = { position: "absolute", right: 9, bottom: 38, width: 34, height: 34, borderRadius: 999, border: "none" };
-const trendStats: CSSProperties = { position: "absolute", left: 9, right: 9, bottom: 10, fontSize: 12, opacity: 0.9 };
+const seeAll: CSSProperties = {
+background: "transparent",
+border: "none",
+color: "#a855f7",
+};
+
+const trendRow: CSSProperties = {
+display: "flex",
+gap: 14,
+overflowX: "auto",
+};
+
+const trendCard: CSSProperties = {
+minWidth: 180,
+};
+
+const trendImg: CSSProperties = {
+width: "100%",
+height: 220,
+borderRadius: 24,
+objectFit: "cover",
+};
+
+const trendShade: CSSProperties = {};
+const trendBadge: CSSProperties = {};
+const trendTitle: CSSProperties = {};
+const playBtn: CSSProperties = {};
+const trendStats: CSSProperties = {};
 
 const actionsCard: CSSProperties = {
 marginTop: 18,
-padding: 14,
-borderRadius: 22,
-background: "rgba(255,255,255,0.035)",
-border: "1px solid rgba(255,255,255,0.09)",
 };
 
 const actionGrid: CSSProperties = {
-marginTop: 14,
 display: "grid",
 gridTemplateColumns: "1fr 1fr",
-gap: 10,
+gap: 14,
 };
 
 const actionCardBase: CSSProperties = {
-height: 145,
-borderRadius: 18,
-overflow: "hidden",
-position: "relative",
-border: "1px solid rgba(255,255,255,0.1)",
-padding: 0,
-background: "#111",
-color: "white",
-textAlign: "left",
-cursor: "pointer",
+height: 120,
+borderRadius: 24,
+border: "1px solid rgba(255,255,255,0.08)",
+background: "rgba(255,255,255,0.03)",
 };
 
-const actionBg: CSSProperties = { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" };
-const actionOverlay: CSSProperties = { position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.82))" };
-const actionContent: CSSProperties = { position: "absolute", inset: 14, display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 5 };
-const actionIcon: CSSProperties = { width: 42, height: 42, borderRadius: 12, background: "linear-gradient(135deg,#a855f7,#6d28d9)", display: "grid", placeItems: "center", marginBottom: 8 };
+const actionBg: CSSProperties = {};
+const actionOverlay: CSSProperties = {};
+
+const actionContent: CSSProperties = {
+height: "100%",
+display: "flex",
+flexDirection: "column",
+gap: 12,
+alignItems: "center",
+justifyContent: "center",
+};
+
+const actionIcon: CSSProperties = {
+fontSize: 28,
+};
 
 const chatBox: CSSProperties = {
 marginTop: 18,
-padding: 16,
-borderRadius: 22,
-background: "rgba(255,255,255,0.045)",
-border: "1px solid rgba(255,255,255,0.1)",
 };
 
-const chatTitle: CSSProperties = { margin: 0, color: "#b36bff", fontSize: 22, fontWeight: 950 };
-const chatSub: CSSProperties = { opacity: 0.65, lineHeight: 1.35 };
-const messages: CSSProperties = { display: "flex", flexDirection: "column", gap: 10, maxHeight: 160, overflowY: "auto" };
-const bubble: CSSProperties = { padding: 12, borderRadius: 16, maxWidth: "88%", whiteSpace: "pre-wrap" };
-const typing: CSSProperties = { opacity: 0.6 };
+const chatTitle: CSSProperties = {
+fontSize: 24,
+fontWeight: 950,
+};
+
+const chatSub: CSSProperties = {
+opacity: 0.7,
+};
+
+const messages: CSSProperties = {
+display: "flex",
+flexDirection: "column",
+gap: 10,
+};
+
+const bubble: CSSProperties = {
+padding: 14,
+borderRadius: 18,
+};
+
+const typing: CSSProperties = {};
 
 const chatInputStyle: CSSProperties = {
 width: "100%",
-marginTop: 12,
-padding: 14,
-borderRadius: 16,
+marginTop: 14,
+padding: 16,
+borderRadius: 18,
 border: "none",
-outline: "none",
 };
 
 const sendBtn: CSSProperties = {
 width: "100%",
-marginTop: 10,
-padding: 14,
-borderRadius: 16,
+marginTop: 14,
+padding: 16,
+borderRadius: 18,
 border: "none",
-background: "linear-gradient(135deg,#6366f1,#8b5cf6)",
+background:
+"linear-gradient(135deg,#6366f1,#8b5cf6)",
 color: "white",
-fontWeight: 950,
+fontWeight: 900,
 };
 
 const bottomNav: CSSProperties = {
@@ -929,153 +1087,35 @@ position: "fixed",
 left: 0,
 right: 0,
 bottom: 0,
-height: 88,
-background: "rgba(5,5,7,0.96)",
-borderTop: "1px solid rgba(255,255,255,0.08)",
+height: 90,
+background: "rgba(5,5,7,0.95)",
+borderTop:
+"1px solid rgba(255,255,255,0.08)",
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
-zIndex: 50,
 };
 
-const navBtn: CSSProperties = { border: "none", background: "transparent", color: "rgba(255,255,255,0.58)", fontWeight: 900 };
-const navActive: CSSProperties = { border: "none", background: "transparent", color: "#a855f7", fontWeight: 950 };
-
-const plusBtn: CSSProperties = {
-width: 64,
-height: 64,
-borderRadius: 999,
+const navBtn: CSSProperties = {
+background: "transparent",
 border: "none",
-background: "linear-gradient(135deg,#a855f7,#7c3aed)",
-color: "white",
-fontSize: 38,
-fontWeight: 950,
-};
-const aiHero: CSSProperties = {
-marginTop: 18,
-position: "relative",
-overflow: "hidden",
-cursor: "pointer",
-borderRadius: 30,
-paddingBottom: 120,
-padding: "20px 20px 24px",
-minHeight: 300,
-background:
-"radial-gradient(circle at 80% 20%, rgba(168,85,247,0.42), transparent 36%), linear-gradient(145deg, rgba(58,18,112,0.9), rgba(9,6,25,0.98))",
-border: "1px solid rgba(168,85,247,0.72)",
-boxShadow: "0 0 42px rgba(126,34,206,0.32)",
+color: "rgba(255,255,255,0.6)",
 };
 
-const aiGlow: CSSProperties = {
-position: "absolute",
-width: 280,
-height: 280,
-right: -90,
-top: 80,
-borderRadius: "50%",
-background: "radial-gradient(circle, rgba(168,85,247,0.38), transparent 70%)",
-filter: "blur(18px)",
-};
-
-const aiPill: CSSProperties = {
-position: "relative",
-zIndex: 2,
-display: "inline-flex",
-alignItems: "center",
-gap: 8,
-padding: "9px 14px",
-borderRadius: 999,
-background: "rgba(255,255,255,0.09)",
-color: "#86efac",
-fontSize: 12,
-fontWeight: 950,
-};
-
-const greenDot: CSSProperties = {
-width: 9,
-height: 9,
-borderRadius: "50%",
-background: "#4ade80",
-boxShadow: "0 0 14px rgba(74,222,128,0.9)",
-};
-
-const aiTitle: CSSProperties = {
-position: "relative",
-zIndex: 2,
-margin: "28px 0 0",
-fontSize: 52,
-lineHeight: 0.92,
-letterSpacing: -2,
-fontWeight: 950,
-maxWidth: 340,
-};
-
-const aiText: CSSProperties = {
-position: "relative",
-zIndex: 2,
-maxWidth: 330,
-marginTop: 18,
-color: "rgba(255,255,255,0.78)",
-fontSize: 18,
-lineHeight: 1.35,
-};
-
-const aiFeatureGrid: CSSProperties = {
-position: "relative",
-zIndex: 2,
-display: "grid",
-gridTemplateColumns: "1fr 1fr",
-gap: 10,
-marginTop: 22,
-};
-
-const aiFeature: CSSProperties = {
-padding: "13px 12px",
-borderRadius: 16,
-background: "rgba(8,13,35,0.78)",
-border: "1px solid rgba(255,255,255,0.1)",
-fontSize: 14,
+const navActive: CSSProperties = {
+background: "transparent",
+border: "none",
+color: "#a855f7",
 fontWeight: 900,
 };
 
-const aiLeadCard: CSSProperties = {
-position: "relative",
-zIndex: 2,
-marginTop: 10,
-width: 170,
-marginLeft: "auto",
-padding: 14,
-borderRadius: 22,
-background: "rgba(7,10,28,0.86)",
-border: "1px solid rgba(168,85,247,0.28)",
-boxShadow: "0 0 28px rgba(124,58,237,0.24)",
-};
-
-const aiLeadTop: CSSProperties = {
-display: "flex",
-justifyContent: "space-between",
-color: "#86efac",
-fontSize: 14,
-fontWeight: 800,
-};
-
-const aiLeadInner: CSSProperties = {
-marginTop: 14,
-padding: 16,
-borderRadius: 18,
-background: "rgba(0,0,0,0.28)",
-};
-
-const aiCta: CSSProperties = {
-position: "relative",
-zIndex: 2,
-width: "100%",
-marginTop: 18,
-padding: "17px 18px",
-borderRadius: 18,
+const plusBtn: CSSProperties = {
+width: 70,
+height: 70,
+borderRadius: "50%",
 border: "none",
-background: "linear-gradient(90deg,#22c55e,#86efac)",
-color: "#04130a",
-fontSize: 17,
-fontWeight: 950,
+background:
+"linear-gradient(135deg,#a855f7,#7c3aed)",
+color: "white",
+fontSize: 40,
 };
