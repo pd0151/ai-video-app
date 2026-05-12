@@ -879,7 +879,13 @@ fontWeight: 950,
 };
 
 const heroCard: CSSProperties = {
-...glassCard,
+marginTop: 14,
+padding: 20,
+borderRadius: 28,
+background:
+"linear-gradient(145deg, rgba(20,10,38,0.96), rgba(7,7,18,0.98))",
+border: "1px solid rgba(168,85,247,0.18)",
+boxShadow: "0 0 28px rgba(124,58,237,0.14)",
 };
 
 const heroTitle: CSSProperties = {
