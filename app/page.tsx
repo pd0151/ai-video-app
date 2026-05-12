@@ -748,7 +748,7 @@ const aiHero: CSSProperties = {
 position: "relative",
 overflow: "hidden",
 cursor: "pointer",
-padding: 18,
+padding: 14,
 borderRadius: 26,
 background:
 "radial-gradient(circle at 90% 10%, rgba(168,85,247,0.38), transparent 32%), linear-gradient(145deg,rgba(55,18,105,0.92),rgba(10,5,28,0.98))",
@@ -792,7 +792,7 @@ const aiTitle: CSSProperties = {
 position: "relative",
 zIndex: 2,
 margin: "20px 0 0",
-fontSize: 40,
+fontSize: 34,
 lineHeight: 0.95,
 letterSpacing: -1.8,
 fontWeight: 950,
