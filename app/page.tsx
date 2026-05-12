@@ -944,7 +944,13 @@ cursor: "pointer",
 };
 
 const generatedCard: CSSProperties = {
-...glassCard,
+marginTop: 14,
+padding: 18,
+borderRadius: 26,
+background:
+"linear-gradient(145deg, rgba(12,10,26,0.98), rgba(5,5,14,0.98))",
+border: "1px solid rgba(168,85,247,0.18)",
+boxShadow: "0 0 24px rgba(124,58,237,0.12)",
 };
 
 const sectionTop: CSSProperties = {
@@ -963,10 +969,10 @@ fontWeight: 900,
 };
 
 const adPreview: CSSProperties = {
-marginTop: 18,
+marginTop: 16,
 display: "grid",
-gridTemplateColumns: "1fr 142px",
-gap: 13,
+gridTemplateColumns: "1fr 145px",
+gap: 12,
 alignItems: "center",
 };
 
@@ -993,12 +999,12 @@ boxShadow: "0 0 18px rgba(147,51,234,0.34)",
 };
 
 const poster: CSSProperties = {
-height: 175,
-borderRadius: 18,
+height: 170,
+borderRadius: 20,
 overflow: "hidden",
 position: "relative",
 background: "#111",
-border: "1px solid rgba(255,255,255,0.08)",
+boxShadow: "0 8px 20px rgba(0,0,0,0.35)",
 };
 
 const posterImg: CSSProperties = {
