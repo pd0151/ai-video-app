@@ -2,33 +2,37 @@ import Stripe from "stripe";
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-
-const supabase = createClient(
-process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-process.env.SUPABASE_SERVICE_ROLE_KEY as string
-);
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function POST(req: Request) {
 try {
-const { email } = await req.json();
+const stripeKey = process.env.STRIPE_SECRET_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!stripeKey || !supabaseUrl || !serviceKey) {
+return NextResponse.json(
+{ error: "Missing server environment variables" },
+{ status: 500 }
+);
+}
+
+const stripe = new Stripe(stripeKey);
+const supabase = createClient(supabaseUrl, serviceKey);
+
+const body = await req.json().catch(() => ({}));
+const email = String(body.email || "").toLowerCase().trim();
 
 if (!email) {
 return NextResponse.json({ error: "Missing email" }, { status: 400 });
 }
 
-const { data: business, error } = await supabase
+const { data: business } = await supabase
 .from("businesses")
 .select("id, email")
 .eq("email", email)
-.single();
-
-if (error || !business) {
-return NextResponse.json(
-{ error: "Business not found" },
-{ status: 404 }
-);
-}
+.maybeSingle();
 
 const session = await stripe.checkout.sessions.create({
 mode: "subscription",
@@ -41,16 +45,19 @@ quantity: 1,
 },
 ],
 metadata: {
-business_id: business.id,
+business_id: business?.id || "",
 email,
 },
-success_url: "https://ai-video-app-live.vercel.app/business-settings?paid=true",
+success_url:
+"https://ai-video-app-live.vercel.app/business-settings?paid=true",
 cancel_url: "https://ai-video-app-live.vercel.app/ai-receptionist",
 });
 
 return NextResponse.json({ url: session.url });
 } catch (err: any) {
-console.error(err);
-return NextResponse.json({ error: err.message }, { status: 500 });
+return NextResponse.json(
+{ error: err?.message || "Checkout failed" },
+{ status: 500 }
+);
 }
 }

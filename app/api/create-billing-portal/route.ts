@@ -1,44 +1,42 @@
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-
-const supabase = createClient(
-process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-process.env.SUPABASE_SERVICE_ROLE_KEY as string
-);
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function POST(req: Request) {
 try {
-const { email } = await req.json();
+const stripeKey = process.env.STRIPE_SECRET_KEY;
 
-if (!email) {
-return NextResponse.json({ error: "Missing email" }, { status: 400 });
-}
-
-const customers = await stripe.customers.list({
-email,
-limit: 1,
-});
-
-const customer = customers.data[0];
-
-if (!customer) {
+if (!stripeKey) {
 return NextResponse.json(
-{ error: "Stripe customer not found" },
-{ status: 404 }
+{ error: "Missing STRIPE_SECRET_KEY" },
+{ status: 500 }
 );
 }
 
-const portalSession = await stripe.billingPortal.sessions.create({
-customer: customer.id,
-return_url: "https://ai-video-app-live.vercel.app/ai-receptionist",
+const stripe = new Stripe(stripeKey);
+
+const body = await req.json().catch(() => ({}));
+const customerId = body.customerId;
+
+if (!customerId) {
+return NextResponse.json(
+{ error: "Missing customerId" },
+{ status: 400 }
+);
+}
+
+const session = await stripe.billingPortal.sessions.create({
+customer: customerId,
+return_url: "https://ai-video-app-live.vercel.app/profile",
 });
 
-return NextResponse.json({ url: portalSession.url });
+return NextResponse.json({ url: session.url });
 } catch (err: any) {
-console.error(err);
-return NextResponse.json({ error: err.message }, { status: 500 });
+return NextResponse.json(
+{ error: err?.message || "Something went wrong" },
+{ status: 500 }
+);
 }
 }
