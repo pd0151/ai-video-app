@@ -813,27 +813,27 @@ position: "relative",
 zIndex: 2,
 display: "grid",
 gridTemplateColumns: "1fr 1fr",
-gap: 9,
-marginTop: 18,
+gap: 8,
+marginTop: 14,
 };
 
 const aiFeature: CSSProperties = {
-padding: "12px 11px",
-borderRadius: 16,
-background: "rgba(5,8,25,0.8)",
-border: "1px solid rgba(255,255,255,0.08)",
-fontSize: 13,
+padding: "10px 10px",
+borderRadius: 14,
+background: "rgba(8,13,35,0.82)",
+border: "1px solid rgba(168,85,247,0.18)",
+fontSize: 12,
 fontWeight: 900,
 };
 
 const aiLeadCard: CSSProperties = {
 position: "relative",
 zIndex: 2,
-marginTop: 14,
-padding: 12,
-borderRadius: 20,
-background: "rgba(5,8,25,0.86)",
-border: "1px solid rgba(168,85,247,0.2)",
+marginTop: 12,
+padding: 10,
+borderRadius: 18,
+background: "rgba(7,10,28,0.9)",
+border: "1px solid rgba(168,85,247,0.22)",
 };
 
 const aiLeadTop: CSSProperties = {
