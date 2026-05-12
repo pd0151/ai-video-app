@@ -746,8 +746,9 @@ boxShadow:
 const aiHero: CSSProperties = {
 position: "relative",
 overflow: "hidden",
-borderRadius: 34,
-padding: "18px 18px",
+borderRadius: 28,
+padding: "18px 18px 10px",
+minHeight: 470,
 marginTop: 10,
 background:
 "radial-gradient(circle at top right,#9333ea 0%,#3b0764 45%,#050816 100%)",

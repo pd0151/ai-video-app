@@ -68,8 +68,8 @@ color: "white",
 onClick={logout}
 style={{
 position: "fixed",
-top: 96,
-right: 18,
+top: 82,
+right: 10,
 zIndex: 9999,
 border: "1px solid rgba(255,255,255,0.14)",
 borderRadius: 18,
