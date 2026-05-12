@@ -765,7 +765,20 @@ borderRadius: "50%",
 background: "radial-gradient(circle, rgba(192,132,252,0.35), transparent 70%)",
 filter: "blur(20px)",
 };
-
+const logoutBtn: CSSProperties = {
+position: "absolute",
+top: 14,
+right: 14,
+border: "1px solid rgba(255,255,255,0.12)",
+background: "rgba(10,10,20,0.75)",
+backdropFilter: "blur(10px)",
+color: "white",
+borderRadius: 999,
+padding: "10px 16px",
+fontWeight: 700,
+fontSize: 14,
+zIndex: 20,
+};
 const aiPill: CSSProperties = {
 position: "relative",
 zIndex: 2,
