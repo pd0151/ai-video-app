@@ -669,7 +669,7 @@ background:
 "radial-gradient(circle at 50% -10%, rgba(168,85,247,0.45), transparent 28%), linear-gradient(180deg,#12051f 0%,#07030d 45%,#020202 100%)",
 color: "white",
 fontFamily: "Arial, sans-serif",
-padding: "22px 16px 120px",
+padding: "18x 18px 140px",
 boxSizing: "border-box",
 overflowX: "hidden",
 };
