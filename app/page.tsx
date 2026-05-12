@@ -744,16 +744,16 @@ boxShadow:
 };
 
 const aiHero: CSSProperties = {
-...glassCard,
+marginTop: 14,
 position: "relative",
 overflow: "hidden",
 cursor: "pointer",
-padding: 14,
-borderRadius: 26,
+borderRadius: 28,
+padding: "18px 18px 20px",
 background:
-"radial-gradient(circle at 90% 10%, rgba(168,85,247,0.38), transparent 32%), linear-gradient(145deg,rgba(55,18,105,0.92),rgba(10,5,28,0.98))",
-border: "1px solid rgba(168,85,247,0.45)",
-boxShadow: "0 0 30px rgba(126,34,206,0.22)",
+"radial-gradient(circle at 80% 20%, rgba(168,85,247,0.35), transparent 36%), linear-gradient(145deg, rgba(58,18,112,0.88), rgba(9,6,25,0.98))",
+border: "1px solid rgba(168,85,247,0.5)",
+boxShadow: "0 0 28px rgba(126,34,206,0.22)",
 };
 const aiGlow: CSSProperties = {
 position: "absolute",
@@ -794,19 +794,20 @@ zIndex: 2,
 margin: "20px 0 0",
 fontSize: 34,
 lineHeight: 0.95,
-letterSpacing: -1.8,
+letterSpacing: -1.5,
 fontWeight: 950,
+maxWidth: 260,
 };
 
 const aiText: CSSProperties = {
 position: "relative",
 zIndex: 2,
-marginTop: 16,
-color: "rgba(255,255,255,0.76)",
-fontSize: 16,
-lineHeight: 1.38,
+maxWidth: 300,
+marginTop: 14,
+color: "rgba(255,255,255,0.78)",
+fontSize: 15,
+lineHeight: 1.45,
 };
-
 const aiFeatureGrid: CSSProperties = {
 position: "relative",
 zIndex: 2,
