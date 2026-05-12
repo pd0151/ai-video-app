@@ -1132,18 +1132,18 @@ gap: 10,
 };
 
 const actionCardBase: CSSProperties = {
-height: 145,
-borderRadius: 18,
+height: 165,
+borderRadius: 24,
 overflow: "hidden",
 position: "relative",
 border: "1px solid rgba(255,255,255,0.08)",
 padding: 0,
-background: "#111",
+background: "rgba(10,10,18,0.96)",
 color: "white",
 textAlign: "left",
 cursor: "pointer",
+boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
 };
-
 const actionBg: CSSProperties = {
 position: "absolute",
 inset: 0,
@@ -1155,9 +1155,9 @@ objectFit: "cover",
 const actionOverlay: CSSProperties = {
 position: "absolute",
 inset: 0,
-background: "linear-gradient(180deg,rgba(0,0,0,0.22),rgba(0,0,0,0.84))",
+background:
+"linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.82))",
 };
-
 const actionContent: CSSProperties = {
 position: "absolute",
 inset: 14,
@@ -1168,14 +1168,15 @@ gap: 5,
 };
 
 const actionIcon: CSSProperties = {
-width: 42,
-height: 42,
-borderRadius: 13,
-background: "linear-gradient(135deg,#a855f7,#6d28d9)",
+width: 54,
+height: 54,
+borderRadius: 18,
+background: "linear-gradient(135deg,#a855f7,#7c3aed)",
 display: "grid",
 placeItems: "center",
-marginBottom: 8,
-boxShadow: "0 0 18px rgba(168,85,247,0.4)",
+marginBottom: 10,
+fontSize: 24,
+boxShadow: "0 0 24px rgba(168,85,247,0.45)",
 };
 
 const chatBox: CSSProperties = {
