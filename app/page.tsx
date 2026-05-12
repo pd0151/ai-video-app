@@ -748,14 +748,13 @@ const aiHero: CSSProperties = {
 position: "relative",
 overflow: "hidden",
 cursor: "pointer",
-padding: "22px 20px 20px",
+padding: 18,
+borderRadius: 26,
 background:
-"radial-gradient(circle at 82% 15%, rgba(168,85,247,0.52), transparent 34%), linear-gradient(145deg,rgba(76,24,145,0.95),rgba(12,5,34,0.98))",
-border: "1px solid rgba(168,85,247,0.58)",
-boxShadow:
-"0 0 40px rgba(126,34,206,0.28), inset 0 1px 0 rgba(255,255,255,0.08)",
+"radial-gradient(circle at 90% 10%, rgba(168,85,247,0.38), transparent 32%), linear-gradient(145deg,rgba(55,18,105,0.92),rgba(10,5,28,0.98))",
+border: "1px solid rgba(168,85,247,0.45)",
+boxShadow: "0 0 30px rgba(126,34,206,0.22)",
 };
-
 const aiGlow: CSSProperties = {
 position: "absolute",
 width: 260,
@@ -792,10 +791,10 @@ boxShadow: "0 0 14px rgba(74,222,128,0.95)",
 const aiTitle: CSSProperties = {
 position: "relative",
 zIndex: 2,
-margin: "24px 0 0",
-fontSize: 48,
-lineHeight: 0.93,
-letterSpacing: -2.4,
+margin: "20px 0 0",
+fontSize: 40,
+lineHeight: 0.95,
+letterSpacing: -1.8,
 fontWeight: 950,
 };
 
