@@ -305,63 +305,46 @@ Ad<span style={{ color: "#a855f7" }}>Forge</span>✦
 </header>
 
 <section onClick={() => router.push("/ai-receptionist")} style={aiHero}>
-<div style={aiGlowOne}></div>
-<div style={aiGlowTwo}></div>
+<div style={aiGlow}></div>
 
-<div style={aiHeroContent}>
 <div style={aiPill}>
 <span style={greenDot}></span>
-LIVE AI CALL SYSTEM
+LIVE AI RECEPTIONIST
 </div>
 
 <h2 style={aiTitle}>
 Never miss
-<span style={aiPurple}>another call</span>
+<span>another call</span>
 </h2>
 
 <p style={aiText}>
-AI answers missed calls, captures customer details, sends instant SMS
-alerts and updates your live leads dashboard.
+AI answers missed calls, captures customer details, sends instant SMS alerts
+and updates your live leads dashboard.
 </p>
 
-<div style={aiStats}>
-<div style={aiStat}>
-<b>24/7</b>
-<span>Call cover</span>
+<div style={aiFeatureGrid}>
+<div style={aiFeature}>📞 24/7 Calls</div>
+<div style={aiFeature}>👤 Lead Capture</div>
+<div style={aiFeature}>💬 SMS Alerts</div>
+<div style={aiFeature}>📊 Live Dashboard</div>
 </div>
-<div style={aiStat}>
-<b>Instant</b>
-<span>Lead alerts</span>
+
+<div style={aiLeadCard}>
+<div style={aiLeadTop}>
+<span>🟢 AI Online</span>
+<b>Live</b>
 </div>
-<div style={aiStat}>
-<b>£99/mo</b>
-<span>AI receptionist</span>
+
+<div style={aiLeadInner}>
+<small>NEW LEAD</small>
+<h3>Mobile tyre job</h3>
+<p>BMW 1 Series • L3 postcode</p>
 </div>
 </div>
 
 <button style={aiCta}>
-Activate AI Receptionist <span>›</span>
+🔥 Activate AI Receptionist <span>›</span>
 </button>
-</div>
-
-<div style={miniDashboard}>
-<div style={miniTop}>
-<span>◉ AI Online</span>
-<b>Live</b>
-</div>
-
-<div style={leadPreview}>
-<p style={miniLabel}>NEW LEAD</p>
-<h3>Mobile tyre job</h3>
-<p>BMW 1 Series • L3 postcode</p>
-</div>
-
-<div style={miniBars}>
-<span></span>
-<span></span>
-<span></span>
-</div>
-</div>
 </section>
 
 <section style={heroCard}>
@@ -967,146 +950,121 @@ position: "relative",
 overflow: "hidden",
 cursor: "pointer",
 borderRadius: 30,
-padding: 18,
-minHeight: 430,
+padding: 26,
+minHeight: 520,
 background:
-"radial-gradient(circle at 80% 25%, rgba(168,85,247,0.32), transparent 34%), linear-gradient(145deg, rgba(67,15,130,0.78), rgba(8,7,30,0.98))",
-border: "1px solid rgba(168,85,247,0.68)",
-boxShadow:
-"0 0 38px rgba(126,34,206,0.26), inset 0 0 40px rgba(255,255,255,0.025)",
+"radial-gradient(circle at 80% 20%, rgba(168,85,247,0.42), transparent 36%), linear-gradient(145deg, rgba(58,18,112,0.9), rgba(9,6,25,0.98))",
+border: "1px solid rgba(168,85,247,0.72)",
+boxShadow: "0 0 42px rgba(126,34,206,0.32)",
 };
 
-const aiGlowOne: CSSProperties = {
+const aiGlow: CSSProperties = {
 position: "absolute",
-width: 240,
-height: 240,
-right: -80,
-top: 40,
+width: 280,
+height: 280,
+right: -90,
+top: 80,
 borderRadius: "50%",
-background: "radial-gradient(circle, rgba(168,85,247,0.34), transparent 70%)",
-filter: "blur(20px)",
-};
-
-const aiGlowTwo: CSSProperties = {
-position: "absolute",
-width: 220,
-height: 220,
-left: -90,
-bottom: -70,
-borderRadius: "50%",
-background: "radial-gradient(circle, rgba(34,211,238,0.12), transparent 70%)",
-filter: "blur(22px)",
-};
-
-const aiHeroContent: CSSProperties = {
-position: "relative",
-zIndex: 3,
-maxWidth: 220,
+background: "radial-gradient(circle, rgba(168,85,247,0.38), transparent 70%)",
+filter: "blur(18px)",
 };
 
 const aiPill: CSSProperties = {
+position: "relative",
+zIndex: 2,
 display: "inline-flex",
 alignItems: "center",
 gap: 8,
-padding: "8px 12px",
+padding: "9px 14px",
 borderRadius: 999,
-background: "rgba(255,255,255,0.08)",
-color: "#4ade80",
+background: "rgba(255,255,255,0.09)",
+color: "#86efac",
 fontSize: 12,
 fontWeight: 950,
 };
 
 const greenDot: CSSProperties = {
-width: 8,
-height: 8,
+width: 9,
+height: 9,
 borderRadius: "50%",
 background: "#4ade80",
-boxShadow: "0 0 12px rgba(74,222,128,0.8)",
+boxShadow: "0 0 14px rgba(74,222,128,0.9)",
 };
 
 const aiTitle: CSSProperties = {
-margin: "22px 0 0",
-fontSize: 44,
-lineHeight: 0.9,
+position: "relative",
+zIndex: 2,
+margin: "28px 0 0",
+fontSize: 52,
+lineHeight: 0.92,
 letterSpacing: -2,
 fontWeight: 950,
 };
 
-const aiPurple: CSSProperties = {
-display: "block",
-color: "#9b4dff",
-};
-
 const aiText: CSSProperties = {
-marginTop: 14,
-color: "rgba(255,255,255,0.76)",
-fontSize: 14,
-lineHeight: 1.45,
-};
-
-const aiStats: CSSProperties = {
-display: "grid",
-gridTemplateColumns: "repeat(3, 1fr)",
-gap: 8,
-marginTop: 16,
-};
-
-const aiStat: CSSProperties = {
-padding: 10,
-borderRadius: 15,
-background: "rgba(8,13,35,0.82)",
-border: "1px solid rgba(255,255,255,0.08)",
-};
-
-const aiCta: CSSProperties = {
+position: "relative",
+zIndex: 2,
+maxWidth: 330,
 marginTop: 18,
-padding: "15px 17px",
+color: "rgba(255,255,255,0.78)",
+fontSize: 18,
+lineHeight: 1.35,
+};
+
+const aiFeatureGrid: CSSProperties = {
+position: "relative",
+zIndex: 2,
+display: "grid",
+gridTemplateColumns: "1fr 1fr",
+gap: 10,
+marginTop: 22,
+};
+
+const aiFeature: CSSProperties = {
+padding: "13px 12px",
 borderRadius: 16,
-border: "none",
-background: "linear-gradient(90deg,#22c55e,#86efac)",
-color: "#04130a",
-fontSize: 15,
-fontWeight: 950,
+background: "rgba(8,13,35,0.78)",
+border: "1px solid rgba(255,255,255,0.1)",
+fontSize: 14,
+fontWeight: 900,
 };
 
-const miniDashboard: CSSProperties = {
-position: "absolute",
-right: 14,
-bottom: 18,
-width: 165,
-padding: 12,
-borderRadius: 18,
-background: "rgba(8,13,35,0.92)",
-border: "1px solid rgba(168,85,247,0.22)",
-boxShadow: "0 0 25px rgba(124,58,237,0.22)",
-zIndex: 4,
-backdropFilter: "blur(10px)",
+const aiLeadCard: CSSProperties = {
+position: "relative",
+zIndex: 2,
+marginTop: 18,
+padding: 14,
+borderRadius: 22,
+background: "rgba(7,10,28,0.86)",
+border: "1px solid rgba(168,85,247,0.28)",
+boxShadow: "0 0 28px rgba(124,58,237,0.24)",
 };
 
-const miniTop: CSSProperties = {
+const aiLeadTop: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
-fontSize: 12,
-color: "#4ade80",
+color: "#86efac",
+fontSize: 14,
+fontWeight: 800,
 };
 
-const leadPreview: CSSProperties = {
-marginTop: 12,
-padding: 12,
-borderRadius: 15,
+const aiLeadInner: CSSProperties = {
+marginTop: 14,
+padding: 16,
+borderRadius: 18,
 background: "rgba(0,0,0,0.28)",
 };
 
-const miniLabel: CSSProperties = {
-margin: 0,
-fontSize: 10,
-opacity: 0.55,
+const aiCta: CSSProperties = {
+position: "relative",
+zIndex: 2,
+width: "100%",
+marginTop: 18,
+padding: "17px 18px",
+borderRadius: 18,
+border: "none",
+background: "linear-gradient(90deg,#22c55e,#86efac)",
+color: "#04130a",
+fontSize: 17,
 fontWeight: 950,
-letterSpacing: 1,
-};
-
-const miniBars: CSSProperties = {
-display: "grid",
-gap: 6,
-marginTop: 12,
 };
