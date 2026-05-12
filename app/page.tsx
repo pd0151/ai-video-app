@@ -712,32 +712,37 @@ background: "linear-gradient(135deg,#a855f7,#7c3aed)",
 
 const heroCard: CSSProperties = {
 marginTop: 18,
-padding: 18,
-borderRadius: 24,
-background: "rgba(255,255,255,0.045)",
-border: "1px solid rgba(255,255,255,0.1)",
+padding: 24,
+borderRadius: 30,
+background:
+"linear-gradient(145deg, rgba(18,14,35,0.96), rgba(8,7,20,0.98))",
+border: "1px solid rgba(255,255,255,0.12)",
+boxShadow: "0 0 30px rgba(124,58,237,0.16)",
 };
 
 const heroTitle: CSSProperties = { margin: 0, fontSize: 25, fontWeight: 950 };
 const heroSub: CSSProperties = { opacity: 0.65, fontSize: 16 };
 
 const promptBox: CSSProperties = {
-marginTop: 18,
-padding: 15,
-borderRadius: 22,
-border: "2px solid #8b5cf6",
-background: "linear-gradient(135deg,rgba(139,92,246,0.12),rgba(0,0,0,0.45))",
+marginTop: 20,
+padding: 18,
+borderRadius: 24,
+border: "1px solid rgba(168,85,247,0.28)",
+background:
+"linear-gradient(145deg, rgba(15,12,30,0.96), rgba(7,7,18,0.98))",
+boxShadow: "inset 0 0 25px rgba(168,85,247,0.08)",
 };
 
 const promptInput: CSSProperties = {
 width: "100%",
-height: 92,
+height: 110,
 background: "transparent",
 border: "none",
 outline: "none",
 color: "white",
-fontSize: 18,
+fontSize: 19,
 resize: "none",
+lineHeight: 1.4,
 };
 
 const toolRow: CSSProperties = { display: "flex", gap: 8, alignItems: "center" };
@@ -777,12 +782,13 @@ cursor: "pointer",
 
 const generatedCard: CSSProperties = {
 marginTop: 18,
-padding: 16,
-borderRadius: 24,
-background: "rgba(255,255,255,0.045)",
+padding: 20,
+borderRadius: 28,
+background:
+"linear-gradient(145deg, rgba(15,12,30,0.96), rgba(6,6,16,0.98))",
 border: "1px solid rgba(255,255,255,0.1)",
+boxShadow: "0 0 28px rgba(124,58,237,0.14)",
 };
-
 const sectionTop: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
