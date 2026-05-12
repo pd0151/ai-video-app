@@ -767,7 +767,7 @@ filter: "blur(20px)",
 };
 const logoutBtn: CSSProperties = {
 position: "absolute",
-top: -58,
+top: 8,
 right: 8,
 border: "1px solid rgba(255,255,255,0.12)",
 background: "rgba(10,10,20,0.75)",
