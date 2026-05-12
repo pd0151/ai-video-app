@@ -314,6 +314,7 @@ LIVE AI RECEPTIONIST
 
 <h2 style={aiTitle}>
 Never miss
+<br />
 <span>another call</span>
 </h2>
 
@@ -999,6 +1000,7 @@ fontSize: 52,
 lineHeight: 0.92,
 letterSpacing: -2,
 fontWeight: 950,
+maxWidth: 340,
 };
 
 const aiText: CSSProperties = {
