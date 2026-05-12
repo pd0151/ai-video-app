@@ -744,16 +744,15 @@ boxShadow:
 };
 
 const aiHero: CSSProperties = {
-marginTop: 14,
 position: "relative",
 overflow: "hidden",
-cursor: "pointer",
-borderRadius: 28,
-padding: "18px 18px 20px",
+borderRadius: 34,
+padding: "22px 20px",
+marginTop: 18,
 background:
-"radial-gradient(circle at 80% 20%, rgba(168,85,247,0.35), transparent 36%), linear-gradient(145deg, rgba(58,18,112,0.88), rgba(9,6,25,0.98))",
-border: "1px solid rgba(168,85,247,0.5)",
-boxShadow: "0 0 28px rgba(126,34,206,0.22)",
+"radial-gradient(circle at top right,#9333ea 0%,#3b0764 45%,#050816 100%)",
+border: "1px solid rgba(168,85,247,0.25)",
+boxShadow: "0 0 40px rgba(147,51,234,0.32)",
 };
 const aiGlow: CSSProperties = {
 position: "absolute",
@@ -856,7 +855,7 @@ position: "relative",
 zIndex: 2,
 width: "100%",
 marginTop: 14,
-padding: "16px",
+padding: "13px",
 borderRadius: 18,
 border: "none",
 background: "linear-gradient(90deg,#22c55e,#86efac)",
