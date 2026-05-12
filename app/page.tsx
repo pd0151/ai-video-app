@@ -681,12 +681,11 @@ alignItems: "center",
 gap: 10,
 marginBottom: 18,
 };
-
 const logo: CSSProperties = {
 margin: 0,
-fontSize: 32,
+fontSize: 28,
 fontWeight: 950,
-letterSpacing: -1.2,
+letterSpacing: -1.5,
 };
 
 const topRight: CSSProperties = {
@@ -699,11 +698,11 @@ const creditBox: CSSProperties = {
 display: "flex",
 alignItems: "center",
 gap: 8,
-padding: "9px 10px",
-borderRadius: 20,
-background: "rgba(255,255,255,0.08)",
-border: "1px solid rgba(255,255,255,0.12)",
-boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
+padding: "8px 12px",
+borderRadius: 18,
+background: "rgba(255,255,255,0.06)",
+border: "1px solid rgba(255,255,255,0.08)",
+backdropFilter: "blur(14px)",
 };
 
 const coin: CSSProperties = {
@@ -724,12 +723,13 @@ opacity: 0.64,
 
 const upgrade: CSSProperties = {
 border: "none",
-borderRadius: 20,
-padding: "13px 14px",
+borderRadius: 18,
+padding: "12px 16px",
 color: "white",
-fontWeight: 950,
+fontWeight: 900,
+fontSize: 13,
 background: "linear-gradient(135deg,#a855f7,#7c3aed)",
-boxShadow: "0 0 24px rgba(168,85,247,0.38)",
+boxShadow: "0 8px 24px rgba(124,58,237,0.35)",
 };
 
 const glassCard: CSSProperties = {
