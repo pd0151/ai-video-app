@@ -663,307 +663,86 @@ return (
 
 const page: CSSProperties = {
 minHeight: "100vh",
-background: "radial-gradient(circle at top,#141027 0%,#050507 48%,#020202 100%)",
+maxWidth: 430,
+margin: "0 auto",
+background:
+"radial-gradient(circle at top,#2b0a4d 0%,#13051f 32%,#050507 70%,#020202 100%)",
 color: "white",
 fontFamily: "Arial, sans-serif",
 padding: "24px 16px 120px",
+boxSizing: "border-box",
+overflowX: "hidden",
 };
 
 const topBar: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
 alignItems: "center",
+gap: 10,
 marginBottom: 22,
 };
 
-const logo: CSSProperties = { margin: 0, fontSize: 34, fontWeight: 950 };
-const topRight: CSSProperties = { display: "flex", gap: 10, alignItems: "center" };
+const logo: CSSProperties = {
+margin: 0,
+fontSize: 34,
+fontWeight: 950,
+letterSpacing: -1,
+};
+
+const topRight: CSSProperties = {
+display: "flex",
+gap: 8,
+alignItems: "center",
+};
 
 const creditBox: CSSProperties = {
 display: "flex",
 alignItems: "center",
 gap: 9,
-padding: "10px 13px",
-borderRadius: 18,
-background: "rgba(255,255,255,0.07)",
-border: "1px solid rgba(255,255,255,0.12)",
+padding: "10px 12px",
+borderRadius: 20,
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(168,85,247,0.24)",
+boxShadow: "0 0 18px rgba(168,85,247,0.12)",
 };
 
 const coin: CSSProperties = {
-width: 32,
-height: 32,
+width: 34,
+height: 34,
 borderRadius: 999,
 display: "grid",
 placeItems: "center",
-background: "linear-gradient(135deg,#a855f7,#6d28d9)",
+background: "linear-gradient(135deg,#b66bff,#7c3aed)",
 fontWeight: 950,
 };
 
-const small: CSSProperties = { fontSize: 12, opacity: 0.65 };
+const small: CSSProperties = {
+fontSize: 12,
+opacity: 0.65,
+};
 
 const upgrade: CSSProperties = {
 border: "none",
 borderRadius: 20,
-padding: "17px 20px",
+padding: "14px 15px",
 color: "white",
 fontWeight: 950,
 background: "linear-gradient(135deg,#a855f7,#7c3aed)",
+boxShadow: "0 0 22px rgba(168,85,247,0.35)",
 };
 
-const heroCard: CSSProperties = {
-marginTop: 18,
-padding: 24,
-borderRadius: 30,
-background:
-"linear-gradient(145deg, rgba(18,14,35,0.96), rgba(8,7,20,0.98))",
-border: "1px solid rgba(255,255,255,0.12)",
-boxShadow: "0 0 30px rgba(124,58,237,0.16)",
-};
-
-const heroTitle: CSSProperties = { margin: 0, fontSize: 25, fontWeight: 950 };
-const heroSub: CSSProperties = { opacity: 0.65, fontSize: 16 };
-
-const promptBox: CSSProperties = {
-marginTop: 20,
-padding: 18,
-borderRadius: 24,
-border: "1px solid rgba(168,85,247,0.28)",
-background:
-"linear-gradient(145deg, rgba(15,12,30,0.96), rgba(7,7,18,0.98))",
-boxShadow: "inset 0 0 25px rgba(168,85,247,0.08)",
-};
-
-const promptInput: CSSProperties = {
-width: "100%",
-height: 110,
-background: "transparent",
-border: "none",
-outline: "none",
-color: "white",
-fontSize: 19,
-resize: "none",
-lineHeight: 1.4,
-};
-
-const toolRow: CSSProperties = { display: "flex", gap: 8, alignItems: "center" };
-
-const chip: CSSProperties = {
-border: "none",
-borderRadius: 999,
-padding: "11px 12px",
-color: "white",
-background: "rgba(255,255,255,0.1)",
-fontWeight: 900,
-fontSize: 12,
-};
-
-const arrowBtn: CSSProperties = {
-marginLeft: "auto",
-width: 56,
-height: 56,
-borderRadius: 999,
-border: "none",
-background: "linear-gradient(135deg,#a855f7,#7c3aed)",
-color: "white",
-fontSize: 32,
-fontWeight: 950,
-};
-
-const uploadBubble: CSSProperties = {
-width: 52,
-height: 52,
-borderRadius: 999,
-display: "grid",
-placeItems: "center",
-border: "1px solid rgba(255,255,255,0.18)",
-background: "rgba(255,255,255,0.08)",
-cursor: "pointer",
-};
-
-const generatedCard: CSSProperties = {
-marginTop: 18,
-padding: 20,
-borderRadius: 28,
-background:
-"linear-gradient(145deg, rgba(15,12,30,0.96), rgba(6,6,16,0.98))",
-border: "1px solid rgba(255,255,255,0.1)",
-boxShadow: "0 0 28px rgba(124,58,237,0.14)",
-};
-const sectionTop: CSSProperties = {
-display: "flex",
-justifyContent: "space-between",
-alignItems: "center",
-};
-
-const smallDarkBtn: CSSProperties = {
-border: "none",
-borderRadius: 999,
-padding: "10px 14px",
-color: "white",
-background: "rgba(255,255,255,0.08)",
-fontWeight: 900,
-};
-
-const adPreview: CSSProperties = {
-marginTop: 18,
-display: "grid",
-gridTemplateColumns: "1fr 165px",
-gap: 14,
-alignItems: "center",
-};
-
-const adHeading: CSSProperties = { margin: 0, fontSize: 23, lineHeight: 1.15, fontWeight: 950 };
-const adText: CSSProperties = { opacity: 0.72, lineHeight: 1.45 };
-
-const useBtn: CSSProperties = {
-border: "none",
-borderRadius: 16,
-padding: "14px 18px",
-background: "linear-gradient(135deg,#9333ea,#7c3aed)",
-color: "white",
-fontWeight: 950,
-};
-
-const poster: CSSProperties = {
-height: 190,
-borderRadius: 18,
-overflow: "hidden",
-position: "relative",
-background: "#111",
-};
-
-const posterImg: CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
-const posterShade: CSSProperties = { position: "absolute", inset: 0, background: "linear-gradient(180deg,transparent,rgba(0,0,0,0.7))" };
-const posterWords: CSSProperties = { position: "absolute", left: 10, bottom: 40, fontWeight: 950, fontSize: 24, lineHeight: 0.95 };
-const posterBadge: CSSProperties = { position: "absolute", left: 10, bottom: 12, background: "#7c3aed", padding: "5px 7px", fontSize: 10, fontWeight: 950 };
-
-const trendingCard: CSSProperties = {
-marginTop: 18,
-padding: 14,
-borderRadius: 22,
-background: "rgba(255,255,255,0.035)",
-border: "1px solid rgba(255,255,255,0.09)",
-};
-
-const sectionTitle: CSSProperties = { margin: 0, fontSize: 20, fontWeight: 950 };
-const seeAll: CSSProperties = { border: "none", background: "transparent", color: "#a855f7", fontWeight: 950 };
-
-const trendRow: CSSProperties = { marginTop: 14, display: "flex", gap: 10, overflowX: "auto" };
-const trendCard: CSSProperties = { minWidth: 135, height: 210, borderRadius: 16, overflow: "hidden", position: "relative", background: "#111" };
-const trendImg: CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
-const trendShade: CSSProperties = { position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.75))" };
-const trendBadge: CSSProperties = { position: "absolute", top: 8, left: 8, background: "#7c3aed", padding: "4px 7px", borderRadius: 999, fontSize: 10, fontWeight: 900 };
-const trendTitle: CSSProperties = { position: "absolute", left: 10, top: 42, right: 8, fontSize: 18, lineHeight: 1.05 };
-const playBtn: CSSProperties = { position: "absolute", right: 9, bottom: 38, width: 34, height: 34, borderRadius: 999, border: "none" };
-const trendStats: CSSProperties = { position: "absolute", left: 9, right: 9, bottom: 10, fontSize: 12, opacity: 0.9 };
-
-const actionsCard: CSSProperties = {
-marginTop: 18,
-padding: 14,
-borderRadius: 22,
-background: "rgba(255,255,255,0.035)",
-border: "1px solid rgba(255,255,255,0.09)",
-};
-
-const actionGrid: CSSProperties = {
-marginTop: 14,
-display: "grid",
-gridTemplateColumns: "1fr 1fr",
-gap: 10,
-};
-
-const actionCardBase: CSSProperties = {
-height: 145,
-borderRadius: 18,
-overflow: "hidden",
-position: "relative",
-border: "1px solid rgba(255,255,255,0.1)",
-padding: 0,
-background: "#111",
-color: "white",
-textAlign: "left",
-cursor: "pointer",
-};
-
-const actionBg: CSSProperties = { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" };
-const actionOverlay: CSSProperties = { position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.82))" };
-const actionContent: CSSProperties = { position: "absolute", inset: 14, display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 5 };
-const actionIcon: CSSProperties = { width: 42, height: 42, borderRadius: 12, background: "linear-gradient(135deg,#a855f7,#6d28d9)", display: "grid", placeItems: "center", marginBottom: 8 };
-
-const chatBox: CSSProperties = {
-marginTop: 18,
-padding: 16,
-borderRadius: 22,
-background: "rgba(255,255,255,0.045)",
-border: "1px solid rgba(255,255,255,0.1)",
-};
-
-const chatTitle: CSSProperties = { margin: 0, color: "#b36bff", fontSize: 22, fontWeight: 950 };
-const chatSub: CSSProperties = { opacity: 0.65, lineHeight: 1.35 };
-const messages: CSSProperties = { display: "flex", flexDirection: "column", gap: 10, maxHeight: 160, overflowY: "auto" };
-const bubble: CSSProperties = { padding: 12, borderRadius: 16, maxWidth: "88%", whiteSpace: "pre-wrap" };
-const typing: CSSProperties = { opacity: 0.6 };
-
-const chatInputStyle: CSSProperties = {
-width: "100%",
-marginTop: 12,
-padding: 14,
-borderRadius: 16,
-border: "none",
-outline: "none",
-};
-
-const sendBtn: CSSProperties = {
-width: "100%",
-marginTop: 10,
-padding: 14,
-borderRadius: 16,
-border: "none",
-background: "linear-gradient(135deg,#6366f1,#8b5cf6)",
-color: "white",
-fontWeight: 950,
-};
-
-const bottomNav: CSSProperties = {
-position: "fixed",
-left: 0,
-right: 0,
-bottom: 0,
-height: 88,
-background: "rgba(5,5,7,0.96)",
-borderTop: "1px solid rgba(255,255,255,0.08)",
-display: "flex",
-justifyContent: "space-around",
-alignItems: "center",
-zIndex: 50,
-};
-
-const navBtn: CSSProperties = { border: "none", background: "transparent", color: "rgba(255,255,255,0.58)", fontWeight: 900 };
-const navActive: CSSProperties = { border: "none", background: "transparent", color: "#a855f7", fontWeight: 950 };
-
-const plusBtn: CSSProperties = {
-width: 64,
-height: 64,
-borderRadius: 999,
-border: "none",
-background: "linear-gradient(135deg,#a855f7,#7c3aed)",
-color: "white",
-fontSize: 38,
-fontWeight: 950,
-};
 const aiHero: CSSProperties = {
 marginTop: 18,
 position: "relative",
 overflow: "hidden",
 cursor: "pointer",
-borderRadius: 30,
-paddingBottom: 120,
-padding: "20px 20px 24px",
-minHeight: 300,
+borderRadius: 34,
+padding: "24px 22px 26px",
 background:
-"radial-gradient(circle at 80% 20%, rgba(168,85,247,0.42), transparent 36%), linear-gradient(145deg, rgba(58,18,112,0.9), rgba(9,6,25,0.98))",
+"radial-gradient(circle at 85% 18%, rgba(168,85,247,0.48), transparent 36%), linear-gradient(145deg, rgba(68,18,129,0.94), rgba(13,5,35,0.98))",
 border: "1px solid rgba(168,85,247,0.72)",
-boxShadow: "0 0 42px rgba(126,34,206,0.32)",
+boxShadow:
+"0 0 45px rgba(126,34,206,0.32), inset 0 0 45px rgba(255,255,255,0.025)",
 };
 
 const aiGlow: CSSProperties = {
@@ -1003,21 +782,20 @@ const aiTitle: CSSProperties = {
 position: "relative",
 zIndex: 2,
 margin: "28px 0 0",
-fontSize: 52,
+fontSize: 50,
 lineHeight: 0.92,
 letterSpacing: -2,
 fontWeight: 950,
-maxWidth: 340,
+maxWidth: 350,
 };
 
 const aiText: CSSProperties = {
 position: "relative",
 zIndex: 2,
-maxWidth: 330,
 marginTop: 18,
 color: "rgba(255,255,255,0.78)",
-fontSize: 18,
-lineHeight: 1.35,
+fontSize: 17,
+lineHeight: 1.38,
 };
 
 const aiFeatureGrid: CSSProperties = {
@@ -1030,10 +808,10 @@ marginTop: 22,
 };
 
 const aiFeature: CSSProperties = {
-padding: "13px 12px",
-borderRadius: 16,
-background: "rgba(8,13,35,0.78)",
-border: "1px solid rgba(255,255,255,0.1)",
+padding: "14px 12px",
+borderRadius: 17,
+background: "rgba(8,13,35,0.82)",
+border: "1px solid rgba(168,85,247,0.18)",
 fontSize: 14,
 fontWeight: 900,
 };
@@ -1041,14 +819,12 @@ fontWeight: 900,
 const aiLeadCard: CSSProperties = {
 position: "relative",
 zIndex: 2,
-marginTop: 10,
-width: 170,
-marginLeft: "auto",
-padding: 14,
-borderRadius: 22,
-background: "rgba(7,10,28,0.86)",
+marginTop: 18,
+padding: 15,
+borderRadius: 24,
+background: "rgba(7,10,28,0.9)",
 border: "1px solid rgba(168,85,247,0.28)",
-boxShadow: "0 0 28px rgba(124,58,237,0.24)",
+boxShadow: "0 0 28px rgba(124,58,237,0.22)",
 };
 
 const aiLeadTop: CSSProperties = {
@@ -1056,14 +832,14 @@ display: "flex",
 justifyContent: "space-between",
 color: "#86efac",
 fontSize: 14,
-fontWeight: 800,
+fontWeight: 900,
 };
 
 const aiLeadInner: CSSProperties = {
 marginTop: 14,
-padding: 16,
+padding: 17,
 borderRadius: 18,
-background: "rgba(0,0,0,0.28)",
+background: "rgba(0,0,0,0.32)",
 };
 
 const aiCta: CSSProperties = {
@@ -1071,11 +847,440 @@ position: "relative",
 zIndex: 2,
 width: "100%",
 marginTop: 18,
-padding: "17px 18px",
-borderRadius: 18,
+padding: "18px",
+borderRadius: 20,
 border: "none",
 background: "linear-gradient(90deg,#22c55e,#86efac)",
 color: "#04130a",
 fontSize: 17,
 fontWeight: 950,
+};
+
+const heroCard: CSSProperties = {
+marginTop: 18,
+padding: 22,
+borderRadius: 28,
+background:
+"linear-gradient(145deg, rgba(20,10,38,0.96), rgba(8,7,20,0.98))",
+border: "1px solid rgba(168,85,247,0.18)",
+boxShadow: "0 0 30px rgba(124,58,237,0.14)",
+};
+
+const heroTitle: CSSProperties = {
+margin: 0,
+fontSize: 27,
+lineHeight: 1.12,
+fontWeight: 950,
+};
+
+const heroSub: CSSProperties = {
+opacity: 0.68,
+fontSize: 17,
+};
+
+const promptBox: CSSProperties = {
+marginTop: 20,
+padding: 17,
+borderRadius: 24,
+border: "1px solid rgba(168,85,247,0.32)",
+background:
+"linear-gradient(145deg, rgba(15,9,31,0.96), rgba(7,7,18,0.98))",
+boxShadow: "inset 0 0 25px rgba(168,85,247,0.08)",
+};
+
+const promptInput: CSSProperties = {
+width: "100%",
+height: 105,
+background: "transparent",
+border: "none",
+outline: "none",
+color: "white",
+fontSize: 19,
+resize: "none",
+lineHeight: 1.4,
+};
+
+const toolRow: CSSProperties = {
+display: "flex",
+gap: 7,
+alignItems: "center",
+};
+
+const chip: CSSProperties = {
+border: "none",
+borderRadius: 999,
+padding: "11px 11px",
+color: "white",
+background: "rgba(255,255,255,0.1)",
+fontWeight: 900,
+fontSize: 12,
+};
+
+const arrowBtn: CSSProperties = {
+marginLeft: "auto",
+width: 52,
+height: 52,
+borderRadius: 999,
+border: "none",
+background: "linear-gradient(135deg,#a855f7,#7c3aed)",
+color: "white",
+fontSize: 30,
+fontWeight: 950,
+};
+
+const uploadBubble: CSSProperties = {
+width: 50,
+height: 50,
+borderRadius: 999,
+display: "grid",
+placeItems: "center",
+border: "1px solid rgba(255,255,255,0.18)",
+background: "rgba(255,255,255,0.08)",
+cursor: "pointer",
+};
+
+const generatedCard: CSSProperties = {
+marginTop: 18,
+padding: 20,
+borderRadius: 28,
+background:
+"linear-gradient(145deg, rgba(20,10,38,0.96), rgba(7,7,18,0.98))",
+border: "1px solid rgba(168,85,247,0.18)",
+boxShadow: "0 0 28px rgba(124,58,237,0.14)",
+};
+
+const sectionTop: CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+};
+
+const smallDarkBtn: CSSProperties = {
+border: "none",
+borderRadius: 999,
+padding: "10px 14px",
+color: "white",
+background: "rgba(255,255,255,0.08)",
+fontWeight: 900,
+};
+
+const adPreview: CSSProperties = {
+marginTop: 18,
+display: "grid",
+gridTemplateColumns: "1fr 145px",
+gap: 13,
+alignItems: "center",
+};
+
+const adHeading: CSSProperties = {
+margin: 0,
+fontSize: 23,
+lineHeight: 1.15,
+fontWeight: 950,
+};
+
+const adText: CSSProperties = {
+opacity: 0.72,
+lineHeight: 1.45,
+};
+
+const useBtn: CSSProperties = {
+border: "none",
+borderRadius: 16,
+padding: "14px 18px",
+background: "linear-gradient(135deg,#9333ea,#7c3aed)",
+color: "white",
+fontWeight: 950,
+};
+
+const poster: CSSProperties = {
+height: 190,
+borderRadius: 18,
+overflow: "hidden",
+position: "relative",
+background: "#111",
+};
+
+const posterImg: CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "cover",
+};
+
+const posterShade: CSSProperties = {
+position: "absolute",
+inset: 0,
+background: "linear-gradient(180deg,transparent,rgba(0,0,0,0.7))",
+};
+
+const posterWords: CSSProperties = {
+position: "absolute",
+left: 10,
+bottom: 40,
+fontWeight: 950,
+fontSize: 24,
+lineHeight: 0.95,
+};
+
+const posterBadge: CSSProperties = {
+position: "absolute",
+left: 10,
+bottom: 12,
+background: "#7c3aed",
+padding: "5px 7px",
+fontSize: 10,
+fontWeight: 950,
+};
+
+const trendingCard: CSSProperties = {
+marginTop: 18,
+padding: 14,
+borderRadius: 24,
+background:
+"linear-gradient(145deg, rgba(20,10,38,0.86), rgba(7,7,18,0.96))",
+border: "1px solid rgba(168,85,247,0.14)",
+};
+
+const sectionTitle: CSSProperties = {
+margin: 0,
+fontSize: 21,
+fontWeight: 950,
+};
+
+const seeAll: CSSProperties = {
+border: "none",
+background: "transparent",
+color: "#c084fc",
+fontWeight: 950,
+};
+
+const trendRow: CSSProperties = {
+marginTop: 14,
+display: "flex",
+gap: 10,
+overflowX: "auto",
+};
+
+const trendCard: CSSProperties = {
+minWidth: 135,
+height: 210,
+borderRadius: 16,
+overflow: "hidden",
+position: "relative",
+background: "#111",
+};
+
+const trendImg: CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "cover",
+};
+
+const trendShade: CSSProperties = {
+position: "absolute",
+inset: 0,
+background: "linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.75))",
+};
+
+const trendBadge: CSSProperties = {
+position: "absolute",
+top: 8,
+left: 8,
+background: "#7c3aed",
+padding: "4px 7px",
+borderRadius: 999,
+fontSize: 10,
+fontWeight: 900,
+};
+
+const trendTitle: CSSProperties = {
+position: "absolute",
+left: 10,
+top: 42,
+right: 8,
+fontSize: 18,
+lineHeight: 1.05,
+};
+
+const playBtn: CSSProperties = {
+position: "absolute",
+right: 9,
+bottom: 38,
+width: 34,
+height: 34,
+borderRadius: 999,
+border: "none",
+};
+
+const trendStats: CSSProperties = {
+position: "absolute",
+left: 9,
+right: 9,
+bottom: 10,
+fontSize: 12,
+opacity: 0.9,
+};
+
+const actionsCard: CSSProperties = {
+marginTop: 18,
+padding: 14,
+borderRadius: 24,
+background:
+"linear-gradient(145deg, rgba(20,10,38,0.86), rgba(7,7,18,0.96))",
+border: "1px solid rgba(168,85,247,0.14)",
+};
+
+const actionGrid: CSSProperties = {
+marginTop: 14,
+display: "grid",
+gridTemplateColumns: "1fr 1fr",
+gap: 10,
+};
+
+const actionCardBase: CSSProperties = {
+height: 145,
+borderRadius: 18,
+overflow: "hidden",
+position: "relative",
+border: "1px solid rgba(168,85,247,0.14)",
+padding: 0,
+background: "#111",
+color: "white",
+textAlign: "left",
+cursor: "pointer",
+};
+
+const actionBg: CSSProperties = {
+position: "absolute",
+inset: 0,
+width: "100%",
+height: "100%",
+objectFit: "cover",
+};
+
+const actionOverlay: CSSProperties = {
+position: "absolute",
+inset: 0,
+background: "linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.82))",
+};
+
+const actionContent: CSSProperties = {
+position: "absolute",
+inset: 14,
+display: "flex",
+flexDirection: "column",
+justifyContent: "flex-end",
+gap: 5,
+};
+
+const actionIcon: CSSProperties = {
+width: 42,
+height: 42,
+borderRadius: 12,
+background: "linear-gradient(135deg,#a855f7,#6d28d9)",
+display: "grid",
+placeItems: "center",
+marginBottom: 8,
+};
+
+const chatBox: CSSProperties = {
+marginTop: 18,
+padding: 16,
+borderRadius: 24,
+background:
+"linear-gradient(145deg, rgba(20,10,38,0.86), rgba(7,7,18,0.96))",
+border: "1px solid rgba(168,85,247,0.14)",
+};
+
+const chatTitle: CSSProperties = {
+margin: 0,
+color: "#c084fc",
+fontSize: 22,
+fontWeight: 950,
+};
+
+const chatSub: CSSProperties = {
+opacity: 0.65,
+lineHeight: 1.35,
+};
+
+const messages: CSSProperties = {
+display: "flex",
+flexDirection: "column",
+gap: 10,
+maxHeight: 160,
+overflowY: "auto",
+};
+
+const bubble: CSSProperties = {
+padding: 12,
+borderRadius: 16,
+maxWidth: "88%",
+whiteSpace: "pre-wrap",
+};
+
+const typing: CSSProperties = {
+opacity: 0.6,
+};
+
+const chatInputStyle: CSSProperties = {
+width: "100%",
+marginTop: 12,
+padding: 14,
+borderRadius: 16,
+border: "none",
+outline: "none",
+};
+
+const sendBtn: CSSProperties = {
+width: "100%",
+marginTop: 10,
+padding: 14,
+borderRadius: 16,
+border: "none",
+background: "linear-gradient(135deg,#6366f1,#8b5cf6)",
+color: "white",
+fontWeight: 950,
+};
+
+const bottomNav: CSSProperties = {
+position: "fixed",
+left: 0,
+right: 0,
+bottom: 0,
+height: 88,
+maxWidth: 430,
+margin: "0 auto",
+background: "rgba(5,5,7,0.96)",
+borderTop: "1px solid rgba(168,85,247,0.14)",
+display: "flex",
+justifyContent: "space-around",
+alignItems: "center",
+zIndex: 50,
+};
+
+const navBtn: CSSProperties = {
+border: "none",
+background: "transparent",
+color: "rgba(255,255,255,0.58)",
+fontWeight: 900,
+};
+
+const navActive: CSSProperties = {
+border: "none",
+background: "transparent",
+color: "#a855f7",
+fontWeight: 950,
+};
+
+const plusBtn: CSSProperties = {
+width: 64,
+height: 64,
+borderRadius: 999,
+border: "none",
+background: "linear-gradient(135deg,#a855f7,#7c3aed)",
+color: "white",
+fontSize: 38,
+fontWeight: 950,
+boxShadow: "0 0 30px rgba(168,85,247,0.45)",
 };
