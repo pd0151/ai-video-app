@@ -766,9 +766,9 @@ background: "radial-gradient(circle, rgba(192,132,252,0.35), transparent 70%)",
 filter: "blur(20px)",
 };
 const logoutBtn: CSSProperties = {
-position: "relative",
-top: 0,
-right: 0,
+position: "absolute",
+top: -58,
+right: 8,
 border: "1px solid rgba(255,255,255,0.12)",
 background: "rgba(10,10,20,0.75)",
 backdropFilter: "blur(10px)",
