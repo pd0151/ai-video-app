@@ -31,12 +31,14 @@ const { data } = await supabase
 
 setBusiness(data);
 
-if (!data?.business_name) return;
+const businessName = data?.business_name || data?.name;
+
+if (!businessName) return;
 
 const { data: postsData } = await supabase
 .from("posts")
 .select("*")
-.eq("business_name", data.business_name)
+.eq("business_name", businessName)
 .order("created_at", { ascending: false });
 
 setPosts(postsData || []);
