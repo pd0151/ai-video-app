@@ -189,6 +189,7 @@ if (url) setOpenMedia(url);
 ) : (
 <img
 src={post.image_url || ""}
+loading="lazy"
 style={media}
 onClick={() => {
 const url = post.image_url || post.video_url;
