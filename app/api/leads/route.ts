@@ -16,29 +16,53 @@ function clean(value: any) {
 return String(value || "").trim();
 }
 
+function pick(...values: any[]) {
+return values.map(clean).find((v) => v && !isBad(v)) || "";
+}
+
+function isBad(value: string) {
+const v = clean(value).toLowerCase();
+return ["", "not given", "unknown", "sorry", "not provided", "i", "in", "null", "undefined"].includes(v);
+}
+
+function goodValue(value: any, fallback = "Not provided") {
+const v = clean(value);
+return isBad(v) ? fallback : v;
+}
+
 function cleanPhone(value: any) {
 let phone = clean(value).replace(/\D/g, "");
 
+if (!phone) return "Not provided";
 if (phone.startsWith("44")) return `+${phone}`;
 if (phone.startsWith("0")) return `+44${phone.slice(1)}`;
 
-return phone || "Unknown";
+return phone;
 }
 
 function cleanPostcode(value: any) {
-return clean(value)
+const postcode = clean(value)
 .toUpperCase()
-.replace(/\s+/g, "")
-.replace(/(.{3})$/, " $1");
+.replace(/\s+/g, "");
+
+if (!postcode || isBad(postcode)) return "";
+
+return postcode.replace(/(.{3})$/, " $1");
 }
 
-function goodValue(value: string, fallback = "Not provided") {
-const bad = ["", "not given", "unknown", "sorry", "not provided", "i", "in"];
-const cleaned = clean(value);
+function cleanIssue(value: any) {
+let issue = clean(value);
 
-if (bad.includes(cleaned.toLowerCase())) return fallback;
+issue = issue
+.replace(/Issue:/gi, "")
+.replace(/Vehicle:.*/gi, "")
+.replace(/Tyre size:.*/gi, "")
+.replace(/Name:.*/gi, "")
+.replace(/Phone:.*/gi, "")
+.replace(/Postcode:.*/gi, "")
+.trim();
 
-return cleaned;
+return goodValue(issue, "New tyre enquiry");
 }
 
 export async function POST(req: Request) {
@@ -47,19 +71,56 @@ const body = await req.json();
 
 console.log("NEW VAPI LEAD BODY:", body);
 
-const incomingBusinessId = clean(body.business_id);
-const incomingTwilioNumber =
-clean(body.twilio_number) ||
-clean(body.to) ||
-clean(body.called_number) ||
-clean(body.phone_number);
+const args = body.args || body.arguments || body.toolCall?.function?.arguments || body;
 
-const name = goodValue(body.name, "Customer");
-const customer_phone = cleanPhone(body.customer_phone);
-const vehicle = goodValue(body.vehicle, "Not provided");
-const tyre_size = goodValue(body.tyre_size, "Not provided");
-const postcode = cleanPostcode(body.postcode);
-const issue = goodValue(body.issue, "New enquiry");
+const incomingBusinessId = pick(
+args.business_id,
+body.business_id
+);
+
+const incomingTwilioNumber = pick(
+args.twilio_number,
+body.twilio_number,
+body.to,
+body.called_number,
+body.phone_number,
+body.call?.phoneNumber?.number
+);
+
+const name = goodValue(
+pick(args.name, args.customer_name, body.name, body.customer_name),
+"Not provided"
+);
+
+const customerPhoneRaw = pick(
+args.customer_phone,
+args.phone,
+args.caller,
+body.customer_phone,
+body.phone,
+body.caller,
+body.call?.customer?.number
+);
+
+const customer_phone = cleanPhone(customerPhoneRaw);
+
+const vehicle = goodValue(
+pick(args.vehicle, args.car, args.vehicle_make, args.vehicle_model, body.vehicle, body.car),
+"Not provided"
+);
+
+const tyre_size = goodValue(
+pick(args.tyre_size, args.tyresize, args.tyre, body.tyre_size, body.tyresize),
+"Not provided"
+);
+
+const postcode = cleanPostcode(
+pick(args.postcode, args.location, body.postcode, body.location)
+);
+
+const issue = cleanIssue(
+pick(args.issue, args.problem, args.job, body.issue, body.problem, body.job)
+);
 
 if (!incomingBusinessId && !incomingTwilioNumber) {
 return NextResponse.json(
@@ -121,13 +182,14 @@ return NextResponse.json(
 }
 
 const jobMessage = `
-New job for ${name}
+🚨 New AI Receptionist Lead
 
-Phone: ${customer_phone}
-Vehicle: ${vehicle}
-Tyre size: ${tyre_size}
-Postcode: ${postcode || "Not provided"}
-Issue: ${issue}
+👤 Customer: ${name}
+📞 Phone: ${customer_phone}
+🚗 Vehicle: ${vehicle}
+🛞 Tyre size: ${tyre_size}
+📍 Location: ${postcode || "Not provided"}
+⚠️ Issue: ${issue}
 `.trim();
 
 const { error: leadError } = await supabase.from("leads").insert([
@@ -146,7 +208,6 @@ issue,
 
 if (leadError) {
 console.error("SUPABASE LEAD ERROR:", leadError);
-
 return NextResponse.json(
 { success: false, error: leadError.message },
 { status: 500 }
