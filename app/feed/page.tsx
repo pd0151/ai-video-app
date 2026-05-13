@@ -46,9 +46,9 @@ setLoading(true);
 
 const { data, error } = await supabase
 .from("posts")
-.select("*")
+.select("id,content,image_url,video_url,business_name,phone,whatsapp,website,location,created_at")
 .order("created_at", { ascending: false })
-.limit(12);
+.limit(6);
 
 console.log("FEED DATA:", data);
 console.log("FEED ERROR:", error);
