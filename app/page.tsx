@@ -480,6 +480,7 @@ Post to Feed
 <button style={actionCard} onClick={generateAd}>
     <div style={actionBgGlow} />
 <div style={actionBgLines} />
+<div style={actionImage} />
 <span style={actionIcon}>01</span>
 <b>Generate Ad</b>
 <small>Create viral ads</small>
@@ -488,6 +489,7 @@ Post to Feed
 <button style={actionCard} onClick={() => router.push("/video")}>
   <div style={actionBgGlow} />
 <div style={actionBgLines} />  
+<div style={actionImage} />
 <span style={actionIcon}>02</span>
 <b>Create AI Video</b>
 <small>Turn ideas into video</small>
@@ -496,6 +498,7 @@ Post to Feed
 <label style={actionCard}>
     <div style={actionBgGlow} />
 <div style={actionBgLines} />
+<div style={actionImage} />
 <span style={actionIcon}>03</span>
 <b>Upload Media</b>
 <small>Add your own content</small>
@@ -513,6 +516,7 @@ style={{ display: "none" }}
 <button style={actionCard} onClick={() => router.push("/feed")}>
     <div style={actionBgGlow} />
 <div style={actionBgLines} />
+<div style={actionImage} />
 <span style={actionIcon}>04</span>
 <b>Live Feed</b>
 <small>View campaigns</small>
@@ -620,7 +624,17 @@ filter: "blur(90px)",
 pointerEvents: "none",
 zIndex: 0,
 };
-
+const actionImage: CSSProperties = {
+position: "absolute",
+inset: 0,
+backgroundImage:
+"url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1200&auto=format&fit=crop')",
+backgroundSize: "cover",
+backgroundPosition: "center",
+opacity: 0.18,
+filter: "brightness(0.7)",
+borderRadius: 22,
+};
 const bgGlow2: CSSProperties = {
 position: "fixed",
 width: 260,
