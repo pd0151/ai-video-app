@@ -27,6 +27,7 @@ const [image, setImage] = useState<string | null>(null);
 const [loadingImage, setLoadingImage] = useState(false);
 const [isPro, setIsPro] = useState(false);
 const [credits, setCredits] = useState(0);
+const businessText = getBusinessText(businessTheme);
 
 useEffect(() => {
 async function loadUser() {
@@ -365,9 +366,9 @@ Launch AI Receptionist
 <span>NEW LEAD CAPTURED</span>
 <b>1m ago</b>
 </div>
-<h3 style={{ margin: "10px 0 4px" }}>Mobile tyre job</h3>
+<h3 style={{ margin: "10px 0 4px" }}>{businessText.lead}</h3>
 <p style={{ margin: 0, opacity: 0.8 }}>
-BMW 1 Series • Liverpool • Ready to book
+{businessText.subtitle}
 </p>
 </div>
 </section>
@@ -411,7 +412,7 @@ style={promptInput}
 <div style={toolRow}>
 <button
 style={chip}
-onClick={() => setPrompt("Mobile tyre fitting Liverpool 24/7")}
+onClick={() => setPrompt("{businessText.prompt}")}
 >
 Use Example
 </button>
@@ -660,6 +661,44 @@ opacity: 0.2,
 filter: "brightness(0.65)",
 borderRadius: 22,
 });
+const getBusinessText = (theme: string) => {
+switch (theme) {
+case "tyres":
+return {
+lead: "Mobile tyre job",
+subtitle: "BMW 1 Series • Liverpool • Ready to book",
+prompt: "Mobile tyre fitting Liverpool 24/7 make this advert better",
+};
+
+case "barber":
+return {
+lead: "Fresh fade booking",
+subtitle: "Skin fade • Beard trim • Ready to book",
+prompt: "Modern barber shop Liverpool create a viral advert",
+};
+
+case "recovery":
+return {
+lead: "Vehicle recovery callout",
+subtitle: "Breakdown • Fast response • Ready to dispatch",
+prompt: "24/7 breakdown recovery Liverpool create an advert",
+};
+
+case "gym":
+return {
+lead: "New fitness enquiry",
+subtitle: "Personal training • Membership • Ready to join",
+prompt: "Luxury gym Liverpool create a high converting advert",
+};
+
+default:
+return {
+lead: "New customer enquiry",
+subtitle: "AI generated lead • Ready to convert",
+prompt: "Create a premium advert for my business",
+};
+}
+};
 const bgGlow2: CSSProperties = {
 position: "fixed",
 width: 260,
