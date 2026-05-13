@@ -478,18 +478,24 @@ Post to Feed
 
 <div style={actionGrid}>
 <button style={actionCard} onClick={generateAd}>
+    <div style={actionBgGlow} />
+<div style={actionBgLines} />
 <span style={actionIcon}>01</span>
 <b>Generate Ad</b>
 <small>Create viral ads</small>
 </button>
 
 <button style={actionCard} onClick={() => router.push("/video")}>
+  <div style={actionBgGlow} />
+<div style={actionBgLines} />  
 <span style={actionIcon}>02</span>
 <b>Create AI Video</b>
 <small>Turn ideas into video</small>
 </button>
 
 <label style={actionCard}>
+    <div style={actionBgGlow} />
+<div style={actionBgLines} />
 <span style={actionIcon}>03</span>
 <b>Upload Media</b>
 <small>Add your own content</small>
@@ -505,6 +511,8 @@ style={{ display: "none" }}
 </label>
 
 <button style={actionCard} onClick={() => router.push("/feed")}>
+    <div style={actionBgGlow} />
+<div style={actionBgLines} />
 <span style={actionIcon}>04</span>
 <b>Live Feed</b>
 <small>View campaigns</small>
@@ -1074,18 +1082,41 @@ gap: 12,
 };
 
 const actionCard: CSSProperties = {
-borderRadius: 22,
-padding: 16,
-background: "linear-gradient(145deg,rgba(255,255,255,0.065),rgba(255,255,255,0.025))",
-border: "1px solid rgba(34,255,127,0.18)",
+position: "relative",
+overflow: "hidden",
+borderRadius: 28,
+padding: 22,
+background:
+"linear-gradient(145deg, rgba(7,18,12,0.98), rgba(3,6,5,0.98))",
+border: "1px solid rgba(0,255,140,0.18)",
 display: "flex",
 flexDirection: "column",
-gap: 10,
+justifyContent: "space-between",
 color: "white",
-minHeight: 135,
-textAlign: "left",
+minHeight: 190,
+boxShadow: "0 0 40px rgba(0,255,140,0.08)",
+backdropFilter: "blur(20px)",
+};
+const actionBgGlow: CSSProperties = {
+position: "absolute",
+width: 160,
+height: 160,
+borderRadius: "50%",
+background: "rgba(0,255,140,0.12)",
+top: -60,
+right: -40,
+filter: "blur(30px)",
+pointerEvents: "none",
 };
 
+const actionBgLines: CSSProperties = {
+position: "absolute",
+inset: 0,
+background:
+"linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.03) 45%, transparent 100%)",
+opacity: 0.5,
+pointerEvents: "none",
+};
 const actionIcon: CSSProperties = {
 width: 38,
 height: 38,
