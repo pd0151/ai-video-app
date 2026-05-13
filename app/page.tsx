@@ -22,6 +22,7 @@ const [chatLoading, setChatLoading] = useState(false);
 const [chatInput, setChatInput] = useState("");
 const [prompt, setPrompt] = useState("");
 const [businessName, setBusinessName] = useState("");
+const [businessTheme, setBusinessTheme] = useState("default");
 const [image, setImage] = useState<string | null>(null);
 const [loadingImage, setLoadingImage] = useState(false);
 const [isPro, setIsPro] = useState(false);
@@ -54,7 +55,21 @@ const { data: business } = await supabase
 .single();
 
 if (business?.name) setBusinessName(business.name);
+const name = business?.name?.toLowerCase() || "";
 
+if (name.includes("tyre") || name.includes("tire")) {
+setBusinessTheme("tyres");
+} else if (name.includes("barber") || name.includes("hair")) {
+setBusinessTheme("barber");
+} else if (name.includes("recovery") || name.includes("tow")) {
+setBusinessTheme("recovery");
+} else if (name.includes("gym") || name.includes("fitness")) {
+setBusinessTheme("gym");
+} else if (name.includes("food") || name.includes("restaurant") || name.includes("pizza")) {
+setBusinessTheme("food");
+} else {
+setBusinessTheme("default");
+}
 const { data: creditsRow } = await supabase
 .from("user_credits")
 .select("*")
@@ -480,7 +495,7 @@ Post to Feed
 <button style={actionCard} onClick={generateAd}>
     <div style={actionBgGlow} />
 <div style={actionBgLines} />
-<div style={actionImage} />
+<div style={getActionImage(businessTheme)} />
 <span style={actionIcon}>01</span>
 <b>Generate Ad</b>
 <small>Create viral ads</small>
@@ -489,7 +504,7 @@ Post to Feed
 <button style={actionCard} onClick={() => router.push("/video")}>
   <div style={actionBgGlow} />
 <div style={actionBgLines} />  
-<div style={actionImage} />
+<div style={getActionImage(businessTheme)} />
 <span style={actionIcon}>02</span>
 <b>Create AI Video</b>
 <small>Turn ideas into video</small>
@@ -498,7 +513,7 @@ Post to Feed
 <label style={actionCard}>
     <div style={actionBgGlow} />
 <div style={actionBgLines} />
-<div style={actionImage} />
+<div style={getActionImage(businessTheme)} />
 <span style={actionIcon}>03</span>
 <b>Upload Media</b>
 <small>Add your own content</small>
@@ -516,7 +531,7 @@ style={{ display: "none" }}
 <button style={actionCard} onClick={() => router.push("/feed")}>
     <div style={actionBgGlow} />
 <div style={actionBgLines} />
-<div style={actionImage} />
+<div style={getActionImage(businessTheme)} />
 <span style={actionIcon}>04</span>
 <b>Live Feed</b>
 <small>View campaigns</small>
@@ -624,17 +639,27 @@ filter: "blur(90px)",
 pointerEvents: "none",
 zIndex: 0,
 };
-const actionImage: CSSProperties = {
+const getActionImage = (theme: string): CSSProperties => ({
 position: "absolute",
 inset: 0,
 backgroundImage:
-"url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1200&auto=format&fit=crop')",
+theme === "tyres"
+? "url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1200&auto=format&fit=crop')"
+: theme === "barber"
+? "url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=1200&auto=format&fit=crop')"
+: theme === "recovery"
+? "url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=1200&auto=format&fit=crop')"
+: theme === "gym"
+? "url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop')"
+: theme === "food"
+? "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop')"
+: "url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop')",
 backgroundSize: "cover",
 backgroundPosition: "center",
-opacity: 0.18,
-filter: "brightness(0.7)",
+opacity: 0.2,
+filter: "brightness(0.65)",
 borderRadius: 22,
-};
+});
 const bgGlow2: CSSProperties = {
 position: "fixed",
 width: 260,
