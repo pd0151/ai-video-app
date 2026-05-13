@@ -36,7 +36,7 @@ let phone = clean(value).replace(/\D/g, "");
 if (!phone) return "Not provided";
 if (phone.startsWith("44")) return `+${phone}`;
 if (phone.startsWith("0")) return `+44${phone.slice(1)}`;
-
+if (phone.startsWith("7")) return `+44${phone}`;
 return phone;
 }
 
