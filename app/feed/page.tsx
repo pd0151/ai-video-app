@@ -378,7 +378,7 @@ overflow: "hidden",
 const media: React.CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "contain",
+objectFit: "cover",
 backgroundColor: "#000",
 position: "absolute",
 inset: 0,
