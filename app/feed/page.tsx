@@ -41,20 +41,24 @@ const [comments, setComments] = useState<Comment[]>([]);
 const [commentText, setCommentText] = useState("");
 
 async function loadPosts() {
+setLoading(true);
+
 const { data, error } = await supabase
 .from("posts")
-.select("id, content, image_url, video_url, business_name, phone, whatsapp, website, location, created_at")
+.select("*")
+.or("image_url.not.is.null,video_url.not.is.null,content.not.is.null")
 .order("created_at", { ascending: false })
-.limit(20);
+.limit(12);
 
 if (error) {
 console.log("Feed error:", error.message);
+alert("Feed error: " + error.message);
 setPosts([]);
 setLoading(false);
 return;
 }
 
-setPosts((data || []).filter((p) => p.image_url || p.video_url || p.content));
+setPosts(data || []);
 setLoading(false);
 }
 
@@ -168,7 +172,7 @@ autoPlay
 muted={activeVideo !== post.id}
 loop
 playsInline
-preload="auto"
+preload="metadata"
 style={media}
 onClick={() => {
 const url = post.video_url || post.image_url;
