@@ -30,7 +30,9 @@ const { data } = await supabase
 .maybeSingle();
 
 setBusiness(data);
-
+if (data?.profile_image_url) {
+setProfileImage(data.profile_image_url);
+}
 const businessName = data?.business_name || data?.name;
 
 if (!businessName) return;
@@ -48,11 +50,39 @@ useEffect(() => {
 loadProfile();
 }, []);
 
-function handleProfileImage(file: File) {
-const url = URL.createObjectURL(file);
-setProfileImage(url);
+
+async function handleProfileImage(file: File) {
+const email = localStorage.getItem("user");
+if (!email) return;
+
+const cleanEmail = email.toLowerCase().trim();
+const ext = file.name.split(".").pop();
+const fileName = `profiles/${cleanEmail}-${Date.now()}.${ext}`;
+
+const { error: uploadError } = await supabase.storage
+.from("posts")
+.upload(fileName, file, { upsert: true });
+
+if (uploadError) {
+alert(uploadError.message);
+return;
 }
 
+const {
+data: { publicUrl },
+} = supabase.storage.from("posts").getPublicUrl(fileName);
+
+setProfileImage(publicUrl);
+
+const { error: updateError } = await supabase
+.from("businesses")
+.update({ profile_image_url: publicUrl })
+.eq("email", cleanEmail);
+
+if (updateError) {
+alert(updateError.message);
+}
+}
 if (!business) {
 return (
 <main style={empty}>
@@ -573,9 +603,9 @@ boxShadow: "0 0 24px rgba(34,255,127,0.8)",
 
 const bottomNav: React.CSSProperties = {
 position: "fixed",
+bottom: 0,
 left: 0,
 right: 0,
-bottom: 0,
 height: 96,
 background: "rgba(2,7,5,0.96)",
 borderTop: "1px solid rgba(34,255,127,0.14)",
