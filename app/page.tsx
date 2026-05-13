@@ -136,13 +136,10 @@ const data = await res.json();
 const imageUrl =
 data.image || data.url || data.image_url || data.output?.[0];
 
-if (imageUrl) {
-setImage(imageUrl);
-}
+if (imageUrl) setImage(imageUrl);
 
 if (!isPro) {
 const newCredits = Math.max(credits - 1, 0);
-
 setCredits(newCredits);
 
 const { data } = await supabase.auth.getUser();
@@ -169,9 +166,7 @@ async function uploadMedia(file: File) {
 const isVideo = file.type.startsWith("video");
 const fileName = `${Date.now()}-${file.name}`;
 
-const { error } = await supabase.storage
-.from("posts")
-.upload(fileName, file);
+const { error } = await supabase.storage.from("posts").upload(fileName, file);
 
 if (error) {
 alert(error.message);
@@ -245,6 +240,45 @@ setChatLoading(false);
 
 return (
 <>
+<style jsx global>{`
+@keyframes floatUp {
+0%, 100% { transform: translateY(0px); }
+50% { transform: translateY(-10px); }
+}
+
+@keyframes pulseGlow {
+0%, 100% { box-shadow: 0 0 24px rgba(34,255,127,0.25); }
+50% { box-shadow: 0 0 48px rgba(34,255,127,0.55); }
+}
+
+@keyframes slideAds {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+
+@keyframes greenWave {
+0% { transform: translateX(-100%); opacity: 0.2; }
+50% { opacity: 1; }
+100% { transform: translateX(100%); opacity: 0.2; }
+}
+
+.float-card {
+animation: floatUp 4s ease-in-out infinite;
+}
+
+.green-pulse {
+animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.ad-track {
+animation: slideAds 18s linear infinite;
+}
+
+.wave-line {
+animation: greenWave 3s ease-in-out infinite;
+}
+`}</style>
+
 <div style={bgGlow1} />
 <div style={bgGlow2} />
 
@@ -253,7 +287,7 @@ return (
 <div>
 <div style={brandLabel}>AI ADVERTISING PLATFORM</div>
 <h1 style={logo}>
-Ad<span style={{ color: "#a855f7" }}>Forge</span>
+Ad<span style={{ color: "#22ff7f" }}>Forge</span>
 </h1>
 </div>
 
@@ -269,7 +303,7 @@ Ad<span style={{ color: "#a855f7" }}>Forge</span>
 {isPro ? (
 <div style={proBadge}>PRO</div>
 ) : (
-<button onClick={upgradeUser} style={upgrade}>
+<button onClick={upgradeUser} style={greenBtn}>
 Upgrade
 </button>
 )}
@@ -287,78 +321,75 @@ style={logoutBtn}
 Logout
 </button>
 
-<div style={aiGlow} />
-
 <div style={aiPill}>
 <span style={greenDot} />
 LIVE AI RECEPTIONIST
 </div>
 
+<div style={waveWrap}>
+<div className="wave-line" style={waveLine} />
+</div>
+
 <h2 style={aiTitle}>
 Turn missed calls
 <br />
-into booked jobs
+into <span style={{ color: "#22ff7f" }}>booked jobs</span>
 </h2>
 
 <p style={aiText}>
-AI answers calls, captures customer details and sends instant job
-alerts straight to your dashboard.
+AI answers calls, captures details and sends instant job alerts
+straight to your dashboard.
 </p>
 
-<div style={aiFeatureGrid}>
-<div style={aiFeature}>
-<b>24/7 Calls</b>
-<small>Always available</small>
-</div>
-<div style={aiFeature}>
-<b>Lead Capture</b>
-<small>Name, job, location</small>
-</div>
-<div style={aiFeature}>
-<b>SMS Alerts</b>
-<small>Instant updates</small>
-</div>
-<div style={aiFeature}>
-<b>Live Dashboard</b>
-<small>Track every lead</small>
-</div>
-</div>
+<button className="green-pulse" style={aiCta}>
+Launch AI Receptionist
+</button>
 
-<div style={aiLeadCard}>
+<div className="float-card" style={aiLeadCard}>
 <div style={aiLeadTop}>
-<span>AI Online</span>
-<b>LIVE</b>
+<span>NEW LEAD CAPTURED</span>
+<b>1m ago</b>
 </div>
+<h3 style={{ margin: "10px 0 4px" }}>Mobile tyre job</h3>
+<p style={{ margin: 0, opacity: 0.8 }}>
+BMW 1 Series • Liverpool • Ready to book
+</p>
+</div>
+</section>
 
-<div style={aiLeadInner}>
-<small>NEW LEAD CAPTURED</small>
-<h3>Mobile tyre job</h3>
-<p>BMW 1 Series • Liverpool • Ready to book</p>
+<section style={statsStrip}>
+<div style={statBox}>
+<b>24/7</b>
+<small>Calls Answered</small>
 </div>
+<div style={statBox}>
+<b>128</b>
+<small>Leads This Week</small>
 </div>
-
-<button style={aiCta}>Launch AI Receptionist</button>
+<div style={statBox}>
+<b>98%</b>
+<small>Response Rate</small>
+</div>
+<div style={statBox}>
+<b>47</b>
+<small>Jobs Booked</small>
+</div>
 </section>
 
 <section style={heroCard}>
+<div style={heroTop}>
+<div>
 <div style={heroPill}>AI CREATIVE STUDIO</div>
-
-<h2 style={heroTitle}>
-Create premium adverts
-<br />
-in seconds
-</h2>
-
-<p style={heroSub}>
-Describe your business, offer or service. AdForge turns it into a
-polished social advert ready for your live feed.
-</p>
+<h2 style={heroTitle}>Create high-converting ads</h2>
+</div>
+<div style={liveBadge}>LIVE</div>
+</div>
 
 <div style={promptBox}>
 <textarea
 value={prompt}
 onChange={(e) => setPrompt(e.target.value)}
-placeholder="Example: Mobile tyre fitting Liverpool, 24/7 callout, fast response..."
+placeholder="Describe your business, offer or service..."
 style={promptInput}
 />
 
@@ -367,18 +398,18 @@ style={promptInput}
 style={chip}
 onClick={() => setPrompt("Mobile tyre fitting Liverpool 24/7")}
 >
-Use example
+Use Example
 </button>
 
 <button
 style={chip}
 onClick={() => setPrompt(`${prompt} make this advert better`)}
 >
-Improve prompt
+Improve Prompt
 </button>
 
-<label style={uploadBubble}>
-Upload
+<label style={chip}>
+Upload Media
 <input
 type="file"
 accept="image/*,video/*"
@@ -390,9 +421,36 @@ style={{ display: "none" }}
 />
 </label>
 
-<button style={arrowBtn} onClick={generateAd}>
-{loadingImage ? "..." : "Create"}
+<button className="green-pulse" style={createBtn} onClick={generateAd}>
+{loadingImage ? "Creating..." : "Generate Ad"}
 </button>
+</div>
+</div>
+</section>
+
+<section style={showcase}>
+<div style={sectionTop}>
+<h3 style={sectionTitle}>Recent AI Generated Ads</h3>
+<button style={viewBtn} onClick={() => router.push("/feed")}>
+View all
+</button>
+</div>
+
+<div style={adScroller}>
+<div className="ad-track" style={adTrack}>
+{["MOBILE TYRE FITTING 24/7", "PUNCTURE? WE COME TO YOU", "FAST LOCAL CALLOUT", "FLAT TYRE? NO PROBLEM", "BOOK YOUR JOB TODAY", "LIVERPOOL MOBILE TYRES"].map(
+(title, i) => (
+<div key={i} style={adPreview}>
+<div style={adMockImage}>
+<div style={tyreCircle} />
+<div style={adGlow} />
+</div>
+<b>{title}</b>
+<small>Premium advert template</small>
+<span style={miniGreen}>READY TO POST</span>
+</div>
+)
+)}
 </div>
 </div>
 </section>
@@ -400,7 +458,7 @@ style={{ display: "none" }}
 {image && (
 <section style={generatedCard}>
 <div style={sectionTop}>
-<b style={{ color: "#c084fc" }}>Generated Advert</b>
+<b style={{ color: "#22ff7f" }}>Generated Advert</b>
 <button style={smallDarkBtn} onClick={generateAd}>
 Regenerate
 </button>
@@ -415,28 +473,25 @@ Post to Feed
 )}
 
 <section style={actionsCard}>
-<div style={sectionTop}>
 <h3 style={sectionTitle}>Quick Actions</h3>
-<span style={mutedMini}>Built for speed</span>
-</div>
 
 <div style={actionGrid}>
 <button style={actionCard} onClick={generateAd}>
-<span style={actionCode}>01</span>
-<b>Generate Viral Ad</b>
-<small>Create scroll-stopping content</small>
+<span style={actionIcon}>01</span>
+<b>Generate Ad</b>
+<small>Create viral ads</small>
 </button>
 
 <button style={actionCard} onClick={() => router.push("/video")}>
-<span style={actionCode}>02</span>
+<span style={actionIcon}>02</span>
 <b>Create AI Video</b>
-<small>Turn ideas into short-form video</small>
+<small>Turn ideas into video</small>
 </button>
 
 <label style={actionCard}>
-<span style={actionCode}>03</span>
+<span style={actionIcon}>03</span>
 <b>Upload Media</b>
-<small>Add your own photo or video</small>
+<small>Add your own content</small>
 <input
 type="file"
 accept="image/*,video/*"
@@ -449,32 +504,17 @@ style={{ display: "none" }}
 </label>
 
 <button style={actionCard} onClick={() => router.push("/feed")}>
-<span style={actionCode}>04</span>
-<b>Live Campaign Feed</b>
-<small>View your published adverts</small>
+<span style={actionIcon}>04</span>
+<b>Live Feed</b>
+<small>View campaigns</small>
 </button>
-</div>
-</section>
-
-<section style={proofGrid}>
-<div style={proofCard}>
-<b>3 Free Credits</b>
-<small>Start creating instantly</small>
-</div>
-<div style={proofCard}>
-<b>AI Ads</b>
-<small>Built for social media</small>
-</div>
-<div style={proofCard}>
-<b>Lead System</b>
-<small>AI receptionist ready</small>
 </div>
 </section>
 
 <section style={chatBox}>
 <div style={sectionTop}>
 <h3 style={chatTitle}>AI Ad Assistant</h3>
-<span style={onlinePill}>Online</span>
+<span style={onlinePill}>Online ●</span>
 </div>
 
 <div style={messages}>
@@ -493,8 +533,9 @@ style={{
 alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
 background:
 msg.role === "user"
-? "linear-gradient(135deg,#7c3aed,#a855f7)"
+? "linear-gradient(135deg,#16a34a,#22ff7f)"
 : "rgba(255,255,255,0.08)",
+color: msg.role === "user" ? "#04140c" : "white",
 }}
 >
 {msg.content}
@@ -504,6 +545,7 @@ msg.role === "user"
 {chatLoading && <div style={typing}>AI is typing...</div>}
 </div>
 
+<div style={chatInputWrap}>
 <input
 value={chatInput}
 onChange={(e) => setChatInput(e.target.value)}
@@ -514,9 +556,10 @@ if (e.key === "Enter") sendChatMessage();
 }}
 />
 
-<button style={sendBtn} onClick={sendChatMessage}>
-Send Message
+<button style={sendCircle} onClick={sendChatMessage}>
+→
 </button>
+</div>
 </section>
 
 <nav style={bottomNav}>
@@ -533,7 +576,7 @@ Feed
 </button>
 
 <button style={navBtn} onClick={() => router.push("/video")}>
-Create
+AI
 </button>
 
 <button style={navBtn} onClick={() => router.push("/profile")}>
@@ -548,7 +591,7 @@ Profile
 const page: CSSProperties = {
 minHeight: "100vh",
 background:
-"radial-gradient(circle at top,#24104a 0%,#090312 42%,#020204 100%)",
+"radial-gradient(circle at top,#081812 0%,#03100c 35%,#020204 100%)",
 color: "white",
 padding: "18px 16px 140px",
 fontFamily: "Inter, sans-serif",
@@ -558,13 +601,13 @@ position: "relative",
 
 const bgGlow1: CSSProperties = {
 position: "fixed",
-width: 300,
-height: 300,
+width: 320,
+height: 320,
 borderRadius: "50%",
-background: "rgba(168,85,247,0.22)",
-top: -90,
+background: "rgba(34,255,127,0.16)",
+top: -110,
 right: -110,
-filter: "blur(80px)",
+filter: "blur(90px)",
 pointerEvents: "none",
 zIndex: 0,
 };
@@ -593,7 +636,7 @@ marginBottom: 18,
 
 const brandLabel: CSSProperties = {
 fontSize: 10,
-letterSpacing: 2,
+letterSpacing: 4,
 color: "rgba(255,255,255,0.45)",
 fontWeight: 900,
 marginBottom: 4,
@@ -619,7 +662,7 @@ gap: 8,
 padding: "10px 13px",
 borderRadius: 18,
 background: "rgba(255,255,255,0.06)",
-border: "1px solid rgba(255,255,255,0.10)",
+border: "1px solid rgba(34,255,127,0.20)",
 backdropFilter: "blur(12px)",
 };
 
@@ -629,9 +672,9 @@ height: 30,
 borderRadius: 999,
 display: "grid",
 placeItems: "center",
-background: "linear-gradient(135deg,#a855f7,#7c3aed)",
+background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+color: "#04140c",
 fontWeight: 950,
-fontSize: 13,
 };
 
 const small: CSSProperties = {
@@ -639,22 +682,18 @@ fontSize: 11,
 opacity: 0.65,
 };
 
-const upgrade: CSSProperties = {
+const greenBtn: CSSProperties = {
 border: "none",
 borderRadius: 18,
 padding: "12px 16px",
-color: "white",
-fontWeight: 900,
-background: "linear-gradient(135deg,#a855f7,#7c3aed)",
-boxShadow: "0 0 30px rgba(168,85,247,0.35)",
+color: "#04140c",
+fontWeight: 950,
+background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+boxShadow: "0 0 30px rgba(34,255,127,0.30)",
 };
 
 const proBadge: CSSProperties = {
-borderRadius: 18,
-padding: "12px 16px",
-color: "#08140d",
-fontWeight: 950,
-background: "linear-gradient(135deg,#7dffb3,#22c55e)",
+...greenBtn,
 };
 
 const logoutBtn: CSSProperties = {
@@ -663,7 +702,7 @@ top: 18,
 right: 18,
 zIndex: 5,
 border: "1px solid rgba(255,255,255,0.12)",
-background: "rgba(255,255,255,0.07)",
+background: "rgba(0,0,0,0.35)",
 color: "white",
 borderRadius: 16,
 padding: "10px 13px",
@@ -674,25 +713,14 @@ const aiHero: CSSProperties = {
 position: "relative",
 zIndex: 2,
 overflow: "hidden",
-borderRadius: 34,
+borderRadius: 30,
 padding: 24,
 background:
-"radial-gradient(circle at top right, rgba(0,255,140,0.18), transparent 27%), linear-gradient(145deg,#2b1352,#090312)",
-border: "1px solid rgba(0,255,140,0.18)",
+"radial-gradient(circle at top right, rgba(34,255,127,0.18), transparent 30%), linear-gradient(145deg,#061b15,#020604)",
+border: "1px solid rgba(34,255,127,0.28)",
 boxShadow: "0 25px 70px rgba(0,0,0,0.38)",
-marginBottom: 22,
+marginBottom: 18,
 cursor: "pointer",
-};
-
-const aiGlow: CSSProperties = {
-position: "absolute",
-width: 240,
-height: 240,
-borderRadius: "50%",
-background: "rgba(168,85,247,0.20)",
-top: -80,
-right: -60,
-filter: "blur(44px)",
 };
 
 const aiPill: CSSProperties = {
@@ -701,9 +729,9 @@ alignItems: "center",
 gap: 8,
 padding: "9px 14px",
 borderRadius: 999,
-background: "rgba(0,255,140,0.08)",
-border: "1px solid rgba(0,255,140,0.18)",
-color: "#7dffb3",
+background: "rgba(34,255,127,0.08)",
+border: "1px solid rgba(34,255,127,0.22)",
+color: "#22ff7f",
 fontWeight: 900,
 fontSize: 12,
 position: "relative",
@@ -714,16 +742,33 @@ const greenDot: CSSProperties = {
 width: 8,
 height: 8,
 borderRadius: "50%",
-background: "#00ff88",
-boxShadow: "0 0 12px #00ff88",
+background: "#22ff7f",
+boxShadow: "0 0 12px #22ff7f",
+};
+
+const waveWrap: CSSProperties = {
+position: "absolute",
+right: -20,
+top: 120,
+width: 260,
+height: 70,
+overflow: "hidden",
+opacity: 0.6,
+};
+
+const waveLine: CSSProperties = {
+width: 260,
+height: 2,
+background: "linear-gradient(90deg,transparent,#22ff7f,transparent)",
+marginTop: 34,
 };
 
 const aiTitle: CSSProperties = {
-fontSize: 46,
-lineHeight: 0.92,
+fontSize: 42,
+lineHeight: 0.95,
 fontWeight: 950,
-margin: "22px 0 14px",
-letterSpacing: -3,
+margin: "24px 0 14px",
+letterSpacing: -2.5,
 position: "relative",
 zIndex: 2,
 };
@@ -737,32 +782,24 @@ position: "relative",
 zIndex: 2,
 };
 
-const aiFeatureGrid: CSSProperties = {
-display: "grid",
-gridTemplateColumns: "1fr 1fr",
-gap: 10,
+const aiCta: CSSProperties = {
+width: "100%",
 marginTop: 18,
-position: "relative",
-zIndex: 2,
-};
-
-const aiFeature: CSSProperties = {
-padding: "13px 12px",
+padding: "16px",
 borderRadius: 18,
-background: "rgba(255,255,255,0.055)",
-border: "1px solid rgba(255,255,255,0.07)",
-display: "flex",
-flexDirection: "column",
-gap: 4,
-fontSize: 13,
+border: "none",
+background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+color: "#04140c",
+fontWeight: 950,
+fontSize: 16,
 };
 
 const aiLeadCard: CSSProperties = {
 marginTop: 18,
-borderRadius: 24,
+borderRadius: 22,
 padding: 16,
-background: "rgba(0,0,0,0.34)",
-border: "1px solid rgba(255,255,255,0.09)",
+background: "rgba(0,0,0,0.35)",
+border: "1px solid rgba(34,255,127,0.22)",
 position: "relative",
 zIndex: 2,
 };
@@ -770,84 +807,92 @@ zIndex: 2,
 const aiLeadTop: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
-color: "#7dffb3",
+color: "#22ff7f",
 fontWeight: 900,
-fontSize: 13,
+fontSize: 12,
 };
 
-const aiLeadInner: CSSProperties = {
-marginTop: 12,
+const statsStrip: CSSProperties = {
+position: "relative",
+zIndex: 2,
+display: "grid",
+gridTemplateColumns: "1fr 1fr",
+gap: 10,
+padding: 12,
+borderRadius: 24,
+background: "rgba(34,255,127,0.055)",
+border: "1px solid rgba(34,255,127,0.28)",
+marginBottom: 18,
 };
 
-const aiCta: CSSProperties = {
-width: "100%",
-marginTop: 18,
-padding: "16px",
+const statBox: CSSProperties = {
+padding: 12,
 borderRadius: 18,
-border: "none",
-background: "linear-gradient(90deg,#00ff88,#2fffaf)",
-color: "#04140c",
-fontWeight: 950,
-fontSize: 16,
+background: "rgba(0,0,0,0.28)",
+display: "flex",
+flexDirection: "column",
+gap: 4,
 };
 
 const heroCard: CSSProperties = {
 position: "relative",
 zIndex: 2,
-borderRadius: 30,
-padding: 24,
-background:
-"linear-gradient(145deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035))",
-border: "1px solid rgba(168,85,247,0.22)",
-backdropFilter: "blur(16px)",
-marginBottom: 22,
-boxShadow: "0 18px 60px rgba(0,0,0,0.28)",
+borderRadius: 28,
+padding: 18,
+background: "linear-gradient(145deg,rgba(255,255,255,0.065),rgba(255,255,255,0.025))",
+border: "1px solid rgba(34,255,127,0.18)",
+marginBottom: 18,
+};
+
+const heroTop: CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+gap: 12,
 };
 
 const heroPill: CSSProperties = {
 display: "inline-flex",
 padding: "8px 12px",
 borderRadius: 999,
-background: "rgba(168,85,247,0.13)",
-border: "1px solid rgba(168,85,247,0.24)",
-color: "#d8b4fe",
+background: "rgba(34,255,127,0.10)",
+border: "1px solid rgba(34,255,127,0.24)",
+color: "#22ff7f",
 fontSize: 11,
 fontWeight: 950,
 letterSpacing: 1.2,
-marginBottom: 16,
+marginBottom: 12,
+};
+
+const liveBadge: CSSProperties = {
+color: "#22ff7f",
+fontWeight: 950,
 };
 
 const heroTitle: CSSProperties = {
 margin: 0,
-fontSize: 36,
+fontSize: 26,
 lineHeight: 1,
 fontWeight: 950,
-letterSpacing: -2,
-};
-
-const heroSub: CSSProperties = {
-marginTop: 12,
-opacity: 0.72,
-lineHeight: 1.5,
+letterSpacing: -1,
 };
 
 const promptBox: CSSProperties = {
-marginTop: 18,
-borderRadius: 22,
-padding: 18,
+marginTop: 14,
+borderRadius: 20,
+padding: 14,
 background: "rgba(0,0,0,0.30)",
 border: "1px solid rgba(255,255,255,0.09)",
 };
 
 const promptInput: CSSProperties = {
 width: "100%",
-height: 108,
+height: 86,
 background: "transparent",
 border: "none",
 outline: "none",
 color: "white",
 resize: "none",
-fontSize: 17,
+fontSize: 16,
 lineHeight: 1.45,
 };
 
@@ -859,65 +904,35 @@ flexWrap: "wrap",
 };
 
 const chip: CSSProperties = {
-border: "1px solid rgba(255,255,255,0.08)",
+border: "1px solid rgba(34,255,127,0.18)",
 borderRadius: 999,
 padding: "10px 14px",
-background: "rgba(255,255,255,0.08)",
+background: "rgba(255,255,255,0.06)",
 color: "white",
 fontWeight: 800,
 };
 
-const arrowBtn: CSSProperties = {
+const createBtn: CSSProperties = {
 flex: 1,
-minWidth: 96,
+minWidth: 135,
 height: 52,
 borderRadius: 999,
 border: "none",
-background: "linear-gradient(135deg,#a855f7,#7c3aed)",
-color: "white",
+background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+color: "#04140c",
 fontSize: 15,
 fontWeight: 950,
-boxShadow: "0 0 28px rgba(168,85,247,0.30)",
 };
 
-const uploadBubble: CSSProperties = {
-height: 52,
-borderRadius: 999,
-padding: "0 16px",
-background: "rgba(255,255,255,0.08)",
-border: "1px solid rgba(255,255,255,0.08)",
-display: "grid",
-placeItems: "center",
-cursor: "pointer",
-fontWeight: 850,
-color: "white",
-};
-
-const generatedCard: CSSProperties = {
+const showcase: CSSProperties = {
 position: "relative",
 zIndex: 2,
-borderRadius: 28,
-padding: 18,
-background: "rgba(255,255,255,0.05)",
-border: "1px solid rgba(255,255,255,0.09)",
-marginBottom: 22,
-};
-
-const generatedImage: CSSProperties = {
-width: "100%",
-borderRadius: 20,
-marginTop: 16,
-marginBottom: 16,
-};
-
-const useBtn: CSSProperties = {
-width: "100%",
-padding: "15px",
-border: "none",
-borderRadius: 18,
-background: "linear-gradient(135deg,#9333ea,#7c3aed)",
-color: "white",
-fontWeight: 950,
+borderRadius: 24,
+padding: 16,
+background: "rgba(255,255,255,0.04)",
+border: "1px solid rgba(34,255,127,0.15)",
+marginBottom: 18,
+overflow: "hidden",
 };
 
 const sectionTop: CSSProperties = {
@@ -925,6 +940,94 @@ display: "flex",
 justifyContent: "space-between",
 alignItems: "center",
 gap: 12,
+};
+
+const sectionTitle: CSSProperties = {
+fontSize: 22,
+fontWeight: 950,
+margin: "0 0 14px",
+};
+
+const viewBtn: CSSProperties = {
+border: "none",
+background: "transparent",
+color: "#22ff7f",
+fontWeight: 900,
+};
+
+const adScroller: CSSProperties = {
+overflow: "hidden",
+};
+
+const adTrack: CSSProperties = {
+display: "flex",
+gap: 12,
+width: "max-content",
+};
+
+const adPreview: CSSProperties = {
+width: 180,
+minHeight: 210,
+borderRadius: 20,
+padding: 12,
+background: "linear-gradient(145deg,#081c16,#030706)",
+border: "1px solid rgba(34,255,127,0.22)",
+display: "flex",
+flexDirection: "column",
+gap: 8,
+};
+
+const adMockImage: CSSProperties = {
+height: 92,
+borderRadius: 16,
+background: "radial-gradient(circle at center,rgba(34,255,127,0.25),rgba(255,255,255,0.05))",
+position: "relative",
+overflow: "hidden",
+};
+
+const tyreCircle: CSSProperties = {
+position: "absolute",
+width: 70,
+height: 70,
+borderRadius: "50%",
+border: "10px solid rgba(255,255,255,0.75)",
+right: 12,
+bottom: -16,
+};
+
+const adGlow: CSSProperties = {
+position: "absolute",
+width: 80,
+height: 80,
+borderRadius: "50%",
+background: "rgba(34,255,127,0.35)",
+filter: "blur(24px)",
+left: -20,
+top: 18,
+};
+
+const miniGreen: CSSProperties = {
+marginTop: "auto",
+color: "#22ff7f",
+fontSize: 11,
+fontWeight: 950,
+};
+
+const generatedCard: CSSProperties = {
+position: "relative",
+zIndex: 2,
+borderRadius: 24,
+padding: 16,
+background: "rgba(255,255,255,0.05)",
+border: "1px solid rgba(34,255,127,0.16)",
+marginBottom: 18,
+};
+
+const generatedImage: CSSProperties = {
+width: "100%",
+borderRadius: 18,
+marginTop: 16,
+marginBottom: 16,
 };
 
 const smallDarkBtn: CSSProperties = {
@@ -936,23 +1039,20 @@ color: "white",
 fontWeight: 800,
 };
 
+const useBtn: CSSProperties = {
+width: "100%",
+padding: "15px",
+border: "none",
+borderRadius: 18,
+background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+color: "#04140c",
+fontWeight: 950,
+};
+
 const actionsCard: CSSProperties = {
 position: "relative",
 zIndex: 2,
-marginBottom: 22,
-};
-
-const sectionTitle: CSSProperties = {
-fontSize: 28,
-fontWeight: 950,
-margin: "0 0 16px",
-letterSpacing: -1,
-};
-
-const mutedMini: CSSProperties = {
-color: "rgba(255,255,255,0.48)",
-fontSize: 12,
-fontWeight: 800,
+marginBottom: 18,
 };
 
 const actionGrid: CSSProperties = {
@@ -962,71 +1062,49 @@ gap: 12,
 };
 
 const actionCard: CSSProperties = {
-borderRadius: 24,
-padding: 18,
-background:
-"linear-gradient(145deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035))",
-border: "1px solid rgba(255,255,255,0.09)",
+borderRadius: 22,
+padding: 16,
+background: "linear-gradient(145deg,rgba(255,255,255,0.065),rgba(255,255,255,0.025))",
+border: "1px solid rgba(34,255,127,0.18)",
 display: "flex",
 flexDirection: "column",
 gap: 10,
 color: "white",
-minHeight: 150,
+minHeight: 135,
 textAlign: "left",
 };
 
-const actionCode: CSSProperties = {
-width: 36,
-height: 36,
+const actionIcon: CSSProperties = {
+width: 38,
+height: 38,
 borderRadius: 12,
 display: "grid",
 placeItems: "center",
-background: "rgba(168,85,247,0.16)",
-border: "1px solid rgba(168,85,247,0.25)",
-color: "#d8b4fe",
+background: "rgba(34,255,127,0.10)",
+border: "1px solid rgba(34,255,127,0.22)",
+color: "#22ff7f",
 fontWeight: 950,
 fontSize: 12,
-};
-
-const proofGrid: CSSProperties = {
-position: "relative",
-zIndex: 2,
-display: "grid",
-gridTemplateColumns: "1fr 1fr 1fr",
-gap: 10,
-marginBottom: 22,
-};
-
-const proofCard: CSSProperties = {
-borderRadius: 20,
-padding: 14,
-background: "rgba(255,255,255,0.05)",
-border: "1px solid rgba(255,255,255,0.08)",
-display: "flex",
-flexDirection: "column",
-gap: 6,
-minHeight: 84,
 };
 
 const chatBox: CSSProperties = {
 position: "relative",
 zIndex: 2,
-borderRadius: 30,
-padding: 22,
-background:
-"linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.035))",
-border: "1px solid rgba(168,85,247,0.18)",
+borderRadius: 26,
+padding: 18,
+background: "linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.025))",
+border: "1px solid rgba(34,255,127,0.16)",
 marginBottom: 30,
 };
 
 const chatTitle: CSSProperties = {
-fontSize: 26,
+fontSize: 25,
 fontWeight: 950,
 margin: 0,
 };
 
 const onlinePill: CSSProperties = {
-color: "#7dffb3",
+color: "#22ff7f",
 fontWeight: 900,
 };
 
@@ -1034,7 +1112,7 @@ const messages: CSSProperties = {
 display: "flex",
 flexDirection: "column",
 gap: 12,
-marginTop: 18,
+marginTop: 16,
 };
 
 const bubble: CSSProperties = {
@@ -1049,26 +1127,35 @@ const typing: CSSProperties = {
 opacity: 0.6,
 };
 
-const chatInputStyle: CSSProperties = {
-width: "100%",
-padding: 16,
-borderRadius: 18,
+const chatInputWrap: CSSProperties = {
+marginTop: 14,
+display: "flex",
+gap: 10,
+alignItems: "center",
+borderRadius: 999,
 border: "1px solid rgba(255,255,255,0.09)",
 background: "rgba(255,255,255,0.055)",
-color: "white",
-marginTop: 16,
-outline: "none",
+padding: 8,
 };
 
-const sendBtn: CSSProperties = {
-width: "100%",
-marginTop: 14,
-padding: 16,
+const chatInputStyle: CSSProperties = {
+flex: 1,
 border: "none",
-borderRadius: 18,
-background: "linear-gradient(135deg,#6366f1,#8b5cf6)",
+background: "transparent",
 color: "white",
+outline: "none",
+padding: "10px 8px",
+};
+
+const sendCircle: CSSProperties = {
+width: 44,
+height: 44,
+borderRadius: "50%",
+border: "none",
+background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+color: "#04140c",
 fontWeight: 950,
+fontSize: 22,
 };
 
 const bottomNav: CSSProperties = {
@@ -1077,8 +1164,8 @@ left: 0,
 right: 0,
 bottom: 0,
 height: 88,
-background: "rgba(5,5,7,0.96)",
-borderTop: "1px solid rgba(255,255,255,0.08)",
+background: "rgba(2,7,5,0.96)",
+borderTop: "1px solid rgba(34,255,127,0.14)",
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
@@ -1095,7 +1182,7 @@ fontWeight: 850,
 
 const navActive: CSSProperties = {
 ...navBtn,
-color: "#c084fc",
+color: "#22ff7f",
 };
 
 const plusBtn: CSSProperties = {
@@ -1103,9 +1190,9 @@ width: 66,
 height: 66,
 borderRadius: "50%",
 border: "none",
-background: "linear-gradient(135deg,#a855f7,#7c3aed)",
-color: "white",
+background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+color: "#04140c",
 fontSize: 38,
 fontWeight: 950,
-boxShadow: "0 0 30px rgba(168,85,247,0.4)",
+boxShadow: "0 0 34px rgba(34,255,127,0.42)",
 };
