@@ -442,8 +442,9 @@ View all
 (title, i) => (
 <div key={i} style={adPreview}>
 <div style={adMockImage}>
-<div style={tyreCircle} />
 <div style={adGlow} />
+<div style={tyreCircle} />
+<div style={adRoad} />
 </div>
 <b>{title}</b>
 <small>Premium advert template</small>
@@ -978,34 +979,45 @@ gap: 8,
 };
 
 const adMockImage: CSSProperties = {
-height: 92,
+height: 96,
 borderRadius: 16,
-background: "radial-gradient(circle at center,rgba(34,255,127,0.25),rgba(255,255,255,0.05))",
 position: "relative",
 overflow: "hidden",
+background:
+"linear-gradient(135deg, rgba(0,0,0,0.15), rgba(0,0,0,0.75)), radial-gradient(circle at 70% 45%, rgba(34,255,127,0.55), transparent 26%), linear-gradient(135deg,#10251d,#020604)",
 };
 
 const tyreCircle: CSSProperties = {
 position: "absolute",
-width: 70,
-height: 70,
+width: 72,
+height: 72,
 borderRadius: "50%",
-border: "10px solid rgba(255,255,255,0.75)",
-right: 12,
-bottom: -16,
+border: "11px solid rgba(235,245,240,0.88)",
+right: 14,
+bottom: -18,
+boxShadow: "0 0 25px rgba(34,255,127,0.35)",
 };
 
 const adGlow: CSSProperties = {
 position: "absolute",
-width: 80,
-height: 80,
-borderRadius: "50%",
-background: "rgba(34,255,127,0.35)",
-filter: "blur(24px)",
-left: -20,
+width: 120,
+height: 70,
+borderRadius: 18,
+background:
+"linear-gradient(135deg, rgba(34,255,127,0.42), rgba(255,255,255,0.06))",
+filter: "blur(8px)",
+left: 12,
 top: 18,
 };
-
+const adRoad: CSSProperties = {
+position: "absolute",
+left: 0,
+right: 0,
+bottom: 0,
+height: 28,
+background:
+"linear-gradient(180deg, transparent, rgba(0,0,0,0.65))",
+};
 const miniGreen: CSSProperties = {
 marginTop: "auto",
 color: "#22ff7f",
