@@ -149,7 +149,15 @@ alert("Link copied");
 }
 
 if (loading) {
-return <main style={empty}><h1>Loading feed...</h1></main>;
+return (
+<main style={empty}>
+<div style={loaderCard}>
+<div style={loaderDot} />
+<h1>Loading feed...</h1>
+<p>Preparing your latest adverts</p>
+</div>
+</main>
+);
 }
 
 if (posts.length === 0) {
@@ -318,7 +326,22 @@ background: "#020617",
 textAlign: "center",
 padding: 30,
 };
+const loaderCard: React.CSSProperties = {
+padding: 28,
+borderRadius: 28,
+background: "rgba(34,255,127,0.06)",
+border: "1px solid rgba(34,255,127,0.18)",
+boxShadow: "0 0 40px rgba(34,255,127,0.12)",
+};
 
+const loaderDot: React.CSSProperties = {
+width: 18,
+height: 18,
+borderRadius: "50%",
+background: "#22ff7f",
+margin: "0 auto 16px",
+boxShadow: "0 0 24px rgba(34,255,127,0.8)",
+};
 const topTabs: React.CSSProperties = {
 position: "fixed",
 top: 48,
