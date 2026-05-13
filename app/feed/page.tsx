@@ -41,25 +41,32 @@ const [comments, setComments] = useState<Comment[]>([]);
 const [commentText, setCommentText] = useState("");
 
 async function loadPosts() {
+try {
 setLoading(true);
 
 const { data, error } = await supabase
 .from("posts")
 .select("*")
-.or("image_url.not.is.null,video_url.not.is.null,content.not.is.null")
 .order("created_at", { ascending: false })
 .limit(12);
 
+console.log("FEED DATA:", data);
+console.log("FEED ERROR:", error);
+
 if (error) {
-console.log("Feed error:", error.message);
 alert("Feed error: " + error.message);
 setPosts([]);
-setLoading(false);
 return;
 }
 
-setPosts(data || []);
+setPosts((data || []).filter((p) => p.image_url || p.video_url || p.content));
+} catch (err) {
+console.log("LOAD POSTS CRASH:", err);
+alert("Feed crashed. Check console.");
+setPosts([]);
+} finally {
 setLoading(false);
+}
 }
 
 async function loadComments(postId: string) {
