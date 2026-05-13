@@ -454,7 +454,7 @@ View all
 
 <div style={adScroller}>
 <div className="ad-track" style={adTrack}>
-{["MOBILE TYRE FITTING 24/7", "PUNCTURE? WE COME TO YOU", "FAST LOCAL CALLOUT", "FLAT TYRE? NO PROBLEM", "BOOK YOUR JOB TODAY", "LIVERPOOL MOBILE TYRES"].map(
+{["NEW OFFER LIVE", "BOOKINGS OPEN", "LIMITED TIME DEAL", "GET MORE LEADS", "BOOST YOUR BRAND", "READY TO POST"].map(
 (title, i) => (
 <div key={i} style={adPreview}>
 <div style={adMockImage}>
@@ -665,9 +665,9 @@ const getBusinessText = (theme: string) => {
 switch (theme) {
 case "tyres":
 return {
-lead: "Mobile tyre job",
-subtitle: "BMW 1 Series • Liverpool • Ready to book",
-prompt: "Mobile tyre fitting Liverpool 24/7 make this advert better",
+lead: "New customer enquiry",
+subtitle: "AI captured lead • Ready to convert",
+prompt: "Create a premium advert for your business",
 };
 
 case "barber":
