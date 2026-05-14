@@ -34,7 +34,10 @@ await supabase
 .from("businesses")
 .update({ is_paid: true })
 .eq("email", email);
-
+await supabase
+.from("user_credits")
+.update({ credits: 119 })
+.eq("email", email);
 router.push("/business-settings");
 }
 
