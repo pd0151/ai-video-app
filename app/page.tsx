@@ -788,9 +788,9 @@ letterSpacing: -2,
 const topRight: CSSProperties = {
 display: "flex",
 alignItems: "center",
-gap: 10,
+gap: 8,
 flexWrap: "wrap",
-justifyContent: "flex-end",
+justifyContent: "flex-start",
 maxWidth: "100%",
 };
 
@@ -832,6 +832,7 @@ boxShadow: "0 0 30px rgba(34,255,127,0.30)",
 };
 
 const proBadge: CSSProperties = {
+    marginLeft: -6,
 ...greenBtn,
 };
 
