@@ -482,10 +482,9 @@ boxShadow: "0 0 44px rgba(34,255,127,0.08)",
 const media: React.CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "contain",
+objectFit: "cover",
 objectPosition: "center",
-background:
-"radial-gradient(circle at center, rgba(34,255,127,0.14), #020617 68%)",
+background: "#020617",
 position: "absolute",
 inset: 0,
 cursor: "pointer",
@@ -737,17 +736,18 @@ fontWeight: 950,
 
 const bottomNav: React.CSSProperties = {
 position: "fixed",
+bottom: 0,
 left: 0,
 right: 0,
-bottom: 0,
-height: 96,
-background: "rgba(2,7,5,0.96)",
-borderTop: "1px solid rgba(34,255,127,0.14)",
+height: 88,
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
-zIndex: 50,
-backdropFilter: "blur(18px)",
+background: "rgba(2, 6, 23, 0.96)",
+borderTop: "1px solid rgba(34,255,127,0.18)",
+backdropFilter: "blur(20px)",
+boxShadow: "0 -20px 60px rgba(34,255,127,0.08)",
+zIndex: 999,
 };
 
 const navBtn: React.CSSProperties = {

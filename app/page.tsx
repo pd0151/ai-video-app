@@ -319,8 +319,11 @@ Ad<span style={{ color: "#22ff7f" }}>Forge</span>
 {isPro ? (
 <div style={proBadge}>PRO</div>
 ) : (
-<button onClick={upgradeUser} style={greenBtn}>
-Upgrade
+<button
+onClick={upgradeUser}
+style={greenBtn}
+>
+Buy Credits
 </button>
 )}
 </div>
