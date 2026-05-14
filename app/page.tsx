@@ -103,17 +103,30 @@ router.push("/login");
 }
 
 async function upgradeUser() {
+try {
 const res = await fetch("/api/create-checkout", {
 method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
 });
 
 const data = await res.json();
 
-if (data.url) {
-window.location.href = data.url;
-}
+if (!res.ok) {
+alert(data.error || "Checkout failed");
+return;
 }
 
+if (data.url) {
+window.location.href = data.url;
+} else {
+alert("No checkout link returned");
+}
+} catch (err) {
+alert("Could not start checkout. Please try again.");
+}
+}
 async function generateAd() {
 if (!isPro && credits <= 0) {
 alert("No credits left");
