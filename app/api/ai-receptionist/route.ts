@@ -248,7 +248,10 @@ return NextResponse.json(
 { status: 400 }
 );
 }
-const name = args.name || extractName(transcript) || "Not given";
+const name =
+args.name ||
+extractName(transcript) ||
+"Not provided";
 
 const issue =
 args.issue ||
