@@ -107,7 +107,7 @@ async function upgradeUser() {
 data: { user },
 } = await supabase.auth.getUser();
 try {
-const res = await fetch("/api/create-checkout", {
+const res = await fetch("/api/create-credits-checkout",{
 method: "POST",
 headers: {
 "Content-Type": "application/json",
