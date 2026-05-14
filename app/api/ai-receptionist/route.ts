@@ -282,12 +282,11 @@ args.phone ||
 args.caller ||
 extractPhone(transcript) ||
 "Not given";
-const fallbackBusinessId = "5cb25f80-26e4-48bb-8ab6-5dcda21c8e97";
+
 
 const incomingBusinessId =
 args.business_id ||
-body.business_id ||
-fallbackBusinessId;
+body.business_id;
 const jobSummary = `Name: ${name}
 Issue: ${issue}
 Vehicle: ${vehicle}
