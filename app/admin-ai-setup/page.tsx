@@ -88,8 +88,7 @@ vapi_assistant_id: b.vapi_assistant_id || "",
 ai_activated: true,
 setup_complete: true,
 
-name: b.name || b.business_name || "",
-business_name: b.name || b.business_name || "",
+name: b.name || "",
 is_paid: true,
 })
 .eq("id", b.id);
