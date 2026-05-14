@@ -239,9 +239,9 @@ const { data: matchedBusiness } = await supabase
 .maybeSingle();
 
 const businessId =
+matchedBusiness?.id ||
 args.business_id ||
-body.business_id ||
-matchedBusiness?.id;
+body.business_id;
 if (!businessId) {
 return NextResponse.json(
 { success: false, error: "No business_id found" },
