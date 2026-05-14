@@ -110,7 +110,7 @@ headers: {
 "Content-Type": "application/json",
 },
 body: JSON.stringify({
-email,
+email: "peterdillon809@gmail.com",
 }),
 });
 
