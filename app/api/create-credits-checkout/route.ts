@@ -13,11 +13,14 @@ return NextResponse.json({ error: "Missing email" }, { status: 400 });
 }
 
 const session = await stripe.checkout.sessions.create({
-mode: "subscription",
+mode: "payment",
 customer_email: email,
 line_items: [
 {
-price: process.env.STRIPE_CREDITS_PRICE_ID as string,
+price:
+body.packageType === "150"
+? process.env.STRIPE_150_CREDITS_PRICE_ID as string
+: process.env.STRIPE_50_CREDITS_PRICE_ID as string,
 quantity: 1,
 },
 ],
