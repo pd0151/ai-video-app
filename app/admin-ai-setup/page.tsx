@@ -183,6 +183,21 @@ businesses.map((b) => (
 <b>Greeting:</b> {b.ai_greeting || "Not set"}
 </p>
 <p>
+<b>Business type:</b> {b.business_type || "Not set"}
+</p>
+
+<p>
+<b>Services:</b> {b.services_offered || "Not set"}
+</p>
+
+<p>
+<b>Details to collect:</b> {b.details_to_collect || "Not set"}
+</p>
+
+<p>
+<b>Prompt / instructions:</b> {b.special_instructions || "Not set"}
+</p>
+<p>
 <b>Business ID:</b> {b.id}
 </p>
 </div>
