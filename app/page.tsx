@@ -832,7 +832,6 @@ boxShadow: "0 0 30px rgba(34,255,127,0.30)",
 };
 
 const proBadge: CSSProperties = {
-    marginLeft: -6,
 ...greenBtn,
 };
 
@@ -842,6 +841,7 @@ top: 18,
 right: 18,
 positionAnchor: "relative",
 zIndex: 1,
+marginLeft: -20,
 border: "1px solid rgba(255,255,255,0.12)",
 background: "rgba(0,0,0,0.35)",
 color: "white",
