@@ -239,10 +239,15 @@ const { data: matchedBusiness } = await supabase
 .maybeSingle();
 
 const businessId =
-matchedBusiness?.id ||
 args.business_id ||
 body.business_id ||
-"5cb25f80-26e4-48bb-8ab6-5dcda21c8e97";
+matchedBusiness?.id;
+if (!businessId) {
+return NextResponse.json(
+{ success: false, error: "No business_id found" },
+{ status: 400 }
+);
+}
 const name = args.name || extractName(transcript) || "Not given";
 
 const issue =
