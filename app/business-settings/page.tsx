@@ -76,8 +76,7 @@ const { data } = await supabase
 .maybeSingle();
 
 if (!data) return;
-
-setBusinessName(data.name || data.business_name || "");
+setBusinessName(data.name || "");
 setNotificationPhone(data.notification_phone || data.phone || "");
 setServiceArea(data.service_area || "");
 setOpeningHours(data.opening_hours || "");
@@ -194,7 +193,7 @@ placeholder="Business name"
 value={businessName}
 onChange={(e) => {
 setBusinessName(e.target.value);
-autoSaveSettings("business_name", e.target.value);
+autoSaveSettings("name", e.target.value);
 }}
 style={input}
 />
