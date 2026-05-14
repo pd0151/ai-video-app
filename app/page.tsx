@@ -101,8 +101,11 @@ async function logout() {
 await supabase.auth.signOut();
 router.push("/login");
 }
-const email = localStorage.getItem("userEmail");
+
 async function upgradeUser() {
+    const {
+data: { user },
+} = await supabase.auth.getUser();
 try {
 const res = await fetch("/api/create-checkout", {
 method: "POST",
@@ -110,7 +113,7 @@ headers: {
 "Content-Type": "application/json",
 },
 body: JSON.stringify({
-email: "peterdillon809@gmail.com",
+email: user?.email,
 }),
 });
 
