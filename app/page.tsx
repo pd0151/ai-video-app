@@ -356,7 +356,14 @@ Ad<span style={{ color: "#22ff7f" }}>Forge</span>
 </div>
 </div>
 
-<div style={{ display: "flex", gap: 10 }}>
+<div
+style={{
+display: "grid",
+gridTemplateColumns: "1fr 1fr",
+gap: 10,
+width: 290,
+}}
+>
 <button
 onClick={() => buyCredits("50")}
 style={greenBtn}
