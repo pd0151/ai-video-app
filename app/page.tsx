@@ -128,7 +128,7 @@ async function upgradeUser() {
 data: { user },
 } = await supabase.auth.getUser();
 try {
-const res = await fetch("/api/create-credits-checkout",{
+const res = await fetch("/api/create-checkout",{
 method: "POST",
 headers: {
 "Content-Type": "application/json",
@@ -384,15 +384,7 @@ PRO
 </header>
 
 <section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
-<button
-onClick={(e) => {
-e.stopPropagation();
-logout();
-}}
-style={logoutBtn}
->
-Logout
-</button>
+
 
 <div style={aiPill}>
 <span style={greenDot} />
