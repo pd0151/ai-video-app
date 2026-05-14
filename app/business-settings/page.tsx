@@ -19,12 +19,16 @@ const [lastSaved, setLastSaved] = useState("");
 const [checkingPayment, setCheckingPayment] = useState(true);
 
 const [businessName, setBusinessName] = useState("");
+const [businessPhone, setBusinessPhone] = useState("");
+const [businessType, setBusinessType] = useState("");
+const [servicesOffered, setServicesOffered] = useState("");
+const [detailsToCollect, setDetailsToCollect] = useState("");
+const [specialInstructions, setSpecialInstructions] = useState("");
 const [notificationPhone, setNotificationPhone] = useState("");
 const [serviceArea, setServiceArea] = useState("");
 const [openingHours, setOpeningHours] = useState("");
 const [aiGreeting, setAiGreeting] = useState("");
-const [twilioNumber, setTwilioNumber] = useState("");
-const [vapiAssistantId, setVapiAssistantId] = useState("");
+
 
 useEffect(() => {
 checkPaidAccess();
@@ -77,12 +81,15 @@ const { data } = await supabase
 
 if (!data) return;
 setBusinessName(data.name || "");
-setNotificationPhone(data.notification_phone || data.phone || "");
+setBusinessPhone(data.phone || "");
+setNotificationPhone(data.notification_phone || "");
+setBusinessType(data.business_type || "");
+setServicesOffered(data.services_offered || "");
+setDetailsToCollect(data.details_to_collect || "");
+setSpecialInstructions(data.special_instructions || "");
 setServiceArea(data.service_area || "");
 setOpeningHours(data.opening_hours || "");
 setAiGreeting(data.ai_greeting || "");
-setTwilioNumber(data.twilio_number || "");
-setVapiAssistantId(data.vapi_assistant_id || "");
 }
 
 async function saveSettings() {
@@ -105,13 +112,15 @@ email,
 name: businessName,
 is_paid: true,
 
+phone: businessPhone,
 notification_phone: notificationPhone,
-phone: notificationPhone,
 service_area: serviceArea,
 opening_hours: openingHours,
 ai_greeting: aiGreeting,
-twilio_number: twilioNumber,
-vapi_assistant_id: vapiAssistantId,
+business_type: businessType,
+services_offered: servicesOffered,
+details_to_collect: detailsToCollect,
+special_instructions: specialInstructions,
 setup_complete: true,
 });
 
@@ -229,17 +238,38 @@ style={textarea}
 />
 
 <input
-placeholder="Twilio number"
-value={twilioNumber}
-onChange={(e) => setTwilioNumber(e.target.value)}
+placeholder="Business phone number customers call"
+value={businessPhone}
+onChange={(e) => setBusinessPhone(e.target.value)}
 style={input}
 />
 
 <input
-placeholder="Vapi assistant ID"
-value={vapiAssistantId}
-onChange={(e) => setVapiAssistantId(e.target.value)}
+placeholder="What type of business are you?"
+value={businessType}
+onChange={(e) => setBusinessType(e.target.value)}
 style={input}
+/>
+
+<textarea
+placeholder="What services do you offer?"
+value={servicesOffered}
+onChange={(e) => setServicesOffered(e.target.value)}
+style={textarea}
+/>
+
+<textarea
+placeholder="What details should the AI collect from callers?"
+value={detailsToCollect}
+onChange={(e) => setDetailsToCollect(e.target.value)}
+style={textarea}
+/>
+
+<textarea
+placeholder="Any special instructions for your AI receptionist?"
+value={specialInstructions}
+onChange={(e) => setSpecialInstructions(e.target.value)}
+style={textarea}
 />
 
 <button onClick={saveSettings} disabled={loading} style={btn}>
