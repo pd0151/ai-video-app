@@ -103,7 +103,6 @@ const email = user.email.toLowerCase().trim();
 const { error } = await supabase.from("businesses").upsert({
 email,
 name: businessName,
-business_name: businessName,
 is_paid: true,
 
 notification_phone: notificationPhone,
