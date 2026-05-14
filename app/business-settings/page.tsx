@@ -104,6 +104,8 @@ const email = user.email.toLowerCase().trim();
 const { error } = await supabase.from("businesses").upsert({
 email,
 name: businessName,
+business_name: businessName,
+is_paid: true,
 
 notification_phone: notificationPhone,
 phone: notificationPhone,
@@ -191,8 +193,8 @@ customer.
 placeholder="Business name"
 value={businessName}
 onChange={(e) => {
-setServiceArea(e.target.value);
-autoSaveSettings("service_area", e.target.value);
+setBusinessName(e.target.value);
+autoSaveSettings("business_name", e.target.value);
 }}
 style={input}
 />
