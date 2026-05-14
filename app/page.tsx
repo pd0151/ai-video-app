@@ -791,6 +791,7 @@ alignItems: "center",
 gap: 10,
 flexWrap: "wrap",
 justifyContent: "flex-end",
+maxWidth: "100%",
 };
 
 const creditBox: CSSProperties = {
@@ -838,7 +839,8 @@ const logoutBtn: CSSProperties = {
 position: "absolute",
 top: 18,
 right: 18,
-zIndex: 5,
+positionAnchor: "relative",
+zIndex: 1,
 border: "1px solid rgba(255,255,255,0.12)",
 background: "rgba(0,0,0,0.35)",
 color: "white",
