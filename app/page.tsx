@@ -96,7 +96,28 @@ setCredits(inserted?.credits || 3);
 
 loadUser();
 }, [router]);
+async function buyCredits(packageType: string) {
+const {
+data: { user },
+} = await supabase.auth.getUser();
 
+const res = await fetch("/api/create-credits-checkout", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({
+email: user?.email,
+packageType,
+}),
+});
+
+const data = await res.json();
+
+if (data.url) {
+window.location.href = data.url;
+}
+}
 async function logout() {
 await supabase.auth.signOut();
 router.push("/login");
@@ -335,16 +356,30 @@ Ad<span style={{ color: "#22ff7f" }}>Forge</span>
 </div>
 </div>
 
-{isPro ? (
-<div style={proBadge}>PRO</div>
-) : (
+<div style={{ display: "flex", gap: 10 }}>
+<button
+onClick={() => buyCredits("50")}
+style={greenBtn}
+>
+50 Credits
+</button>
+
+<button
+onClick={() => buyCredits("150")}
+style={greenBtn}
+>
+150 Credits
+</button>
+
+{!isPro && (
 <button
 onClick={upgradeUser}
 style={greenBtn}
 >
-Buy Credits
+PRO
 </button>
 )}
+</div>
 </div>
 </header>
 
