@@ -797,6 +797,8 @@ const topRight: CSSProperties = {
 display: "flex",
 alignItems: "center",
 gap: 10,
+flexWrap: "wrap",
+justifyContent: "flex-end",
 };
 
 const creditBox: CSSProperties = {
