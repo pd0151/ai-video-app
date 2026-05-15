@@ -46,12 +46,13 @@ setFollowersCount((n) => n + 1);
 }
 }
 async function loadProfile() {
-const email = localStorage.getItem("user");
+const {
+data: { user },
+} = await supabase.auth.getUser();
 
-if (!email) {
-router.push("/login");
-return;
-}
+const email = user?.email;
+
+if (!email) return;
 
 const { data } = await supabase
 .from("businesses")
