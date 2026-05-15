@@ -257,14 +257,26 @@ const {
 data: { user },
 } = await supabase.auth.getUser();
 
-await supabase.from("posts").insert({
-user_id: user?.id,
+if (!user?.id || !user?.email) {
+alert("You must be logged in to post");
+return;
+}
+
+const { error } = await supabase.from("posts").insert({
+user_id: user.id,
+email: user.email.toLowerCase().trim(),
 content: prompt || "AI generated advert",
 image_url: image,
 video_url: null,
-business_name: businessName || "Total Tyres 247",
-location: "Liverpool",
+business_name: "",
+location: "",
+created_at: new Date().toISOString(),
 });
+
+if (error) {
+alert(error.message);
+return;
+}
 
 window.location.href = "/feed";
 }
