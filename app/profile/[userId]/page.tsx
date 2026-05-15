@@ -388,7 +388,8 @@ pointerEvents: "none",
 zIndex: 0,
 };
 const statBox: React.CSSProperties = {
-minWidth: 95,
+minWidth: 78,
+flex: 1,
 padding: "12px 14px",
 borderRadius: 18,
 background: "rgba(255,255,255,0.06)",
@@ -397,7 +398,7 @@ color: "white",
 display: "flex",
 flexDirection: "column",
 gap: 3,
-fontSize: 13,
+fontSize: 12,
 };
 const bgGlow2: React.CSSProperties = {
 position: "fixed",
