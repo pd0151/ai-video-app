@@ -148,7 +148,7 @@ BUSINESS PROFILE
 </div>
 
 <h1 style={title}>
-{business.business_name || "Business Profile"}
+{business?.business_name || business?.name || "Business Profile"}
 </h1>
 </div>
 </div>
@@ -157,7 +157,7 @@ BUSINESS PROFILE
 <div style={infoCard}>
 <span style={infoIcon}>⌖</span>
 <div>
-<b>{business.location || "No location"}</b>
+{business?.location || business?.service_area || "No location"}
 <small>Location</small>
 </div>
 </div>
@@ -165,7 +165,7 @@ BUSINESS PROFILE
 <div style={infoCard}>
 <span style={infoIcon}>☎</span>
 <div>
-<b>{business.phone || "No phone"}</b>
+{business?.phone || business?.notification_phone || "No phone"}
 <small>Phone</small>
 </div>
 </div>
