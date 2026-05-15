@@ -267,14 +267,7 @@ loop
 playsInline
 webKit-playsinline="true"
 preload="auto"
-onLoadedData={(e) => {
-e.currentTarget.style.opacity = "1";
-}}
-style={{
-...media,
-opacity: 0,
-transition: "opacity 0.35s ease",
-}}
+style={media}
 />
 ) : (
 <img
