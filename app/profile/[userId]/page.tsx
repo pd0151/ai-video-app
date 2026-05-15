@@ -217,7 +217,7 @@ marginTop: 12,
 onClick={() => router.push("/business-settings")}
 style={editBtn}
 >
-Edit Profile TEST
+Edit Profile 
 </button>
 </div>
 </div>
