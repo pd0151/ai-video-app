@@ -95,17 +95,10 @@ if (!businessName) return;
 const { data: postsData } = await supabase
 .from("posts")
 .select("*")
-.not("business_name", "is", null)
-.order("created_at", { ascending: false });
+.order("created_at", { ascending: false })
+.limit(12);
 
-const filteredPosts =
-postsData?.filter(
-(p: any) =>
-p.business_name?.toLowerCase().trim() ===
-businessName?.toLowerCase().trim()
-) || [];
-
-setPosts(filteredPosts);
+setPosts(postsData || []);
 }
 
 useEffect(() => {
