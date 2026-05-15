@@ -356,14 +356,7 @@ Ad<span style={{ color: "#22ff7f" }}>Forge</span>
 </div>
 </div>
 
-<div
-style={{
-display: "grid",
-gridTemplateColumns: "1fr 1fr",
-gap: 10,
-width: 290,
-}}
->
+<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
 <button
 onClick={() => buyCredits("50")}
 style={greenBtn}
@@ -829,13 +822,17 @@ opacity: 0.65,
 };
 
 const greenBtn: CSSProperties = {
+background: "#39ff6a",
+color: "#000",
 border: "none",
 borderRadius: 18,
-padding: "12px 16px",
-color: "#04140c",
-fontWeight: 950,
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
-boxShadow: "0 0 30px rgba(34,255,127,0.30)",
+padding: "10px 16px",
+fontWeight: 800,
+fontSize: 14,
+minWidth: 88,
+height: 54,
+cursor: "pointer",
+boxShadow: "0 0 20px rgba(57,255,106,0.35)",
 };
 
 const proBadge: CSSProperties = {
