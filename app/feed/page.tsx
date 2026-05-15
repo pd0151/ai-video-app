@@ -277,7 +277,7 @@ if (url) setOpenMedia(url);
 <img
 src={post.image_url || ""}
 loading="lazy"
-style={media}
+style={imageMedia}
 onClick={() => {
 const url = post.image_url || post.video_url;
 if (url) setOpenMedia(url);
@@ -539,7 +539,14 @@ border: "1px solid rgba(34,255,127,0.24)",
 background: "rgba(0,0,0,0.42)",
 boxShadow: "0 0 44px rgba(34,255,127,0.08)",
 };
-
+const imageMedia: React.CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "contain",
+objectPosition: "center",
+background: "#020617",
+display: "block",
+};
 const media: React.CSSProperties = {
 width: "100%",
 height: "100%",
