@@ -148,7 +148,7 @@ alert("Link copied");
 
 
 
-if (posts.length === 0) {
+if (!loading && posts.length === 0) {
 return (
 <main style={empty}>
 <div>
