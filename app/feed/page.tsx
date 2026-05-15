@@ -280,7 +280,10 @@ if (url) setOpenMedia(url);
 }}
 />
 )}
-
+<div style={viewerBadge}>
+<span style={liveDot}></span>
+{Math.floor(24 + Math.random() * 180)} watching
+</div>
 <div style={bottomFade} />
 
 <div style={content}>
@@ -425,7 +428,31 @@ color: "white",
 fontFamily: "Inter, Arial, sans-serif",
 position: "relative",
 };
+const viewerBadge: React.CSSProperties = {
+position: "absolute",
+top: 18,
+left: 18,
+zIndex: 20,
+display: "flex",
+alignItems: "center",
+gap: 8,
+padding: "9px 13px",
+borderRadius: 999,
+background: "rgba(0,0,0,0.48)",
+border: "1px solid rgba(34,255,127,0.28)",
+color: "white",
+fontSize: 13,
+fontWeight: 800,
+backdropFilter: "blur(14px)",
+};
 
+const liveDot: React.CSSProperties = {
+width: 8,
+height: 8,
+borderRadius: 999,
+background: "#22ff7f",
+boxShadow: "0 0 14px rgba(34,255,127,0.9)",
+};
 const bgGlow1: React.CSSProperties = {
 position: "fixed",
 width: 320,
