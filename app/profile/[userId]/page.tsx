@@ -222,23 +222,7 @@ Edit Profile
 
 
 
-<button
-onClick={toggleFollow}
-style={{
-padding: "10px 18px",
-borderRadius: 999,
-border: "1px solid rgba(255,255,255,0.12)",
-background: isFollowing
-? "rgba(255,255,255,0.08)"
-: "linear-gradient(135deg,#7c3aed,#22c55e)",
-color: "#fff",
-fontWeight: 700,
-cursor: "pointer",
-marginTop: 12,
-}}
->
-{isFollowing ? "Following" : "Follow"} • {followersCount}
-</button>
+
 </div>
 </div>
 
