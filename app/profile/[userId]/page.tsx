@@ -95,7 +95,7 @@ if (!businessName) return;
 const { data: postsData } = await supabase
 .from("posts")
 .select("*")
-.eq("business_name", businessName)
+.ilike("business_name", `%${businessName}%`)
 .order("created_at", { ascending: false });
 
 setPosts(postsData || []);
