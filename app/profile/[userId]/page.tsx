@@ -63,7 +63,7 @@ const user = await getCurrentUser();
 const email = user?.email?.toLowerCase().trim();
 const userId = user?.id;
 
-if (!email) {
+if (!email || !userId) {
 setLoading(false);
 return;
 }
@@ -86,13 +86,6 @@ setProfileImage(businessData.profile_image_url);
 }
 
 const businessEmail = businessData.email?.toLowerCase().trim();
-const businessName = (
-businessData.business_name ||
-businessData.name ||
-""
-)
-.toLowerCase()
-.trim();
 
 const { count: followers } = await supabase
 .from("follows")
@@ -117,26 +110,14 @@ const { data: followData } = await supabase
 
 setIsFollowing(!!followData);
 
-const { data: allPosts } = await supabase
+const { data: userPosts } = await supabase
 .from("posts")
 .select("*")
-.order("created_at", { ascending: false })
-.limit(100);
+.eq("user_id", userId)
+.order("created_at", { ascending: false });
 
-const filteredPosts =
-allPosts?.filter((p: any) => {
-const postEmail = p.email?.toLowerCase().trim();
-const postUserId = p.user_id;
-const postBusinessName = p.business_name?.toLowerCase().trim();
+setPosts(userPosts || []);
 
-return (
-postEmail === email ||
-postUserId === userId ||
-postBusinessName === businessName
-);
-}) || [];
-
-setPosts(filteredPosts.slice(0, 12));
 setLoading(false);
 }
 
