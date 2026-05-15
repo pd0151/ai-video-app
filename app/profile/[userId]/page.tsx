@@ -220,9 +220,7 @@ style={editBtn}
 Edit Profile 
 </button>
 
-Total Tyres
-11:31 (0 minutes ago)
-to me
+
 
 <button
 onClick={toggleFollow}
