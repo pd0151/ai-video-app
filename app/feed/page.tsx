@@ -236,9 +236,14 @@ if (url) setOpenMedia(url);
 <div
 style={{ ...businessRow, cursor: "pointer" }}
 onClick={() => {
-if (post.user_id) router.push(`/profile/${post.user_id}`);
+alert("Clicked: " + post.user_id);
+
+if (post.user_id) {
+router.push(`/profile/${post.user_id}`);
+}
 }}
 >
+
 <div style={avatar}>
 {(post.business_name || "A").charAt(0).toUpperCase()}
 </div>
