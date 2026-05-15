@@ -649,8 +649,9 @@ color: "rgba(255,255,255,0.78)",
 
 const grid: React.CSSProperties = {
 display: "grid",
-gridTemplateColumns: "1fr 1fr",
-gap: 12,
+gridTemplateColumns: "repeat(3, 1fr)",
+gap: 8,
+marginTop: 20,
 };
 
 const postCard: React.CSSProperties = {
@@ -662,7 +663,9 @@ boxShadow: "0 18px 60px rgba(0,0,0,0.30)",
 };
 
 const mediaWrap: React.CSSProperties = {
-height: 150,
+aspectRatio: "1 / 1",
+overflow: "hidden",
+borderRadius: 16,
 position: "relative",
 background: "#020617",
 };
@@ -671,7 +674,6 @@ const media: React.CSSProperties = {
 width: "100%",
 height: "100%",
 objectFit: "cover",
-display: "block",
 };
 
 const playBadge: React.CSSProperties = {
