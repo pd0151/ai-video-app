@@ -14,7 +14,33 @@ const router = useRouter();
 const [business, setBusiness] = useState<any>(null);
 const [posts, setPosts] = useState<any[]>([]);
 const [profileImage, setProfileImage] = useState<string | null>(null);
+const [isFollowing, setIsFollowing] = useState(false);
+const [followersCount, setFollowersCount] = useState(0);
+async function toggleFollow() {
+const myEmail = localStorage.getItem("user");
+const targetEmail = business?.email;
 
+if (!myEmail || !targetEmail) return;
+
+if (isFollowing) {
+await supabase
+.from("follows")
+.delete()
+.eq("follower_email", myEmail.toLowerCase().trim())
+.eq("following_email", targetEmail.toLowerCase().trim());
+
+setIsFollowing(false);
+setFollowersCount((n) => Math.max(0, n - 1));
+} else {
+await supabase.from("follows").insert({
+follower_email: myEmail.toLowerCase().trim(),
+following_email: targetEmail.toLowerCase().trim(),
+});
+
+setIsFollowing(true);
+setFollowersCount((n) => n + 1);
+}
+}
 async function loadProfile() {
 const email = localStorage.getItem("user");
 
@@ -30,6 +56,25 @@ const { data } = await supabase
 .maybeSingle();
 
 setBusiness(data);
+const myEmail = localStorage.getItem("user");
+
+if (myEmail && data?.email) {
+const { data: followData } = await supabase
+.from("follows")
+.select("*")
+.eq("follower_email", myEmail.toLowerCase().trim())
+.eq("following_email", data.email.toLowerCase().trim())
+.maybeSingle();
+
+setIsFollowing(!!followData);
+}
+
+const { count } = await supabase
+.from("follows")
+.select("*", { count: "exact", head: true })
+.eq("following_email", data?.email);
+
+setFollowersCount(count || 0);
 if (data?.profile_image_url) {
 setProfileImage(data.profile_image_url);
 }
@@ -150,6 +195,24 @@ BUSINESS PROFILE
 <h1 style={title}>
 {business?.business_name || business?.name || "Business Profile"}
 </h1>
+<button
+onClick={toggleFollow}
+style={{
+padding: "10px 18px",
+borderRadius: 999,
+border: "1px solid rgba(255,255,255,0.12)",
+background: isFollowing
+? "rgba(255,255,255,0.08)"
+: "linear-gradient(135deg,#7c3aed,#22c55e)",
+color: "#fff",
+fontWeight: 700,
+cursor: "pointer",
+marginTop: 12,
+}}
+>
+{isFollowing ? "Following" : "Follow"} • {followersCount}
+</button>
+
 <button
 onClick={() => router.push("/business-settings")}
 style={editBtn}
