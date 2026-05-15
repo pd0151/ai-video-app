@@ -154,7 +154,7 @@ BUSINESS PROFILE
 onClick={() => router.push("/business-settings")}
 style={editBtn}
 >
-Edit Profile TEST
+Edit Profile 
 </button>
 </div>
 </div>
