@@ -10,6 +10,7 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 
 type Post = {
 id: string;
+user_id?: string | null;
 content: string | null;
 image_url: string | null;
 video_url: string | null;
@@ -233,12 +234,7 @@ if (url) setOpenMedia(url);
 </div>
 
 <div
-style={businessRow}
-onClick={() => {
-const profileId = (post as any).user_id;
-if (profileId) router.push(`/profile/${profileId}`);
-}}
->
+style={businessRow}>
 <div style={avatar}>
 {(post.business_name || "A").charAt(0).toUpperCase()}
 </div>
