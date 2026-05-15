@@ -148,12 +148,70 @@ alert("Link copied");
 
 if (loading) {
 return (
-<main style={empty}>
-<div style={loaderCard}>
-<div style={loaderDot} />
-<h1 style={{ margin: 0 }}>Loading feed...</h1>
-<p style={{ opacity: 0.7 }}>Preparing your latest adverts</p>
+<main style={page}>
+{[1, 2, 3].map((i) => (
+<div
+key={i}
+style={{
+height: "100vh",
+width: "100%",
+position: "relative",
+overflow: "hidden",
+background:
+"linear-gradient(135deg, #020617 0%, #071019 50%, #020617 100%)",
+borderBottom: "1px solid rgba(255,255,255,0.06)",
+}}
+>
+<div
+style={{
+position: "absolute",
+inset: 0,
+background:
+"linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
+animation: "shimmer 1.2s infinite",
+}}
+/>
+
+<div
+style={{
+position: "absolute",
+bottom: 120,
+left: 20,
+right: 20,
+display: "flex",
+flexDirection: "column",
+gap: 12,
+}}
+>
+<div
+style={{
+width: 140,
+height: 18,
+borderRadius: 999,
+background: "rgba(255,255,255,0.12)",
+}}
+/>
+
+<div
+style={{
+width: "80%",
+height: 28,
+borderRadius: 12,
+background: "rgba(255,255,255,0.14)",
+}}
+/>
+
+<div
+style={{
+width: "60%",
+height: 18,
+borderRadius: 12,
+background: "rgba(255,255,255,0.10)",
+}}
+/>
 </div>
+</div>
+))}
 </main>
 );
 }
@@ -347,6 +405,8 @@ Send
 </div>
 </div>
 )}
+
+<style>{shimmer}</style>
 
 <nav style={bottomNav}>
 <button style={navBtn}>⌂<br />Home</button>
@@ -610,7 +670,16 @@ background: "#020617",
 textAlign: "center",
 padding: 30,
 };
-
+const shimmer = `
+@keyframes shimmer {
+0% {
+transform: translateX(-100%);
+}
+100% {
+transform: translateX(100%);
+}
+}
+`;
 const loaderCard: React.CSSProperties = {
 padding: 28,
 borderRadius: 28,
