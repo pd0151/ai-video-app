@@ -50,7 +50,8 @@ const {
 data: { user },
 } = await supabase.auth.getUser();
 
-const email = user?.email;
+const email = user?.email?.toLowerCase().trim();
+const userId = user?.id;
 
 if (!email) return;
 
@@ -89,23 +90,14 @@ setFollowersCount(count || 0);
 if (data?.profile_image_url) {
 setProfileImage(data.profile_image_url);
 }
-const businessName = data?.business_name || data?.name;
-
-if (!businessName) return;
-
-const { data: postsLower } = await supabase
+const { data: userPosts } = await supabase
 .from("posts")
 .select("*")
+.or(`email.eq.${email},user_id.eq.${userId}`)
 .order("created_at", { ascending: false })
 .limit(12);
 
-const { data: postsUpper } = await supabase
-.from("Posts")
-.select("*")
-.order("created_at", { ascending: false })
-.limit(12);
-
-setPosts([...(postsLower || []), ...(postsUpper || [])]);
+setPosts(userPosts || []);
 }
 
 useEffect(() => {
