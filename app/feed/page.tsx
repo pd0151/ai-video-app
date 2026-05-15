@@ -267,10 +267,13 @@ loop
 playsInline
 webKit-playsinline="true"
 preload="auto"
-style={media}
-onClick={() => {
-const url = post.video_url || post.image_url;
-if (url) setOpenMedia(url);
+onLoadedData={(e) => {
+e.currentTarget.style.opacity = "1";
+}}
+style={{
+...media,
+opacity: 0,
+transition: "opacity 0.35s ease",
 }}
 />
 ) : (
