@@ -236,8 +236,6 @@ if (url) setOpenMedia(url);
 <div
 style={{ ...businessRow, cursor: "pointer" }}
 onClick={() => {
-alert("Clicked: " + post.user_id);
-
 if (post.user_id) {
 router.push(`/profile/${post.user_id}`);
 }
