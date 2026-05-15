@@ -230,7 +230,29 @@ style={editBtn}
 Edit Profile 
 </button>
 
+<div
+style={{
+display: "flex",
+gap: 14,
+marginTop: 18,
+flexWrap: "wrap",
+}}
+>
+<div style={statBox}>
+<b>{followersCount}</b>
+<span>Followers</span>
+</div>
 
+<div style={statBox}>
+<b>{followingCount}</b>
+<span>Following</span>
+</div>
+
+<div style={statBox}>
+<b>{posts.length}</b>
+<span>Posts</span>
+</div>
+</div>
 
 
 </div>
@@ -365,7 +387,18 @@ filter: "blur(90px)",
 pointerEvents: "none",
 zIndex: 0,
 };
-
+const statBox: React.CSSProperties = {
+minWidth: 95,
+padding: "12px 14px",
+borderRadius: 18,
+background: "rgba(255,255,255,0.06)",
+border: "1px solid rgba(255,255,255,0.1)",
+color: "white",
+display: "flex",
+flexDirection: "column",
+gap: 3,
+fontSize: 13,
+};
 const bgGlow2: React.CSSProperties = {
 position: "fixed",
 width: 260,
