@@ -382,7 +382,30 @@ PRO
 </div>
 </div>
 </header>
+<section style={testimonialStrip}>
+<div>
+<div style={stars}>★★★★★</div>
+<h3 style={testimonialTitle}>Trusted by local businesses</h3>
+<p style={testimonialText}>
+“AdForge makes it easy to create ads, videos and capture more leads without hiring an agency.”
+</p>
+</div>
 
+<div style={testimonialStats}>
+<div>
+<b>24/7</b>
+<span>AI Receptionist</span>
+</div>
+<div>
+<b>AI</b>
+<span>Ads & Videos</span>
+</div>
+<div>
+<b>Fast</b>
+<span>Lead Capture</span>
+</div>
+</div>
+</section>
 <section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
 
 
@@ -628,7 +651,34 @@ opacity: 0.28,
 </button>
 </div>
 </section>
+<section style={testimonialStrip}>
+<div style={stars}>★★★★★</div>
 
+<h3 style={testimonialTitle}>
+Businesses are booking more jobs with AdForge
+</h3>
+
+<p style={testimonialText}>
+“The AI receptionist alone has brought in jobs we would’ve missed overnight.”
+</p>
+
+<div style={testimonialStats}>
+<div style={actionCard}>
+<b style={{ fontSize: 26 }}>24/7</b>
+<small>AI Calls Answered</small>
+</div>
+
+<div style={actionCard}>
+<b style={{ fontSize: 26 }}>+312%</b>
+<small>More Leads</small>
+</div>
+
+<div style={actionCard}>
+<b style={{ fontSize: 26 }}>4.9★</b>
+<small>User Rating</small>
+</div>
+</div>
+</section>
 <section style={chatBox}>
 <div style={sectionTop}>
 <h3 style={chatTitle}>AI Ad Assistant</h3>
@@ -1218,6 +1268,43 @@ background: "rgba(255,255,255,0.05)",
 border: "1px solid rgba(34,255,127,0.16)",
 marginBottom: 18,
 };
+const testimonialStrip: CSSProperties = {
+marginTop: 22,
+padding: 22,
+borderRadius: 28,
+background: "linear-gradient(135deg, rgba(34,255,127,0.14), rgba(2,6,23,0.95))",
+border: "1px solid rgba(34,255,127,0.25)",
+boxShadow: "0 24px 80px rgba(34,255,127,0.10)",
+};
+
+const stars: CSSProperties = {
+color: "#39ff6a",
+fontSize: 18,
+letterSpacing: 2,
+marginBottom: 8,
+};
+
+const testimonialTitle: CSSProperties = {
+margin: 0,
+color: "#fff",
+fontSize: 22,
+fontWeight: 900,
+};
+
+const testimonialText: CSSProperties = {
+marginTop: 8,
+color: "rgba(255,255,255,0.72)",
+fontSize: 14,
+lineHeight: 1.5,
+};
+
+const testimonialStats: CSSProperties = {
+marginTop: 18,
+display: "grid",
+gridTemplateColumns: "repeat(3, 1fr)",
+gap: 10,
+};
+
 
 const generatedImage: CSSProperties = {
 width: "100%",
