@@ -151,7 +151,7 @@ alert("Link copied");
 if (posts.length === 0) {
 return (
 <main style={empty}>
-<div style={loaderCard}>
+<div>
 <h1 style={{ margin: 0 }}>No posts yet</h1>
 <p style={{ opacity: 0.7 }}>Create or upload an ad and share it to the feed.</p>
 </div>
@@ -347,7 +347,7 @@ Send
 </div>
 )}
 
-<style>{shimmer}</style>
+
 
 <nav style={bottomNav}>
 <button style={navBtn}>⌂<br />Home</button>
@@ -642,32 +642,8 @@ background: "#020617",
 textAlign: "center",
 padding: 30,
 };
-const shimmer = `
-@keyframes shimmer {
-0% {
-transform: translateX(-100%);
-}
-100% {
-transform: translateX(100%);
-}
-}
-`;
-const loaderCard: React.CSSProperties = {
-padding: 28,
-borderRadius: 28,
-background: "rgba(34,255,127,0.06)",
-border: "1px solid rgba(34,255,127,0.18)",
-boxShadow: "0 0 40px rgba(34,255,127,0.12)",
-};
 
-const loaderDot: React.CSSProperties = {
-width: 18,
-height: 18,
-borderRadius: "50%",
-background: "#22ff7f",
-margin: "0 auto 16px",
-boxShadow: "0 0 24px rgba(34,255,127,0.8)",
-};
+
 
 const mediaPopup: React.CSSProperties = {
 position: "fixed",
