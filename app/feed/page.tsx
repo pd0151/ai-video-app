@@ -262,7 +262,7 @@ videoRefs.current[post.id] = el;
 }}
 src={post.video_url}
 autoPlay
-muted={activeVideo !== post.id}
+muted
 loop
 playsInline
 webKit-playsinline="true"
