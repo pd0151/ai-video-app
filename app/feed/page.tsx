@@ -207,7 +207,8 @@ autoPlay
 muted={activeVideo !== post.id}
 loop
 playsInline
-preload="metadata"
+webKit-playsinline="true"
+preload="auto"
 style={media}
 onClick={() => {
 const url = post.video_url || post.image_url;
@@ -482,12 +483,10 @@ boxShadow: "0 0 44px rgba(34,255,127,0.08)",
 const media: React.CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "cover",
+objectFit: "contain",
 objectPosition: "center",
 background: "#020617",
-position: "absolute",
-inset: 0,
-cursor: "pointer",
+display: "block",
 };
 
 const bottomFade: React.CSSProperties = {
