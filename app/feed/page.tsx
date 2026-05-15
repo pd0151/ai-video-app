@@ -267,6 +267,10 @@ loop
 playsInline
 webKit-playsinline="true"
 preload="auto"
+onClick={() => {
+const url = post.video_url || post.image_url;
+if (url) setOpenMedia(url);
+}}
 style={media}
 />
 ) : (
