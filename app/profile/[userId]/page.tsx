@@ -92,11 +92,19 @@ const businessName = data?.business_name || data?.name;
 
 if (!businessName) return;
 
-const { data: postsData } = await supabase
+const { data: postsData, error: postsError } = await supabase
 .from("posts")
 .select("*")
 .order("created_at", { ascending: false })
 .limit(12);
+
+if (postsError) {
+alert("Posts error: " + postsError.message);
+setPosts([]);
+return;
+}
+
+alert("Posts loaded: " + (postsData?.length || 0));
 
 setPosts(postsData || []);
 }
