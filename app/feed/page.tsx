@@ -543,7 +543,7 @@ boxShadow: "0 0 44px rgba(34,255,127,0.08)",
 const media: React.CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "contain",
+objectFit: "cover",
 objectPosition: "center",
 background: "#020617",
 display: "block",
