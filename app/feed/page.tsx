@@ -174,7 +174,7 @@ Ad<span style={{ color: "#22ff7f" }}>Forge</span>
 </h1>
 </div>
 
-<button style={logoutBtn}>Logout</button>
+
 </header>
 
 <div style={topTabs}>
