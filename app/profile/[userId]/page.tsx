@@ -21,6 +21,9 @@ const myEmail = localStorage.getItem("user");
 const targetEmail = business?.email;
 
 if (!myEmail || !targetEmail) return;
+if (myEmail.toLowerCase().trim() === targetEmail.toLowerCase().trim()) {
+return;
+}
 
 if (isFollowing) {
 await supabase
