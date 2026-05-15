@@ -235,7 +235,8 @@ style={{
 display: "flex",
 gap: 14,
 marginTop: 18,
-flexWrap: "wrap",
+flexWrap: "nowrap",
+width: "100%",
 }}
 >
 <div style={statBox}>
@@ -388,7 +389,7 @@ pointerEvents: "none",
 zIndex: 0,
 };
 const statBox: React.CSSProperties = {
-minWidth: 78,
+minWidth: 0,
 flex: 1,
 padding: "12px 14px",
 borderRadius: 18,
