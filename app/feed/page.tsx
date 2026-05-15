@@ -146,75 +146,7 @@ alert("Link copied");
 }
 }
 
-if (loading) {
-return (
-<main style={page}>
-{[1, 2, 3].map((i) => (
-<div
-key={i}
-style={{
-height: "100vh",
-width: "100%",
-position: "relative",
-overflow: "hidden",
-background:
-"linear-gradient(135deg, #020617 0%, #071019 50%, #020617 100%)",
-borderBottom: "1px solid rgba(255,255,255,0.06)",
-}}
->
-<div
-style={{
-position: "absolute",
-inset: 0,
-background:
-"linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
-animation: "shimmer 1.2s infinite",
-}}
-/>
 
-<div
-style={{
-position: "absolute",
-bottom: 120,
-left: 20,
-right: 20,
-display: "flex",
-flexDirection: "column",
-gap: 12,
-}}
->
-<div
-style={{
-width: 140,
-height: 18,
-borderRadius: 999,
-background: "rgba(255,255,255,0.12)",
-}}
-/>
-
-<div
-style={{
-width: "80%",
-height: 28,
-borderRadius: 12,
-background: "rgba(255,255,255,0.14)",
-}}
-/>
-
-<div
-style={{
-width: "60%",
-height: 18,
-borderRadius: 12,
-background: "rgba(255,255,255,0.10)",
-}}
-/>
-</div>
-</div>
-))}
-</main>
-);
-}
 
 if (posts.length === 0) {
 return (
@@ -254,7 +186,13 @@ const whatsapp = phone.replace("+", "").replace(/\s/g, "");
 
 return (
 <section key={post.id} style={slide}>
-<div style={postFrame}>
+<div
+style={postFrame}
+onClick={() => {
+const url = post.video_url || post.image_url;
+if (url) setOpenMedia(url);
+}}
+>
 {post.video_url ? (
 <video
 ref={(el) => {
