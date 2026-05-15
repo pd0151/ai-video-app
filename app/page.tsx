@@ -545,7 +545,17 @@ Post to Feed
 <button style={actionCard} onClick={generateAd}>
     <div style={actionBgGlow} />
 <div style={actionBgLines} />
-<div style={getActionImage(businessTheme)} />
+<div
+style={{
+position: "absolute",
+inset: 0,
+backgroundImage:
+"url('https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1200&auto=format&fit=crop')",
+backgroundSize: "cover",
+backgroundPosition: "center",
+opacity: 0.28,
+}}
+/>
 <span style={actionIcon}>01</span>
 <b>Generate Ad</b>
 <small>Create viral ads</small>
@@ -554,7 +564,17 @@ Post to Feed
 <button style={actionCard} onClick={() => router.push("/video")}>
   <div style={actionBgGlow} />
 <div style={actionBgLines} />  
-<div style={getActionImage(businessTheme)} />
+<div
+style={{
+position: "absolute",
+inset: 0,
+backgroundImage:
+"url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop')",
+backgroundSize: "cover",
+backgroundPosition: "center",
+opacity: 0.28,
+}}
+/>
 <span style={actionIcon}>02</span>
 <b>Create AI Video</b>
 <small>Turn ideas into video</small>
@@ -563,7 +583,17 @@ Post to Feed
 <label style={actionCard}>
     <div style={actionBgGlow} />
 <div style={actionBgLines} />
-<div style={getActionImage(businessTheme)} />
+<div
+style={{
+position: "absolute",
+inset: 0,
+backgroundImage:
+"url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200&auto=format&fit=crop')",
+backgroundSize: "cover",
+backgroundPosition: "center",
+opacity: 0.28,
+}}
+/>
 <span style={actionIcon}>03</span>
 <b>Upload Media</b>
 <small>Add your own content</small>
@@ -581,7 +611,17 @@ style={{ display: "none" }}
 <button style={actionCard} onClick={() => router.push("/feed")}>
     <div style={actionBgGlow} />
 <div style={actionBgLines} />
-<div style={getActionImage(businessTheme)} />
+<div
+style={{
+position: "absolute",
+inset: 0,
+backgroundImage:
+"url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop')",
+backgroundSize: "cover",
+backgroundPosition: "center",
+opacity: 0.28,
+}}
+/>
 <span style={actionIcon}>04</span>
 <b>Live Feed</b>
 <small>View campaigns</small>
