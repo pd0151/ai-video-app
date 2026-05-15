@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-
+import { useRouter } from "next/navigation";
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL as string,
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
@@ -29,6 +29,7 @@ created_at: string | null;
 };
 
 export default function FeedPage() {
+    const router = useRouter();
 const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 const [posts, setPosts] = useState<Post[]>([]);
 const [loading, setLoading] = useState(true);
@@ -231,7 +232,13 @@ if (url) setOpenMedia(url);
 <p>✓ Best Prices</p>
 </div>
 
-<div style={businessRow}>
+<div
+style={businessRow}
+onClick={() => {
+const profileId = (post as any).user_id;
+if (profileId) router.push(`/profile/${profileId}`);
+}}
+>
 <div style={avatar}>
 {(post.business_name || "A").charAt(0).toUpperCase()}
 </div>
