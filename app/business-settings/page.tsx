@@ -54,14 +54,8 @@ const { data } = await supabase
 .eq("is_paid", true)
 .maybeSingle();
 
-if (!data) {
-const paidFromStripe = window.location.search.includes("paid=true");
 
-if (!paidFromStripe) {
-router.push("/ai-receptionist");
-return;
-}
-}
+
 
 setCheckingPayment(false);
 }
