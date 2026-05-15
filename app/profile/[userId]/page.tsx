@@ -92,21 +92,19 @@ const businessName = data?.business_name || data?.name;
 
 if (!businessName) return;
 
-const { data: postsData, error: postsError } = await supabase
+const { data: postsLower } = await supabase
 .from("posts")
 .select("*")
 .order("created_at", { ascending: false })
 .limit(12);
 
-if (postsError) {
-alert("Posts error: " + postsError.message);
-setPosts([]);
-return;
-}
+const { data: postsUpper } = await supabase
+.from("Posts")
+.select("*")
+.order("created_at", { ascending: false })
+.limit(12);
 
-alert("Posts loaded: " + (postsData?.length || 0));
-
-setPosts(postsData || []);
+setPosts([...(postsLower || []), ...(postsUpper || [])]);
 }
 
 useEffect(() => {
