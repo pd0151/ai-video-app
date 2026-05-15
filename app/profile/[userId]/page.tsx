@@ -150,6 +150,12 @@ BUSINESS PROFILE
 <h1 style={title}>
 {business?.business_name || business?.name || "Business Profile"}
 </h1>
+<button
+onClick={() => router.push("/business-settings")}
+style={editBtn}
+>
+Edit Profile
+</button>
 </div>
 </div>
 
@@ -638,4 +644,14 @@ color: "black",
 fontSize: 42,
 fontWeight: 950,
 boxShadow: "0 0 34px rgba(34,255,127,0.42)",
+};
+const editBtn: React.CSSProperties = {
+marginTop: 16,
+padding: "12px 18px",
+borderRadius: 999,
+border: "1px solid rgba(34,255,127,0.35)",
+background: "rgba(34,255,127,0.12)",
+color: "#6dff9a",
+fontWeight: 900,
+cursor: "pointer",
 };
