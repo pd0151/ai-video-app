@@ -32,6 +32,7 @@ export default function FeedPage() {
 const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 const [posts, setPosts] = useState<Post[]>([]);
 const [loading, setLoading] = useState(true);
+const [fetched, setFetched] = useState(false);
 const [liked, setLiked] = useState<Record<string, boolean>>({});
 const [activeVideo, setActiveVideo] = useState<string | null>(null);
 const [openMedia, setOpenMedia] = useState<string | null>(null);
@@ -59,6 +60,7 @@ return;
 }
 
 setPosts((data || []).filter((p) => p.image_url || p.video_url || p.content));
+setFetched(true);
 } catch (err) {
 console.log("LOAD POSTS CRASH:", err);
 alert("Feed crashed. Check console.");
@@ -148,7 +150,7 @@ alert("Link copied");
 
 
 
-if (!loading && posts.length === 0) {
+if (!loading && posts.length === 0 && fetched) {
 return (
 <main style={empty}>
 <div>
