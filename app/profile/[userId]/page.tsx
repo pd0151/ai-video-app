@@ -11,107 +11,147 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 export default function ProfilePage() {
 const router = useRouter();
+
 const [business, setBusiness] = useState<any>(null);
 const [posts, setPosts] = useState<any[]>([]);
 const [profileImage, setProfileImage] = useState<string | null>(null);
 const [isFollowing, setIsFollowing] = useState(false);
 const [followersCount, setFollowersCount] = useState(0);
 const [followingCount, setFollowingCount] = useState(0);
+const [loading, setLoading] = useState(true);
+
+async function getCurrentUser() {
+const {
+data: { user },
+} = await supabase.auth.getUser();
+
+return user;
+}
+
 async function toggleFollow() {
-const myEmail = localStorage.getItem("user");
-const targetEmail = business?.email;
+const user = await getCurrentUser();
+const myEmail = user?.email?.toLowerCase().trim();
+const targetEmail = business?.email?.toLowerCase().trim();
 
 if (!myEmail || !targetEmail) return;
-if (myEmail.toLowerCase().trim() === targetEmail.toLowerCase().trim()) {
-return;
-}
+if (myEmail === targetEmail) return;
 
 if (isFollowing) {
 await supabase
 .from("follows")
 .delete()
-.eq("follower_email", myEmail.toLowerCase().trim())
-.eq("following_email", targetEmail.toLowerCase().trim());
+.eq("follower_email", myEmail)
+.eq("following_email", targetEmail);
 
 setIsFollowing(false);
 setFollowersCount((n) => Math.max(0, n - 1));
 } else {
 await supabase.from("follows").insert({
-follower_email: myEmail.toLowerCase().trim(),
-following_email: targetEmail.toLowerCase().trim(),
+follower_email: myEmail,
+following_email: targetEmail,
 });
 
 setIsFollowing(true);
 setFollowersCount((n) => n + 1);
 }
 }
-async function loadProfile() {
-const {
-data: { user },
-} = await supabase.auth.getUser();
 
+async function loadProfile() {
+setLoading(true);
+
+const user = await getCurrentUser();
 const email = user?.email?.toLowerCase().trim();
 const userId = user?.id;
 
-if (!email) return;
+if (!email) {
+setLoading(false);
+return;
+}
 
-const { data } = await supabase
+const { data: businessData } = await supabase
 .from("businesses")
 .select("*")
-.eq("email", email.toLowerCase().trim())
+.eq("email", email)
 .maybeSingle();
 
-setBusiness(data);
+if (!businessData) {
+setLoading(false);
+return;
+}
+
+setBusiness(businessData);
+
+if (businessData.profile_image_url) {
+setProfileImage(businessData.profile_image_url);
+}
+
+const businessEmail = businessData.email?.toLowerCase().trim();
+const businessName = (
+businessData.business_name ||
+businessData.name ||
+""
+)
+.toLowerCase()
+.trim();
+
+const { count: followers } = await supabase
+.from("follows")
+.select("*", { count: "exact", head: true })
+.eq("following_email", businessEmail);
+
+setFollowersCount(followers || 0);
+
 const { count: following } = await supabase
 .from("follows")
 .select("*", { count: "exact", head: true })
-.eq("follower_email", business.email);
+.eq("follower_email", businessEmail);
 
 setFollowingCount(following || 0);
-const myEmail = localStorage.getItem("user");
 
-if (myEmail && data?.email) {
 const { data: followData } = await supabase
 .from("follows")
 .select("*")
-.eq("follower_email", myEmail.toLowerCase().trim())
-.eq("following_email", data.email.toLowerCase().trim())
+.eq("follower_email", email)
+.eq("following_email", businessEmail)
 .maybeSingle();
 
 setIsFollowing(!!followData);
-}
 
-const { count } = await supabase
-.from("follows")
-.select("*", { count: "exact", head: true })
-.eq("following_email", data?.email);
-
-setFollowersCount(count || 0);
-if (data?.profile_image_url) {
-setProfileImage(data.profile_image_url);
-}
-const { data: userPosts } = await supabase
+const { data: allPosts } = await supabase
 .from("posts")
 .select("*")
-.or(`email.eq.${email},user_id.eq.${userId}`)
 .order("created_at", { ascending: false })
-.limit(12);
+.limit(100);
 
-setPosts(userPosts || []);
+const filteredPosts =
+allPosts?.filter((p: any) => {
+const postEmail = p.email?.toLowerCase().trim();
+const postUserId = p.user_id;
+const postBusinessName = p.business_name?.toLowerCase().trim();
+
+return (
+postEmail === email ||
+postUserId === userId ||
+postBusinessName === businessName
+);
+}) || [];
+
+setPosts(filteredPosts.slice(0, 12));
+setLoading(false);
 }
 
 useEffect(() => {
 loadProfile();
 }, []);
 
-
 async function handleProfileImage(file: File) {
-const email = localStorage.getItem("user");
+const user = await getCurrentUser();
+const email = user?.email?.toLowerCase().trim();
+
 if (!email) return;
 
-const cleanEmail = email.toLowerCase().trim();
 const ext = file.name.split(".").pop();
-const fileName = `profiles/${cleanEmail}-${Date.now()}.${ext}`;
+const fileName = `profiles/${email}-${Date.now()}.${ext}`;
 
 const { error: uploadError } = await supabase.storage
 .from("posts")
@@ -128,16 +168,19 @@ data: { publicUrl },
 
 setProfileImage(publicUrl);
 
-const { error: updateError } = await supabase
+await supabase
 .from("businesses")
 .update({ profile_image_url: publicUrl })
-.eq("email", cleanEmail);
+.eq("email", email);
+}
 
-if (updateError) {
-alert(updateError.message);
+async function logout() {
+await supabase.auth.signOut();
+localStorage.removeItem("user");
+router.push("/login");
 }
-}
-if (!business) {
+
+if (loading || !business) {
 return (
 <main style={empty}>
 <div style={loaderCard}>
@@ -161,7 +204,7 @@ Ad<span style={{ color: "#22ff7f" }}>Forge</span>
 </h1>
 </div>
 
-<button onClick={() => router.push("/login")} style={logoutBtn}>
+<button onClick={logout} style={logoutBtn}>
 Logout
 </button>
 </header>
@@ -177,7 +220,11 @@ Logout
 {profileImage ? (
 <img src={profileImage} style={avatarImg} alt="profile" />
 ) : (
-<span>{(business.business_name || "B").charAt(0).toUpperCase()}</span>
+<span>
+{(business.business_name || business.name || "B")
+.charAt(0)
+.toUpperCase()}
+</span>
 )}
 </div>
 
@@ -202,23 +249,11 @@ BUSINESS PROFILE
 </div>
 
 <h1 style={title}>
-{business?.business_name || business?.name || "Business Profile"}
+{business.business_name || business.name || "Business Profile"}
 </h1>
-<button
-onClick={toggleFollow}
-style={{
-padding: "10px 18px",
-borderRadius: 999,
-border: "1px solid rgba(255,255,255,0.12)",
-background: isFollowing
-? "rgba(255,255,255,0.08)"
-: "linear-gradient(135deg,#7c3aed,#22c55e)",
-color: "#fff",
-fontWeight: 700,
-cursor: "pointer",
-marginTop: 12,
-}}
->
+
+<div style={actionRow}>
+<button onClick={toggleFollow} style={followBtn(isFollowing)}>
 {isFollowing ? "Following" : "Follow"} • {followersCount}
 </button>
 
@@ -226,18 +261,11 @@ marginTop: 12,
 onClick={() => router.push("/business-settings")}
 style={editBtn}
 >
-Edit Profile 
+Edit Profile
 </button>
+</div>
 
-<div
-style={{
-display: "flex",
-gap: 14,
-marginTop: 18,
-flexWrap: "nowrap",
-width: "100%",
-}}
->
+<div style={statsRow}>
 <div style={statBox}>
 <b>{followersCount}</b>
 <span>Followers</span>
@@ -253,8 +281,6 @@ width: "100%",
 <span>Posts</span>
 </div>
 </div>
-
-
 </div>
 </div>
 
@@ -262,7 +288,7 @@ width: "100%",
 <div style={infoCard}>
 <span style={infoIcon}>⌖</span>
 <div>
-{business?.location || business?.service_area || "No location"}
+{business.location || business.service_area || "No location"}
 <small>Location</small>
 </div>
 </div>
@@ -270,7 +296,7 @@ width: "100%",
 <div style={infoCard}>
 <span style={infoIcon}>☎</span>
 <div>
-{business?.phone || business?.notification_phone || "No phone"}
+{business.phone || business.notification_phone || "No phone"}
 <small>Phone</small>
 </div>
 </div>
@@ -279,7 +305,10 @@ width: "100%",
 <div style={buttonRow}>
 {business.whatsapp && (
 <a
-href={`https://wa.me/${String(business.whatsapp).replace(/\D/g, "")}`}
+href={`https://wa.me/${String(business.whatsapp).replace(
+/\D/g,
+""
+)}`}
 style={greenBtn}
 >
 WhatsApp
@@ -319,7 +348,9 @@ View all →
 {posts.map((p) => (
 <article key={p.id} style={postCard}>
 <div style={mediaWrap}>
-{p.image_url && <img src={p.image_url} style={media} alt="post" />}
+{p.image_url && (
+<img src={p.image_url} style={media} alt="post" />
+)}
 
 {p.video_url && (
 <>
@@ -327,11 +358,6 @@ View all →
 <div style={playBadge}>▶</div>
 </>
 )}
-</div>
-
-<div style={postBody}>
-<b>{p.content || "Premium advert"}</b>
-<small>{p.location || business.location || "Live campaign"}</small>
 </div>
 </article>
 ))}
@@ -364,6 +390,18 @@ View all →
 );
 }
 
+const followBtn = (active: boolean): React.CSSProperties => ({
+padding: "10px 18px",
+borderRadius: 999,
+border: "1px solid rgba(255,255,255,0.12)",
+background: active
+? "rgba(255,255,255,0.08)"
+: "linear-gradient(135deg,#7c3aed,#22c55e)",
+color: "#fff",
+fontWeight: 700,
+cursor: "pointer",
+});
+
 const page: React.CSSProperties = {
 minHeight: "100vh",
 padding: "118px 16px 130px",
@@ -387,19 +425,7 @@ filter: "blur(90px)",
 pointerEvents: "none",
 zIndex: 0,
 };
-const statBox: React.CSSProperties = {
-minWidth: 0,
-flex: 1,
-padding: "12px 14px",
-borderRadius: 18,
-background: "rgba(255,255,255,0.06)",
-border: "1px solid rgba(255,255,255,0.1)",
-color: "white",
-display: "flex",
-flexDirection: "column",
-gap: 3,
-fontSize: 12,
-};
+
 const bgGlow2: React.CSSProperties = {
 position: "fixed",
 width: 260,
@@ -524,6 +550,7 @@ cursor: "pointer",
 
 const profileCopy: React.CSSProperties = {
 minWidth: 0,
+flex: 1,
 };
 
 const livePill: React.CSSProperties = {
@@ -554,6 +581,45 @@ fontSize: 34,
 lineHeight: 1,
 fontWeight: 950,
 letterSpacing: -1.5,
+};
+
+const actionRow: React.CSSProperties = {
+display: "flex",
+gap: 10,
+flexWrap: "wrap",
+marginTop: 14,
+};
+
+const editBtn: React.CSSProperties = {
+padding: "10px 18px",
+borderRadius: 999,
+border: "1px solid rgba(34,255,127,0.35)",
+background: "rgba(34,255,127,0.12)",
+color: "#6dff9a",
+fontWeight: 900,
+cursor: "pointer",
+};
+
+const statsRow: React.CSSProperties = {
+display: "flex",
+gap: 14,
+marginTop: 18,
+flexWrap: "nowrap",
+width: "100%",
+};
+
+const statBox: React.CSSProperties = {
+minWidth: 0,
+flex: 1,
+padding: "12px 14px",
+borderRadius: 18,
+background: "rgba(255,255,255,0.06)",
+border: "1px solid rgba(255,255,255,0.1)",
+color: "white",
+display: "flex",
+flexDirection: "column",
+gap: 3,
+fontSize: 12,
 };
 
 const infoGrid: React.CSSProperties = {
@@ -655,10 +721,9 @@ marginTop: 20,
 
 const postCard: React.CSSProperties = {
 overflow: "hidden",
-borderRadius: 22,
+borderRadius: 16,
 background: "rgba(255,255,255,0.045)",
 border: "1px solid rgba(34,255,127,0.18)",
-boxShadow: "0 18px 60px rgba(0,0,0,0.30)",
 };
 
 const mediaWrap: React.CSSProperties = {
@@ -683,13 +748,6 @@ placeItems: "center",
 fontSize: 34,
 color: "white",
 background: "rgba(0,0,0,0.18)",
-};
-
-const postBody: React.CSSProperties = {
-padding: 12,
-display: "flex",
-flexDirection: "column",
-gap: 6,
 };
 
 const empty: React.CSSProperties = {
@@ -757,14 +815,4 @@ color: "black",
 fontSize: 42,
 fontWeight: 950,
 boxShadow: "0 0 34px rgba(34,255,127,0.42)",
-};
-const editBtn: React.CSSProperties = {
-marginTop: 16,
-padding: "12px 18px",
-borderRadius: 999,
-border: "1px solid rgba(34,255,127,0.35)",
-background: "rgba(34,255,127,0.12)",
-color: "#6dff9a",
-fontWeight: 900,
-cursor: "pointer",
 };
