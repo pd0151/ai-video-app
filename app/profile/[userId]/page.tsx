@@ -16,6 +16,7 @@ const [posts, setPosts] = useState<any[]>([]);
 const [profileImage, setProfileImage] = useState<string | null>(null);
 const [isFollowing, setIsFollowing] = useState(false);
 const [followersCount, setFollowersCount] = useState(0);
+const [followingCount, setFollowingCount] = useState(0);
 async function toggleFollow() {
 const myEmail = localStorage.getItem("user");
 const targetEmail = business?.email;
@@ -59,6 +60,12 @@ const { data } = await supabase
 .maybeSingle();
 
 setBusiness(data);
+const { count: following } = await supabase
+.from("follows")
+.select("*", { count: "exact", head: true })
+.eq("follower_email", business.email);
+
+setFollowingCount(following || 0);
 const myEmail = localStorage.getItem("user");
 
 if (myEmail && data?.email) {
