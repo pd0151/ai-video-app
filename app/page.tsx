@@ -239,7 +239,6 @@ data: { user },
 
 await supabase.from("posts").insert({
 user_id: user?.id,
-email: user?.email?.toLowerCase().trim(),
 content: "Uploaded media",
 image_url: isVideo ? null : publicUrl,
 video_url: isVideo ? publicUrl : null,
@@ -264,7 +263,6 @@ return;
 
 const { error } = await supabase.from("posts").insert({
 user_id: user.id,
-email: user.email.toLowerCase().trim(),
 content: prompt || "AI generated advert",
 image_url: image,
 video_url: null,
