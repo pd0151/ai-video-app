@@ -239,11 +239,12 @@ data: { user },
 
 await supabase.from("posts").insert({
 user_id: user?.id,
+email: user?.email?.toLowerCase().trim(),
 content: "Uploaded media",
 image_url: isVideo ? null : publicUrl,
 video_url: isVideo ? publicUrl : null,
-business_name: "Total Tyres 247",
-location: "Liverpool",
+business_name: "",
+location: "",
 });
 
 window.location.href = "/feed";
