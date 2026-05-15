@@ -188,13 +188,7 @@ const whatsapp = phone.replace("+", "").replace(/\s/g, "");
 
 return (
 <section key={post.id} style={slide}>
-<div
-style={postFrame}
-onClick={() => {
-const url = post.video_url || post.image_url;
-if (url) setOpenMedia(url);
-}}
->
+<div style={postFrame}>
 {post.video_url ? (
 <video
 ref={(el) => {
