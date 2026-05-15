@@ -274,9 +274,12 @@ created_at: new Date().toISOString(),
 });
 
 if (error) {
-alert(error.message);
+console.log("POST INSERT ERROR:", error);
+alert("Post failed: " + error.message);
 return;
 }
+
+alert("Post saved");
 
 window.location.href = "/feed";
 }
