@@ -109,7 +109,7 @@ system and live leads dashboard.
 <div style={priceBox}>
 <div>
 <p style={small}>AI Receptionist</p>
-<h2 style={price}>£99/mo</h2>
+<h2 style={price}></h2>
 <p style={muted}>24/7 call answering • SMS alerts • live leads</p>
 </div>
 <span style={badge}>POPULAR</span>
