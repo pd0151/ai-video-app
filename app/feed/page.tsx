@@ -391,11 +391,11 @@ Send
 }
 
 const page: React.CSSProperties = {
-height: "72vh",
+height: "100vh",
 overflowY: "scroll",
 scrollSnapType: "y mandatory",
 background:
-"radial-gradient(circle at top,#081812 0%,#03100c 35%,#020204 100%)",
+"radial-gradient(circle at top, rgba(34,255,127,0.12) 0%, #020617 45%, #010104 100%)",
 color: "white",
 fontFamily: "Inter, Arial, sans-serif",
 position: "relative",
