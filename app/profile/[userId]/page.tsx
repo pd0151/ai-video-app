@@ -161,7 +161,9 @@ localStorage.removeItem("user");
 router.push("/login");
 }
 
-
+if (loading || !business) {
+return null;
+}
 
 return (
 <main style={page}>
