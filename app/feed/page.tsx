@@ -514,7 +514,7 @@ paddingBottom: 10,
 };
 
 const slide: React.CSSProperties = {
-height: "62vh",
+height: "82vh",
 scrollSnapAlign: "start",
 position: "relative",
 display: "flex",
