@@ -489,7 +489,7 @@ backdropFilter: "blur(14px)",
 
 const topTabs: React.CSSProperties = {
 position: "fixed",
-top: 82,
+top: 68,
 left: 0,
 right: 0,
 zIndex: 25,
@@ -783,16 +783,17 @@ fontWeight: 950,
 
 const bottomNav: React.CSSProperties = {
 position: "fixed",
-bottom: 0,
+bottom: -6,
 left: 0,
 right: 0,
-height: 88,
+height: 78,
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
 background: "rgba(2, 6, 23, 0.96)",
 borderTop: "1px solid rgba(34,255,127,0.18)",
 backdropFilter: "blur(20px)",
+borderRadius: 28,
 boxShadow: "0 -20px 60px rgba(34,255,127,0.08)",
 zIndex: 999,
 };
