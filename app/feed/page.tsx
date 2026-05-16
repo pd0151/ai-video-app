@@ -489,7 +489,7 @@ backdropFilter: "blur(14px)",
 
 const topTabs: React.CSSProperties = {
 position: "fixed",
-top: 108,
+top: 138,
 left: 0,
 right: 0,
 zIndex: 25,
@@ -527,7 +527,8 @@ boxSizing: "border-box",
 const postFrame: React.CSSProperties = {
 position: "relative",
 width: "100%",
-height: "82vh",
+height: "76vh",
+marginTop: 34,
 maxWidth: 560,
 borderRadius: 28,
 overflow: "hidden",
