@@ -161,16 +161,7 @@ localStorage.removeItem("user");
 router.push("/login");
 }
 
-if (loading || !business) {
-return (
-<main style={empty}>
-<div style={loaderCard}>
-<div style={loaderDot} />
-<h1>Loading profile...</h1>
-</div>
-</main>
-);
-}
+
 
 return (
 <main style={page}>
