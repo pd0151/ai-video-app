@@ -16,6 +16,9 @@ const [ready, setReady] = useState(false);
 const openPages = ["/login", "/signup", "/ai-receptionist-signup"];
 
 useEffect(() => {
+    router.prefetch("/feed");
+router.prefetch("/profile");
+router.prefetch("/ai-receptionist");
 const user = localStorage.getItem("user");
 
 if (!user && !openPages.includes(pathname)) {
