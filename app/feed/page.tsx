@@ -32,7 +32,15 @@ created_at: string | null;
 export default function FeedPage() {
     const router = useRouter();
 const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
-const [posts, setPosts] = useState<Post[]>([]);
+const [posts, setPosts] = useState<Post[]>(() => {
+if (typeof window === "undefined") return [];
+
+try {
+return JSON.parse(localStorage.getItem("cached_feed_posts") || "[]");
+} catch {
+return [];
+}
+});
 const [loading, setLoading] = useState(true);
 const [fetched, setFetched] = useState(false);
 const [liked, setLiked] = useState<Record<string, boolean>>({});
@@ -61,7 +69,16 @@ setPosts([]);
 return;
 }
 
-setPosts((data || []).filter((p) => p.image_url || p.video_url || p.content));
+const freshPosts = (data || []).filter(
+(p) => p.image_url || p.video_url
+);
+
+setPosts(freshPosts);
+
+localStorage.setItem(
+"cached_feed_posts",
+JSON.stringify(freshPosts)
+);
 setFetched(true);
 } catch (err) {
 console.log("LOAD POSTS CRASH:", err);
