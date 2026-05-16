@@ -45,44 +45,7 @@ const { data } = await supabase
 if (data) setBusiness(data);
 }
 
-async function useOneCredit() {
-const {
-data: { user },
-} = await supabase.auth.getUser();
 
-if (!user?.id) {
-alert("Please log in first");
-return false;
-}
-
-const { data, error } = await supabase
-.from("user_credits")
-.select("credits")
-.eq("user_id", user.id)
-.single();
-
-if (error || !data) {
-alert("No credits found. Please upgrade.");
-return false;
-}
-
-if (data.credits <= 0) {
-alert("You have no credits left. Upgrade to create more videos.");
-return false;
-}
-
-const { error: updateError } = await supabase
-.from("user_credits")
-.update({ credits: data.credits - 1 })
-.eq("user_id", user.id);
-
-if (updateError) {
-alert("Could not use credit.");
-return false;
-}
-
-return true;
-}
 
 async function checkStatus(id: string) {
 const res = await fetch(`/api/generate-video?id=${id}`);
@@ -109,9 +72,6 @@ alert("Enter something");
 return;
 }
 
-const creditOk = await useOneCredit();
-
-if (!creditOk) return;
 
 setLoading(true);
 setVideoUrl(null);
