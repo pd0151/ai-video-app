@@ -73,12 +73,19 @@ const freshPosts = (data || []).filter(
 (p) => p.image_url || p.video_url
 );
 
-setPosts(freshPosts);
-
+try {
 localStorage.setItem(
 "cached_feed_posts",
-JSON.stringify(freshPosts)
+JSON.stringify(
+freshPosts.map((p) => ({
+...p,
+image_url: p.image_url?.startsWith("data:") ? null : p.image_url,
+}))
+)
 );
+} catch {
+console.log("Feed cache skipped");
+}
 setFetched(true);
 } catch (err) {
 console.log("LOAD POSTS CRASH:", err);
