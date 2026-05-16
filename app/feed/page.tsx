@@ -453,13 +453,14 @@ zIndex: 0,
 
 const topHeader: React.CSSProperties = {
 position: "fixed",
-top: 18,
+top: 6,
 left: 18,
 right: 18,
 zIndex: 30,
 display: "flex",
 justifyContent: "space-between",
 alignItems: "center",
+paddingBottom: 4
 };
 
 const brandLabel: React.CSSProperties = {
@@ -488,13 +489,13 @@ backdropFilter: "blur(14px)",
 
 const topTabs: React.CSSProperties = {
 position: "fixed",
-top: 116,
+top: 82,
 left: 0,
 right: 0,
 zIndex: 25,
 display: "flex",
 justifyContent: "center",
-gap: 58,
+gap: 42,
 };
 
 const tab: React.CSSProperties = {
