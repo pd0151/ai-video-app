@@ -489,13 +489,13 @@ backdropFilter: "blur(14px)",
 
 const topTabs: React.CSSProperties = {
 position: "fixed",
-top: 68,
+top: 108,
 left: 0,
 right: 0,
 zIndex: 25,
 display: "flex",
 justifyContent: "center",
-gap: 42,
+gap: 58,
 };
 
 const tab: React.CSSProperties = {
@@ -520,7 +520,7 @@ position: "relative",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-padding: "178x 12px 104px",
+padding: "190x 22px 170px",
 boxSizing: "border-box",
 };
 
@@ -529,7 +529,7 @@ position: "relative",
 width: "100%",
 height: "100%",
 maxWidth: 560,
-borderRadius: 24,
+borderRadius: 34,
 overflow: "hidden",
 border: "1px solid rgba(34,255,127,0.24)",
 background: "rgba(0,0,0,0.42)",
