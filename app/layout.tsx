@@ -172,7 +172,7 @@ AI
 </button>
 
 <button
-onClick={() => router.push("/profile")}
+onClick={() => router.push("/profile/me")}
 style={{
 background: "transparent",
 border: "none",

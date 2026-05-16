@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -11,6 +11,8 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 export default function ProfilePage() {
 const router = useRouter();
+const params = useParams();
+const profileUserId = String(params.userId || "");
 
 const [business, setBusiness] = useState<any>(() => {
 if (typeof window === "undefined") return null;
@@ -77,8 +79,10 @@ async function loadProfile() {
 setLoading(false);
 
 const user = await getCurrentUser();
-const email = user?.email?.toLowerCase().trim();
-const userId = user?.id;
+
+const isMe = profileUserId === "me";
+const userId = isMe ? user?.id : profileUserId;
+const email = isMe ? user?.email?.toLowerCase().trim() : "";
 
 if (!email || !userId) {
 setLoading(false);
@@ -88,7 +92,7 @@ return;
 const { data: businessData } = await supabase
 .from("businesses")
 .select("*")
-.eq("email", email)
+.eq(isMe ? "email" : "id", isMe ? email : userId)
 .maybeSingle();
 
 if (!businessData) {
