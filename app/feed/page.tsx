@@ -558,9 +558,9 @@ position: "absolute",
 left: 0,
 right: 0,
 bottom: 0,
-height: "42%",
+height: "18%",
 background:
-"linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.38), transparent)",
+"linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0.38), transparent)",
 zIndex: 3,
 pointerEvents: "none",
 };
