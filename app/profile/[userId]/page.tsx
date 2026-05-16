@@ -74,7 +74,7 @@ setFollowersCount((n) => n + 1);
 }
 
 async function loadProfile() {
-setLoading(true);
+setLoading(false);
 
 const user = await getCurrentUser();
 const email = user?.email?.toLowerCase().trim();
