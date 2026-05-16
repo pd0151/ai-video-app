@@ -784,9 +784,9 @@ fontWeight: 950,
 
 const bottomNav: React.CSSProperties = {
 position: "fixed",
-bottom: 18,
-left: 22,
-right: 22,
+bottom: 22,
+left: 24,
+right: 24,
 height: 76,
 display: "flex",
 justifyContent: "space-around",
