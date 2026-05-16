@@ -74,45 +74,122 @@ color: "white",
 <nav
 style={{
 position: "fixed",
-bottom: 0,
-left: 0,
-right: 0,
-height: 75,
-background: "rgba(10,10,20,0.9)",
-backdropFilter: "blur(15px)",
-borderTop: "1px solid rgba(255,255,255,0.1)",
+bottom: 14,
+left: 14,
+right: 14,
+height: 82,
+borderRadius: 30,
+background: "rgba(6,10,18,0.82)",
+backdropFilter: "blur(22px)",
+border: "1px solid rgba(0,255,120,0.14)",
 display: "flex",
-justifyContent: "space-around",
 alignItems: "center",
-zIndex: 999,
+justifyContent: "space-around",
+zIndex: 9999,
+boxShadow:
+"0 0 40px rgba(0,255,120,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
 }}
 >
-<a href="/" style={isActive("/") ? active : item}>
-⌂
-<span>Home</span>
-</a>
-
-<a href="/feed" style={isActive("/feed") ? active : item}>
-▤
-<span>Feed</span>
-</a>
-
-<a href="/" style={plus}>
-+
-</a>
-
-<a
-href="/ai-receptionist"
-style={isActive("/ai-receptionist") ? active : item}
+<button
+onClick={() => router.push("/")}
+style={{
+background: "transparent",
+border: "none",
+color: pathname === "/" ? "#38ff7a" : "rgba(255,255,255,0.72)",
+display: "flex",
+flexDirection: "column",
+alignItems: "center",
+gap: 4,
+fontSize: 13,
+fontWeight: 700,
+}}
 >
-◉
-<span>AI</span>
-</a>
+<span style={{ fontSize: 24 }}>⌂</span>
+Home
+</button>
 
-<a href="/profile/me" style={isActive("/profile") ? active : item}>
-◎
-<span>Profile</span>
-</a>
+<button
+onClick={() => router.push("/feed")}
+style={{
+background: "transparent",
+border: "none",
+color: pathname.startsWith("/feed")
+? "#38ff7a"
+: "rgba(255,255,255,0.72)",
+display: "flex",
+flexDirection: "column",
+alignItems: "center",
+gap: 4,
+fontSize: 13,
+fontWeight: 700,
+}}
+>
+<span style={{ fontSize: 22 }}>▤</span>
+Feed
+</button>
+
+<button
+onClick={() => router.push("/video")}
+style={{
+width: 74,
+height: 74,
+borderRadius: "50%",
+border: "2px solid rgba(57,255,122,0.7)",
+background:
+"linear-gradient(135deg,#1aff66 0%,#00c853 100%)",
+color: "#04110a",
+fontSize: 42,
+fontWeight: 300,
+marginTop: -34,
+boxShadow:
+"0 0 30px rgba(57,255,122,0.55)",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+}}
+>
++
+</button>
+
+<button
+onClick={() => router.push("/ai-receptionist")}
+style={{
+background: "transparent",
+border: "none",
+color: pathname.startsWith("/ai-receptionist")
+? "#38ff7a"
+: "rgba(255,255,255,0.72)",
+display: "flex",
+flexDirection: "column",
+alignItems: "center",
+gap: 4,
+fontSize: 13,
+fontWeight: 700,
+}}
+>
+<span style={{ fontSize: 22 }}>✦</span>
+AI
+</button>
+
+<button
+onClick={() => router.push("/profile")}
+style={{
+background: "transparent",
+border: "none",
+color: pathname.startsWith("/profile")
+? "#38ff7a"
+: "rgba(255,255,255,0.72)",
+display: "flex",
+flexDirection: "column",
+alignItems: "center",
+gap: 4,
+fontSize: 13,
+fontWeight: 700,
+}}
+>
+<span style={{ fontSize: 22 }}>◉</span>
+Profile
+</button>
 </nav>
 )}
 </div>
