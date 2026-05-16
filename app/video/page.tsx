@@ -214,7 +214,13 @@ Animate Image → Video
 {loading ? "Generating..." : "Generate Video"}
 </button>
 
-{status && <p style={statusText}>Status: {status}</p>}
+{status && (
+<p style={statusText}>
+{status === "processing" && "🎬 Creating your advert..."}
+{status === "starting" && "⚡ Starting AI engine..."}
+{status === "succeeded" && "✅ Video ready"}
+</p>
+)}
 {error && <p style={errorText}>{error}</p>}
 
 {videoUrl && (
