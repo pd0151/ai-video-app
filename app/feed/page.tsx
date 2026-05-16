@@ -520,7 +520,7 @@ position: "relative",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-padding: "170px 12px 118px",
+padding: "100px 12px 118px",
 boxSizing: "border-box",
 };
 
