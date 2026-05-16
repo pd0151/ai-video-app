@@ -514,20 +514,20 @@ paddingBottom: 10,
 };
 
 const slide: React.CSSProperties = {
-height: "78vh",
+height: "100vh",
 scrollSnapAlign: "start",
 position: "relative",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-padding: "110x 18px 105px",
+padding: "125x 18px 145px",
 boxSizing: "border-box",
 };
 
 const postFrame: React.CSSProperties = {
 position: "relative",
 width: "100%",
-height: "100%",
+height: "74vh",
 maxWidth: 390,
 borderRadius: 30,
 overflow: "hidden",
