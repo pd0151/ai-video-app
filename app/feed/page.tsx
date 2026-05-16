@@ -33,7 +33,7 @@ export default function FeedPage() {
     const router = useRouter();
 const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 const [posts, setPosts] = useState<Post[]>([]);
-const [loading, setLoading] = useState(false);
+const [loading, setLoading] = useState(true);
 const [fetched, setFetched] = useState(false);
 const [liked, setLiked] = useState<Record<string, boolean>>({});
 const [activeVideo, setActiveVideo] = useState<string | null>(null);
