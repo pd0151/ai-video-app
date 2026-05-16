@@ -12,8 +12,25 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 export default function ProfilePage() {
 const router = useRouter();
 
-const [business, setBusiness] = useState<any>(null);
-const [posts, setPosts] = useState<any[]>([]);
+const [business, setBusiness] = useState<any>(() => {
+if (typeof window === "undefined") return null;
+
+try {
+return JSON.parse(localStorage.getItem("cached_profile_business") || "null");
+} catch {
+return null;
+}
+});
+
+const [posts, setPosts] = useState<any[]>(() => {
+if (typeof window === "undefined") return [];
+
+try {
+return JSON.parse(localStorage.getItem("cached_profile_posts") || "[]");
+} catch {
+return [];
+}
+});
 const [profileImage, setProfileImage] = useState<string | null>(null);
 const [isFollowing, setIsFollowing] = useState(false);
 const [followersCount, setFollowersCount] = useState(0);
@@ -80,7 +97,12 @@ return;
 }
 
 setBusiness(businessData);
-
+try {
+localStorage.setItem(
+"cached_profile_business",
+JSON.stringify(businessData)
+);
+} catch {}
 if (businessData.profile_image_url) {
 setProfileImage(businessData.profile_image_url);
 }
