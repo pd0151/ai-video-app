@@ -391,7 +391,7 @@ Send
 }
 
 const page: React.CSSProperties = {
-height: "100vh",
+height: "72vh",
 overflowY: "scroll",
 scrollSnapType: "y mandatory",
 background:
@@ -514,13 +514,13 @@ paddingBottom: 10,
 };
 
 const slide: React.CSSProperties = {
-height: "100vh",
+height: "78vh",
 scrollSnapAlign: "start",
 position: "relative",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-padding: "125x 18px 145px",
+padding: "110x 18px 105px",
 boxSizing: "border-box",
 };
 
