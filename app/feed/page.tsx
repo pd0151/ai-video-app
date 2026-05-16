@@ -394,8 +394,7 @@ const page: React.CSSProperties = {
 height: "100vh",
 overflowY: "scroll",
 scrollSnapType: "y mandatory",
-background:
-"radial-gradient(circle at top, rgba(34,255,127,0.12) 0%, #020617 45%, #010104 100%)",
+background: "#020204",
 color: "white",
 fontFamily: "Inter, Arial, sans-serif",
 position: "relative",
@@ -527,7 +526,7 @@ boxSizing: "border-box",
 const postFrame: React.CSSProperties = {
 position: "relative",
 width: "100%",
-height: "58vh",
+height: "72vh",
 marginTop: 0,
 maxWidth: 420,
 borderRadius: 34,
