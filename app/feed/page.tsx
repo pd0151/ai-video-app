@@ -392,7 +392,7 @@ Send
 
 const page: React.CSSProperties = {
 height: "100vh",
-overflowY: "hidden",
+overflowY: "scroll",
 scrollSnapType: "y mandatory",
 background: "#020204",
 color: "white",
