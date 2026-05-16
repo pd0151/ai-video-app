@@ -63,26 +63,7 @@ color: "white",
 }}
 >
 <div style={{ minHeight: "100vh", paddingBottom: showNav ? 90 : 0 }}>
-{showNav && (
-<button
-onClick={logout}
-style={{
-position: "fixed",
-top: 82,
-right: 10,
-zIndex: 9999,
-border: "1px solid rgba(255,255,255,0.14)",
-borderRadius: 18,
-padding: "10px 14px",
-background: "rgba(5,5,7,0.72)",
-color: "white",
-fontWeight: 900,
-backdropFilter: "blur(14px)",
-}}
->
-Logout
-</button>
-)}
+
 
 {children}
 
