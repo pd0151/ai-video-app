@@ -22,11 +22,16 @@ const stripe = new Stripe(stripeKey);
 const supabase = createClient(supabaseUrl, serviceKey);
 
 const body = await req.json().catch(() => ({}));
-
-const email =
-String(body.email || "peterdillon809@gmail.com")
+const email = String(body.email || "")
 .toLowerCase()
 .trim();
+
+if (!email) {
+return NextResponse.json(
+{ error: "Email required" },
+{ status: 400 }
+);
+}
 
 const { data: business } = await supabase
 .from("businesses")
