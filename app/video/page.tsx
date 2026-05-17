@@ -172,11 +172,37 @@ alert("Please log in first");
 setSharing(false);
 return;
 }
+let finalImageUrl: string | null = null;
 
+if (imageUrl && imageUrl.startsWith("data:image")) {
+const res = await fetch(imageUrl);
+const blob = await res.blob();
+
+const fileName = `${user.id}-${Date.now()}.png`;
+
+const { error: uploadError } = await supabase.storage
+.from("posts")
+.upload(fileName, blob, {
+contentType: "image/png",
+upsert: true,
+});
+
+if (uploadError) {
+alert(uploadError.message);
+setSharing(false);
+return;
+}
+
+const { data: publicData } = supabase.storage
+.from("posts")
+.getPublicUrl(fileName);
+
+finalImageUrl = publicData.publicUrl;
+}
 const { error } = await supabase.from("posts").insert({
 user_id: user.id,
 video_url: videoUrl,
-image_url:  null,
+image_url: finalImageUrl,
 content: prompt,
 business_name: business?.name || "Your business",
 location: business?.location || "",
