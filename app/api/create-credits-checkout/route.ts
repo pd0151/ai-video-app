@@ -1,10 +1,12 @@
+export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
 
 export async function POST(req: Request) {
 try {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 const body = await req.json().catch(() => ({}));
 const email = String(body.email || "").toLowerCase().trim();
 
