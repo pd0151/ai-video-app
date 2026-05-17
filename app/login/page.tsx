@@ -118,59 +118,24 @@ setLoading(false);
 }
 
 return (
-<main
-style={{
-minHeight: "100vh",
-background:
-"radial-gradient(circle at top, #063b1f 0%, #03100c 42%, #020204 100%)",
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-padding: 20,
-}}
->
-<form
-onSubmit={handleSubmit}
-style={{
-width: "100%",
-maxWidth: 460,
-background: "rgba(16,34,74,0.92)",
-padding: 28,
-borderRadius: 24,
-display: "flex",
-flexDirection: "column",
-gap: 16,
-color: "white",
-border: "1px solid rgba(255,255,255,0.12)",
-boxShadow: "0 24px 80px rgba(0,0,0,0.45)",
-}}
->
-<h1 style={{ margin: 0, fontSize: 44, fontWeight: 900 }}>
-AdForge Login
+<main style={page}>
+<form onSubmit={handleSubmit} style={card}>
+<div style={badge}>AI ADVERTISING PLATFORM</div>
+
+<h1 style={title}>
+Ad<span style={{ color: "#22ff7f" }}>Forge</span> Login
 </h1>
 
-<p style={{ margin: 0, fontSize: 18, opacity: 0.85 }}>
-Login or create your business account
-</p>
+<p style={subtitle}>Login or create your business account</p>
 
-<div style={{ display: "flex", gap: 12 }}>
+<div style={tabRow}>
 <button
 type="button"
 onClick={() => {
 setMode("login");
 setMessage("");
 }}
-style={{
-flex: 1,
-height: 54,
-borderRadius: 16,
-border: "none",
-fontSize: 22,
-fontWeight: 800,
-cursor: "pointer",
-background: mode === "login" ? "#22ff7f" : "#102018",
-color: mode === "login" ? "#001b0b" : "white",
-}}
+style={mode === "login" ? activeTab : tab}
 >
 Login
 </button>
@@ -181,17 +146,7 @@ onClick={() => {
 setMode("signup");
 setMessage("");
 }}
-style={{
-flex: 1,
-height: 54,
-borderRadius: 16,
-border: "none",
-fontSize: 22,
-fontWeight: 800,
-cursor: "pointer",
-background: mode === "signup" ? "#22ff7f" : "#102018",
-color: mode === "signup" ? "#001b0b" : "white",
-}}
+style={mode === "signup" ? activeTab : tab}
 >
 Sign up
 </button>
@@ -207,71 +162,129 @@ Sign up
 </>
 )}
 
-<input
-type="email"
-placeholder="Email"
-value={email}
-onChange={(e) => setEmail(e.target.value)}
-style={inputStyle}
-/>
+<input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
+<input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} style={inputStyle} />
 
-<input
-type="password"
-placeholder="Password"
-value={password}
-onChange={(e) => setPassword(e.target.value)}
-style={inputStyle}
-/>
-
-<button
-type="submit"
-disabled={loading}
-style={{
-height: 58,
-borderRadius: 16,
-border: "none",
-background: "linear-gradient(135deg, #22ff7f, #7dff9e)",
-color: "#001b0b",
-boxShadow: "0 24px 80px rgba(0,0,0,0.55), 0 0 55px rgba(34,255,127,0.08)",
-fontSize: 22,
-fontWeight: 900,
-cursor: "pointer",
-opacity: loading ? 0.7 : 1,
-}}
->
+<button type="submit" disabled={loading} style={submitBtn}>
 {loading ? "Please wait..." : mode === "login" ? "Login" : "Create account"}
 </button>
 
 {mode === "login" && (
-<button
-type="button"
-onClick={resetPassword}
-style={{
-background: "transparent",
-border: "none",
-color: "#22ff7f",
-fontWeight: 800,
-fontSize: 16,
-cursor: "pointer",
-}}
->
+<button type="button" onClick={resetPassword} style={forgotBtn}>
 Forgot password?
 </button>
 )}
 
-{!!message && <div style={{ fontSize: 18, fontWeight: 700 }}>{message}</div>}
+{!!message && <div style={messageBox}>{message}</div>}
 </form>
 </main>
 );
 }
 
+const page: React.CSSProperties = {
+minHeight: "100vh",
+background:
+"radial-gradient(circle at top, #063b1f 0%, #03100c 42%, #020204 100%)",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+padding: 20,
+fontFamily: "Inter, Arial, sans-serif",
+};
+
+const card: React.CSSProperties = {
+width: "100%",
+maxWidth: 460,
+background: "rgba(2,20,12,0.88)",
+padding: 28,
+borderRadius: 28,
+display: "flex",
+flexDirection: "column",
+gap: 16,
+color: "white",
+border: "1px solid rgba(34,255,127,0.2)",
+boxShadow:
+"0 0 70px rgba(34,255,127,0.1), 0 24px 90px rgba(0,0,0,0.65)",
+};
+
+const badge: React.CSSProperties = {
+fontSize: 12,
+letterSpacing: 4,
+color: "rgba(255,255,255,0.55)",
+fontWeight: 900,
+};
+
+const title: React.CSSProperties = {
+margin: 0,
+fontSize: 42,
+lineHeight: 1,
+fontWeight: 950,
+};
+
+const subtitle: React.CSSProperties = {
+margin: 0,
+fontSize: 17,
+color: "rgba(255,255,255,0.72)",
+};
+
+const tabRow: React.CSSProperties = {
+display: "flex",
+gap: 12,
+};
+
+const tab: React.CSSProperties = {
+flex: 1,
+height: 58,
+borderRadius: 18,
+border: "1px solid rgba(34,255,127,0.14)",
+fontSize: 21,
+fontWeight: 900,
+cursor: "pointer",
+background: "rgba(0,0,0,0.32)",
+color: "white",
+};
+
+const activeTab: React.CSSProperties = {
+...tab,
+background: "linear-gradient(135deg, #22ff7f, #7dff9e)",
+color: "#001b0b",
+boxShadow: "0 0 30px rgba(34,255,127,0.25)",
+};
+
 const inputStyle: React.CSSProperties = {
 height: 58,
-borderRadius: 16,
-border: "1px solid rgba(34,255,127,0.22)",
+borderRadius: 18,
+border: "1px solid rgba(34,255,127,0.2)",
 padding: "0 18px",
 fontSize: 18,
 outline: "none",
-background: "rgba(2, 20, 12, 0.86)",
+background: "rgba(0,0,0,0.35)",
 color: "white",
+};
+
+const submitBtn: React.CSSProperties = {
+height: 60,
+borderRadius: 18,
+border: "none",
+background: "linear-gradient(135deg, #22ff7f, #7dff9e)",
+color: "#001b0b",
+fontSize: 22,
+fontWeight: 950,
+cursor: "pointer",
+boxShadow: "0 0 35px rgba(34,255,127,0.35)",
+};
+
+const forgotBtn: React.CSSProperties = {
+background: "transparent",
+border: "none",
+color: "#22ff7f",
+fontWeight: 900,
+fontSize: 16,
+cursor: "pointer",
+};
+
+const messageBox: React.CSSProperties = {
+fontSize: 16,
+fontWeight: 800,
+color: "#22ff7f",
 };
