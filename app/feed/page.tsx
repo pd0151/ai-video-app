@@ -234,13 +234,21 @@ if (url) setOpenMedia(url);
 style={media}
 />
 ) : (
-<img
-src={post.image_url || ""}
-loading="lazy"
-style={media}
+<div
 onClick={() => {
-const url = post.image_url || post.video_url;
-if (url) setOpenMedia(url);
+if (post.image_url) setOpenMedia(post.image_url);
+}}
+style={{
+position: "absolute",
+inset: 0,
+width: "100%",
+height: "100%",
+backgroundImage: `url(${post.image_url})`,
+backgroundSize: "cover",
+backgroundPosition: "center",
+backgroundRepeat: "no-repeat",
+backgroundColor: "#111",
+zIndex: 0,
 }}
 />
 )}
