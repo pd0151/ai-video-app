@@ -200,9 +200,6 @@ const { data } = supabase.storage
 .getPublicUrl(fileName);
 
 finalImageUrl = data.publicUrl;
-} else {
-finalImageUrl = imageUrl;
-}
 }
 
 const { error } = await supabase.from("posts").insert({
@@ -577,3 +574,4 @@ fontSize: 42,
 fontWeight: 950,
 boxShadow: "0 0 34px rgba(34,255,127,0.42)",
 };
+}
