@@ -549,7 +549,8 @@ width: "100%",
 height: "100%",
 objectFit: "contain",
 objectPosition: "center",
-background: "#020617",
+background: "transparent",
+padding: 8,
 display: "block",
 };
 const media: React.CSSProperties = {
