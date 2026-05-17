@@ -82,7 +82,7 @@ const user = await getCurrentUser();
 
 const isMe = profileUserId === "me";
 const userId = isMe ? user?.id : profileUserId;
-const email = isMe ? user?.email?.toLowerCase().trim() : "";
+const email = user?.email?.toLowerCase().trim() || "";
 
 if (!email || !userId) {
 setLoading(false);
