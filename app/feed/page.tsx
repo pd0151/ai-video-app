@@ -215,7 +215,7 @@ const whatsapp = phone.replace("+", "").replace(/\s/g, "");
 return (
 <section key={post.id} style={slide}>
 <div style={postFrame}>
-{post.video_url ? (
+{post.video_url && !post.image_url ? (
 <video
 ref={(el) => {
 videoRefs.current[post.id] = el;
