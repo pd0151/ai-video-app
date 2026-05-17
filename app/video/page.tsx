@@ -337,7 +337,7 @@ background:
 "radial-gradient(circle at top,#081812 0%,#03100c 35%,#020204 100%)",
 fontFamily: "Inter, Arial, sans-serif",
 position: "relative",
-overflowX: "hidden",
+overflowX: "auto",
 };
 
 const bgGlow1: React.CSSProperties = {
