@@ -254,15 +254,7 @@ zIndex: 1,
 {Math.floor(24 + Math.random() * 180)} watching
 </div>
 <div style={bottomFade} />
-<div
-style={{
-color: "red",
-fontSize: 12,
-marginBottom: 10,
-}}
->
-IMG URL: {post.image_url || "NO IMAGE"}
-</div>
+
 <div style={content}>
 <div style={checks}>
 <p>✓ Fast Service</p>
