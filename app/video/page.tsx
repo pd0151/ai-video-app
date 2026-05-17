@@ -230,9 +230,8 @@ return () => stopPolling();
 
 return (
 <main style={page}>
+<div style={{ position: "relative", zIndex: 10 }}></div>
 
-<div style={{ ...bgGlow1, pointerEvents: "none", zIndex: -1 }} />
-<div style={{ ...bgGlow2, pointerEvents: "none", zIndex: -1 }} />
 
 <header style={topHeader}>
 <div>
