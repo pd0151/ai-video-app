@@ -235,7 +235,7 @@ style={media}
 />
 ) : (
 <img
-src={post.image_url || post.video_url || ""}
+src={post.image_url || ""}
 loading="lazy"
 style={imageMedia}
 onClick={() => {
