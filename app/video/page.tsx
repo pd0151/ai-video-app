@@ -230,6 +230,9 @@ return () => stopPolling();
 
 return (
 <main style={page}>
+    <h1 style={{ color: "white", position: "relative", zIndex: 9999 }}>
+VIDEO PAGE CONTENT TEST
+</h1>
 <div style={bgGlow1} />
 <div style={bgGlow2} />
 
