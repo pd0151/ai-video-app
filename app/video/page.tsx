@@ -15,6 +15,7 @@ location: string | null;
 };
 
 export default function VideoPage() {
+    return <div style={{ color: "white" }}>VIDEO PAGE WORKING</div>;
 const router = useRouter();
 
 const [prompt, setPrompt] = useState("");
