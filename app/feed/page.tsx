@@ -62,7 +62,7 @@ const { data, error } = await supabase
 )
 .order("created_at", { ascending: false })
 .limit(6);
-
+console.log("POSTS DATA:", data);
 if (error) {
 alert("Feed error: " + error.message);
 setPosts([]);

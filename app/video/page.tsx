@@ -19,6 +19,7 @@ const router = useRouter();
 
 const [prompt, setPrompt] = useState("");
 const [videoUrl, setVideoUrl] = useState<string | null>(null);
+const [imageUrl, setImageUrl] = useState<string | null>(null);
 const [status, setStatus] = useState("");
 const [loading, setLoading] = useState(false);
 const [sharing, setSharing] = useState(false);
@@ -175,7 +176,7 @@ return;
 const { error } = await supabase.from("posts").insert({
 user_id: user.id,
 video_url: videoUrl,
-image_url: null,
+image_url: imageUrl || null,
 content: prompt,
 business_name: business?.name || "Your business",
 location: business?.location || "",
