@@ -159,7 +159,7 @@ checkStatus(id);
 }
 
 async function shareToFeed() {
-if (!videoUrl) return;
+if (!videoUrl && !imageUrl) return;
 
 setSharing(true);
 
