@@ -235,7 +235,7 @@ style={media}
 />
 ) : (
 <img
-src={post.image_url || ""}
+src={post.image_url || post.video_url || ""}
 loading="lazy"
 style={imageMedia}
 onClick={() => {
@@ -538,7 +538,7 @@ boxShadow: "0 0 44px rgba(34,255,127,0.08)",
 const imageMedia: React.CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "cover",
+objectFit: "contain",
 objectPosition: "center",
 background: "#020617",
 display: "block",
