@@ -230,9 +230,7 @@ return () => stopPolling();
 
 return (
 <main style={page}>
-    <h1 style={{ color: "white", position: "relative", zIndex: 9999 }}>
-VIDEO PAGE CONTENT TEST
-</h1>
+
 <div style={{ ...bgGlow1, zIndex: -1 }} />
 <div style={{ ...bgGlow2, zIndex: -1 }} />
 
@@ -249,7 +247,13 @@ Back
 </button>
 </header>
 
-<section style={heroCard}>
+<section
+style={{
+...heroCard,
+position: "relative",
+zIndex: 9999,
+}}
+>
 <div style={pill}>VIDEO AD STUDIO</div>
 
 <h1 style={title}>AI Video Generator</h1>
