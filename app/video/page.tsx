@@ -233,8 +233,8 @@ return (
     <h1 style={{ color: "white", position: "relative", zIndex: 9999 }}>
 VIDEO PAGE CONTENT TEST
 </h1>
-<div style={bgGlow1} />
-<div style={bgGlow2} />
+<div style={{ ...bgGlow1, zIndex: -1 }} />
+<div style={{ ...bgGlow2, zIndex: -1 }} />
 
 <header style={topHeader}>
 <div>
