@@ -550,6 +550,7 @@ const imageMedia: React.CSSProperties = {
 width: "100%",
 height: "100%",
 objectFit: "contain",
+transform:"scale(0.88)",
 objectPosition: "center",
 background: "transparent",
 padding: 8,
