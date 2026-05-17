@@ -122,7 +122,7 @@ return (
 style={{
 minHeight: "100vh",
 background:
-"radial-gradient(circle at top, #1e3a8a 0%, #08142f 44%, #020617 100%)",
+"radial-gradient(circle at top, #063b1f 0%, #03100c 42%, #020204 100%)",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
@@ -168,8 +168,8 @@ border: "none",
 fontSize: 22,
 fontWeight: 800,
 cursor: "pointer",
-background: mode === "login" ? "#7c3aed" : "#334155",
-color: "white",
+background: mode === "login" ? "#22ff7f" : "#102018",
+color: mode === "login" ? "#001b0b" : "white",
 }}
 >
 Login
@@ -189,8 +189,8 @@ border: "none",
 fontSize: 22,
 fontWeight: 800,
 cursor: "pointer",
-background: mode === "signup" ? "#7c3aed" : "#334155",
-color: "white",
+background: mode === "signup" ? "#22ff7f" : "#102018",
+color: mode === "signup" ? "#001b0b" : "white",
 }}
 >
 Sign up
@@ -230,8 +230,9 @@ style={{
 height: 58,
 borderRadius: 16,
 border: "none",
-background: "linear-gradient(135deg, #7c3aed, #a855f7)",
-color: "white",
+background: "linear-gradient(135deg, #22ff7f, #7dff9e)",
+color: "#001b0b",
+boxShadow: "0 24px 80px rgba(0,0,0,0.55), 0 0 55px rgba(34,255,127,0.08)",
 fontSize: 22,
 fontWeight: 900,
 cursor: "pointer",
@@ -248,7 +249,7 @@ onClick={resetPassword}
 style={{
 background: "transparent",
 border: "none",
-color: "#c084fc",
+color: "#22ff7f",
 fontWeight: 800,
 fontSize: 16,
 cursor: "pointer",
@@ -267,10 +268,10 @@ Forgot password?
 const inputStyle: React.CSSProperties = {
 height: 58,
 borderRadius: 16,
-border: "1px solid rgba(255,255,255,0.12)",
+border: "1px solid rgba(34,255,127,0.22)",
 padding: "0 18px",
 fontSize: 18,
 outline: "none",
-background: "#1a2f5f",
+background: "rgba(2, 20, 12, 0.86)",
 color: "white",
 };
