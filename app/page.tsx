@@ -252,34 +252,46 @@ window.location.href = "/feed";
 async function useThisAd() {
 if (!image) return;
 
+try {
+const response = await fetch(image);
+const blob = await response.blob();
+
+const fileName = `${Date.now()}.png`;
+
+const { error: uploadError } = await supabase.storage
+.from("posts")
+.upload(fileName, blob);
+
+if (uploadError) {
+alert(uploadError.message);
+return;
+}
+
+const {
+data: { publicUrl },
+} = supabase.storage.from("posts").getPublicUrl(fileName);
+
 const {
 data: { user },
 } = await supabase.auth.getUser();
 
-if (!user?.id || !user?.email) {
-alert("You must be logged in to post");
-return;
-}
-
-const { error } = await supabase.from("posts").insert({
-user_id: user.id,
+await supabase.from("posts").insert({
+user_id: user?.id,
 content: prompt || "AI generated advert",
-image_url: image,
+image_url: publicUrl,
 video_url: null,
 business_name: "",
 location: "",
 created_at: new Date().toISOString(),
 });
 
-if (error) {
-console.log("POST INSERT ERROR:", error);
-alert("Post failed: " + error.message);
-return;
-}
-
 alert("Post saved");
 
 window.location.href = "/feed";
+} catch (err) {
+console.log(err);
+alert("Failed to save image");
+}
 }
 
 async function sendChatMessage() {
