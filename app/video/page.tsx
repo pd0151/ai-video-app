@@ -15,12 +15,10 @@ location: string | null;
 };
 
 export default function VideoPage() {
-  
 const router = useRouter();
 
 const [prompt, setPrompt] = useState("");
 const [videoUrl, setVideoUrl] = useState<string | null>(null);
-const [imageUrl, setImageUrl] = useState<string | null>(null);
 const [status, setStatus] = useState("");
 const [loading, setLoading] = useState(false);
 const [sharing, setSharing] = useState(false);
@@ -160,7 +158,7 @@ checkStatus(id);
 }
 
 async function shareToFeed() {
-if (!videoUrl && !imageUrl) return;
+if (!videoUrl) return;
 
 setSharing(true);
 
@@ -174,39 +172,10 @@ setSharing(false);
 return;
 }
 
-let finalImageUrl: string | null = null;
-
-if (imageUrl) {
-if (imageUrl.startsWith("data:image")) {
-const res = await fetch(imageUrl);
-const blob = await res.blob();
-
-const fileName = `${user.id}-${Date.now()}.png`;
-
-const { error: uploadError } = await supabase.storage
-.from("posts")
-.upload(fileName, blob, {
-contentType: "image/png",
-upsert: true,
-});
-
-if (uploadError) {
-alert(uploadError.message);
-setSharing(false);
-return;
-}
-
-const { data } = supabase.storage
-.from("posts")
-.getPublicUrl(fileName);
-
-finalImageUrl = data.publicUrl;
-}
-
 const { error } = await supabase.from("posts").insert({
 user_id: user.id,
-video_url: videoUrl || null,
-image_url: finalImageUrl,
+video_url: videoUrl,
+image_url: null,
 content: prompt,
 business_name: business?.name || "Your business",
 location: business?.location || "",
@@ -230,8 +199,8 @@ return () => stopPolling();
 
 return (
 <main style={page}>
-<div style={{ position: "relative", zIndex: 10 }}></div>
-
+<div style={bgGlow1} />
+<div style={bgGlow2} />
 
 <header style={topHeader}>
 <div>
@@ -246,13 +215,7 @@ Back
 </button>
 </header>
 
-<section
-style={{
-...heroCard,
-position: "relative",
-zIndex: 9999,
-}}
->
+<section style={heroCard}>
 <div style={pill}>VIDEO AD STUDIO</div>
 
 <h1 style={title}>AI Video Generator</h1>
@@ -337,14 +300,13 @@ Profile
 
 const page: React.CSSProperties = {
 minHeight: "100vh",
-padding: "30x 16px 130px",
+padding: "116px 16px 130px",
 color: "white",
 background:
 "radial-gradient(circle at top,#081812 0%,#03100c 35%,#020204 100%)",
 fontFamily: "Inter, Arial, sans-serif",
 position: "relative",
-overflowX: "auto",
-isolation: "isolate",
+overflowX: "hidden",
 };
 
 const bgGlow1: React.CSSProperties = {
@@ -582,4 +544,3 @@ fontSize: 42,
 fontWeight: 950,
 boxShadow: "0 0 34px rgba(34,255,127,0.42)",
 };
-}
