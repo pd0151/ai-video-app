@@ -231,8 +231,8 @@ return () => stopPolling();
 return (
 <main style={page}>
 
-<div style={{ ...bgGlow1, zIndex: -1 }} />
-<div style={{ ...bgGlow2, zIndex: -1 }} />
+<div style={{ ...bgGlow1, pointerEvents: "none", zIndex: -1 }} />
+<div style={{ ...bgGlow2, pointerEvents: "none", zIndex: -1 }} />
 
 <header style={topHeader}>
 <div>
@@ -345,6 +345,7 @@ background:
 fontFamily: "Inter, Arial, sans-serif",
 position: "relative",
 overflowX: "auto",
+isolation: "isolate",
 };
 
 const bgGlow1: React.CSSProperties = {
