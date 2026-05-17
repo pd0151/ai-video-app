@@ -15,7 +15,7 @@ location: string | null;
 };
 
 export default function VideoPage() {
-    return <div style={{ color: "white" }}>VIDEO PAGE WORKING</div>;
+  
 const router = useRouter();
 
 const [prompt, setPrompt] = useState("");
@@ -331,7 +331,7 @@ Profile
 
 const page: React.CSSProperties = {
 minHeight: "100vh",
-padding: "116px 16px 130px",
+padding: "30x 16px 130px",
 color: "white",
 background:
 "radial-gradient(circle at top,#081812 0%,#03100c 35%,#020204 100%)",
