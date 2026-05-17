@@ -172,9 +172,11 @@ alert("Please log in first");
 setSharing(false);
 return;
 }
+
 let finalImageUrl: string | null = null;
 
-if (imageUrl && imageUrl.startsWith("data:image")) {
+if (imageUrl) {
+if (imageUrl.startsWith("data:image")) {
 const res = await fetch(imageUrl);
 const blob = await res.blob();
 
@@ -193,16 +195,20 @@ setSharing(false);
 return;
 }
 
-const { data: publicData } = supabase.storage
+const { data } = supabase.storage
 .from("posts")
 .getPublicUrl(fileName);
 
-finalImageUrl = publicData.publicUrl;
+finalImageUrl = data.publicUrl;
+} else {
+finalImageUrl = imageUrl;
 }
+}
+
 const { error } = await supabase.from("posts").insert({
 user_id: user.id,
-video_url: videoUrl,
-image_url: null,
+video_url: videoUrl || null,
+image_url: finalImageUrl,
 content: prompt,
 business_name: business?.name || "Your business",
 location: business?.location || "",
