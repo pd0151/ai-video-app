@@ -202,7 +202,7 @@ finalImageUrl = publicData.publicUrl;
 const { error } = await supabase.from("posts").insert({
 user_id: user.id,
 video_url: videoUrl,
-image_url: finalImageUrl,
+image_url: null,
 content: prompt,
 business_name: business?.name || "Your business",
 location: business?.location || "",
