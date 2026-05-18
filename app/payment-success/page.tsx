@@ -38,7 +38,12 @@ is_paid: true,
 .eq("email", email);
 await supabase
 .from("user_credits")
-.update({ credits: 50})
+.update({
+credits:
+new URLSearchParams(window.location.search).get("packageType") === "150"
+? 150
+: 50,
+})
 .eq("email", email);
 router.push("/");
 }

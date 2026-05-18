@@ -26,7 +26,7 @@ body.packageType === "150"
 quantity: 1,
 },
 ],
-success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/payment-success?type=credits&email=${email}`,
+success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/payment-success?type=credits&packageType=${body.packageType}&email=${email}`,
 cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
 });
 
