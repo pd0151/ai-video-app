@@ -23,12 +23,19 @@ router.push("/login");
 return;
 }
 
-const email = user.email.toLowerCase().trim();
-
 const params = new URLSearchParams(window.location.search);
 const type = params.get("type");
 const packageType = params.get("packageType");
+const urlEmail = params.get("email");
 
+const email =
+user?.email?.toLowerCase().trim() ||
+urlEmail?.toLowerCase().trim();
+
+if (!email) {
+router.push("/login");
+return;
+}
 if (type === "credits") {
 let creditsToAdd = 50;
 
