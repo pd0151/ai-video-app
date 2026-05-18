@@ -25,6 +25,41 @@ return;
 
 const email = user.email.toLowerCase().trim();
 
+const params = new URLSearchParams(window.location.search);
+const type = params.get("type");
+const packageType = params.get("packageType");
+
+if (type === "credits") {
+let creditsToAdd = 50;
+
+if (packageType === "150") {
+creditsToAdd = 150;
+}
+
+if (packageType === "pro") {
+creditsToAdd = 500;
+}
+
+const { data: existing } = await supabase
+.from("user_credits")
+.select("credits")
+.eq("email", email)
+.maybeSingle();
+
+const currentCredits = existing?.credits || 0;
+
+await supabase.from("user_credits").upsert(
+{
+email,
+credits: currentCredits + creditsToAdd,
+},
+{ onConflict: "email" }
+);
+
+router.push("/");
+return;
+}
+
 await supabase.from("paid_users").upsert({
 email,
 is_paid: true,
@@ -36,16 +71,8 @@ await supabase
 is_paid: true,
 })
 .eq("email", email);
-await supabase
-.from("user_credits")
-.update({
-credits:
-new URLSearchParams(window.location.search).get("packageType") === "150"
-? 150
-: 50,
-})
-.eq("email", email);
-router.push("/");
+
+router.push("/business-settings");
 }
 
 unlockUser();
@@ -67,8 +94,8 @@ fontFamily: "Arial, sans-serif",
 >
 <div>
 <h1>✅ Payment successful</h1>
-<p>Setting up your AI receptionist...</p>
+<p>Finalising your purchase...</p>
 </div>
 </main>
-); 
+);
 }
