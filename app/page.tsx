@@ -440,52 +440,7 @@ PRO
 </div>
 </div>
 </section>
-<section style={setupMiniWrap}>
-<div style={setupMiniBadge}>⚡ SETUP IN 5 MINUTES</div>
 
-<h2 style={setupMiniTitle}>
-Get started in minutes.
-<br />
-<span style={{ color: "#22c55e" }}>Start capturing more jobs.</span>
-</h2>
-
-<p style={setupMiniText}>
-No complicated setup. No tech skills needed.
-<br />
-Just 3 simple steps to activate your AI receptionist.
-</p>
-
-<div style={setupMiniSteps}>
-<div style={setupMiniStep}>
-<div style={setupMiniNumber}>1</div>
-<div>
-<h3>Connect your number</h3>
-<p>Forward your calls to your AI receptionist.</p>
-</div>
-</div>
-
-<div style={setupMiniStep}>
-<div style={setupMiniNumber}>2</div>
-<div>
-<h3>AI learns your business</h3>
-<p>Add your services, hours and business info.</p>
-</div>
-</div>
-
-<div style={setupMiniStep}>
-<div style={setupMiniNumber}>3</div>
-<div>
-<h3>Start receiving leads</h3>
-<p>AI captures details and sends job alerts.</p>
-</div>
-</div>
-</div>
-
-<div style={setupMiniBar}>
-<span>✨ AI ACTIVATING...</span>
-<b>70%</b>
-</div>
-</section>
 
 <section style={showcase}>
 <div style={sectionTop}>
