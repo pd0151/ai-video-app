@@ -31,7 +31,7 @@ const [loading, setLoading] = useState(false);
 const [isAdmin] = useState(false);
 const [isPaid, setIsPaid] = useState(false);
 const [setupComplete, setSetupComplete] = useState(false);
-
+const [business, setBusiness] = useState<any>(null);
 async function loadLeads() {
 const {
 data: { user },
@@ -46,10 +46,10 @@ const email = user.email.toLowerCase().trim();
 
 const { data: business } = await supabase
 .from("businesses")
-.select("id")
+.select("id, stripe_customer_id")
 .eq("email", email)
 .maybeSingle();
-
+setBusiness(business);
 if (!business?.id) {
 setLeads([]);
 return;
@@ -199,7 +199,9 @@ method: "POST",
 headers: {
 "Content-Type": "application/json",
 },
-body: JSON.stringify({ email }),
+body: JSON.stringify({
+customerId: business?.stripe_customer_id,
+}),
 });
 
 const data = await res.json();
