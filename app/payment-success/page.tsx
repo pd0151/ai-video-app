@@ -34,14 +34,13 @@ await supabase
 .from("businesses")
 .update({
 is_paid: true,
-status: "paid",
 })
 .eq("email", email);
 await supabase
 .from("user_credits")
-.update({ credits: 119 })
+.update({ credits: 50})
 .eq("email", email);
-router.push("/business-settings");
+router.push("/");
 }
 
 unlockUser();
