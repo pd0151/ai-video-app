@@ -56,14 +56,18 @@ console.log("WEBHOOK EMAIL:", email);
 console.log("WEBHOOK BUSINESS ID:", businessId);
 console.log("STRIPE CUSTOMER:", session.customer);
 if (businessId) {
-await supabase
+const { data, error } = await supabase
 .from("businesses")
 .update({
 is_paid: true,
 status: "paid",
 stripe_customer_id: session.customer as string,
 })
-.eq("id", businessId);
+.eq("id", businessId)
+.select();
+
+console.log("SUPABASE UPDATE:", data);
+console.log("SUPABASE ERROR:", error);
 } else {
 await supabase
 .from("businesses")
