@@ -52,7 +52,9 @@ is_paid: true,
 },
 { onConflict: "email" }
 );
-
+console.log("WEBHOOK EMAIL:", email);
+console.log("WEBHOOK BUSINESS ID:", businessId);
+console.log("STRIPE CUSTOMER:", session.customer);
 if (businessId) {
 await supabase
 .from("businesses")
