@@ -20,10 +20,11 @@ customer_email: email,
 line_items: [
 {
 price:
-body.packageType === "150"
+body.packageType === "pro"
+? process.env.STRIPE_PRO_CREDITS_PRICE_ID as string
+: body.packageType === "150"
 ? process.env.STRIPE_150_CREDITS_PRICE_ID as string
 : process.env.STRIPE_50_CREDITS_PRICE_ID as string,
-quantity: 1,
 },
 ],
 success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/payment-success?type=credits&packageType=${body.packageType}&email=${email}`,
