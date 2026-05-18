@@ -25,6 +25,7 @@ body.packageType === "pro"
 : body.packageType === "150"
 ? process.env.STRIPE_150_CREDITS_PRICE_ID as string
 : process.env.STRIPE_50_CREDITS_PRICE_ID as string,
+quantity: 1,
 },
 ],
 success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/payment-success?type=credits&packageType=${body.packageType}&email=${email}`,
