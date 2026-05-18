@@ -399,7 +399,7 @@ style={greenBtn}
 
 {!isPro && (
 <button
-onClick={upgradeUser}
+onClick={() => buyCredits("pro")}
 style={greenBtn}
 >
 PRO
