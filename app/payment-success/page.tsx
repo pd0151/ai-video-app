@@ -47,7 +47,7 @@ if (packageType === "pro") {
 creditsToAdd = 500;
 }
 
-await fetch("/api/add-credits", {
+const creditRes = await fetch("/api/add-credits", {
 method: "POST",
 headers: {
 "Content-Type": "application/json",
@@ -57,6 +57,13 @@ email,
 creditsToAdd,
 }),
 });
+
+const creditData = await creditRes.json();
+
+if (!creditRes.ok) {
+alert(creditData.error || "Credits failed");
+return;
+}
 
 router.push("/");
 return;
