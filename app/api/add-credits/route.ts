@@ -10,11 +10,14 @@ export async function POST(req: Request) {
 try {
 const body = await req.json();
 
-const email = String(body.email || "").toLowerCase().trim();
+const email = body.email?.toLowerCase().trim();
 const creditsToAdd = Number(body.creditsToAdd || 0);
 
-if (!email || !creditsToAdd) {
-return NextResponse.json({ error: "Missing email or credits" }, { status: 400 });
+if (!email) {
+return NextResponse.json(
+{ error: "No email provided" },
+{ status: 400 }
+);
 }
 
 const { data: existing } = await supabase
@@ -25,20 +28,33 @@ const { data: existing } = await supabase
 
 const currentCredits = existing?.credits || 0;
 
-const { error } = await supabase.from("user_credits").upsert(
+const { error } = await supabase
+.from("user_credits")
+.upsert(
 {
 email,
 credits: currentCredits + creditsToAdd,
 },
-{ onConflict: "email" }
+{
+onConflict: "email",
+}
 );
 
 if (error) {
-return NextResponse.json({ error: error.message }, { status: 500 });
+return NextResponse.json(
+{ error: error.message },
+{ status: 500 }
+);
 }
 
-return NextResponse.json({ ok: true });
+return NextResponse.json({
+success: true,
+credits: currentCredits + creditsToAdd,
+});
 } catch (err: any) {
-return NextResponse.json({ error: err.message }, { status: 500 });
+return NextResponse.json(
+{ error: err.message || "Server error" },
+{ status: 500 }
+);
 }
 }
