@@ -32,7 +32,10 @@ is_paid: true,
 
 await supabase
 .from("businesses")
-.update({ is_paid: true })
+.update({
+is_paid: true,
+status: "paid",
+})
 .eq("email", email);
 await supabase
 .from("user_credits")
