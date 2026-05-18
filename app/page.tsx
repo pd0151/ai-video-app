@@ -448,34 +448,24 @@ PRO
 LIVE AI RECEPTIONIST
 </div>
 
-<div style={heroTop}>
-<div style={heroLeft}>
-<div style={aiPill}>
-<span style={greenDot} />
-LIVE AI RECEPTIONIST
+<div style={waveWrap}>
+<div className="wave-line" style={waveLine} />
 </div>
 
-<h2 style={heroTitle}>
+<h2 style={aiTitle}>
 Turn missed calls
 <br />
 into <span style={{ color: "#22ff7f" }}>booked jobs</span>
 </h2>
 
-<p style={heroText}>
+<p style={aiText}>
 AI answers calls, captures details and sends instant job alerts
 straight to your dashboard.
 </p>
 
-<button className="green-pulse" style={heroBtn}>
+<button className="green-pulse" style={aiCta}>
 Launch AI Receptionist
 </button>
-</div>
-
-<div style={phoneGlowWrap}>
-<div style={phoneGlow} />
-<div style={phoneIcon}>📞</div>
-</div>
-</div>
 
 <div className="float-card" style={aiLeadCard}>
 <div style={aiLeadTop}>
@@ -1123,7 +1113,7 @@ border: "1px solid rgba(34,255,127,0.18)",
 marginBottom: 18,
 };
 
-const aiheroTopnew: CSSProperties = {
+const heroTop: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
 gap: 12,
@@ -1147,7 +1137,7 @@ color: "#22ff7f",
 fontWeight: 950,
 };
 
-const aiheroTitleNew: CSSProperties = {
+const heroTitle: CSSProperties = {
 margin: 0,
 fontSize: 26,
 lineHeight: 1,
@@ -1545,68 +1535,4 @@ color: "#04140c",
 fontSize: 38,
 fontWeight: 950,
 boxShadow: "0 0 34px rgba(34,255,127,0.42)",
-};
-const heroTop: React.CSSProperties = {
-display: "flex",
-justifyContent: "space-between",
-alignItems: "center",
-gap: 18,
-};
-
-const heroLeft: React.CSSProperties = {
-flex: 1,
-};
-
-const heroTitle: React.CSSProperties = {
-fontSize: 44,
-lineHeight: 0.95,
-fontWeight: 950,
-color: "white",
-margin: "18px 0 16px",
-letterSpacing: -2,
-};
-
-const heroText: React.CSSProperties = {
-color: "#b4b4b8",
-fontSize: 17,
-lineHeight: 1.5,
-marginBottom: 22,
-maxWidth: 420,
-};
-
-const heroBtn: React.CSSProperties = {
-height: 58,
-borderRadius: 18,
-padding: "0 28px",
-border: "none",
-fontWeight: 900,
-fontSize: 18,
-cursor: "pointer",
-};
-
-const phoneGlowWrap: React.CSSProperties = {
-position: "relative",
-width: 170,
-height: 170,
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-};
-
-const phoneGlow: React.CSSProperties = {
-position: "absolute",
-width: 150,
-height: 150,
-borderRadius: "50%",
-background: "rgba(34,255,127,0.18)",
-filter: "blur(18px)",
-boxShadow: "0 0 80px #22ff7f",
-};
-
-const phoneIcon: React.CSSProperties = {
-position: "relative",
-zIndex: 2,
-fontSize: 88,
-transform: "rotate(-12deg)",
-filter: "drop-shadow(0 0 24px #22ff7f)",
 };
