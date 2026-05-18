@@ -440,162 +440,50 @@ PRO
 </div>
 </div>
 </section>
-<section style={setupWrap}>
-<div style={setupBadge}>⚡ SETUP IN 5 MINUTES</div>
+<section style={setupMiniWrap}>
+<div style={setupMiniBadge}>⚡ SETUP IN 5 MINUTES</div>
 
-<h2 style={setupTitle}>
+<h2 style={setupMiniTitle}>
 Get started in minutes.
 <br />
-<span style={{ color: "#22c55e" }}>
-Start capturing more jobs.
-</span>
+<span style={{ color: "#22c55e" }}>Start capturing more jobs.</span>
 </h2>
 
-<p style={setupText}>
+<p style={setupMiniText}>
 No complicated setup. No tech skills needed.
 <br />
 Just 3 simple steps to activate your AI receptionist.
 </p>
 
-<div style={stepsGrid}>
-<div style={stepCard}>
-<div style={stepNumber}>1</div>
-<h3>Connect your number</h3>
-<p>
-Forward your business calls to your AI receptionist
-in under 60 seconds.
-</p>
-</div>
-
-<div style={stepCard}>
-<div style={stepNumber}>2</div>
-<h3>AI learns your business</h3>
-<p>
-Add your services, opening hours and business info.
-</p>
-</div>
-
-<div style={stepCard}>
-<div style={stepNumber}>3</div>
-<h3>Start receiving leads</h3>
-<p>
-AI answers calls, captures customer details and
-sends instant job alerts.
-</p>
-</div>
-</div>
-
-<button style={launchBtn}>
-Launch Your AI Receptionist
-</button>
-</section>
-<section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
-
-
-<div style={aiPill}>
-<span style={greenDot} />
-LIVE AI RECEPTIONIST
-</div>
-
-<div style={waveWrap}>
-<div className="wave-line" style={waveLine} />
-</div>
-
-<h2 style={aiTitle}>
-Turn missed calls
-<br />
-into <span style={{ color: "#22ff7f" }}>booked jobs</span>
-</h2>
-
-<p style={aiText}>
-AI answers calls, captures details and sends instant job alerts
-straight to your dashboard.
-</p>
-
-<button className="green-pulse" style={aiCta}>
-Launch AI Receptionist
-</button>
-
-<div className="float-card" style={aiLeadCard}>
-<div style={aiLeadTop}>
-<span>NEW LEAD CAPTURED</span>
-<b>1m ago</b>
-</div>
-<h3 style={{ margin: "10px 0 4px" }}>{businessText.lead}</h3>
-<p style={{ margin: 0, opacity: 0.8 }}>
-{businessText.subtitle}
-</p>
-</div>
-</section>
-
-<section style={statsStrip}>
-<div style={statBox}>
-<b>24/7</b>
-<small>Calls Answered</small>
-</div>
-<div style={statBox}>
-<b>128</b>
-<small>Leads This Week</small>
-</div>
-<div style={statBox}>
-<b>98%</b>
-<small>Response Rate</small>
-</div>
-<div style={statBox}>
-<b>47</b>
-<small>Jobs Booked</small>
-</div>
-</section>
-
-<section style={heroCard}>
-<div style={heroTop}>
+<div style={setupMiniSteps}>
+<div style={setupMiniStep}>
+<div style={setupMiniNumber}>1</div>
 <div>
-<div style={heroPill}>AI CREATIVE STUDIO</div>
-<h2 style={heroTitle}>Create high-converting ads</h2>
+<h3>Connect your number</h3>
+<p>Forward your calls to your AI receptionist.</p>
 </div>
-<div style={liveBadge}>LIVE</div>
 </div>
 
-<div style={promptBox}>
-<textarea
-value={prompt}
-onChange={(e) => setPrompt(e.target.value)}
-placeholder="Describe your business, offer or service..."
-style={promptInput}
-/>
-
-<div style={toolRow}>
-<button
-style={chip}
-onClick={() => setPrompt("{businessText.prompt}")}
->
-Use Example
-</button>
-
-<button
-style={chip}
-onClick={() => setPrompt(`${prompt} make this advert better`)}
->
-Improve Prompt
-</button>
-
-<label style={chip}>
-Upload Media
-<input
-type="file"
-accept="image/*,video/*"
-onChange={(e) => {
-const file = e.target.files?.[0];
-if (file) uploadMedia(file);
-}}
-style={{ display: "none" }}
-/>
-</label>
-
-<button className="green-pulse" style={createBtn} onClick={generateAd}>
-{loadingImage ? "Creating..." : "Generate Ad"}
-</button>
+<div style={setupMiniStep}>
+<div style={setupMiniNumber}>2</div>
+<div>
+<h3>AI learns your business</h3>
+<p>Add your services, hours and business info.</p>
 </div>
+</div>
+
+<div style={setupMiniStep}>
+<div style={setupMiniNumber}>3</div>
+<div>
+<h3>Start receiving leads</h3>
+<p>AI captures details and sends job alerts.</p>
+</div>
+</div>
+</div>
+
+<div style={setupMiniBar}>
+<span>✨ AI ACTIVATING...</span>
+<b>70%</b>
 </div>
 </section>
 
@@ -1351,82 +1239,7 @@ background: "rgba(255,255,255,0.05)",
 border: "1px solid rgba(34,255,127,0.16)",
 marginBottom: 18,
 };
-const setupWrap: React.CSSProperties = {
-marginTop: 40,
-padding: 24,
-borderRadius: 30,
-border: "1px solid rgba(34,197,94,0.25)",
-background:
-"linear-gradient(180deg,#03110a 0%, #020617 100%)",
-boxShadow: "0 0 40px rgba(0,255,120,0.12)",
-};
 
-const setupBadge: React.CSSProperties = {
-display: "inline-flex",
-padding: "8px 16px",
-borderRadius: 999,
-background: "rgba(0,255,120,0.08)",
-border: "1px solid rgba(0,255,120,0.2)",
-color: "#4ade80",
-fontWeight: 700,
-fontSize: 13,
-marginBottom: 18,
-};
-
-const setupTitle: React.CSSProperties = {
-fontSize: 42,
-lineHeight: 1.05,
-fontWeight: 900,
-color: "white",
-marginBottom: 14,
-};
-
-const setupText: React.CSSProperties = {
-color: "#9ca3af",
-fontSize: 18,
-lineHeight: 1.6,
-marginBottom: 28,
-};
-
-const stepsGrid: React.CSSProperties = {
-display: "grid",
-gridTemplateColumns: "1fr",
-gap: 18,
-};
-
-const stepCard: React.CSSProperties = {
-padding: 24,
-borderRadius: 24,
-background: "rgba(255,255,255,0.03)",
-border: "1px solid rgba(255,255,255,0.06)",
-};
-
-const stepNumber: React.CSSProperties = {
-width: 42,
-height: 42,
-borderRadius: 999,
-background: "#22c55e",
-color: "black",
-fontWeight: 900,
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-marginBottom: 16,
-};
-
-const launchBtn: React.CSSProperties = {
-marginTop: 28,
-width: "100%",
-height: 64,
-borderRadius: 20,
-border: "none",
-background: "#22c55e",
-color: "black",
-fontWeight: 900,
-fontSize: 20,
-cursor: "pointer",
-boxShadow: "0 0 30px rgba(34,197,94,0.4)",
-};
 const testimonialStrip: CSSProperties = {
 marginTop: 22,
 padding: 22,
@@ -1660,4 +1473,79 @@ color: "#04140c",
 fontSize: 38,
 fontWeight: 950,
 boxShadow: "0 0 34px rgba(34,255,127,0.42)",
+};
+const setupMiniWrap: React.CSSProperties = {
+marginTop: 28,
+padding: 18,
+borderRadius: 24,
+border: "1px solid rgba(34,197,94,0.25)",
+background: "linear-gradient(180deg,#03110a 0%,#020617 100%)",
+boxShadow: "0 0 28px rgba(34,255,127,0.1)",
+};
+
+const setupMiniBadge: React.CSSProperties = {
+display: "inline-flex",
+padding: "7px 14px",
+borderRadius: 999,
+background: "rgba(34,255,127,0.08)",
+border: "1px solid rgba(34,255,127,0.22)",
+color: "#4ade80",
+fontWeight: 900,
+fontSize: 12,
+marginBottom: 16,
+};
+
+const setupMiniTitle: React.CSSProperties = {
+fontSize: 34,
+lineHeight: 1.06,
+fontWeight: 950,
+color: "white",
+margin: "0 0 12px",
+};
+
+const setupMiniText: React.CSSProperties = {
+color: "#a1a1aa",
+fontSize: 15,
+lineHeight: 1.45,
+marginBottom: 18,
+};
+
+const setupMiniSteps: React.CSSProperties = {
+display: "grid",
+gap: 10,
+};
+
+const setupMiniStep: React.CSSProperties = {
+display: "flex",
+gap: 14,
+alignItems: "center",
+padding: 14,
+borderRadius: 18,
+background: "rgba(255,255,255,0.035)",
+border: "1px solid rgba(255,255,255,0.07)",
+};
+
+const setupMiniNumber: React.CSSProperties = {
+width: 36,
+height: 36,
+minWidth: 36,
+borderRadius: 999,
+background: "#22c55e",
+color: "black",
+fontWeight: 950,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+};
+
+const setupMiniBar: React.CSSProperties = {
+marginTop: 16,
+padding: "10px 12px",
+borderRadius: 14,
+background: "rgba(34,255,127,0.08)",
+color: "#22c55e",
+fontSize: 12,
+fontWeight: 900,
+display: "flex",
+justifyContent: "space-between",
 };
