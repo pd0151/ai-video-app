@@ -60,7 +60,6 @@ const { data, error } = await supabase
 .from("businesses")
 .update({
 is_paid: true,
-status: "paid",
 stripe_customer_id: session.customer as string,
 })
 .eq("id", businessId)
@@ -73,7 +72,6 @@ await supabase
 .from("businesses")
 .update({
 is_paid: true,
-status: "paid",
 stripe_customer_id: session.customer as string,
 })
 .eq("email", email.toLowerCase().trim());
