@@ -47,21 +47,16 @@ if (packageType === "pro") {
 creditsToAdd = 500;
 }
 
-const { data: existing } = await supabase
-.from("user_credits")
-.select("credits")
-.eq("email", email)
-.maybeSingle();
-
-const currentCredits = existing?.credits || 0;
-
-await supabase.from("user_credits").upsert(
-{
-email,
-credits: currentCredits + creditsToAdd,
+await fetch("/api/add-credits", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
 },
-{ onConflict: "email" }
-);
+body: JSON.stringify({
+email,
+creditsToAdd,
+}),
+});
 
 router.push("/");
 return;
