@@ -100,26 +100,31 @@ async function buyCredits(packageType: string) {
 const {
 data: { user },
 } = await supabase.auth.getUser();
+
 if (!user?.email) {
 alert("Please log in first");
 return;
 }
+
 const res = await fetch("/api/create-credits-checkout", {
 method: "POST",
 headers: {
 "Content-Type": "application/json",
 },
 body: JSON.stringify({
-email: user?.email,
+email: user.email,
 packageType,
 }),
 });
 
 const data = await res.json();
 
-if (data.url) {
-window.location.href = data.url;
+if (!res.ok || !data.url) {
+alert(data.error || "Checkout failed");
+return;
 }
+
+window.location.href = data.url;
 }
 async function logout() {
 await supabase.auth.signOut();
