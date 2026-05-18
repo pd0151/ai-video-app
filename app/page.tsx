@@ -100,7 +100,10 @@ async function buyCredits(packageType: string) {
 const {
 data: { user },
 } = await supabase.auth.getUser();
-
+if (!user?.email) {
+alert("Please log in first");
+return;
+}
 const res = await fetch("/api/create-credits-checkout", {
 method: "POST",
 headers: {
