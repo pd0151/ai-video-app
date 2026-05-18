@@ -12,7 +12,7 @@ const body = await req.json();
 
 const email = body.email?.toLowerCase().trim();
 const creditsToAdd = Number(body.creditsToAdd || 0);
-
+const user_id = body.user_id;
 if (!email) {
 return NextResponse.json(
 { error: "No email provided" },
@@ -33,6 +33,7 @@ const { error } = await supabase
 .upsert(
 {
 email,
+user_id,
 credits: currentCredits + creditsToAdd,
 },
 {

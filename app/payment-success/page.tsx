@@ -54,6 +54,7 @@ headers: {
 },
 body: JSON.stringify({
 email,
+user_id: user?.id,
 creditsToAdd,
 }),
 });
