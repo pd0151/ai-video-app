@@ -27,8 +27,21 @@ const [image, setImage] = useState<string | null>(null);
 const [loadingImage, setLoadingImage] = useState(false);
 const [isPro, setIsPro] = useState(false);
 const [credits, setCredits] = useState(0);
-const businessText = getBusinessText(businessTheme);
+useEffect(() => {
+loadRecentPosts();
+}, []);
 
+async function loadRecentPosts() {
+const { data } = await supabase
+.from("posts")
+.select("*")
+.order("created_at", { ascending: false })
+.limit(6);
+
+setRecentPosts(data || []);
+}
+const businessText = getBusinessText(businessTheme);
+const [recentPosts, setRecentPosts] = useState<any[]>([]);
 useEffect(() => {
 async function loadUser() {
 const { data } = await supabase.auth.getUser();
@@ -560,15 +573,14 @@ View all
 
 <div style={adScroller}>
 <div className="ad-track" style={adTrack}>
-{["NEW OFFER LIVE", "BOOKINGS OPEN", "LIMITED TIME DEAL", "GET MORE LEADS", "BOOST YOUR BRAND", "READY TO POST"].map(
-(title, i) => (
+{recentPosts.map((post, i) => (
 <div key={i} style={adPreview}>
-<div style={adMockImage}>
-<div style={adGlow} />
-<div style={tyreCircle} />
-<div style={adRoad} />
-</div>
-<b>{title}</b>
+<img
+src={post.image_url || "/placeholder.png"}
+alt="Ad"
+style={generatedImage}
+/>
+<b>{post.content || "AI Generated Ad"}</b>
 <small>Premium advert template</small>
 <span style={miniGreen}>READY TO POST</span>
 </div>
