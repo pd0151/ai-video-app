@@ -370,6 +370,9 @@ return (
 0%, 100% { transform: translateY(0px); }
 50% { transform: translateY(-10px); }
 }
+.ad-scroller::-webkit-scrollbar {
+display: none;
+}
 
 @keyframes pulseGlow {
 0%, 100% { box-shadow: 0 0 24px rgba(34,255,127,0.25); }
@@ -587,7 +590,7 @@ View all
 </button>
 </div>
 
-<div ref={adScrollerRef} style={adScroller}>
+<div ref={adScrollerRef} style={adScroller} className="ad-scroller">
 <div style={adTrack}>
 {[...recentPosts, ...recentPosts].map((post, i) => (
 <div key={i} style={adPreview}>
@@ -1268,8 +1271,12 @@ fontWeight: 900,
 };
 
 const adScroller: CSSProperties = {
-overflow: "hidden",
+overflowX: "auto",
+overflowY: "hidden",
+scrollBehavior: "auto",
+scrollbarWidth: "none",
 };
+
 const adTitle: CSSProperties = {
 fontSize: 15,
 lineHeight: "18px",
