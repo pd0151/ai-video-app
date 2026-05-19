@@ -949,7 +949,7 @@ const greenBtn: CSSProperties = {
 background: "#39ff6a",
 color: "#000",
 borderRadius: 18,
-boxShadow: "0 0 22px rgba(34,255,127,0.45)",
+boxShadow: "0 0 18px rgba(34,255,127,0.9), 0 0 45px rgba(34,255,127,0.55)",
 border: "1px solid rgba(255,255,255,0.12)",
 transition: "all 0.25s ease",
 padding: "10px 16px",
