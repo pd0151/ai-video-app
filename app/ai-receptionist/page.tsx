@@ -201,6 +201,7 @@ headers: {
 },
 body: JSON.stringify({
 customerId: business?.stripe_customer_id,
+email,
 }),
 });
 
