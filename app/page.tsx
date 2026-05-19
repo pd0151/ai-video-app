@@ -948,15 +948,16 @@ opacity: 0.65,
 const greenBtn: CSSProperties = {
 background: "#39ff6a",
 color: "#000",
-border: "none",
 borderRadius: 18,
+boxShadow: "0 0 22px rgba(34,255,127,0.45)",
+border: "1px solid rgba(255,255,255,0.12)",
+transition: "all 0.25s ease",
 padding: "10px 16px",
 fontWeight: 800,
 fontSize: 14,
 minWidth: 88,
 height: 54,
 cursor: "pointer",
-boxShadow: "0 0 20px rgba(57,255,106,0.35)",
 };
 
 const proBadge: CSSProperties = {
