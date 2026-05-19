@@ -29,28 +29,10 @@ const [isPro, setIsPro] = useState(false);
 const [credits, setCredits] = useState(0);
 const adScrollerRef = useRef<HTMLDivElement | null>(null);
 const [recentPosts, setRecentPosts] = useState<any[]>([]);
+
 useEffect(() => {
 loadRecentPosts();
 }, []);
-useEffect(() => {
-loadRecentPosts();
-}, []);
-
-useEffect(() => {
-const el = adScrollerRef.current;
-if (!el || recentPosts.length === 0) return;
-
-const timer = setInterval(() => {
-if (el.scrollLeft >= el.scrollWidth / 3) {
-el.scrollLeft = 0;
-} else {
-el.scrollBy({ left: 180, behavior: "smooth" });
-}
-}, 2200);
-
-return () => clearInterval(timer);
-}, [recentPosts]);
-
 
 async function loadRecentPosts() {
 const { data } = await supabase
@@ -374,7 +356,15 @@ return (
 0%, 100% { box-shadow: 0 0 24px rgba(34,255,127,0.25); }
 50% { box-shadow: 0 0 48px rgba(34,255,127,0.55); }
 }
+@keyframes recentSlide {
+0% {
+transform: translateX(0);
+}
 
+100% {
+transform: translateX(-50%);
+}
+}
 
 @keyframes greenWave {
 0% { transform: translateX(-100%); opacity: 0.2; }
@@ -587,20 +577,28 @@ View all
 </div>
 
 <div style={adScroller}>
-<div className="ad-track" style={adTrack}>
-{[...recentPosts, ...recentPosts, ...recentPosts].map((post, i) => (
+<div style={adTrack}>
+{[...recentPosts, ...recentPosts].map((post, i) => (
 <div key={i} style={adPreview}>
 <img
-src={post.image_url || "/placeholder.png"}
+src={post.image_url || post.video_url || "/placeholder.png"}
 alt="Ad"
-style={generatedImage}
+style={adImage}
 />
-<b>{post.content || "AI Generated Ad"}</b>
-<small>Premium advert template</small>
-<span style={miniGreen}>READY TO POST</span>
+
+<b style={adTitle}>
+{post.content || "AI Generated Ad"}
+</b>
+
+<small style={adSub}>
+Premium advert template
+</small>
+
+<span style={miniGreen}>
+READY TO POST
+</span>
 </div>
-)
-)}
+))}
 </div>
 </div>
 </section>
@@ -1261,12 +1259,29 @@ fontWeight: 900,
 const adScroller: CSSProperties = {
 overflow: "hidden",
 };
-
+const adTitle: CSSProperties = {
+fontSize: 15,
+lineHeight: "18px",
+maxHeight: 38,
+overflow: "hidden",
+};
+const adSub: CSSProperties = {
+fontSize: 12,
+opacity: 0.8,
+};
 const adTrack: CSSProperties = {
 display: "flex",
 gap: 12,
 width: "max-content",
+animation: "recentSlide 22s linear infinite",
 };
+const adImage: CSSProperties = {
+width: "100%",
+height: 112,
+objectFit: "cover",
+borderRadius: 14,
+};
+
 
 const adPreview: CSSProperties = {
 width: 160,
