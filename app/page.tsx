@@ -33,25 +33,22 @@ const [recentPosts, setRecentPosts] = useState<any[]>([]);
 useEffect(() => {
 loadRecentPosts();
 }, []);
+
+
 useEffect(() => {
 const el = adScrollerRef.current;
+
 if (!el || recentPosts.length === 0) return;
 
-let frame: number;
-
-const scroll = () => {
-el.scrollLeft += 0.6;
+const timer = setInterval(() => {
+el.scrollLeft += 1;
 
 if (el.scrollLeft >= el.scrollWidth / 2) {
 el.scrollLeft = 0;
 }
+}, 20);
 
-frame = requestAnimationFrame(scroll);
-};
-
-frame = requestAnimationFrame(scroll);
-
-return () => cancelAnimationFrame(frame);
+return () => clearInterval(timer);
 }, [recentPosts]);
 async function loadRecentPosts() {
 const { data } = await supabase
@@ -1295,7 +1292,6 @@ const adTrack: CSSProperties = {
 display: "flex",
 gap: 12,
 width: "max-content",
-animation: "autoAds 18s linear infinite",
 };
 const adImage: CSSProperties = {
 width: "100%",
