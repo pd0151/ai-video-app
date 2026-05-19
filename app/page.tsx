@@ -881,9 +881,9 @@ LIVE
 
 <b
 style={{
-fontSize: 32,
+fontSize: 26,
 lineHeight: 1,
-letterSpacing: -2,
+letterSpacing: -1,
 fontWeight: 950,
 }}
 >
@@ -910,9 +910,9 @@ LIVE
 
 <b
 style={{
-fontSize: 32,
+fontSize: 26,
 lineHeight: 1,
-letterSpacing: -2,
+letterSpacing: -1,
 fontWeight: 950,
 }}
 >
@@ -939,9 +939,9 @@ LIVE
 
 <b
 style={{
-fontSize: 32,
+fontSize: 26,
 lineHeight: 1,
-letterSpacing: -2,
+letterSpacing: -1,
 fontWeight: 950,
 }}
 >
@@ -1237,11 +1237,10 @@ const aiHero: CSSProperties = {
 position: "relative",
 zIndex: 2,
 overflow: "hidden",
-
 borderRadius: 34,
-padding: 28,
+padding: 22,
 marginBottom: 22,
-
+animation: "floatUp 5s ease-in-out infinite",
 background:
 "linear-gradient(145deg, rgba(10,18,14,0.96), rgba(3,6,5,0.98))",
 
@@ -1296,12 +1295,12 @@ marginTop: 34,
 };
 
 const aiTitle: CSSProperties = {
-fontSize: 56,
+fontSize: 46,
 lineHeight: 0.95,
 fontWeight: 950,
-letterSpacing: -3,
-marginTop: 18,
-marginBottom: 18,
+letterSpacing: -2,
+marginTop: 16,
+marginBottom: 16,
 color: "white",
 maxWidth: 520,
 };
