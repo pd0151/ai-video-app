@@ -450,6 +450,19 @@ PRO
 </div>
 </header>
 <section style={testimonialStrip}>
+    <div
+style={{
+position: "absolute",
+width: 260,
+height: 260,
+borderRadius: "50%",
+background: "rgba(34,255,127,0.12)",
+top: -120,
+right: -80,
+filter: "blur(60px)",
+pointerEvents: "none",
+}}
+/>
 <div>
 <div style={stars}>★★★★★</div>
 <h3 style={testimonialTitle}>Trusted by local businesses</h3>
@@ -459,18 +472,139 @@ PRO
 </div>
 
 <div style={testimonialStats}>
-<div>
-<b>24/7</b>
-<span>AI Receptionist</span>
+
+<div style={actionCard}>
+
+<div
+style={{
+position: "absolute",
+top: 0,
+left: 20,
+right: 20,
+height: 2,
+borderRadius: 999,
+background:
+"linear-gradient(90deg, transparent, #22ff7f, transparent)",
+opacity: 0.9,
+}}
+/>
+
+<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+<span style={{ fontSize: 12, color: "#22ff7f", fontWeight: 900 }}>
+LIVE
+</span>
+
+<b
+style={{
+fontSize: 38,
+lineHeight: 1,
+letterSpacing: -2,
+fontWeight: 950,
+}}
+>
+24/7
+</b>
+
+<small
+style={{
+fontSize: 14,
+opacity: 0.72,
+lineHeight: 1.4,
+}}
+>
+AI Receptionist
+</small>
 </div>
-<div>
-<b>AI</b>
-<span>Ads & Videos</span>
 </div>
-<div>
-<b>Fast</b>
-<span>Lead Capture</span>
+
+<div style={actionCard}>
+
+<div
+style={{
+position: "absolute",
+top: 0,
+left: 20,
+right: 20,
+height: 2,
+borderRadius: 999,
+background:
+"linear-gradient(90deg, transparent, #22ff7f, transparent)",
+opacity: 0.9,
+}}
+/>
+
+<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+<span style={{ fontSize: 12, color: "#22ff7f", fontWeight: 900 }}>
+GROWTH
+</span>
+
+<b
+style={{
+fontSize: 38,
+lineHeight: 1,
+letterSpacing: -2,
+fontWeight: 950,
+}}
+>
++312%
+</b>
+
+<small
+style={{
+fontSize: 14,
+opacity: 0.72,
+lineHeight: 1.4,
+}}
+>
+More Leads
+</small>
 </div>
+</div>
+
+<div style={actionCard}>
+
+<div
+style={{
+position: "absolute",
+top: 0,
+left: 20,
+right: 20,
+height: 2,
+borderRadius: 999,
+background:
+"linear-gradient(90deg, transparent, #22ff7f, transparent)",
+opacity: 0.9,
+}}
+/>
+
+<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+<span style={{ fontSize: 12, color: "#22ff7f", fontWeight: 900 }}>
+TRUSTED
+</span>
+
+<b
+style={{
+fontSize: 38,
+lineHeight: 1,
+letterSpacing: -2,
+fontWeight: 950,
+}}
+>
+4.9★
+</b>
+
+<small
+style={{
+fontSize: 14,
+opacity: 0.72,
+lineHeight: 1.4,
+}}
+>
+User Rating
+</small>
+</div>
+</div>
+
 </div>
 </section>
 <section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
@@ -738,18 +872,90 @@ Businesses are booking more jobs with AdForge
 
 <div style={testimonialStats}>
 <div style={actionCard}>
-<b style={{ fontSize: 26 }}>24/7</b>
-<small>AI Calls Answered</small>
+<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+<span style={{ fontSize: 12, color: "#22ff7f", fontWeight: 900 }}>
+LIVE
+</span>
+
+<b
+style={{
+fontSize: 38,
+lineHeight: 1,
+letterSpacing: -2,
+fontWeight: 950,
+}}
+>
+24/7
+</b>
+
+<small
+style={{
+fontSize: 14,
+opacity: 0.72,
+lineHeight: 1.4,
+}}
+>
+AI Calls Answered
+</small>
+</div>
 </div>
 
 <div style={actionCard}>
-<b style={{ fontSize: 26 }}>+312%</b>
-<small>More Leads</small>
+<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+<span style={{ fontSize: 12, color: "#22ff7f", fontWeight: 900 }}>
+LIVE
+</span>
+
+<b
+style={{
+fontSize: 38,
+lineHeight: 1,
+letterSpacing: -2,
+fontWeight: 950,
+}}
+>
+24/7
+</b>
+
+<small
+style={{
+fontSize: 14,
+opacity: 0.72,
+lineHeight: 1.4,
+}}
+>
+AI Calls Answered
+</small>
+</div>
 </div>
 
 <div style={actionCard}>
-<b style={{ fontSize: 26 }}>4.9★</b>
-<small>User Rating</small>
+<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+<span style={{ fontSize: 12, color: "#22ff7f", fontWeight: 900 }}>
+LIVE
+</span>
+
+<b
+style={{
+fontSize: 38,
+lineHeight: 1,
+letterSpacing: -2,
+fontWeight: 950,
+}}
+>
+24/7
+</b>
+
+<small
+style={{
+fontSize: 14,
+opacity: 0.72,
+lineHeight: 1.4,
+}}
+>
+AI Calls Answered
+</small>
+</div>
 </div>
 </div>
 </section>
@@ -1375,6 +1581,8 @@ marginBottom: 18,
 const testimonialStrip: CSSProperties = {
 marginTop: 22,
 padding: 22,
+position: "relative",
+overflow: "hidden",
 borderRadius: 28,
 background: "linear-gradient(135deg, rgba(34,255,127,0.14), rgba(2,6,23,0.95))",
 border: "1px solid rgba(34,255,127,0.25)",
@@ -1453,16 +1661,18 @@ position: "relative",
 overflow: "hidden",
 borderRadius: 28,
 padding: 22,
+transition: "all 0.3s ease",
+transform: "translateY(0px)",
 background:
-"linear-gradient(145deg, rgba(7,18,12,0.98), rgba(3,6,5,0.98))",
-border: "1px solid rgba(0,255,140,0.18)",
-display: "flex",
-flexDirection: "column",
-justifyContent: "space-between",
-color: "white",
-minHeight: 190,
-boxShadow: "0 0 40px rgba(0,255,140,0.08)",
-backdropFilter: "blur(20px)",
+"linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))",
+
+border: "1px solid rgba(34,255,127,0.18)",
+
+minHeight: 120,
+
+boxShadow: "0 10px 35px rgba(34,255,127,0.08)",
+
+backdropFilter: "blur(18px)",
 };
 const actionBgGlow: CSSProperties = {
 position: "absolute",
