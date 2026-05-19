@@ -18,11 +18,21 @@ return NextResponse.json(
 const stripe = new Stripe(stripeKey);
 
 const body = await req.json().catch(() => ({}));
-const customerId = body.customerId;
+let customerId = body.customerId;
+const email = body.email;
+
+if (!customerId && email) {
+const customers = await stripe.customers.list({
+email,
+limit: 1,
+});
+
+customerId = customers.data[0]?.id;
+}
 
 if (!customerId) {
 return NextResponse.json(
-{ error: "Missing customerId" },
+{ error: "No Stripe customer found for this email" },
 { status: 400 }
 );
 }
