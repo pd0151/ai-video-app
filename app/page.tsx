@@ -373,6 +373,10 @@ return (
 .ad-scroller::-webkit-scrollbar {
 display: none;
 }
+@keyframes autoAds {
+from {
+transform: translateX(0);
+}
 
 @keyframes pulseGlow {
 0%, 100% { box-shadow: 0 0 24px rgba(34,255,127,0.25); }
@@ -1291,6 +1295,7 @@ const adTrack: CSSProperties = {
 display: "flex",
 gap: 12,
 width: "max-content",
+animation: "autoAds 18s linear infinite",
 };
 const adImage: CSSProperties = {
 width: "100%",
