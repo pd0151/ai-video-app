@@ -879,7 +879,7 @@ LIVE
 
 <b
 style={{
-fontSize: 38,
+fontSize: 32,
 lineHeight: 1,
 letterSpacing: -2,
 fontWeight: 950,
@@ -908,7 +908,7 @@ LIVE
 
 <b
 style={{
-fontSize: 38,
+fontSize: 32,
 lineHeight: 1,
 letterSpacing: -2,
 fontWeight: 950,
@@ -937,7 +937,7 @@ LIVE
 
 <b
 style={{
-fontSize: 38,
+fontSize: 32,
 lineHeight: 1,
 letterSpacing: -2,
 fontWeight: 950,
