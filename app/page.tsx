@@ -354,10 +354,6 @@ return (
 50% { box-shadow: 0 0 48px rgba(34,255,127,0.55); }
 }
 
-@keyframes slideAds {
-0% { transform: translateX(0); }
-100% { transform: translateX(-50%); }
-}
 
 @keyframes greenWave {
 0% { transform: translateX(-100%); opacity: 0.2; }
@@ -373,9 +369,7 @@ animation: floatUp 4s ease-in-out infinite;
 animation: pulseGlow 2.5s ease-in-out infinite;
 }
 
-.ad-track {
-animation: slideAds 18s linear infinite;
-}
+
 
 .wave-line {
 animation: greenWave 3s ease-in-out infinite;
@@ -1254,19 +1248,22 @@ width: "max-content",
 };
 
 const adPreview: CSSProperties = {
-width: 180,
-minHeight: 210,
-borderRadius: 20,
-padding: 12,
+width: 160,
+minWidth: 160,
+height: 215,
+padding: 8,
+borderRadius: 16,
 background: "linear-gradient(145deg,#081c16,#030706)",
 border: "1px solid rgba(34,255,127,0.22)",
 display: "flex",
 flexDirection: "column",
-gap: 8,
+gap: 6,
+overflow: "hidden",
+flexShrink: 0,
 };
 
 const adMockImage: CSSProperties = {
-height: 96,
+height: 72,
 borderRadius: 16,
 position: "relative",
 overflow: "hidden",
