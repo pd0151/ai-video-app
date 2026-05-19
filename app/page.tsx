@@ -33,7 +33,26 @@ const [recentPosts, setRecentPosts] = useState<any[]>([]);
 useEffect(() => {
 loadRecentPosts();
 }, []);
+useEffect(() => {
+const el = adScrollerRef.current;
+if (!el || recentPosts.length === 0) return;
 
+let frame: number;
+
+const scroll = () => {
+el.scrollLeft += 0.6;
+
+if (el.scrollLeft >= el.scrollWidth / 2) {
+el.scrollLeft = 0;
+}
+
+frame = requestAnimationFrame(scroll);
+};
+
+frame = requestAnimationFrame(scroll);
+
+return () => cancelAnimationFrame(frame);
+}, [recentPosts]);
 async function loadRecentPosts() {
 const { data } = await supabase
 .from("posts")
