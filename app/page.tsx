@@ -667,37 +667,7 @@ Launch AI Receptionist
 </div>
 </section>
 
-<section style={miniFlowWrap}>
 
-<div style={miniFlowCard}>
-<span style={miniNum}>1</span>
-<div>
-<b>Sign Up</b>
-<small>Create account</small>
-</div>
-</div>
-
-<div style={flowArrow}>→</div>
-
-<div style={miniFlowCard}>
-<span style={miniNum}>2</span>
-<div>
-<b>Forward Calls</b>
-<small>Use AI number</small>
-</div>
-</div>
-
-<div style={flowArrow}>→</div>
-
-<div style={miniFlowCard}>
-<span style={miniNum}>3</span>
-<div>
-<b>Get Leads</b>
-<small>SMS + dashboard</small>
-</div>
-</div>
-
-</section>
 
 <section style={heroCard}>
 <div style={heroTop}>
@@ -1906,43 +1876,4 @@ color: "#04140c",
 fontSize: 38,
 fontWeight: 950,
 boxShadow: "0 0 34px rgba(34,255,127,0.42)",
-};
-const miniFlowWrap: React.CSSProperties = {
-display: "flex",
-alignItems: "center",
-justifyContent: "space-between",
-gap: 10,
-marginTop: 20,
-marginBottom: 20,
-};
-
-const miniFlowCard: React.CSSProperties = {
-flex: 1,
-display: "flex",
-alignItems: "center",
-gap: 12,
-padding: "14px 12px",
-borderRadius: 18,
-background: "rgba(0,255,120,0.05)",
-border: "1px solid rgba(0,255,120,0.12)",
-boxShadow: "0 0 18px rgba(0,255,120,0.08)",
-};
-
-const miniNum: React.CSSProperties = {
-width: 28,
-height: 28,
-borderRadius: 999,
-background: "#19ff79",
-color: "#000",
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-fontWeight: 800,
-fontSize: 14,
-};
-
-const flowArrow: React.CSSProperties = {
-color: "#19ff79",
-fontSize: 22,
-opacity: 0.7,
 };
