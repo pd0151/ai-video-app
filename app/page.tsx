@@ -404,7 +404,9 @@ animation: greenWave 3s ease-in-out infinite;
 
 <div style={bgGlow1} />
 <div style={bgGlow2} />
-
+<div style={bgGlowLeft} />
+<div style={bgGlowRight} />
+<div style={bgParticles} />
 <main style={page}>
 <header style={topBar}>
 <div>
@@ -1235,13 +1237,21 @@ const aiHero: CSSProperties = {
 position: "relative",
 zIndex: 2,
 overflow: "hidden",
-borderRadius: 30,
-padding: 24,
+
+borderRadius: 34,
+padding: 28,
+marginBottom: 22,
+
 background:
-"radial-gradient(circle at top right, rgba(34,255,127,0.18), transparent 30%), linear-gradient(145deg,#061b15,#020604)",
-border: "1px solid rgba(34,255,127,0.28)",
-boxShadow: "0 25px 70px rgba(0,0,0,0.38)",
-marginBottom: 18,
+"linear-gradient(145deg, rgba(10,18,14,0.96), rgba(3,6,5,0.98))",
+
+border: "1px solid rgba(34,255,127,0.18)",
+
+backdropFilter: "blur(22px)",
+
+boxShadow:
+"0 0 0 1px rgba(34,255,127,0.08), 0 0 55px rgba(34,255,127,0.14)",
+
 cursor: "pointer",
 };
 
@@ -1286,13 +1296,14 @@ marginTop: 34,
 };
 
 const aiTitle: CSSProperties = {
-fontSize: 42,
+fontSize: 56,
 lineHeight: 0.95,
 fontWeight: 950,
-margin: "24px 0 14px",
-letterSpacing: -2.5,
-position: "relative",
-zIndex: 2,
+letterSpacing: -3,
+marginTop: 18,
+marginBottom: 18,
+color: "white",
+maxWidth: 520,
 };
 
 const aiText: CSSProperties = {
@@ -1306,14 +1317,27 @@ zIndex: 2,
 
 const aiCta: CSSProperties = {
 width: "100%",
-marginTop: 18,
-padding: "16px",
-borderRadius: 18,
 border: "none",
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+borderRadius: 22,
+padding: "20px 24px",
+
+background:
+"linear-gradient(135deg, #22ff7f, #16d95f)",
+
 color: "#04140c",
-fontWeight: 950,
-fontSize: 16,
+
+fontSize: 22,
+fontWeight: 900,
+
+marginTop: 26,
+marginBottom: 22,
+
+cursor: "pointer",
+
+boxShadow:
+"0 0 25px rgba(34,255,127,0.35), 0 0 55px rgba(34,255,127,0.18)",
+
+transition: "0.25s",
 };
 
 const aiLeadCard: CSSProperties = {
@@ -1361,8 +1385,12 @@ position: "relative",
 zIndex: 2,
 borderRadius: 28,
 padding: 18,
-background: "linear-gradient(145deg,rgba(255,255,255,0.065),rgba(255,255,255,0.025))",
-border: "1px solid rgba(34,255,127,0.18)",
+background:
+"linear-gradient(145deg, rgba(10,18,14,0.92), rgba(3,6,5,0.96))",
+backdropFilter: "blur(20px)",
+border: "1px solid rgba(34,255,127,0.22)",
+boxShadow:
+"0 0 0 1px rgba(34,255,127,0.08), 0 0 45px rgba(34,255,127,0.14)",
 marginBottom: 18,
 };
 
@@ -1706,7 +1734,39 @@ color: "#22ff7f",
 fontWeight: 950,
 fontSize: 12,
 };
+const bgGlowLeft: CSSProperties = {
+position: "fixed",
+left: -120,
+top: 180,
+width: 280,
+height: 280,
+borderRadius: "50%",
+background: "rgba(34,255,127,0.12)",
+filter: "blur(80px)",
+pointerEvents: "none",
+};
 
+const bgGlowRight: CSSProperties = {
+position: "fixed",
+right: -120,
+top: 420,
+width: 320,
+height: 320,
+borderRadius: "50%",
+background: "rgba(34,255,127,0.10)",
+filter: "blur(90px)",
+pointerEvents: "none",
+};
+
+const bgParticles: CSSProperties = {
+position: "fixed",
+inset: 0,
+backgroundImage:
+"radial-gradient(rgba(34,255,127,0.22) 1px, transparent 1px)",
+backgroundSize: "34px 34px",
+opacity: 0.18,
+pointerEvents: "none",
+};
 const chatBox: CSSProperties = {
 position: "relative",
 zIndex: 2,
