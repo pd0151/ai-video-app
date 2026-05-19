@@ -374,6 +374,11 @@ display: none;
 from {
 transform: translateX(0);
 }
+@keyframes borderGlow {
+0% { opacity: 0.35; transform: translateX(-30%); }
+50% { opacity: 1; }
+100% { opacity: 0.35; transform: translateX(30%); }
+}
 
 @keyframes pulseGlow {
 0%, 100% { box-shadow: 0 0 24px rgba(34,255,127,0.25); }
@@ -610,7 +615,21 @@ User Rating
 </div>
 </section>
 <section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
-
+<div
+className="wave-line"
+style={{
+position: "absolute",
+top: 0,
+left: 30,
+right: 30,
+height: 2,
+borderRadius: 999,
+background:
+"linear-gradient(90deg, transparent, #22ff7f, transparent)",
+opacity: 0.9,
+animation: "borderGlow 4s ease-in-out infinite",
+}}
+/>
 
 <div style={aiPill}>
 <span style={greenDot} />
