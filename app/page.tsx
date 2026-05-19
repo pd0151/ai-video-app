@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
@@ -27,9 +27,30 @@ const [image, setImage] = useState<string | null>(null);
 const [loadingImage, setLoadingImage] = useState(false);
 const [isPro, setIsPro] = useState(false);
 const [credits, setCredits] = useState(0);
+const adScrollerRef = useRef<HTMLDivElement | null>(null);
+const [recentPosts, setRecentPosts] = useState<any[]>([]);
 useEffect(() => {
 loadRecentPosts();
 }, []);
+useEffect(() => {
+loadRecentPosts();
+}, []);
+
+useEffect(() => {
+const el = adScrollerRef.current;
+if (!el || recentPosts.length === 0) return;
+
+const timer = setInterval(() => {
+if (el.scrollLeft >= el.scrollWidth / 3) {
+el.scrollLeft = 0;
+} else {
+el.scrollBy({ left: 180, behavior: "smooth" });
+}
+}, 2200);
+
+return () => clearInterval(timer);
+}, [recentPosts]);
+
 
 async function loadRecentPosts() {
 const { data } = await supabase
@@ -37,11 +58,11 @@ const { data } = await supabase
 .select("*")
 .order("created_at", { ascending: false })
 .limit(6);
-
+ 
 setRecentPosts(data || []);
 }
 const businessText = getBusinessText(businessTheme);
-const [recentPosts, setRecentPosts] = useState<any[]>([]);
+
 useEffect(() => {
 async function loadUser() {
 const { data } = await supabase.auth.getUser();
@@ -567,7 +588,7 @@ View all
 
 <div style={adScroller}>
 <div className="ad-track" style={adTrack}>
-{recentPosts.map((post, i) => (
+{[...recentPosts, ...recentPosts, ...recentPosts].map((post, i) => (
 <div key={i} style={adPreview}>
 <img
 src={post.image_url || "/placeholder.png"}
