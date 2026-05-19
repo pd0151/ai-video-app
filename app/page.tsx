@@ -356,15 +356,7 @@ return (
 0%, 100% { box-shadow: 0 0 24px rgba(34,255,127,0.25); }
 50% { box-shadow: 0 0 48px rgba(34,255,127,0.55); }
 }
-@keyframes recentSlide {
-0% {
-transform: translateX(0);
-}
 
-100% {
-transform: translateX(-50%);
-}
-}
 
 @keyframes greenWave {
 0% { transform: translateX(-100%); opacity: 0.2; }
@@ -576,7 +568,7 @@ View all
 </button>
 </div>
 
-<div style={adScroller}>
+<div ref={adScrollerRef} style={adScroller}>
 <div style={adTrack}>
 {[...recentPosts, ...recentPosts].map((post, i) => (
 <div key={i} style={adPreview}>
@@ -1273,7 +1265,6 @@ const adTrack: CSSProperties = {
 display: "flex",
 gap: 12,
 width: "max-content",
-animation: "recentSlide 22s linear infinite",
 };
 const adImage: CSSProperties = {
 width: "100%",
