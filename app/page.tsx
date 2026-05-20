@@ -799,7 +799,7 @@ pointerEvents: "none",
 style={{
 position: "absolute",
 inset: 0,
-backgroundImage: "url('/images/ai-bg.jpg')",
+backgroundImage: "url('/images/quick-3.jpg')",
 backgroundSize: "cover",
 backgroundPosition: "center",
 opacity: 0.22,
@@ -830,7 +830,7 @@ style={{ display: "none" }}
 style={{
 position: "absolute",
 inset: 0,
-backgroundImage: "url('/images/ai-bg.jpg')",
+backgroundImage: "url('/images/quick-4.jpg')",
 backgroundSize: "cover",
 backgroundPosition: "center",
 opacity: 0.22,
