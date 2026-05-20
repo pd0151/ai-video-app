@@ -244,13 +244,15 @@ style={media}
 src={post.image_url}
 alt="post"
 onClick={() => post.image_url && setOpenMedia(post.image_url)}
+loading="eager"
+decoding="async"
 style={{
 position: "absolute",
 inset: 0,
 width: "100%",
 height: "100%",
-objectFit: "contain",
-background: "#000",
+objectFit: "cover",
+background: "#020617",
 display: "block",
 zIndex: 1,
 }}
