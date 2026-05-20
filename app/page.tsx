@@ -472,6 +472,19 @@ transform: translateX(0);
 50% { opacity: 1; }
 100% { opacity: 0.35; transform: translateX(30%); }
 }
+@keyframes floatUp {
+0% {
+transform: translateY(0px);
+}
+
+50% {
+transform: translateY(-6px);
+}
+
+100% {
+transform: translateY(0px);
+}
+}
 
 
 @keyframes pulseGlow {
@@ -1328,6 +1341,11 @@ fontWeight: 800,
 const aiHero: CSSProperties = {
 position: "relative",
 zIndex: 2,
+
+backgroundImage:
+"linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.55)), url('/images/quick-5.jpg')",
+backgroundSize: "cover",
+backgroundPosition: "center",
 overflow: "hidden",
 borderRadius: 34,
 padding: 22,
