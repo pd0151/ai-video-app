@@ -388,18 +388,37 @@ setChatMessages((prev) => [...prev, newMessage]);
 setChatInput("");
 setChatLoading(true);
 
-setTimeout(() => {
+try {
+const res = await fetch("/api/chat", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({
+message: newMessage.content,
+}),
+});
+
+const data = await res.json();
+
 setChatMessages((prev) => [
 ...prev,
 {
 role: "assistant",
-content:
-"Try adding urgency, location and a clear offer to improve conversions.",
+content: data.reply,
 },
 ]);
+} catch (err) {
+setChatMessages((prev) => [
+...prev,
+{
+role: "assistant",
+content: "AI failed to respond.",
+},
+]);
+}
 
 setChatLoading(false);
-}, 1000);
 }
 
 return (
