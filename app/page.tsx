@@ -14,6 +14,38 @@ role: "user" | "assistant";
 content: string;
 };
 
+const setupSlides = [
+{
+step: "01",
+title: "Sign up",
+text: "Create your account and choose your AI receptionist plan.",
+},
+
+{
+step: "02",
+title: "Add business details",
+text: "Tell the AI your services, opening hours and service area.",
+},
+
+{
+step: "03",
+title: "Forward your number",
+text: "Forward missed or out-of-hours calls to your AI receptionist.",
+},
+
+{
+step: "04",
+title: "AI captures jobs",
+text: "The AI collects customer details and sends them to your dashboard.",
+},
+
+{
+step: "05",
+title: "Get instant alerts",
+text: "Receive new leads by SMS, WhatsApp or inside your app.",
+},
+];
+
 export default function Home() {
 const router = useRouter();
 
@@ -27,6 +59,7 @@ const [image, setImage] = useState<string | null>(null);
 const [loadingImage, setLoadingImage] = useState(false);
 const [isPro, setIsPro] = useState(false);
 const [credits, setCredits] = useState(0);
+const [setupSlide, setSetupSlide] = useState(0);
 const adScrollerRef = useRef<HTMLDivElement | null>(null);
 const [recentPosts, setRecentPosts] = useState<any[]>([]);
 
@@ -34,6 +67,15 @@ useEffect(() => {
 loadRecentPosts();
 }, []);
 
+useEffect(() => {
+const timer = setInterval(() => {
+setSetupSlide((prev) => (
+prev + 1
+) % setupSlides.length);
+}, 2800);
+
+return () => clearInterval(timer);
+}, []);
 
 useEffect(() => {
 const el = adScrollerRef.current;
@@ -363,6 +405,23 @@ setChatLoading(false);
 return (
 <>
 <style jsx global>{`
+@keyframes premiumFade {
+0% {
+opacity: 0;
+transform: translateY(10px);
+filter: blur(5px);
+}
+
+100% {
+opacity: 1;
+transform: translateY(0);
+filter: blur(0);
+}
+}
+`}</style>
+
+
+<style jsx global>{`
 @keyframes floatUp {
 0%, 100% { transform: translateY(0px); }
 50% { transform: translateY(-10px); }
@@ -379,6 +438,7 @@ transform: translateX(0);
 50% { opacity: 1; }
 100% { opacity: 0.35; transform: translateX(30%); }
 }
+
 
 @keyframes pulseGlow {
 0%, 100% { box-shadow: 0 0 24px rgba(34,255,127,0.25); }
@@ -500,15 +560,39 @@ straight to your dashboard.
 Launch AI Receptionist
 </button>
 
-<div className="float-card" style={aiLeadCard}>
-<div style={aiLeadTop}>
-<span>NEW LEAD CAPTURED</span>
-<b>1m ago</b>
+<div style={setupSliderBox}>
+<div key={setupSlide} style={setupSlideInner}>
+<div style={setupTopRow}>
+<span style={setupStep}>
+STEP {setupSlides[setupSlide].step}
+</span>
+
+<span style={setupTime}>
+5 min setup
+</span>
 </div>
-<h3 style={{ margin: "10px 0 4px" }}>{businessText.lead}</h3>
-<p style={{ margin: 0, opacity: 0.8 }}>
-{businessText.subtitle}
+
+<h3 style={setupTitle}>
+{setupSlides[setupSlide].title}
+</h3>
+
+<p style={setupText}>
+{setupSlides[setupSlide].text}
 </p>
+
+<div style={setupDots}>
+{setupSlides.map((_, index) => (
+<span
+key={index}
+style={{
+...setupDot,
+opacity: index === setupSlide ? 1 : 0.25,
+width: index === setupSlide ? 24 : 7,
+}}
+/>
+))}
+</div>
+</div>
 </div>
 </section>
 
@@ -1721,4 +1805,67 @@ color: "#04140c",
 fontSize: 38,
 fontWeight: 950,
 boxShadow: "0 0 34px rgba(34,255,127,0.42)",
+};
+
+const setupSliderBox: React.CSSProperties = {
+marginTop: 22,
+padding: "22px",
+borderRadius: 28,
+border: "1px solid rgba(34,255,127,0.22)",
+background:
+"linear-gradient(135deg, rgba(0,0,0,0.82), rgba(5,18,12,0.96))",
+overflow: "hidden",
+};
+
+const setupSlideInner: React.CSSProperties = {
+animation: "premiumFade 0.5s ease",
+};
+
+const setupTopRow: React.CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+marginBottom: 12,
+};
+
+const setupStep: React.CSSProperties = {
+color: "#22ff7f",
+fontSize: 12,
+fontWeight: 900,
+letterSpacing: 1.2,
+};
+
+const setupTime: React.CSSProperties = {
+color: "#22ff7f",
+fontSize: 12,
+fontWeight: 800,
+opacity: 0.9,
+};
+
+const setupTitle: React.CSSProperties = {
+color: "#fff",
+fontSize: 24,
+fontWeight: 900,
+margin: "0 0 8px",
+letterSpacing: "-0.8px",
+};
+
+const setupText: React.CSSProperties = {
+color: "rgba(255,255,255,0.68)",
+fontSize: 15,
+lineHeight: 1.45,
+margin: 0,
+};
+
+const setupDots: React.CSSProperties = {
+display: "flex",
+gap: 7,
+marginTop: 18,
+};
+
+const setupDot: React.CSSProperties = {
+height: 7,
+borderRadius: 999,
+background: "#22ff7f",
+transition: "all 0.35s ease",
 };
