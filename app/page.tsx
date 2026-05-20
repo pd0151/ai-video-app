@@ -1600,6 +1600,7 @@ fontWeight: 950,
 const generatedCard: CSSProperties = {
 position: "relative",
 zIndex: 2,
+overflow: "hidden",
 borderRadius: 24,
 padding: 16,
 background: "rgba(255,255,255,0.05)",
@@ -1648,9 +1649,12 @@ gap: 10,
 
 const generatedImage: CSSProperties = {
 width: "100%",
-borderRadius: 18,
+height: "100%",
+objectFit: "cover",
+borderRadius: 24,
 marginTop: 16,
 marginBottom: 16,
+display: "block",
 };
 
 const smallDarkBtn: CSSProperties = {
