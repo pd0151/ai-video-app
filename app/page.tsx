@@ -1350,8 +1350,7 @@ borderRadius: 34,
 padding: 22,
 marginBottom: 22,
 animation: "floatUp 5s ease-in-out infinite",
-background:
-"linear-gradient(145deg, rgba(10,18,14,0.96), rgba(3,6,5,0.98))",
+
 
 border: "1px solid rgba(34,255,127,0.18)",
 
