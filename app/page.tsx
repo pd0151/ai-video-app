@@ -606,33 +606,66 @@ SMS or WhatsApp in real time.
 
 <div
 style={{
-display: "flex",
-gap: 10,
-flexWrap: "wrap",
-marginTop: 18,
-marginBottom: 22,
+display: "grid",
+gridTemplateColumns: "1fr 1fr",
+gap: 12,
+marginTop: 22,
+marginBottom: 26,
 }}
 >
 {[
-"24/7 AI Answering",
-"Instant Lead Alerts",
-"SMS + WhatsApp",
-"Books Jobs Automatically",
-].map((item) => (
+["24/7 Answering", "Never miss inbound calls"],
+["Instant Alerts", "SMS + WhatsApp updates"],
+["Lead Capture", "Collects customer details"],
+["Books Jobs", "Sends leads to dashboard"],
+].map(([title, sub]) => (
 <div
-key={item}
+key={title}
 style={{
-padding: "10px 14px",
-borderRadius: 999,
-background: "rgba(34,255,127,0.08)",
-border: "1px solid rgba(34,255,127,0.18)",
-color: "#d8ffe8",
-fontSize: 13,
-fontWeight: 700,
-backdropFilter: "blur(10px)",
+position: "relative",
+overflow: "hidden",
+padding: "18px 16px",
+borderRadius: 22,
+background:
+"linear-gradient(145deg, rgba(8,12,10,0.92), rgba(15,25,20,0.88))",
+border: "1px solid rgba(34,255,127,0.16)",
+boxShadow:
+"0 0 0 1px rgba(255,255,255,0.03), 0 10px 30px rgba(0,0,0,0.35)",
+backdropFilter: "blur(14px)",
 }}
 >
-⚡ {item}
+<div
+style={{
+width: 34,
+height: 4,
+borderRadius: 999,
+background: "#22ff7f",
+marginBottom: 14,
+boxShadow: "0 0 14px rgba(34,255,127,0.8)",
+}}
+/>
+
+<div
+style={{
+color: "white",
+fontSize: 15,
+fontWeight: 900,
+marginBottom: 6,
+letterSpacing: -0.3,
+}}
+>
+{title}
+</div>
+
+<div
+style={{
+color: "rgba(255,255,255,0.62)",
+fontSize: 12,
+lineHeight: 1.5,
+}}
+>
+{sub}
+</div>
 </div>
 ))}
 </div>
