@@ -430,7 +430,22 @@ opacity: 0;
 transform: translateY(10px);
 filter: blur(5px);
 }
+@keyframes pulseGlow {
+0% {
+transform: scale(0.96);
+box-shadow: 0 0 18px rgba(34,255,127,0.25);
+}
 
+50% {
+transform: scale(1);
+box-shadow: 0 0 35px rgba(34,255,127,0.55);
+}
+
+100% {
+transform: scale(0.96);
+box-shadow: 0 0 18px rgba(34,255,127,0.25);
+}
+}
 100% {
 opacity: 1;
 transform: translateY(0);
@@ -575,8 +590,24 @@ AI answers calls, captures details and sends instant job alerts
 straight to your dashboard.
 </p>
 
-<button className="green-pulse" style={aiCta}>
-Launch AI Receptionist
+<button
+className="green-pulse"
+style={{
+...aiCta,
+padding: "16px 22px",
+borderRadius: 22,
+fontSize: 17,
+fontWeight: 900,
+letterSpacing: -0.5,
+background:
+"linear-gradient(135deg,#22ff7f 0%,#12d96b 100%)",
+boxShadow:
+"0 0 25px rgba(34,255,127,0.45), inset 0 1px 0 rgba(255,255,255,0.25)",
+transform: "scale(0.96)",
+animation: "pulseGlow 2s ease-in-out infinite",
+}}
+>
+⚡ Launch AI Receptionist
 </button>
 
 <div style={setupSliderBox}>
