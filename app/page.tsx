@@ -623,6 +623,7 @@ autoPlay
 muted
 loop
 playsInline
+preload="metadata"
 style={{
 position: "absolute",
 inset: 0,
@@ -750,6 +751,7 @@ autoPlay
 muted
 loop
 playsInline
+preload="metadata"
 style={{
 position: "absolute",
 inset: 0,
@@ -774,6 +776,7 @@ autoPlay
 muted
 loop
 playsInline
+preload="metadata"
 style={{
 position: "absolute",
 inset: 0,
@@ -781,6 +784,8 @@ width: "100%",
 height: "100%",
 objectFit: "cover",
 opacity: 0.22,
+pointerEvents: "none",
+transform: "translateZ(0)",
 }}
 >
 <source src="/videos/15870410_2160_3840_60fps.mp4" type="video/mp4" />
@@ -798,6 +803,7 @@ autoPlay
 muted
 loop
 playsInline
+preload="metadata"
 style={{
 position: "absolute",
 inset: 0,
@@ -805,6 +811,8 @@ width: "100%",
 height: "100%",
 objectFit: "cover",
 opacity: 0.22,
+pointerEvents: "none",
+transform: "translateZ(0)",
 }}
 >
 <source src="/videos/15764044_2160_3840_50fps.mp4" type="video/mp4" />
@@ -838,6 +846,8 @@ width: "100%",
 height: "100%",
 objectFit: "cover",
 opacity: 0.22,
+pointerEvents: "none",
+transform: "translateZ(0)",
 }}
 >
 <source src="/videos/14545755_1080_1920_30fps.mp4" type="video/mp4" />
