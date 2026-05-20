@@ -538,78 +538,76 @@ PRO
 
 
 
-<section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
-<div
-className="wave-line"
-style={{
-position: "absolute",
-top: 0,
-left: 30,
-right: 30,
-height: 2,
-borderRadius: 999,
-background:
-"linear-gradient(90deg, transparent, #22ff7f, transparent)",
-opacity: 0.9,
-animation: "borderGlow 4s ease-in-out infinite",
-}}
-/>
-
-<div style={aiPill}>
-<span style={greenDot} />
-LIVE AI RECEPTIONIST
+<section style={aiCommandHero} onClick={() => router.push("/ai-receptionist")}>
+<div style={liveRow}>
+<span style={liveNow}>● LIVE NOW</span>
+<span style={activeText}>AI RECEPTIONIST ACTIVE</span>
 </div>
 
-<div style={waveWrap}>
-<div className="wave-line" style={waveLine} />
-</div>
+<div style={commandGrid}>
+<div>
+<h1 style={commandTitle}>
+Your AI Employee <br />
+<span style={greenText}>Never Misses a Call.</span>
+</h1>
 
-<h2 style={aiTitle}>
-Turn missed calls
-<br />
-into <span style={{ color: "#22ff7f" }}>booked jobs</span>
-</h2>
-
-<p style={aiText}>
-AI answers calls, captures details and sends instant job alerts
-straight to your dashboard.
+<p style={commandSub}>
+AI answers calls, qualifies leads, captures details and books jobs while you focus on growth.
 </p>
 
-<button className="green-pulse" style={aiCta}>
-Launch AI Receptionist
+<button style={launchBtn}>
+Launch AI Receptionist <span>→</span>
 </button>
 
-<div style={setupSliderBox}>
-<div key={setupSlide} style={setupSlideInner}>
-<div style={setupTopRow}>
-<span style={setupStep}>
-STEP {setupSlides[setupSlide].step}
-</span>
-
-<span style={setupTime}>
-5 min setup
-</span>
+<div style={miniFeatures}>
+<span>⚡ Instant Alerts</span>
+<span>🛡 24/7 Coverage</span>
+<span>📅 More Booked Jobs</span>
+</div>
 </div>
 
-<h3 style={setupTitle}>
-{setupSlides[setupSlide].title}
-</h3>
+<div style={phoneMockup}>
+<div style={phoneScreen}>
+<div style={incoming}>Incoming Call</div>
+<div style={customer}>New Customer</div>
+<div style={timer}>00:08</div>
+<div style={waveform}>
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+<div style={callBtns}>
+<div style={redCall}>☎</div>
+<div style={greenCall}>☎</div>
+</div>
+</div>
+</div>
+</div>
 
-<p style={setupText}>
-{setupSlides[setupSlide].text}
-</p>
+<div style={activityPanel}>
+<div style={activityTitle}>LIVE ACTIVITY</div>
 
-<div style={setupDots}>
-{setupSlides.map((_, index) => (
-<span
-key={index}
-style={{
-...setupDot,
-opacity: index === setupSlide ? 1 : 0.25,
-width: index === setupSlide ? 24 : 7,
-}}
-/>
-))}
+<div style={activityGrid}>
+<div style={activityCard}>
+<b>Call Answered</b>
+<strong>00:02s</strong>
+<small>Just now</small>
+</div>
+
+<div style={activityCard}>
+<b>Lead Captured</b>
+<strong>Jane • Tyres</strong>
+<small>Just now</small>
+</div>
+
+<div style={activityCardActive}>
+<b>Job Booked</b>
+<strong>£280</strong>
+<small>1 min ago</small>
+</div>
+
+<div style={activityCard}>
+<b>Revenue Today</b>
+<strong>£1,680</strong>
+<small>Live</small>
 </div>
 </div>
 </div>
@@ -1935,4 +1933,198 @@ height: 7,
 borderRadius: 999,
 background: "#22ff7f",
 transition: "all 0.35s ease",
+};
+const aiCommandHero: React.CSSProperties = {
+position: "relative",
+margin: "20px 24px",
+padding: 26,
+borderRadius: 34,
+overflow: "hidden",
+border: "1px solid rgba(34,255,127,0.35)",
+background:
+"radial-gradient(circle at 75% 35%, rgba(34,255,127,0.22), transparent 35%), linear-gradient(145deg, rgba(3,14,10,0.98), rgba(1,6,8,0.98))",
+boxShadow: "0 0 60px rgba(34,255,127,0.18)",
+};
+
+const liveRow: React.CSSProperties = {
+display: "flex",
+alignItems: "center",
+gap: 14,
+marginBottom: 22,
+};
+
+const liveNow: React.CSSProperties = {
+padding: "8px 14px",
+borderRadius: 999,
+background: "rgba(34,255,127,0.12)",
+color: "#22ff7f",
+fontWeight: 900,
+fontSize: 13,
+};
+
+const activeText: React.CSSProperties = {
+color: "rgba(255,255,255,0.85)",
+fontWeight: 800,
+fontSize: 13,
+};
+
+const commandGrid: React.CSSProperties = {
+display: "grid",
+gridTemplateColumns: "1fr 150px",
+gap: 18,
+alignItems: "center",
+};
+
+const commandTitle: React.CSSProperties = {
+fontSize: 43,
+lineHeight: 0.95,
+margin: 0,
+color: "white",
+letterSpacing: -2,
+};
+
+const greenText: React.CSSProperties = {
+color: "#22ff7f",
+textShadow: "0 0 26px rgba(34,255,127,0.45)",
+};
+
+const commandSub: React.CSSProperties = {
+color: "rgba(255,255,255,0.72)",
+fontSize: 17,
+lineHeight: 1.45,
+marginTop: 18,
+marginBottom: 24,
+};
+
+const launchBtn: React.CSSProperties = {
+width: "100%",
+border: 0,
+borderRadius: 22,
+padding: "18px 22px",
+background: "linear-gradient(135deg,#22ff7f,#5dff75)",
+color: "#04140c",
+fontWeight: 950,
+fontSize: 18,
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+boxShadow: "0 0 36px rgba(34,255,127,0.35)",
+};
+
+const miniFeatures: React.CSSProperties = {
+display: "flex",
+gap: 12,
+flexWrap: "wrap",
+marginTop: 18,
+color: "rgba(255,255,255,0.75)",
+fontSize: 12,
+};
+
+const phoneMockup: React.CSSProperties = {
+height: 260,
+borderRadius: 34,
+padding: 10,
+background: "linear-gradient(160deg,#0b1514,#020403)",
+border: "1px solid rgba(255,255,255,0.18)",
+transform: "rotate(8deg)",
+boxShadow: "0 0 45px rgba(34,255,127,0.25)",
+};
+
+const phoneScreen: React.CSSProperties = {
+height: "100%",
+borderRadius: 26,
+background:
+"radial-gradient(circle at center, rgba(34,255,127,0.15), transparent 55%), #020806",
+display: "flex",
+flexDirection: "column",
+alignItems: "center",
+justifyContent: "center",
+color: "white",
+};
+
+const incoming: React.CSSProperties = {
+color: "#22ff7f",
+fontSize: 12,
+fontWeight: 800,
+};
+
+const customer: React.CSSProperties = {
+fontSize: 16,
+fontWeight: 900,
+marginTop: 8,
+};
+
+const timer: React.CSSProperties = {
+color: "#22ff7f",
+marginTop: 4,
+};
+
+const waveform: React.CSSProperties = {
+display: "flex",
+gap: 6,
+alignItems: "center",
+marginTop: 28,
+};
+
+const callBtns: React.CSSProperties = {
+display: "flex",
+gap: 22,
+marginTop: 34,
+};
+
+const redCall: React.CSSProperties = {
+width: 46,
+height: 46,
+borderRadius: "50%",
+background: "#ef4444",
+display: "grid",
+placeItems: "center",
+};
+
+const greenCall: React.CSSProperties = {
+width: 46,
+height: 46,
+borderRadius: "50%",
+background: "#22ff7f",
+color: "#04140c",
+display: "grid",
+placeItems: "center",
+};
+
+const activityPanel: React.CSSProperties = {
+marginTop: 26,
+padding: 16,
+borderRadius: 24,
+background: "rgba(255,255,255,0.045)",
+border: "1px solid rgba(34,255,127,0.18)",
+};
+
+const activityTitle: React.CSSProperties = {
+color: "#22ff7f",
+fontWeight: 900,
+fontSize: 13,
+marginBottom: 12,
+};
+
+const activityGrid: React.CSSProperties = {
+display: "grid",
+gridTemplateColumns: "repeat(2, 1fr)",
+gap: 10,
+};
+
+const activityCard: React.CSSProperties = {
+padding: 14,
+borderRadius: 16,
+background: "rgba(255,255,255,0.055)",
+border: "1px solid rgba(255,255,255,0.08)",
+display: "flex",
+flexDirection: "column",
+gap: 5,
+color: "white",
+};
+
+const activityCardActive: React.CSSProperties = {
+...activityCard,
+border: "1px solid rgba(34,255,127,0.55)",
+boxShadow: "0 0 25px rgba(34,255,127,0.2)",
 };
