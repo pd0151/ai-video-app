@@ -1342,7 +1342,7 @@ const aiHero: CSSProperties = {
 position: "relative",
 zIndex: 2,
 backgroundImage:
-"linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0.25)), url('/images/quick-5.jpg')",
+"linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0.25)), url('/images/quick-6.jpg')",
 backgroundSize: "cover",
 backgroundPosition: "center",
 overflow: "hidden",
