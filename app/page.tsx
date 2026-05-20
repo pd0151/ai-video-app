@@ -586,9 +586,43 @@ into <span style={{ color: "#22ff7f" }}>booked jobs</span>
 </h2>
 
 <p style={aiText}>
-AI answers calls, captures details and sends instant job alerts
-straight to your dashboard.
+Your AI receptionist answers missed calls instantly, speaks to customers naturally,
+captures job details, qualifies leads and sends bookings directly to your dashboard,
+SMS or WhatsApp in real time.
 </p>
+
+<div
+style={{
+display: "flex",
+gap: 10,
+flexWrap: "wrap",
+marginTop: 18,
+marginBottom: 22,
+}}
+>
+{[
+"24/7 AI Answering",
+"Instant Lead Alerts",
+"SMS + WhatsApp",
+"Books Jobs Automatically",
+].map((item) => (
+<div
+key={item}
+style={{
+padding: "10px 14px",
+borderRadius: 999,
+background: "rgba(34,255,127,0.08)",
+border: "1px solid rgba(34,255,127,0.18)",
+color: "#d8ffe8",
+fontSize: 13,
+fontWeight: 700,
+backdropFilter: "blur(10px)",
+}}
+>
+⚡ {item}
+</div>
+))}
+</div>
 
 <button
 className="green-pulse"
@@ -609,7 +643,51 @@ animation: "pulseGlow 2s ease-in-out infinite",
 >
 ⚡ Launch AI Receptionist
 </button>
+<div
+style={{
+display: "grid",
+gridTemplateColumns: "repeat(3,1fr)",
+gap: 12,
+marginTop: 22,
+}}
+>
+{[
+["247+", "Calls Answered"],
+["81", "Businesses Live"],
+["£18k+", "Jobs Booked"],
+].map(([num, label]) => (
+<div
+key={label}
+style={{
+padding: 16,
+borderRadius: 20,
+background: "rgba(255,255,255,0.04)",
+border: "1px solid rgba(255,255,255,0.08)",
+textAlign: "center",
+}}
+>
+<div
+style={{
+color: "#22ff7f",
+fontSize: 24,
+fontWeight: 900,
+}}
+>
+{num}
+</div>
 
+<div
+style={{
+color: "rgba(255,255,255,0.7)",
+fontSize: 12,
+marginTop: 4,
+}}
+>
+{label}
+</div>
+</div>
+))}
+</div>
 <div style={setupSliderBox}>
 <div key={setupSlide} style={setupSlideInner}>
 <div style={setupTopRow}>
