@@ -5,7 +5,10 @@ const openai = new OpenAI({
 apiKey: process.env.OPENAI_API_KEY,
 });
 
-export async function POST(req: Request) {
+    export async function POST(req: Request) {
+return NextResponse.json({
+reply: "TEST: AI route is working",
+});
 try {
 const body = await req.json();
 
