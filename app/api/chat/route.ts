@@ -7,7 +7,7 @@ apiKey: process.env.OPENAI_API_KEY,
 
 export async function POST(req: Request) {
 try {
-const { messages } = await req.json();
+const body = await req.json();
 
 const response = await openai.chat.completions.create({
 model: "gpt-4o-mini",
@@ -15,9 +15,13 @@ messages: [
 {
 role: "system",
 content:
-"You are an expert advertising assistant. Help users write short, powerful ads, captions, hooks, and marketing ideas.",
+"You are a powerful AI assistant inside AdForge. You can answer general questions, help with business, marketing, coding, sales, ideas, content creation and everyday topics. Be intelligent, conversational and helpful."
 },
-...messages,
+{
+role: "user",
+content: body.message,
+},
+
 ],
 });
 
