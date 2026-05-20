@@ -624,8 +624,8 @@ key={title}
 style={{
 position: "relative",
 overflow: "hidden",
-padding: "18px 16px",
-borderRadius: 22,
+padding: "11px 11px",
+borderRadius: 17,
 background:
 "linear-gradient(145deg, rgba(8,12,10,0.92), rgba(15,25,20,0.88))",
 border: "1px solid rgba(34,255,127,0.16)",
@@ -640,7 +640,7 @@ width: 34,
 height: 4,
 borderRadius: 999,
 background: "#22ff7f",
-marginBottom: 14,
+marginBottom: 7,
 boxShadow: "0 0 14px rgba(34,255,127,0.8)",
 }}
 />
@@ -648,7 +648,7 @@ boxShadow: "0 0 14px rgba(34,255,127,0.8)",
 <div
 style={{
 color: "white",
-fontSize: 15,
+fontSize: 12,
 fontWeight: 900,
 marginBottom: 6,
 letterSpacing: -0.3,
