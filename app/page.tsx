@@ -627,6 +627,8 @@ preload="metadata"
 style={{
 position: "absolute",
 inset: 0,
+pointerEvents: "none",
+transform: "translateZ(0)",
 width: "100%",
 height: "100%",
 objectFit: "cover",
@@ -637,6 +639,7 @@ zIndex: 0,
 <source src="/videos/15474586_2160_3840_30fps.mp4" type="video/mp4" />
 </video>
 <div style={heroTop}>
+    <div style={{ position: "relative", zIndex: 2 }}></div>
 <div>
 <div style={heroPill}>AI CREATIVE STUDIO</div>
 <h2 style={heroTitle}>Create high-converting ads</h2>
