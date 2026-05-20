@@ -41,7 +41,7 @@ return JSON.parse(localStorage.getItem("cached_feed_posts") || "[]");
 return [];
 }
 });
-const [loading, setLoading] = useState(true);
+
 const [fetched, setFetched] = useState(false);
 const [liked, setLiked] = useState<Record<string, boolean>>({});
 const [activeVideo, setActiveVideo] = useState<string | null>(null);
@@ -50,10 +50,11 @@ const [openMedia, setOpenMedia] = useState<string | null>(null);
 const [commentPost, setCommentPost] = useState<Post | null>(null);
 const [comments, setComments] = useState<Comment[]>([]);
 const [commentText, setCommentText] = useState("");
-
+const [loadingPosts, setLoadingPosts] = useState(true);
+const [loading, setLoading] = useState(true);
 async function loadPosts() {
 try {
-setLoading(true);
+setLoadingPosts(true);
 
 const { data, error } = await supabase
 .from("posts")
@@ -66,18 +67,23 @@ console.log("POSTS DATA:", data);
 if (error) {
 alert("Feed error: " + error.message);
 setPosts([]);
+setLoadingPosts(false);
 return;
 }
 
 const freshPosts = (data || []).filter(
 (p) => p.image_url || p.video_url
 );
+setPosts(freshPosts);
+
+setLoadingPosts(false);
 
 try {
 localStorage.setItem(
 "cached_feed_posts",
 JSON.stringify(
 freshPosts.map((p) => ({
+    
 ...p,
 image_url: p.image_url?.startsWith("data:") ? null : p.image_url,
 }))
