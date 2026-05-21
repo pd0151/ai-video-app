@@ -568,7 +568,7 @@ PRO
 
 <section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
   <img
-src="/hero-bg.jpg"
+src="image/hero-bg.jpg"
 alt=""
 style={{
 position: "absolute",
