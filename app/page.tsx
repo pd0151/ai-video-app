@@ -1178,11 +1178,8 @@ Profile
 
 const page: CSSProperties = {
 minHeight: "100vh",
-backgroundImage: "linear-gradient(rgba(0,0,0,0.20), rgba(0,0,0,0.22)), url('/images/quick-5.jpg')",
-backgroundSize: "112%",
-backgroundPosition: "center center",
-backgroundRepeat: "no-repeat",
 color: "white",
+background: "#020b08",
 padding: "18px 16px 140px",
 fontFamily: "Inter, sans-serif",
 overflowX: "hidden",
@@ -1517,12 +1514,23 @@ overflow: "hidden",
 zIndex: 2,
 borderRadius: 28,
 padding: 18,
-background:
-"linear-gradient(145deg, rgba(10,18,14,0.92), rgba(3,6,5,0.96))",
+minHeight: 760,
+backgroundImage: `
+linear-gradient(
+to bottom,
+rgba(0,0,0,0.12) 0%,
+rgba(0,0,0,0.28) 45%,
+rgba(0,0,0,0.86) 78%,
+#020b08 100%
+),
+url('/hero-bg.jpg')
+`,
+backgroundSize: "cover",
+backgroundPosition: "center top",
+backgroundRepeat: "no-repeat",
 backdropFilter: "blur(20px)",
 border: "1px solid rgba(34,255,127,0.22)",
-boxShadow:
-"0 0 0 1px rgba(34,255,127,0.08), 0 0 45px rgba(34,255,127,0.14)",
+boxShadow: "0 0 0 1px rgba(34,255,127,0.08), 0 0 45px rgba(34,255,127,0.14)",
 marginBottom: 18,
 };
 
