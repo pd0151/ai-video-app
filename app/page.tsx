@@ -1385,15 +1385,20 @@ url('/images/hero-bg.jpg')
 backgroundSize: "cover",
 backgroundPosition: "center top",
 backgroundRepeat: "no-repeat",
+
 boxShadow: "none",
 border: "none",
 borderRadius: 0,
+
 zIndex: 2,
 overflow: "hidden",
 marginBottom: 22,
+
 animation: "floatUp 5s ease-in-out infinite",
 cursor: "pointer",
 };
+
+
 
 const aiPill: CSSProperties = {
 display: "inline-flex",
