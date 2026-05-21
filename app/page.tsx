@@ -1193,8 +1193,8 @@ rgba(2,11,8,0.75) 620px,
 url('/images/hero-bg.jpg')
 `,
 
-backgroundSize: "cover",
-backgroundPosition: "center -155px",
+backgroundSize: "100% auto",
+backgroundPosition: "top center",
 backgroundRepeat: "no-repeat",
 
 color: "white",
