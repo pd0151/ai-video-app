@@ -1184,16 +1184,17 @@ backgroundColor: "#020b08",
 backgroundImage: `
 linear-gradient(
 to bottom,
-rgba(0,0,0,0.18) 0px,
-rgba(0,0,0,0.25) 380px,
+rgba(0,0,0,0.08) 0px,
+rgba(0,0,0,0.18) 320px,
+rgba(2,11,8,0.75) 620px,
 #020b08 720px,
 #020b08 100%
 ),
 url('/images/hero-bg.jpg')
 `,
 
-backgroundSize: "100% 700px",
-backgroundPosition: "center top",
+backgroundSize: "contain",
+backgroundPosition: "center -40px",
 backgroundRepeat: "no-repeat",
 
 color: "white",
