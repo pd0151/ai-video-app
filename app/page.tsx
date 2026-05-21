@@ -1194,7 +1194,7 @@ rgba(2,11,8,0.75) 620px,
 url('/images/hero-bg.jpg')
 `,
 
-backgroundSize: "100% auto",
+backgroundSize: "contain",
 backgroundPosition: "100% auto",
 backgroundRepeat: "no-repeat",
 
