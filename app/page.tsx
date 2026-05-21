@@ -1178,8 +1178,10 @@ Profile
 
 const page: CSSProperties = {
 minHeight: "100vh",
-background:
-"radial-gradient(circle at top,#081812 0%,#03100c 35%,#020204 100%)",
+backgroundImage: "linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.55)), url('/images/quick-5.jpg')",
+backgroundSize: "cover",
+backgroundPosition: "center top",
+backgroundRepeat: "no-repeat",
 color: "white",
 padding: "18px 16px 140px",
 fontFamily: "Inter, sans-serif",
@@ -1373,12 +1375,11 @@ fontWeight: 800,
 
 const aiHero: CSSProperties = {
 position: "relative",
+background: "transparent",
+boxShadow: "none",
+border: "none",
+borderRadius: 0,
 zIndex: 2,
-transform: "scale(1.08)",
-backgroundImage: "url('/images/quick-6.jpg')",
-backgroundSize: "cover",
-backgroundPosition: "center center",
-backgroundRepeat: "no-repeat",
 overflow: "hidden",
 marginBottom: 22,
 animation: "floatUp 5s ease-in-out infinite",
