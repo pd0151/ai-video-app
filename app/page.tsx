@@ -567,6 +567,20 @@ PRO
 
 
 <section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
+  <img
+src="/hero-bg.jpg"
+alt=""
+style={{
+position: "absolute",
+top: 0,
+left: 0,
+width: "100%",
+height: "78vh",
+objectFit: "cover",
+objectPosition: "center top",
+zIndex: 0,
+}}
+/>  
 <div
 className="wave-line"
 style={{
