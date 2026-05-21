@@ -1375,7 +1375,7 @@ const aiHero: CSSProperties = {
 position: "relative",
 zIndex: 2,
 transform: "scale(1.08)",
-backgroundImage: "url('/images/quick-5.jpg')",
+backgroundImage: "url('/images/quick-6.jpg')",
 backgroundSize: "cover",
 backgroundPosition: "center center",
 backgroundRepeat: "no-repeat",
