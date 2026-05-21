@@ -608,9 +608,9 @@ SMS or WhatsApp in real time.
 style={{
 display: "grid",
 gridTemplateColumns: "1fr 1fr",
-gap: 12,
-marginTop: 22,
-marginBottom: 26,
+gap: 10,
+marginTop: 18,
+marginBottom: 18,
 }}
 >
 {[
@@ -624,8 +624,8 @@ key={title}
 style={{
 position: "relative",
 overflow: "hidden",
-padding: "11px 11px",
-borderRadius: 17,
+padding: "8px 9px",
+borderRadius: 15,
 background:
 "linear-gradient(145deg, rgba(8,12,10,0.92), rgba(15,25,20,0.88))",
 border: "1px solid rgba(34,255,127,0.16)",
@@ -1184,16 +1184,16 @@ backgroundColor: "#020b08",
 backgroundImage: `
 linear-gradient(
 to bottom,
-rgba(0,0,0,0.05) 0px,
-rgba(0,0,0,0.28) 420px,
-#020b08 760px,
+rgba(0,0,0,0.18) 0px,
+rgba(0,0,0,0.25) 380px,
+#020b08 720px,
 #020b08 100%
 ),
 url('/images/hero-bg.jpg')
 `,
 
-backgroundSize: "100% 760px",
-backgroundPosition: "top center",
+backgroundSize: "100% 700px",
+backgroundPosition: "center top",
 backgroundRepeat: "no-repeat",
 
 color: "white",
