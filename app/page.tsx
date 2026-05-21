@@ -1372,6 +1372,19 @@ fontWeight: 800,
 
 const aiHero: CSSProperties = {
 position: "relative",
+backgroundImage: `
+linear-gradient(
+to bottom,
+rgba(0,0,0,0.15) 0%,
+rgba(0,0,0,0.32) 45%,
+rgba(0,0,0,0.82) 78%,
+#020b08 100%
+),
+url('/hero-bg.jpg')
+`,
+backgroundSize: "cover",
+backgroundPosition: "center top",
+backgroundRepeat: "no-repeat",
 background: "transparent",
 boxShadow: "none",
 border: "none",
@@ -1514,7 +1527,7 @@ overflow: "hidden",
 zIndex: 2,
 borderRadius: 28,
 padding: 18,
-minHeight: 760,
+minHeight: 420,
 backgroundImage: `
 linear-gradient(
 to bottom,
