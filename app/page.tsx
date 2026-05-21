@@ -1177,7 +1177,7 @@ Profile
 }
 
 const page: CSSProperties = {
-minHeight: "55vh",
+minHeight: "100vh",
 paddingTop: 120,
 paddingBottom: 120,
 backgroundColor: "#020b08",
@@ -1193,11 +1193,9 @@ rgba(2,11,8,0.75) 620px,
 ),
 url('/images/hero-bg.jpg')
 `,
-
-backgroundSize: "contain",
-backgroundPosition: "100% auto",
+backgroundSize: "cover",
+backgroundPosition: "center top",
 backgroundRepeat: "no-repeat",
-
 color: "white",
 padding: "18px 16px 140px",
 fontFamily: "Inter, sans-serif",
