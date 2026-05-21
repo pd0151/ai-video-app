@@ -520,9 +520,6 @@ animation: greenWave 3s ease-in-out infinite;
 <div style={bgGlowRight} />
 <div style={bgParticles} />
 <main style={page}>
-    <div style={pageOverlay} />
-
-<div style={{ position: "relative", zIndex: 1 }}></div>
 <header style={topBar}>
 <div>
 <div style={brandLabel}>AI ADVERTISING PLATFORM</div>
@@ -1181,24 +1178,20 @@ Profile
 
 const page: CSSProperties = {
 minHeight: "100vh",
+paddingTop: 120,
+paddingBottom: 120,
+backgroundColor: "#020b08",
 backgroundImage: "url('/images/hero-bg.jpg')",
 backgroundSize: "cover",
-backgroundPosition: "center top",
+backgroundPosition: "center 80px",
 backgroundRepeat: "no-repeat",
-backgroundColor: "#020b08",
 color: "white",
 padding: "18px 16px 140px",
-overflow: "hidden",
+fontFamily: "Inter, sans-serif",
+overflowX: "hidden",
 position: "relative",
 };
-const pageOverlay: CSSProperties = {
-position: "fixed",
-inset: 0,
-background:
-"linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.15) 45%, rgba(2,11,8,0.85) 78%, #020b08 100%)",
-pointerEvents: "none",
-zIndex: 0,
-};
+
 const bgGlow1: CSSProperties = {
 position: "fixed",
 width: 320,
