@@ -1187,14 +1187,14 @@ linear-gradient(
 to bottom,
 rgba(0,0,0,0.08) 0px,
 rgba(0,0,0,0.18) 320px,
-rgba(2,11,8,0.75) 620px,
+rgba(2,11,8,0.35) 620px,
 #020b08 720px,
 #020b08 100%
 ),
 url('/images/hero-bg.jpg')
 `,
 backgroundSize: "cover",
-backgroundPosition: "center top",
+backgroundPosition: "center 10%",
 backgroundRepeat: "no-repeat",
 color: "white",
 padding: "18px 16px 140px",
