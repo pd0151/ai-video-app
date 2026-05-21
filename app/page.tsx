@@ -1177,7 +1177,7 @@ Profile
 }
 
 const page: CSSProperties = {
-minHeight: "cover",
+minHeight: "55vh",
 paddingTop: 120,
 paddingBottom: 120,
 backgroundColor: "#020b08",
