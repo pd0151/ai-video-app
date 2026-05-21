@@ -1374,10 +1374,9 @@ fontWeight: 800,
 const aiHero: CSSProperties = {
 position: "relative",
 zIndex: 2,
-backgroundImage:
-"linear-gradient(to top, rgba(0,0,0,0.12), rgba(0,0,0,0.04)), url('/images/quick-5.jpg')",
+backgroundImage: "url('/images/quick-5.jpg')",
 backgroundSize: "cover",
-backgroundPosition: "center",
+backgroundPosition: "center center",
 backgroundBlendMode: "normal",
 backgroundRepeat: "no-repeat",
 overflow: "hidden",
@@ -1386,7 +1385,7 @@ padding: 22,
 marginBottom: 22,
 animation: "floatUp 5s ease-in-out infinite",
 border: "1px solid rgba(34,255,127,0.18)",
-backdropFilter: "blur(22px)",
+
 boxShadow:
 "0 0 0 1px rgba(34,255,127,0.08), 0 0 55px rgba(34,255,127,0.14)",
 cursor: "pointer",
