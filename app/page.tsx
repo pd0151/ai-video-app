@@ -1194,7 +1194,7 @@ url('/images/hero-bg.jpg')
 `,
 
 backgroundSize: "100% auto",
-backgroundPosition: "top center",
+backgroundPosition: "100% auto",
 backgroundRepeat: "no-repeat",
 
 color: "white",
