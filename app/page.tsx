@@ -1385,7 +1385,6 @@ url('/images/hero-bg.jpg')
 backgroundSize: "cover",
 backgroundPosition: "center top",
 backgroundRepeat: "no-repeat",
-background: "transparent",
 boxShadow: "none",
 border: "none",
 borderRadius: 0,
