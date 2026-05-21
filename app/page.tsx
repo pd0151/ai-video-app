@@ -1179,7 +1179,7 @@ Profile
 const page: CSSProperties = {
 minHeight: "100vh",
 backgroundImage: "linear-gradient(rgba(0,0,0,0.20), rgba(0,0,0,0.22)), url('/images/quick-5.jpg')",
-backgroundSize: "cover",
+backgroundSize: "112%",
 backgroundPosition: "center center",
 backgroundRepeat: "no-repeat",
 color: "white",
