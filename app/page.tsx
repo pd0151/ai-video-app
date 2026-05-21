@@ -1181,18 +1181,7 @@ minHeight: "100vh",
 paddingTop: 120,
 paddingBottom: 120,
 backgroundColor: "#020b08",
-
-backgroundImage: `
-linear-gradient(
-to bottom,
-rgba(0,0,0,0.08) 0px,
-rgba(0,0,0,0.18) 320px,
-rgba(2,11,8,0.35) 620px,
-#020b08 720px,
-#020b08 100%
-),
-url('/images/hero-bg.jpg')
-`,
+backgroundImage: "url('/images/hero-bg.jpg')",
 backgroundSize: "cover",
 backgroundPosition: "center 10%",
 backgroundRepeat: "no-repeat",
