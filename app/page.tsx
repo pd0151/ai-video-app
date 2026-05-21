@@ -1380,7 +1380,7 @@ rgba(0,0,0,0.32) 45%,
 rgba(0,0,0,0.82) 78%,
 #020b08 100%
 ),
-url('/quick-1.jpg')
+url('/images/hero-bg.jpg')
 `,
 backgroundSize: "cover",
 backgroundPosition: "center top",
