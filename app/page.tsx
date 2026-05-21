@@ -1378,17 +1378,10 @@ transform: "scale(1.08)",
 backgroundImage: "url('/images/quick-5.jpg')",
 backgroundSize: "cover",
 backgroundPosition: "center center",
-backgroundBlendMode: "normal",
 backgroundRepeat: "no-repeat",
 overflow: "hidden",
-borderRadius: 34,
-padding: 17,
 marginBottom: 22,
 animation: "floatUp 5s ease-in-out infinite",
-border: "1px solid rgba(34,255,127,0.18)",
-
-boxShadow:
-"0 0 0 1px rgba(34,255,127,0.08), 0 0 55px rgba(34,255,127,0.14)",
 cursor: "pointer",
 };
 
