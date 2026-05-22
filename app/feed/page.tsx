@@ -249,8 +249,8 @@ decoding="async"
 style={{
 position: "absolute",
 inset: 0,
-width: "80%",
-height: "80%",
+width: "100%",
+height: "100",
 objectFit: "fill",
 objectPosition: "center 20%",
 padding: "0",
