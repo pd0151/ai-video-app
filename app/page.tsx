@@ -1279,7 +1279,7 @@ zIndex: 0,
 const topBar: CSSProperties = {
 position: "relative",
 zIndex: 2,
-paddingTop: 16,
+paddingTop: 24,
 display: "flex",
 justifyContent: "space-between",
 alignItems: "center",
