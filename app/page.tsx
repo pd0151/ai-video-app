@@ -62,6 +62,9 @@ const [credits, setCredits] = useState(0);
 const [setupSlide, setSetupSlide] = useState(0);
 const adScrollerRef = useRef<HTMLDivElement | null>(null);
 const [recentPosts, setRecentPosts] = useState<any[]>([]);
+function refreshPage() {
+window.location.reload();
+}
 
 useEffect(() => {
 loadRecentPosts();
@@ -423,6 +426,9 @@ setChatLoading(false);
 
 return (
 <>
+<button onClick={refreshPage} style={refreshBtn}>
+↻
+</button>
 <style jsx global>{`
 @keyframes premiumFade {
 0% {
@@ -1993,16 +1999,16 @@ fontSize: 22,
 
 const bottomNav: CSSProperties = {
 position: "fixed",
-left: 0,
-right: 0,
-bottom: 0,
-height: 88,
+left: 24,
+right: 24,
+height: 78,
+bottom: "calc(18px + env(safe-area-inset-bottom))",
 background: "rgba(2,7,5,0.96)",
 borderTop: "1px solid rgba(34,255,127,0.14)",
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
-zIndex: 50,
+zIndex: 9999,
 backdropFilter: "blur(18px)",
 };
 
@@ -2091,4 +2097,18 @@ height: 7,
 borderRadius: 999,
 background: "#22ff7f",
 transition: "all 0.35s ease",
+};
+const refreshBtn: CSSProperties = {
+position: "fixed",
+top: "calc(78px + env(safe-area-inset-top))",
+right: 18,
+zIndex: 9999,
+width: 42,
+height: 42,
+borderRadius: "50%",
+border: "1px solid rgba(34,255,127,0.35)",
+background: "rgba(0,0,0,0.55)",
+color: "#22ff7f",
+fontSize: 24,
+fontWeight: 900,
 };
