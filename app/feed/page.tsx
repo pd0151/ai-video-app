@@ -531,8 +531,8 @@ paddingBottom: 10,
 };
 
 const slide: React.CSSProperties = {
-height: "100dvh",
-minHeight: "100dvh",
+height: "100%",
+minHeight: "100%",
 scrollSnapAlign: "start",
 scrollSnapStop: "always",
 position: "relative",
