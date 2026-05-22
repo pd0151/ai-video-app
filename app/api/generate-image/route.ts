@@ -10,33 +10,57 @@ try {
 const { prompt } = await req.json();
 
 const premiumPrompt = `
-Create a premium vertical social media advert for: ${prompt}.
+Create a premium ultra realistic vertical mobile advert for: ${prompt}.
 
-STYLE:
-High-end commercial product photography.
-Luxury brand advert.
-Sharp realistic detail.
-Professional studio lighting.
-Modern clean layout.
-Cinematic shadows.
-Expensive glossy finish.
-Premium social media campaign quality.
+Style:
+Luxury commercial photography.
+High-end cinematic advertising.
+Professional product composition.
+Premium social media campaign aesthetic.
 
-IMPORTANT:
-- Do NOT use the same green theme every time.
-- Choose colours that match the business type.
-- Keep all text, logos and phone numbers fully visible.
-- Leave large safe margins around every edge.
-- Do not crop any words, letters, logos or headlines.
-- Make it look like a finished paid advert, not a template.
-- Use a vertical mobile advert layout.
+Image Quality:
+Ultra detailed.
+8k realism.
+Sharp focus.
+Professional lighting.
+Natural reflections.
+High dynamic range.
+Photorealistic textures.
+Studio quality rendering.
 
-COMPOSITION:
-Main product centered.
-Clean background.
-Readable typography.
-Balanced spacing.
+Composition Rules:
+Keep all text fully visible.
+Leave safe margins around edges.
+Do not crop headlines or logos.
+Balanced composition.
+Main subject centered correctly.
+Designed for mobile feed viewing.
+Luxury spacing and typography layout.
+
+Advertising Style:
+Make it look like a real paid Facebook / Instagram advert.
+Expensive brand identity.
+Modern premium marketing campaign.
+High conversion commercial design.
+Clean professional layout.
+
+Colours:
+Use colours that match the business naturally.
+Avoid overusing neon green.
+Use realistic premium colour grading.
+
+Negative Rules:
+No blurry text.
+No duplicated objects.
+No warped tyres.
+No cropped wording.
 No clutter.
+No low quality graphics.
+No template feel.
+No cartoon styling.
+
+Final Result:
+Generate a world-class premium advert suitable for a real business paying for professional marketing.
 `;
 
 
