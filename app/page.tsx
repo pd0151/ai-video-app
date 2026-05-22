@@ -1107,6 +1107,8 @@ AI Calls Answered
 </div>
 </section>
 <section style={chatBox}>
+    <div style={assistantGlow} />
+
 <div style={sectionTop}>
 <h3 style={chatTitle}>AI Ad Assistant</h3>
 <span style={onlinePill}>Online ●</span>
@@ -1928,12 +1930,16 @@ pointerEvents: "none",
 };
 const chatBox: CSSProperties = {
 position: "relative",
-zIndex: 2,
-borderRadius: 26,
-padding: 18,
-background: "linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.025))",
-border: "1px solid rgba(34,255,127,0.16)",
-marginBottom: 30,
+overflow: "hidden",
+marginTop: 34,
+padding: 28,
+borderRadius: 36,
+background:
+"linear-gradient(180deg, rgba(8,18,14,0.96) 0%, rgba(2,7,5,0.98) 100%)",
+border: "1px solid rgba(34,255,127,0.18)",
+boxShadow:
+"0 0 55px rgba(34,255,127,0.10), inset 0 1px 0 rgba(255,255,255,0.05)",
+backdropFilter: "blur(28px)",
 };
 
 const chatTitle: CSSProperties = {
@@ -2111,4 +2117,15 @@ background: "rgba(0,0,0,0.55)",
 color: "#22ff7f",
 fontSize: 24,
 fontWeight: 900,
+};
+const assistantGlow: CSSProperties = {
+position: "absolute",
+top: -110,
+right: -90,
+width: 260,
+height: 260,
+borderRadius: "50%",
+background: "rgba(34,255,127,0.14)",
+filter: "blur(90px)",
+pointerEvents: "none",
 };
