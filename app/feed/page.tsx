@@ -539,7 +539,7 @@ position: "relative",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-padding: "200px 16px 215px",
+padding: "240px 16px 230px",
 boxSizing: "border-box",
 };
 
