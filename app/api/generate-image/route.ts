@@ -10,24 +10,33 @@ try {
 const { prompt } = await req.json();
 
 const premiumPrompt = `
-Create a premium vertical mobile advert for: ${prompt}.
-
-CRITICAL LAYOUT RULES:
-- Keep ALL text, logos, headlines, phone numbers and wording fully visible.
-- Leave large safe margins around every edge of the canvas.
-- Do NOT place text near the top, bottom, left or right edge.
-- Do NOT crop any letters, logos, phone numbers or headlines.
-- Use a balanced poster layout with the main product centered.
-- Make the advert look finished and professional, not cropped.
+Create a premium vertical social media advert for: ${prompt}.
 
 STYLE:
-Ultra realistic cinematic advertising poster.
-Luxury commercial advert, modern premium business marketing.
-Dark glossy background, neon green accents.
-Professional photography, cinematic shadows.
-Ultra detailed, expensive looking, viral social media ad creative.
-Clean premium typography with strong spacing.
-Mobile-first composition.
+High-end commercial product photography.
+Luxury brand advert.
+Sharp realistic detail.
+Professional studio lighting.
+Modern clean layout.
+Cinematic shadows.
+Expensive glossy finish.
+Premium social media campaign quality.
+
+IMPORTANT:
+- Do NOT use the same green theme every time.
+- Choose colours that match the business type.
+- Keep all text, logos and phone numbers fully visible.
+- Leave large safe margins around every edge.
+- Do not crop any words, letters, logos or headlines.
+- Make it look like a finished paid advert, not a template.
+- Use a vertical mobile advert layout.
+
+COMPOSITION:
+Main product centered.
+Clean background.
+Readable typography.
+Balanced spacing.
+No clutter.
 `;
 
 
