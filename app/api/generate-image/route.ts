@@ -10,57 +10,61 @@ try {
 const { prompt } = await req.json();
 
 const premiumPrompt = `
-Create a premium ultra realistic vertical mobile advert for: ${prompt}.
+Create a world-class premium vertical mobile advert for: ${prompt}.
 
-Style:
-Luxury commercial photography.
-High-end cinematic advertising.
-Professional product composition.
-Premium social media campaign aesthetic.
-
-Image Quality:
-Ultra detailed.
-8k realism.
-Sharp focus.
-Professional lighting.
-Natural reflections.
+QUALITY LEVEL:
+Ultra realistic 3D commercial render.
+Luxury product advertising.
+High-end agency campaign quality.
+Premium cinematic photography.
+8K / 16K detail look.
+Sharp professional focus.
+Studio-grade lighting.
+Realistic reflections.
+Glossy materials.
+Deep shadows.
 High dynamic range.
-Photorealistic textures.
-Studio quality rendering.
+Expensive brand aesthetic.
 
-Composition Rules:
-Keep all text fully visible.
-Leave safe margins around edges.
-Do not crop headlines or logos.
-Balanced composition.
-Main subject centered correctly.
-Designed for mobile feed viewing.
-Luxury spacing and typography layout.
-
-Advertising Style:
-Make it look like a real paid Facebook / Instagram advert.
-Expensive brand identity.
-Modern premium marketing campaign.
-High conversion commercial design.
-Clean professional layout.
-
-Colours:
-Use colours that match the business naturally.
-Avoid overusing neon green.
-Use realistic premium colour grading.
-
-Negative Rules:
-No blurry text.
-No duplicated objects.
-No warped tyres.
-No cropped wording.
+COMPOSITION:
+Vertical mobile-first advert.
+Main product perfectly centred.
+Strong depth and dimension.
+Premium spacing.
+Clean luxury layout.
 No clutter.
-No low quality graphics.
-No template feel.
-No cartoon styling.
+No cheap template look.
+No cartoon style.
+No low-quality graphics.
 
-Final Result:
-Generate a world-class premium advert suitable for a real business paying for professional marketing.
+TEXT RULES:
+Keep ALL text fully visible.
+Keep logos, headlines, phone numbers and offers inside safe margins.
+Do not crop any letters.
+Do not place wording near the image edges.
+Use bold readable premium typography.
+Make the advert look finished and ready to post.
+
+COLOUR RULES:
+Choose colours that match the business.
+Do not always use green.
+Use premium colour grading.
+Use realistic lighting and brand-matching accents.
+
+NEGATIVE RULES:
+No blurry text.
+No warped text.
+No misspelled words.
+No cropped logos.
+No duplicated products.
+No distorted tyres, faces, hands, tools or vehicles.
+No messy layout.
+No fake unreadable small print.
+No amateur design.
+
+FINAL RESULT:
+Make this look like a top-tier paid advert from a luxury creative agency.
+The result should be premium enough that a real business would pay for it.
 `;
 
 
