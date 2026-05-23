@@ -574,6 +574,7 @@ PRO
 
 <section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
 
+<div style={heroGlow} />
 <div
 className="wave-line"
 style={{
@@ -1411,13 +1412,13 @@ fontWeight: 800,
 };
 
 const aiHero: CSSProperties = {
-position: "relative",
+    position: "relative",
+overflow: "hidden",
 padding: "0 26px 22px",
 boxShadow: "none",
 border: "none",
 borderRadius: 0,
 zIndex: 2,
-overflow: "hidden",
 marginBottom: 22,
 animation: "floatUp 5s ease-in-out infinite",
 cursor: "pointer",
@@ -2141,6 +2142,20 @@ fontWeight: 900,
 letterSpacing: 1.2,
 };
 
+const heroGlow: CSSProperties = {
+position: "absolute",
+top: -160,
+left: "50%",
+transform: "translateX(-50%)",
+width: 480,
+height: 480,
+borderRadius: "50%",
+background:
+"radial-gradient(circle, rgba(120,170,255,0.22) 0%, rgba(120,170,255,0.08) 42%, transparent 75%)",
+filter: "blur(60px)",
+pointerEvents: "none",
+zIndex: 0,
+};
 const setupTime: React.CSSProperties = {
 color: WHITE,
 fontSize: 12,
