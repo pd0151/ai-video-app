@@ -622,77 +622,37 @@ PRO
 
 
 <section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
-<div style={heroPhoneGlow} />
-
 <div style={aiPill}>
 <span style={greenDot} />
 GET STARTED
 </div>
 
-<div style={premiumHeroGrid}>
-<div>
 <h2 style={aiTitle}>
 Set up in minutes.
 <br />
-Never miss a business
-<br />
-<span style={{ color: "#cfdcff" }}>call again.</span>
+Never miss a call again.
 </h2>
 
 <p style={aiText}>
-AdForge AI handles calls, captures leads and helps you grow your business
-24/7.
+Sign up, forward your number, let AdForge answer calls and promote your business 24/7.
 </p>
-</div>
 
-<div style={phoneMockup}>
-<div style={phoneScreen}>
-<b>AdForge</b>
-<div style={waveFake} />
-<span>AI Answering...</span>
-</div>
-</div>
-</div>
-
-<div style={setupPanel}>
+<div style={compactSteps}>
 {[
-["01", "Sign up", "Create your AdForge account in less than a minute."],
-["02", "Forward your number", "Forward your business number to AdForge AI."],
-["03", "AI answers every call", "AI speaks naturally, captures job details and qualifies leads 24/7."],
-["04", "Advertise your business", "Create AI adverts, videos and posts that bring more eyes to you."],
-["05", "Get more booked jobs", "Receive WhatsApp + SMS alerts and watch your business grow."],
-].map(([num, title, text]) => (
-<div key={num} style={setupRow}>
-<div style={stepCircle}>{num}</div>
-
-<div style={stepIcon}>●</div>
-
-<div style={{ flex: 1 }}>
-<b style={stepTitle}>{title}</b>
-<p style={stepText}>{text}</p>
-</div>
-</div>
-))}
-</div>
-
-<div style={premiumStats}>
-{[
-["128", "Calls Answered", "Today"],
-["42", "Leads Captured", "Today"],
-["19", "Jobs Booked", "Today"],
-["24/7", "AI Always On", "Never Miss a Call"],
-].map(([num, label, sub]) => (
-<div key={label} style={premiumStat}>
+["01", "Sign up"],
+["02", "Forward number"],
+["03", "AI answers"],
+["04", "Advertise"],
+["05", "Book more jobs"],
+].map(([num, text]) => (
+<div key={num} style={compactStep}>
 <b>{num}</b>
-<span>{label}</span>
-<small>{sub}</small>
+<span>{text}</span>
 </div>
 ))}
 </div>
 
-<button style={aiCta}>
-⚡ Launch AI Receptionist
-</button>
+<button style={aiCta}>⚡ Launch AI Receptionist</button>
 </section>
 
 
@@ -2254,4 +2214,26 @@ fontSize: 20,
 fontWeight: 950,
 boxShadow:
 "0 0 28px rgba(220,235,255,0.35), 0 0 75px rgba(220,235,255,0.14)",
+};
+
+const compactSteps: CSSProperties = {
+marginTop: 20,
+display: "grid",
+gridTemplateColumns: "1fr 1fr",
+gap: 10,
+};
+
+const compactStep: CSSProperties = {
+minHeight: 74,
+borderRadius: 22,
+padding: "14px",
+background:
+"linear-gradient(145deg, rgba(12,16,24,0.92), rgba(3,5,10,0.98))",
+border: "1px solid rgba(220,235,255,0.16)",
+boxShadow:
+"0 0 20px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.08)",
+display: "flex",
+flexDirection: "column",
+gap: 7,
+color: "white",
 };
