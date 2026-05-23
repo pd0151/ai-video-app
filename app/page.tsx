@@ -1486,7 +1486,7 @@ zIndex: 2,
 
 const aiCta: CSSProperties = {
 width: "100%",
-border: "1px solid rgba(255,255,255,0.18)",
+border: "1px solid rgba(255,255,255,0.16)",
 borderRadius: 22,
 padding: "20px 24px",
 
@@ -1504,7 +1504,7 @@ marginBottom: 22,
 cursor: "pointer",
 
 boxShadow:
-"0 0 28px rgba(220,235,255,0.35), 0 0 70px rgba(220,235,255,0.12)",
+"0 0 28px rgba(220,235,255,0.18)",
 
 transition: "0.25s",
 };
@@ -2072,7 +2072,7 @@ width: 72,
 height: 72,
 borderRadius: "50%",
 
-border: "1px solid rgba(255,255,255,0.16)",
+border: "1px solid rgba(255,255,255,0.14)",
 
 background:
 "linear-gradient(135deg,#ffffff 0%,#dce6f5 100%)",
@@ -2083,7 +2083,7 @@ fontSize: 42,
 fontWeight: 950,
 
 boxShadow:
-"0 0 40px rgba(220,235,255,0.34), 0 0 80px rgba(220,235,255,0.12)",
+"0 0 24px rgba(220,235,255,0.16)",
 
 transform: "translateY(-18px)",
 };
