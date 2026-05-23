@@ -639,15 +639,18 @@ Sign up, forward your number, let AdForge answer calls and promote your business
 
 <div style={compactSteps}>
 {[
-["01", "Sign up"],
-["02", "Forward number"],
-["03", "AI answers"],
-["04", "Advertise"],
-["05", "Book more jobs"],
-].map(([num, text]) => (
+["01", "Sign up", "Create your account"],
+["02", "Forward number", "Route calls to AI"],
+["03", "AI answers", "Captures job details"],
+["04", "Advertise", "Promote your business"],
+["05", "More jobs", "SMS + WhatsApp leads"],
+].map(([num, title, sub]) => (
 <div key={num} style={compactStep}>
-<b>{num}</b>
-<span>{text}</span>
+<div style={stepNum}>{num}</div>
+<div>
+<b style={stepMain}>{title}</b>
+<p style={stepSub}>{sub}</p>
+</div>
 </div>
 ))}
 </div>
@@ -1288,20 +1291,7 @@ padding: "10px 13px",
 fontWeight: 800,
 };
 
-const aiHero: CSSProperties = {
-    position: "relative",
-overflow: "hidden",
-padding: "0 26px 22px",
-background:
-"radial-gradient(circle at top center, rgba(120,170,255,0.24) 0%, rgba(220,235,255,0.08) 34%, rgba(2,3,6,0.96) 72%)",
-boxShadow: "none",
-border: "none",
-borderRadius: 0,
-zIndex: 2,
-marginBottom: 22,
-animation: "floatUp 5s ease-in-out infinite",
-cursor: "pointer",
-};
+
 
 const aiPill: CSSProperties = {
 display: "inline-flex",
@@ -1344,30 +1334,9 @@ background: "linear-gradient(90deg,transparent,#ffffff,transparent)",
 marginTop: 34,
 };
 
-const aiTitle: CSSProperties = {
-fontSize: 46,
-lineHeight: 0.95,
-fontWeight: 950,
-letterSpacing: -2,
-marginTop: 16,
-marginBottom: 16,
-color: WHITE,
-maxWidth: 520,
-};
 
-const aiText: CSSProperties = {
-fontSize: 14,
-lineHeight: 1.55,
-fontWeight: 500,
-letterSpacing: -0.2,
-color: "rgba(255,255,255,0.72)",
-maxWidth: 335,
-textAlign: "left",
-marginLeft: 0,
-marginRight: "auto",
-position: "relative",
-zIndex: 2,
-};
+
+
 
 
 
@@ -2202,18 +2171,81 @@ gap: 4,
 color: "white",
 };
 
+const aiHero: CSSProperties = {
+position: "relative",
+overflow: "hidden",
+padding: "20px 22px 24px",
+borderRadius: 28,
+background:
+"radial-gradient(circle at top right, rgba(120,170,255,0.16), transparent 38%), linear-gradient(180deg, rgba(13,18,28,0.96), rgba(3,5,10,0.98))",
+border: "1px solid rgba(220,235,255,0.14)",
+boxShadow:
+"0 0 35px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.08)",
+zIndex: 2,
+marginBottom: 18,
+cursor: "pointer",
+};
+
+const aiTitle: CSSProperties = {
+fontSize: 45,
+lineHeight: 0.95,
+fontWeight: 950,
+letterSpacing: -2,
+marginTop: 18,
+marginBottom: 14,
+color: "white",
+textShadow: "0 0 22px rgba(255,255,255,0.14)",
+};
+
+const aiText: CSSProperties = {
+fontSize: 15,
+lineHeight: 1.45,
+color: "rgba(255,255,255,0.68)",
+maxWidth: 430,
+margin: 0,
+};
+
+
+
+const stepNum: CSSProperties = {
+width: 34,
+height: 34,
+minWidth: 34,
+borderRadius: "50%",
+display: "grid",
+placeItems: "center",
+border: "1px solid rgba(220,235,255,0.28)",
+boxShadow: "0 0 14px rgba(220,235,255,0.16)",
+fontSize: 13,
+fontWeight: 950,
+};
+
+const stepMain: CSSProperties = {
+display: "block",
+fontSize: 15,
+fontWeight: 950,
+marginBottom: 2,
+};
+
+const stepSub: CSSProperties = {
+margin: 0,
+fontSize: 12,
+lineHeight: 1.25,
+color: "rgba(255,255,255,0.58)",
+};
+
 const aiCta: CSSProperties = {
 width: "100%",
-marginTop: 22,
+marginTop: 18,
 border: "1px solid rgba(220,235,255,0.28)",
 borderRadius: 999,
-padding: "18px 20px",
+padding: "16px 18px",
 background: "linear-gradient(135deg,#ffffff 0%,#dce6f5 100%)",
 color: "#05070b",
-fontSize: 20,
+fontSize: 18,
 fontWeight: 950,
 boxShadow:
-"0 0 28px rgba(220,235,255,0.35), 0 0 75px rgba(220,235,255,0.14)",
+"0 0 24px rgba(220,235,255,0.24), 0 0 60px rgba(220,235,255,0.10)",
 };
 
 const compactSteps: CSSProperties = {
