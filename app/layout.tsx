@@ -95,7 +95,7 @@ onClick={() => router.push("/")}
 style={{
 background: "transparent",
 border: "none",
-color: pathname === "/" ? "#38ff7a" : "rgba(255,255,255,0.72)",
+color: pathname === "/" ? "#ffffff" : "rgba(255,255,255,0.72)",
 display: "flex",
 flexDirection: "column",
 alignItems: "center",
@@ -114,7 +114,7 @@ style={{
 background: "transparent",
 border: "none",
 color: pathname.startsWith("/feed")
-? "#38ff7a"
+? "#ffffff"
 : "rgba(255,255,255,0.72)",
 display: "flex",
 flexDirection: "column",
@@ -157,7 +157,7 @@ style={{
 background: "transparent",
 border: "none",
 color: pathname.startsWith("/ai-receptionist")
-? "#38ff7a"
+? "#ffffff"
 : "rgba(255,255,255,0.72)",
 display: "flex",
 flexDirection: "column",
@@ -177,7 +177,7 @@ style={{
 background: "transparent",
 border: "none",
 color: pathname.startsWith("/profile")
-? "#38ff7a"
+? "#ffffff"
 : "rgba(255,255,255,0.72)",
 display: "flex",
 flexDirection: "column",

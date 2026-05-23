@@ -530,7 +530,7 @@ animation: greenWave 3s ease-in-out infinite;
 <div>
 <div style={brandLabel}>AI ADVERTISING PLATFORM</div>
 <h1 style={logo}>
-Ad<span style={{ color: "#22ff7f" }}>Forge</span>
+Ad<span style={{ color: "#FFFFFF" }}>Forge</span>
 </h1>
 </div>
 
@@ -584,7 +584,7 @@ right: 30,
 height: 2,
 borderRadius: 999,
 background:
-"linear-gradient(90deg, transparent, #22ff7f, transparent)",
+"linear-gradient(90deg, transparent, #FFFFFF, transparent)",
 opacity: 0.9,
 animation: "borderGlow 4s ease-in-out infinite",
 }}
@@ -602,7 +602,7 @@ LIVE AI RECEPTIONIST
 <h2 style={aiTitle}>
 Turn missed calls
 <br />
-into <span style={{ color: "#22ff7f" }}>booked jobs</span>
+into <span style={{ color: "#FFFFFF" }}>booked jobs</span>
 </h2>
 
 <p style={aiText}>
@@ -646,7 +646,7 @@ style={{
 width: 34,
 height: 4,
 borderRadius: 999,
-background: "#22ff7f",
+background: "#FFFFFF",
 marginBottom: 7,
 boxShadow: "0 0 14px rgba(34,255,127,0.8)",
 }}
@@ -687,7 +687,7 @@ fontSize: 17,
 fontWeight: 900,
 letterSpacing: -0.5,
 background:
-"linear-gradient(135deg,#22ff7f 0%,#12d96b 100%)",
+"linear-gradient(135deg,#FFFFFF 0%,#12d96b 100%)",
 boxShadow:
 "0 0 25px rgba(34,255,127,0.45), inset 0 1px 0 rgba(255,255,255,0.25)",
 transform: "scale(0.96)",
@@ -721,7 +721,7 @@ textAlign: "center",
 >
 <div
 style={{
-color: "#22ff7f",
+color: "#FFFFFF",
 fontSize: 24,
 fontWeight: 900,
 }}
@@ -890,7 +890,7 @@ READY TO POST
 {image && (
 <section style={generatedCard}>
 <div style={sectionTop}>
-<b style={{ color: "#22ff7f" }}>Generated Advert</b>
+<b style={{ color: "#FFFFFF" }}>Generated Advert</b>
 <button style={smallDarkBtn} onClick={generateAd}>
 Regenerate
 </button>
@@ -1020,7 +1020,7 @@ Businesses are booking more jobs with AdForge
 <div style={testimonialStats}>
 <div style={actionCard}>
 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-<span style={{ fontSize: 12, color: "#22ff7f", fontWeight: 900 }}>
+<span style={{ fontSize: 12, color: "#FFFFFF", fontWeight: 900 }}>
 LIVE
 </span>
 
@@ -1049,7 +1049,7 @@ AI Calls Answered
 
 <div style={actionCard}>
 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-<span style={{ fontSize: 12, color: "#22ff7f", fontWeight: 900 }}>
+<span style={{ fontSize: 12, color: "#FFFFFF", fontWeight: 900 }}>
 LIVE
 </span>
 
@@ -1078,7 +1078,7 @@ AI Calls Answered
 
 <div style={actionCard}>
 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-<span style={{ fontSize: 12, color: "#22ff7f", fontWeight: 900 }}>
+<span style={{ fontSize: 12, color: "#FFFFFF", fontWeight: 900 }}>
 LIVE
 </span>
 

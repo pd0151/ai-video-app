@@ -202,7 +202,7 @@ return (
 <div>
 <div style={brandLabel}>AI ADVERTISING PLATFORM</div>
 <h1 style={logo}>
-Ad<span style={{ color: "#22ff7f" }}>Forge</span>
+Ad<span style={{ color: "#FFFFFF" }}>Forge</span>
 </h1>
 </div>
 
@@ -308,7 +308,7 @@ setLiked((prev) => ({ ...prev, [post.id]: !prev[post.id] }))
 }
 style={{
 ...circleBtn,
-color: liked[post.id] ? "#22ff7f" : "white",
+color: liked[post.id] ? "#FFFFFF" : "white",
 }}
 >
 ♥
@@ -439,7 +439,7 @@ const liveDot: React.CSSProperties = {
 width: 8,
 height: 8,
 borderRadius: 999,
-background: "#22ff7f",
+background: "#FFFFFF",
 boxShadow: "0 0 14px rgba(34,255,127,0.9)",
 };
 const bgGlow1: React.CSSProperties = {
@@ -526,7 +526,7 @@ fontWeight: 900,
 const activeTab: React.CSSProperties = {
 ...tab,
 color: "white",
-borderBottom: "3px solid #22ff7f",
+borderBottom: "3px solid #FFFFFF",
 paddingBottom: 10,
 };
 
@@ -620,12 +620,12 @@ display: "flex",
 alignItems: "center",
 justifyContent: "center",
 fontWeight: 950,
-color: "#22ff7f",
+color: "#FFFFFF",
 };
 
 const small: React.CSSProperties = {
 margin: "3px 0 0",
-color: "#22ff7f",
+color: "#FFFFFF",
 fontSize: 14,
 };
 
@@ -644,7 +644,7 @@ display: "inline-block",
 marginTop: 8,
 padding: "12px 24px",
 borderRadius: 999,
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+background: "linear-gradient(135deg,#FFFFFF,#16a34a)",
 color: "#04140c",
 textDecoration: "none",
 fontWeight: 950,
@@ -675,7 +675,7 @@ backdropFilter: "blur(12px)",
 const musicBtn: React.CSSProperties = {
 ...circleBtn,
 marginTop: 8,
-color: "#22ff7f",
+color: "#FFFFFF",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
@@ -800,7 +800,7 @@ padding: 14,
 const sendBtn: React.CSSProperties = {
 border: "none",
 borderRadius: 16,
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+background: "linear-gradient(135deg,#FFFFFF,#16a34a)",
 color: "#04140c",
 padding: "0 18px",
 fontWeight: 950,
@@ -832,7 +832,7 @@ fontWeight: 850,
 
 const navActive: React.CSSProperties = {
 ...navBtn,
-color: "#22ff7f",
+color: "#FFFFFF",
 };
 
 const plusBtn: React.CSSProperties = {
@@ -840,7 +840,7 @@ width: 72,
 height: 72,
 borderRadius: "50%",
 border: "1px solid rgba(34,255,127,0.55)",
-background: "linear-gradient(135deg,#22ff7f,#16c85f)",
+background: "linear-gradient(135deg,#FFFFFF,#16c85f)",
 color: "#021008",
 fontSize: 42,
 fontWeight: 400,
