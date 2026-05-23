@@ -1211,10 +1211,10 @@ const BLACK = "#020305";
 const page: CSSProperties = {
 minHeight: "100vh",
 padding: "18px 16px 140px",
-backgroundColor: BLACK,
+backgroundColor: "#020305",
 backgroundImage:
-"linear-gradient(to bottom, rgba(0,0,0,0.22), rgba(0,0,0,0.48) 58%, #020305 100%), url('/images/hero-bg.jpg')",
-backgroundSize: "auto 68vh",
+"linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.55) 58%, #020305 100%), url('/images/hero-bg.jpg')",
+backgroundSize: "cover",
 backgroundPosition: "center top",
 backgroundRepeat: "no-repeat",
 color: WHITE,
@@ -2020,19 +2020,28 @@ fontSize: 22,
 
 const bottomNav: CSSProperties = {
 position: "fixed",
-left: 24,
-right: 24,
-height: 78,
-bottom: "calc(18px + env(safe-area-inset-bottom))",
-background: "rgba(2,3,6,0.96)",
-border: `1px solid ${LINE}`,
+left: 18,
+right: 18,
+height: 84,
+bottom: "calc(16px + env(safe-area-inset-bottom))",
+
+background:
+"linear-gradient(180deg, rgba(10,12,18,0.96), rgba(2,3,6,0.98))",
+
+border: "1px solid rgba(255,255,255,0.14)",
+
 borderRadius: 34,
+
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
+
 zIndex: 9999,
-backdropFilter: "blur(18px)",
-boxShadow: `0 0 34px ${GLOW_SOFT}`,
+
+backdropFilter: "blur(28px)",
+
+boxShadow:
+"0 0 45px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08)",
 };
 
 const navBtn: CSSProperties = {
@@ -2040,24 +2049,33 @@ border: "none",
 background: "transparent",
 color: "rgba(255,255,255,0.58)",
 fontWeight: 850,
+fontSize: 15,
 };
 
 const navActive: CSSProperties = {
 ...navBtn,
-color: WHITE,
-textShadow: `0 0 16px ${GLOW}`,
+color: "#ffffff",
+textShadow: "0 0 18px rgba(255,255,255,0.55)",
 };
 
 const plusBtn: CSSProperties = {
-width: 66,
-height: 66,
+width: 72,
+height: 72,
 borderRadius: "50%",
-border: "none",
-background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+border: "1px solid rgba(255,255,255,0.18)",
+
+background:
+"linear-gradient(135deg,#ffffff 0%,#dce6f5 100%)",
+
 color: "#05070b",
-fontSize: 38,
+
+fontSize: 42,
 fontWeight: 950,
-boxShadow: `0 0 34px ${GLOW}`,
+
+boxShadow:
+"0 0 40px rgba(220,235,255,0.42), 0 0 80px rgba(220,235,255,0.18)",
+
+transform: "translateY(-18px)",
 };
 
 const setupSliderBox: React.CSSProperties = {
