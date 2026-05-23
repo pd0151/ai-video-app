@@ -1381,7 +1381,8 @@ const greenBtn: CSSProperties = {
 background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
 color: "#05070b",
 borderRadius: 18,
-boxShadow: `0 0 18px ${GLOW}, 0 0 42px ${GLOW_SOFT}`,
+boxShadow:
+"0 0 18px rgba(220,235,255,0.28), 0 0 60px rgba(220,235,255,0.10)",
 border: `1px solid ${LINE_STRONG}`,
 transition: "all 0.25s ease",
 padding: "8px 12px",
@@ -1504,7 +1505,7 @@ marginBottom: 22,
 cursor: "pointer",
 
 boxShadow:
-"0 0 28px rgba(220,235,255,0.18)",
+"0 0 18px rgba(220,235,255,0.28), 0 0 60px rgba(220,235,255,0.10)",
 
 transition: "0.25s",
 };
@@ -1544,6 +1545,9 @@ const statBox: CSSProperties = {
 padding: 12,
 borderRadius: 18,
 background: "rgba(0,0,0,0.35)",
+border: "1px solid rgba(220,235,255,0.14)",
+boxShadow:
+"0 0 10px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.08)",
 display: "flex",
 flexDirection: "column",
 gap: 4,
@@ -1570,8 +1574,9 @@ backgroundSize: "cover",
 backgroundPosition: "center top",
 backgroundRepeat: "no-repeat",
 backdropFilter: "blur(22px)",
-border: `1px solid ${LINE_STRONG}`,
-boxShadow: `0 0 0 1px rgba(255,255,255,0.08), 0 0 48px ${GLOW_SOFT}`,
+border: "1px solid rgba(220,235,255,0.18)",
+boxShadow:
+"0 0 12px rgba(220,235,255,0.18), 0 0 42px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.10)",
 marginBottom: 18,
 };
 
@@ -1660,11 +1665,13 @@ position: "relative",
 zIndex: 2,
 borderRadius: 24,
 padding: 16,
-background: "rgba(255,255,255,0.045)",
-border: `1px solid ${LINE}`,
+background:
+"linear-gradient(145deg, rgba(15,18,25,0.92), rgba(3,5,10,0.96))",
+border: "1px solid rgba(220,235,255,0.18)",
 marginBottom: 18,
 overflow: "hidden",
-boxShadow: `0 0 34px ${GLOW_SOFT}`,
+boxShadow:
+"0 0 12px rgba(220,235,255,0.18), 0 0 42px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.10)",
 };
 
 const sectionTop: CSSProperties = {
@@ -1788,8 +1795,10 @@ zIndex: 2,
 overflow: "hidden",
 borderRadius: 24,
 padding: 16,
-background: "rgba(255,255,255,0.05)",
-border: `1px solid ${LINE}`,
+background:
+"linear-gradient(145deg, rgba(15,18,25,0.92), rgba(3,5,10,0.96))",
+border: "1px solid rgba(220,235,255,0.18)",
+
 marginBottom: 18,
 };
 
@@ -1799,9 +1808,11 @@ padding: 22,
 position: "relative",
 overflow: "hidden",
 borderRadius: 28,
-background: "linear-gradient(135deg, rgba(255,255,255,0.10), rgba(2,3,6,0.96))",
-border: `1px solid ${LINE_STRONG}`,
-boxShadow: `0 24px 80px ${GLOW_SOFT}`,
+border: "1px solid rgba(220,235,255,0.18)",
+background:
+"linear-gradient(145deg, rgba(15,18,25,0.92), rgba(3,5,10,0.96))",
+boxShadow:
+"0 0 12px rgba(220,235,255,0.18), 0 0 42px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.10)",
 };
 
 const stars: CSSProperties = {
@@ -1816,6 +1827,7 @@ margin: 0,
 color: WHITE,
 fontSize: 22,
 fontWeight: 900,
+textShadow: "0 0 24px rgba(255,255,255,0.18)",
 };
 
 const testimonialText: CSSProperties = {
@@ -1880,10 +1892,12 @@ borderRadius: 28,
 padding: 22,
 transition: "all 0.3s ease",
 transform: "translateY(0px)",
-background: "linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.025))",
-border: `1px solid ${LINE}`,
+background:
+"linear-gradient(145deg, rgba(15,18,25,0.92), rgba(3,5,10,0.96))",
+border: "1px solid rgba(220,235,255,0.18)",
 minHeight: 120,
-boxShadow: `0 10px 35px ${GLOW_SOFT}`,
+boxShadow:
+"0 0 12px rgba(220,235,255,0.18), 0 0 42px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.10)",
 backdropFilter: "blur(18px)",
 color: WHITE,
 };
@@ -1960,9 +1974,11 @@ overflow: "hidden",
 marginTop: 34,
 padding: 28,
 borderRadius: 36,
-background: "linear-gradient(180deg, rgba(12,14,20,0.96) 0%, rgba(2,3,6,0.98) 100%)",
-border: `1px solid ${LINE}`,
-boxShadow: `0 0 55px ${GLOW_SOFT}, inset 0 1px 0 rgba(255,255,255,0.08)`,
+background:
+"linear-gradient(145deg, rgba(15,18,25,0.92), rgba(3,5,10,0.96))",
+border: "1px solid rgba(220,235,255,0.18)",
+boxShadow:
+"0 0 12px rgba(220,235,255,0.18), 0 0 42px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.10)",
 backdropFilter: "blur(28px)",
 };
 
@@ -1970,6 +1986,7 @@ const chatTitle: CSSProperties = {
 fontSize: 25,
 fontWeight: 950,
 margin: 0,
+textShadow: "0 0 24px rgba(255,255,255,0.18)",
 };
 
 const onlinePill: CSSProperties = {
@@ -2021,6 +2038,8 @@ width: 44,
 height: 44,
 borderRadius: "50%",
 border: "none",
+boxShadow:
+"0 0 18px rgba(220,235,255,0.28), 0 0 60px rgba(220,235,255,0.10)",
 background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
 color: "#05070b",
 fontWeight: 950,
@@ -2048,6 +2067,7 @@ alignItems: "center",
 zIndex: 9999,
 
 backdropFilter: "blur(28px)",
+
 
 boxShadow:
 "0 0 45px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08)",
@@ -2083,7 +2103,7 @@ fontSize: 42,
 fontWeight: 950,
 
 boxShadow:
-"0 0 24px rgba(220,235,255,0.16)",
+"0 0 18px rgba(220,235,255,0.28), 0 0 60px rgba(220,235,255,0.10)",
 
 transform: "translateY(-18px)",
 };
@@ -2130,6 +2150,7 @@ fontSize: 24,
 fontWeight: 900,
 margin: "0 0 8px",
 letterSpacing: "-0.8px",
+textShadow: "0 0 24px rgba(255,255,255,0.18)",
 };
 
 const setupText: React.CSSProperties = {
