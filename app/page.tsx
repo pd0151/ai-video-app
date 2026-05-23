@@ -1345,12 +1345,14 @@ const creditBox: CSSProperties = {
 display: "flex",
 alignItems: "center",
 gap: 8,
-padding: "4px 10px",
-borderRadius: 22,
-background: "rgba(10,12,16,0.78)",
-border: `1px solid ${LINE}`,
-backdropFilter: "blur(16px)",
-boxShadow: `0 0 24px ${GLOW_SOFT}, inset 0 1px 0 rgba(255,255,255,0.08)`,
+padding: "4px 12px",
+borderRadius: 24,
+background:
+"linear-gradient(145deg, rgba(24,28,36,0.92), rgba(4,5,9,0.96))",
+border: "1px solid rgba(220,235,255,0.26)",
+backdropFilter: "blur(18px)",
+boxShadow:
+"0 0 18px rgba(220,235,255,0.22), 0 0 55px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.14)",
 height: 42,
 minWidth: 92,
 };
@@ -1474,10 +1476,15 @@ maxWidth: 520,
 };
 
 const aiText: CSSProperties = {
-fontSize: 16,
-lineHeight: 1.5,
-opacity: 0.78,
-maxWidth: 360,
+fontSize: 14,
+lineHeight: 1.55,
+fontWeight: 500,
+letterSpacing: -0.2,
+color: "rgba(255,255,255,0.72)",
+maxWidth: 335,
+textAlign: "left",
+marginLeft: 0,
+marginRight: "auto",
 position: "relative",
 zIndex: 2,
 };
