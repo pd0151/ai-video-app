@@ -1212,11 +1212,8 @@ const page: CSSProperties = {
 minHeight: "100vh",
 padding: "18px 16px 140px",
 backgroundColor: "#020305",
-backgroundImage:
-"linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.55) 58%, #020305 100%), url('/images/hero-bg.jpg')",
-backgroundSize: "auto 68vh",
-backgroundPosition: "center top",
-backgroundRepeat: "no-repeat",
+background:
+"linear-gradient(180deg, #05070b 0%, #020305 100%)",
 color: WHITE,
 fontFamily: "Inter, sans-serif",
 overflowX: "hidden",
