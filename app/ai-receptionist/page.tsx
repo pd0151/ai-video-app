@@ -532,7 +532,7 @@ return (
 </div>
 );
 }
-const green = "#22ff7f";
+const green = "#FFFFFF";
 const darkGreen = "#16a34a";
 
 const progressWrap: React.CSSProperties = {
@@ -1073,7 +1073,7 @@ const upgradeBtn: React.CSSProperties = {
 padding: 16,
 borderRadius: 18,
 border: "1px solid rgba(34,255,127,0.25)",
-background: "linear-gradient(90deg,#22ff7f,#16a34a)",
+background: "linear-gradient(90deg,#FFFFFF,#16a34a)",
 color: "#04140c",
 fontWeight: 900,
 fontSize: 16,
@@ -1145,7 +1145,7 @@ marginTop: 14,
 const callBtn: React.CSSProperties = {
 padding: 15,
 borderRadius: 16,
-background: "linear-gradient(90deg,#22ff7f,#16a34a)",
+background: "linear-gradient(90deg,#FFFFFF,#16a34a)",
 color: "#04140c",
 textDecoration: "none",
 textAlign: "center",
@@ -1186,7 +1186,7 @@ maxWidth: "100%",
 padding: "15px 16px",
 borderRadius: 15,
 border: "none",
-background: "linear-gradient(90deg,#22ff7f,#16a34a)",
+background: "linear-gradient(90deg,#FFFFFF,#16a34a)",
 color: "#04140c",
 fontSize: 16,
 fontWeight: 950,

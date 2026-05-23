@@ -1214,7 +1214,7 @@ padding: "18px 16px 140px",
 backgroundColor: "#020305",
 backgroundImage:
 "linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.55) 58%, #020305 100%), url('/images/hero-bg.jpg')",
-backgroundSize: "cover",
+backgroundSize: "auto 68vh",
 backgroundPosition: "center top",
 backgroundRepeat: "no-repeat",
 color: WHITE,

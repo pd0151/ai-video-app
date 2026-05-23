@@ -206,7 +206,7 @@ return (
 <div>
 <div style={brandLabel}>AI ADVERTISING PLATFORM</div>
 <h1 style={logo}>
-Ad<span style={{ color: "#22ff7f" }}>Forge</span>
+Ad<span style={{ color: "#FFFFFF" }}>Forge</span>
 </h1>
 </div>
 
@@ -387,7 +387,7 @@ padding: "8px 12px",
 borderRadius: 999,
 background: "rgba(34,255,127,0.08)",
 border: "1px solid rgba(34,255,127,0.22)",
-color: "#22ff7f",
+color: "#FFFFFF",
 fontWeight: 950,
 fontSize: 11,
 letterSpacing: 1.6,
@@ -434,7 +434,7 @@ flexWrap: "wrap",
 
 const primaryBtn: React.CSSProperties = {
 border: "none",
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+background: "linear-gradient(135deg,#FFFFFF,#16a34a)",
 color: "#04140c",
 padding: "15px 22px",
 borderRadius: 999,
@@ -472,8 +472,8 @@ const pulseDot: React.CSSProperties = {
 width: 9,
 height: 9,
 borderRadius: "50%",
-background: "#22ff7f",
-boxShadow: "0 0 14px #22ff7f",
+background: "#FFFFFF",
+boxShadow: "0 0 14px #FFFFFF",
 };
 
 const errorBox: React.CSSProperties = {
@@ -504,7 +504,7 @@ marginTop: 18,
 padding: "17px",
 borderRadius: 999,
 border: "none",
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+background: "linear-gradient(135deg,#FFFFFF,#16a34a)",
 color: "#04140c",
 fontSize: 17,
 fontWeight: 950,
@@ -538,7 +538,7 @@ width: 72,
 height: 72,
 borderRadius: "50%",
 border: "none",
-background: "#22ff7f",
+background: "#FFFFFF",
 color: "black",
 fontSize: 42,
 fontWeight: 950,
