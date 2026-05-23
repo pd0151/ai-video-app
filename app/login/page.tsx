@@ -123,7 +123,7 @@ return (
 <div style={badge}>AI ADVERTISING PLATFORM</div>
 
 <h1 style={title}>
-Ad<span style={{ color: "#22ff7f" }}>Forge</span> Login
+Ad<span style={{ color: "#FFFFFF" }}>Forge</span> Login
 </h1>
 
 <p style={subtitle}>Login or create your business account</p>
@@ -246,7 +246,7 @@ color: "white",
 
 const activeTab: React.CSSProperties = {
 ...tab,
-background: "linear-gradient(135deg, #22ff7f, #7dff9e)",
+background: "linear-gradient(135deg, #FFFFFF, #7dff9e)",
 color: "#001b0b",
 boxShadow: "0 0 30px rgba(34,255,127,0.25)",
 };
@@ -266,7 +266,7 @@ const submitBtn: React.CSSProperties = {
 height: 60,
 borderRadius: 18,
 border: "none",
-background: "linear-gradient(135deg, #22ff7f, #7dff9e)",
+background: "linear-gradient(135deg, #FFFFFF, #7dff9e)",
 color: "#001b0b",
 fontSize: 22,
 fontWeight: 950,
@@ -277,7 +277,7 @@ boxShadow: "0 0 35px rgba(34,255,127,0.35)",
 const forgotBtn: React.CSSProperties = {
 background: "transparent",
 border: "none",
-color: "#22ff7f",
+color: "#FFFFFF",
 fontWeight: 900,
 fontSize: 16,
 cursor: "pointer",
@@ -286,5 +286,5 @@ cursor: "pointer",
 const messageBox: React.CSSProperties = {
 fontSize: 16,
 fontWeight: 800,
-color: "#22ff7f",
+color: "#FFFFFF",
 };

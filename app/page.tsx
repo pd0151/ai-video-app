@@ -1486,17 +1486,26 @@ zIndex: 2,
 
 const aiCta: CSSProperties = {
 width: "100%",
-border: "none",
+border: "1px solid rgba(255,255,255,0.18)",
 borderRadius: 22,
 padding: "20px 24px",
-background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+
+background:
+"linear-gradient(135deg,#ffffff 0%,#dce6f5 100%)",
+
 color: "#05070b",
+
 fontSize: 22,
 fontWeight: 900,
+
 marginTop: 26,
 marginBottom: 22,
+
 cursor: "pointer",
-boxShadow: `0 0 28px ${GLOW}, 0 0 70px ${GLOW_SOFT}`,
+
+boxShadow:
+"0 0 28px rgba(220,235,255,0.35), 0 0 70px rgba(220,235,255,0.12)",
+
 transition: "0.25s",
 };
 
@@ -2055,14 +2064,15 @@ fontSize: 15,
 const navActive: CSSProperties = {
 ...navBtn,
 color: "#ffffff",
-textShadow: "0 0 18px rgba(255,255,255,0.55)",
+textShadow: "0 0 16px rgba(220,235,255,0.55)",
 };
 
 const plusBtn: CSSProperties = {
 width: 72,
 height: 72,
 borderRadius: "50%",
-border: "1px solid rgba(255,255,255,0.18)",
+
+border: "1px solid rgba(255,255,255,0.16)",
 
 background:
 "linear-gradient(135deg,#ffffff 0%,#dce6f5 100%)",
@@ -2073,10 +2083,11 @@ fontSize: 42,
 fontWeight: 950,
 
 boxShadow:
-"0 0 40px rgba(220,235,255,0.42), 0 0 80px rgba(220,235,255,0.18)",
+"0 0 40px rgba(220,235,255,0.34), 0 0 80px rgba(220,235,255,0.12)",
 
 transform: "translateY(-18px)",
 };
+
 
 const setupSliderBox: React.CSSProperties = {
 marginTop: 22,

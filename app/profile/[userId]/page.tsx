@@ -200,7 +200,7 @@ return (
 <div>
 <div style={brandLabel}>AI ADVERTISING PLATFORM</div>
 <h1 style={logo}>
-Ad<span style={{ color: "#22ff7f" }}>Forge</span>
+Ad<span style={{ color: "#FFFFFF" }}>Forge</span>
 </h1>
 </div>
 
@@ -519,7 +519,7 @@ border: "2px solid rgba(34,255,127,0.8)",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
-color: "#22ff7f",
+color: "#FFFFFF",
 fontSize: 42,
 fontWeight: 950,
 boxShadow: "0 0 38px rgba(34,255,127,0.22)",
@@ -539,7 +539,7 @@ bottom: -4,
 width: 42,
 height: 42,
 borderRadius: "50%",
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+background: "linear-gradient(135deg,#FFFFFF,#16a34a)",
 color: "#04140c",
 display: "grid",
 placeItems: "center",
@@ -561,7 +561,7 @@ padding: "8px 12px",
 borderRadius: 999,
 background: "rgba(34,255,127,0.08)",
 border: "1px solid rgba(34,255,127,0.22)",
-color: "#22ff7f",
+color: "#FFFFFF",
 fontWeight: 900,
 fontSize: 11,
 marginBottom: 12,
@@ -571,8 +571,8 @@ const greenDot: React.CSSProperties = {
 width: 8,
 height: 8,
 borderRadius: "50%",
-background: "#22ff7f",
-boxShadow: "0 0 12px #22ff7f",
+background: "#FFFFFF",
+boxShadow: "0 0 12px #FFFFFF",
 };
 
 const title: React.CSSProperties = {
@@ -639,7 +639,7 @@ gap: 14,
 };
 
 const infoIcon: React.CSSProperties = {
-color: "#22ff7f",
+color: "#FFFFFF",
 fontSize: 24,
 };
 
@@ -657,7 +657,7 @@ textAlign: "center",
 textDecoration: "none",
 padding: "15px 18px",
 borderRadius: 18,
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
+background: "linear-gradient(135deg,#FFFFFF,#16a34a)",
 color: "#04140c",
 fontWeight: 950,
 fontSize: 16,
@@ -698,7 +698,7 @@ fontWeight: 950,
 const viewBtn: React.CSSProperties = {
 border: "1px solid rgba(34,255,127,0.25)",
 background: "rgba(0,0,0,0.25)",
-color: "#22ff7f",
+color: "#FFFFFF",
 borderRadius: 999,
 padding: "10px 14px",
 fontWeight: 900,
@@ -773,7 +773,7 @@ const loaderDot: React.CSSProperties = {
 width: 18,
 height: 18,
 borderRadius: "50%",
-background: "#22ff7f",
+background: "#FFFFFF",
 margin: "0 auto 16px",
 boxShadow: "0 0 24px rgba(34,255,127,0.8)",
 };
@@ -802,7 +802,7 @@ fontWeight: 850,
 
 const navActive: React.CSSProperties = {
 ...navBtn,
-color: "#22ff7f",
+color: "#FFFFFF",
 };
 
 const plusBtn: React.CSSProperties = {
@@ -810,7 +810,7 @@ width: 72,
 height: 72,
 borderRadius: "50%",
 border: "none",
-background: "#22ff7f",
+background: "#FFFFFF",
 color: "black",
 fontSize: 42,
 fontWeight: 950,
