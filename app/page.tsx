@@ -1467,6 +1467,8 @@ const aiHero: CSSProperties = {
     position: "relative",
 overflow: "hidden",
 padding: "0 26px 22px",
+background:
+"radial-gradient(circle at top center, rgba(120,170,255,0.24) 0%, rgba(220,235,255,0.08) 34%, rgba(2,3,6,0.96) 72%)",
 boxShadow: "none",
 border: "none",
 borderRadius: 0,
