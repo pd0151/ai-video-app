@@ -1197,16 +1197,27 @@ Profile
 );
 }
 
+const WHITE = "#f8fbff";
+const SOFT_WHITE = "rgba(248,251,255,0.86)";
+const MUTED_WHITE = "rgba(248,251,255,0.58)";
+const LINE = "rgba(248,251,255,0.18)";
+const LINE_STRONG = "rgba(248,251,255,0.34)";
+const GLASS = "rgba(8,10,14,0.72)";
+const GLASS_DARK = "rgba(2,3,6,0.92)";
+const GLOW = "rgba(220,235,255,0.42)";
+const GLOW_SOFT = "rgba(220,235,255,0.16)";
+const BLACK = "#020305";
+
 const page: CSSProperties = {
 minHeight: "100vh",
 padding: "18px 16px 140px",
-backgroundColor: "#020b08",
+backgroundColor: BLACK,
 backgroundImage:
-"linear-gradient(to bottom, rgba(0,0,0,0.32), rgba(0,0,0,0.32) 60%, #020b08 100%), url('/images/hero-bg.jpg')",
+"linear-gradient(to bottom, rgba(0,0,0,0.22), rgba(0,0,0,0.48) 58%, #020305 100%), url('/images/hero-bg.jpg')",
 backgroundSize: "auto 68vh",
 backgroundPosition: "center top",
 backgroundRepeat: "no-repeat",
-color: "white",
+color: WHITE,
 fontFamily: "Inter, sans-serif",
 overflowX: "hidden",
 position: "relative",
@@ -1217,13 +1228,14 @@ position: "fixed",
 width: 320,
 height: 320,
 borderRadius: "50%",
-background: "rgba(34,255,127,0.16)",
+background: GLOW_SOFT,
 top: -110,
 right: -110,
-filter: "blur(90px)",
+filter: "blur(95px)",
 pointerEvents: "none",
 zIndex: 0,
 };
+
 const getActionImage = (theme: string): CSSProperties => ({
 position: "absolute",
 inset: 0,
@@ -1241,10 +1253,11 @@ theme === "tyres"
 : "url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop')",
 backgroundSize: "cover",
 backgroundPosition: "center",
-opacity: 0.2,
-filter: "brightness(0.65)",
+opacity: 0.16,
+filter: "brightness(0.55) grayscale(0.25)",
 borderRadius: 22,
 });
+
 const getBusinessText = (theme: string) => {
 switch (theme) {
 case "tyres":
@@ -1283,12 +1296,13 @@ prompt: "Create a premium advert for my business",
 };
 }
 };
+
 const bgGlow2: CSSProperties = {
 position: "fixed",
 width: 260,
 height: 260,
 borderRadius: "50%",
-background: "rgba(0,255,140,0.10)",
+background: "rgba(255,255,255,0.08)",
 bottom: 120,
 left: -110,
 filter: "blur(90px)",
@@ -1309,7 +1323,7 @@ marginBottom: 18,
 const brandLabel: CSSProperties = {
 fontSize: 10,
 letterSpacing: 4,
-color: "rgba(255,255,255,0.45)",
+color: "rgba(255,255,255,0.48)",
 fontWeight: 900,
 marginBottom: 4,
 };
@@ -1336,10 +1350,10 @@ alignItems: "center",
 gap: 8,
 padding: "4px 10px",
 borderRadius: 22,
-background: "rgba(18,18,18,0.72)",
-border: "1px solid rgba(34,255,127,0.18)",
-backdropFilter: "blur(14px)",
-boxShadow: "0 0 20px rgba(34,255,127,0.18)",
+background: "rgba(10,12,16,0.78)",
+border: `1px solid ${LINE}`,
+backdropFilter: "blur(16px)",
+boxShadow: `0 0 24px ${GLOW_SOFT}, inset 0 1px 0 rgba(255,255,255,0.08)`,
 height: 42,
 minWidth: 92,
 };
@@ -1348,14 +1362,14 @@ const coin: CSSProperties = {
 width: 26,
 height: 26,
 borderRadius: "50%",
-background: "linear-gradient(135deg,#39ff6a,#22ff7f)",
+background: "linear-gradient(135deg,#ffffff,#bfc8d8)",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
 fontWeight: 900,
 fontSize: 16,
-color: "#04140c",
-boxShadow: "0 0 18px rgba(34,255,127,0.45)",
+color: "#05070b",
+boxShadow: `0 0 18px ${GLOW}`,
 };
 
 const small: CSSProperties = {
@@ -1364,14 +1378,14 @@ opacity: 0.65,
 };
 
 const greenBtn: CSSProperties = {
-background: "#39ff6a",
-color: "#000",
+background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+color: "#05070b",
 borderRadius: 18,
-boxShadow: "0 0 18px rgba(34,255,127,0.9), 0 0 45px rgba(34,255,127,0.55)",
-border: "1px solid rgba(255,255,255,0.12)",
+boxShadow: `0 0 18px ${GLOW}, 0 0 42px ${GLOW_SOFT}`,
+border: `1px solid ${LINE_STRONG}`,
 transition: "all 0.25s ease",
 padding: "8px 12px",
-fontWeight: 800,
+fontWeight: 900,
 fontSize: 13,
 minWidth: 88,
 height: 46,
@@ -1386,12 +1400,11 @@ const logoutBtn: CSSProperties = {
 position: "absolute",
 top: 18,
 right: 18,
-positionAnchor: "relative",
 zIndex: 1,
 marginLeft: -20,
-border: "1px solid rgba(255,255,255,0.12)",
-background: "rgba(0,0,0,0.35)",
-color: "white",
+border: `1px solid ${LINE}`,
+background: GLASS,
+color: WHITE,
 borderRadius: 16,
 padding: "10px 13px",
 fontWeight: 800,
@@ -1410,29 +1423,28 @@ animation: "floatUp 5s ease-in-out infinite",
 cursor: "pointer",
 };
 
-
-
 const aiPill: CSSProperties = {
 display: "inline-flex",
 alignItems: "center",
 gap: 8,
 padding: "9px 14px",
 borderRadius: 999,
-background: "rgba(34,255,127,0.08)",
-border: "1px solid rgba(34,255,127,0.22)",
-color: "#22ff7f",
+background: "rgba(255,255,255,0.07)",
+border: `1px solid ${LINE_STRONG}`,
+color: WHITE,
 fontWeight: 900,
 fontSize: 12,
 position: "relative",
 zIndex: 2,
+boxShadow: `0 0 22px ${GLOW_SOFT}`,
 };
 
 const greenDot: CSSProperties = {
 width: 8,
 height: 8,
 borderRadius: "50%",
-background: "#22ff7f",
-boxShadow: "0 0 12px #22ff7f",
+background: WHITE,
+boxShadow: `0 0 12px ${GLOW}`,
 };
 
 const waveWrap: CSSProperties = {
@@ -1442,13 +1454,13 @@ top: 120,
 width: 260,
 height: 70,
 overflow: "hidden",
-opacity: 0.6,
+opacity: 0.45,
 };
 
 const waveLine: CSSProperties = {
 width: 260,
 height: 2,
-background: "linear-gradient(90deg,transparent,#22ff7f,transparent)",
+background: "linear-gradient(90deg,transparent,#ffffff,transparent)",
 marginTop: 34,
 };
 
@@ -1459,7 +1471,7 @@ fontWeight: 950,
 letterSpacing: -2,
 marginTop: 16,
 marginBottom: 16,
-color: "white",
+color: WHITE,
 maxWidth: 520,
 };
 
@@ -1477,23 +1489,14 @@ width: "100%",
 border: "none",
 borderRadius: 22,
 padding: "20px 24px",
-
-background:
-"linear-gradient(135deg, #22ff7f, #16d95f)",
-
-color: "#04140c",
-
+background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+color: "#05070b",
 fontSize: 22,
 fontWeight: 900,
-
 marginTop: 26,
 marginBottom: 22,
-
 cursor: "pointer",
-
-boxShadow:
-"0 0 25px rgba(34,255,127,0.35), 0 0 55px rgba(34,255,127,0.18)",
-
+boxShadow: `0 0 28px ${GLOW}, 0 0 70px ${GLOW_SOFT}`,
 transition: "0.25s",
 };
 
@@ -1501,8 +1504,8 @@ const aiLeadCard: CSSProperties = {
 marginTop: 18,
 borderRadius: 22,
 padding: 16,
-background: "rgba(0,0,0,0.35)",
-border: "1px solid rgba(34,255,127,0.22)",
+background: GLASS,
+border: `1px solid ${LINE}`,
 position: "relative",
 zIndex: 2,
 };
@@ -1510,7 +1513,7 @@ zIndex: 2,
 const aiLeadTop: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
-color: "#22ff7f",
+color: WHITE,
 fontWeight: 900,
 fontSize: 12,
 };
@@ -1523,15 +1526,15 @@ gridTemplateColumns: "1fr 1fr",
 gap: 10,
 padding: 12,
 borderRadius: 24,
-background: "rgba(34,255,127,0.055)",
-border: "1px solid rgba(34,255,127,0.28)",
+background: "rgba(255,255,255,0.045)",
+border: `1px solid ${LINE}`,
 marginBottom: 18,
 };
 
 const statBox: CSSProperties = {
 padding: 12,
 borderRadius: 18,
-background: "rgba(0,0,0,0.28)",
+background: "rgba(0,0,0,0.35)",
 display: "flex",
 flexDirection: "column",
 gap: 4,
@@ -1547,19 +1550,19 @@ minHeight: 420,
 backgroundImage: `
 linear-gradient(
 to bottom,
-rgba(0,0,0,0.12) 0%,
-rgba(0,0,0,0.28) 45%,
-rgba(0,0,0,0.86) 78%,
-#020b08 100%
+rgba(0,0,0,0.10) 0%,
+rgba(0,0,0,0.34) 45%,
+rgba(0,0,0,0.88) 78%,
+#020305 100%
 ),
 url('/hero-bg.jpg')
 `,
 backgroundSize: "cover",
 backgroundPosition: "center top",
 backgroundRepeat: "no-repeat",
-backdropFilter: "blur(20px)",
-border: "1px solid rgba(34,255,127,0.22)",
-boxShadow: "0 0 0 1px rgba(34,255,127,0.08), 0 0 45px rgba(34,255,127,0.14)",
+backdropFilter: "blur(22px)",
+border: `1px solid ${LINE_STRONG}`,
+boxShadow: `0 0 0 1px rgba(255,255,255,0.08), 0 0 48px ${GLOW_SOFT}`,
 marginBottom: 18,
 };
 
@@ -1573,9 +1576,9 @@ const heroPill: CSSProperties = {
 display: "inline-flex",
 padding: "8px 12px",
 borderRadius: 999,
-background: "rgba(34,255,127,0.10)",
-border: "1px solid rgba(34,255,127,0.24)",
-color: "#22ff7f",
+background: "rgba(255,255,255,0.08)",
+border: `1px solid ${LINE}`,
+color: WHITE,
 fontSize: 11,
 fontWeight: 950,
 letterSpacing: 1.2,
@@ -1583,7 +1586,7 @@ marginBottom: 12,
 };
 
 const liveBadge: CSSProperties = {
-color: "#22ff7f",
+color: WHITE,
 fontWeight: 950,
 };
 
@@ -1599,8 +1602,8 @@ const promptBox: CSSProperties = {
 marginTop: 14,
 borderRadius: 20,
 padding: 14,
-background: "rgba(0,0,0,0.30)",
-border: "1px solid rgba(255,255,255,0.09)",
+background: "rgba(0,0,0,0.42)",
+border: `1px solid ${LINE}`,
 };
 
 const promptInput: CSSProperties = {
@@ -1609,7 +1612,7 @@ height: 86,
 background: "transparent",
 border: "none",
 outline: "none",
-color: "white",
+color: WHITE,
 resize: "none",
 fontSize: 16,
 lineHeight: 1.45,
@@ -1623,11 +1626,11 @@ flexWrap: "wrap",
 };
 
 const chip: CSSProperties = {
-border: "1px solid rgba(34,255,127,0.18)",
+border: `1px solid ${LINE}`,
 borderRadius: 999,
 padding: "10px 14px",
-background: "rgba(255,255,255,0.06)",
-color: "white",
+background: "rgba(255,255,255,0.07)",
+color: WHITE,
 fontWeight: 800,
 };
 
@@ -1637,8 +1640,8 @@ minWidth: 135,
 height: 52,
 borderRadius: 999,
 border: "none",
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
-color: "#04140c",
+background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+color: "#05070b",
 fontSize: 15,
 fontWeight: 950,
 };
@@ -1648,10 +1651,11 @@ position: "relative",
 zIndex: 2,
 borderRadius: 24,
 padding: 16,
-background: "rgba(255,255,255,0.04)",
-border: "1px solid rgba(34,255,127,0.15)",
+background: "rgba(255,255,255,0.045)",
+border: `1px solid ${LINE}`,
 marginBottom: 18,
 overflow: "hidden",
+boxShadow: `0 0 34px ${GLOW_SOFT}`,
 };
 
 const sectionTop: CSSProperties = {
@@ -1670,7 +1674,7 @@ margin: "0 0 14px",
 const viewBtn: CSSProperties = {
 border: "none",
 background: "transparent",
-color: "#22ff7f",
+color: WHITE,
 fontWeight: 900,
 };
 
@@ -1687,15 +1691,18 @@ lineHeight: "18px",
 maxHeight: 38,
 overflow: "hidden",
 };
+
 const adSub: CSSProperties = {
 fontSize: 12,
 opacity: 0.8,
 };
+
 const adTrack: CSSProperties = {
 display: "flex",
 gap: 12,
 width: "max-content",
 };
+
 const adImage: CSSProperties = {
 width: "100%",
 height: 112,
@@ -1703,20 +1710,20 @@ objectFit: "cover",
 borderRadius: 14,
 };
 
-
 const adPreview: CSSProperties = {
 width: 160,
 minWidth: 160,
 height: 215,
 padding: 8,
 borderRadius: 16,
-background: "linear-gradient(145deg,#081c16,#030706)",
-border: "1px solid rgba(34,255,127,0.22)",
+background: "linear-gradient(145deg,#0b0d12,#030405)",
+border: `1px solid ${LINE}`,
 display: "flex",
 flexDirection: "column",
 gap: 6,
 overflow: "hidden",
 flexShrink: 0,
+boxShadow: `0 0 24px ${GLOW_SOFT}`,
 };
 
 const adMockImage: CSSProperties = {
@@ -1725,7 +1732,7 @@ borderRadius: 16,
 position: "relative",
 overflow: "hidden",
 background:
-"linear-gradient(135deg, rgba(0,0,0,0.15), rgba(0,0,0,0.75)), radial-gradient(circle at 70% 45%, rgba(34,255,127,0.55), transparent 26%), linear-gradient(135deg,#10251d,#020604)",
+"linear-gradient(135deg, rgba(255,255,255,0.12), rgba(0,0,0,0.78)), radial-gradient(circle at 70% 45%, rgba(255,255,255,0.42), transparent 26%), linear-gradient(135deg,#151922,#020305)",
 };
 
 const tyreCircle: CSSProperties = {
@@ -1733,10 +1740,10 @@ position: "absolute",
 width: 72,
 height: 72,
 borderRadius: "50%",
-border: "11px solid rgba(235,245,240,0.88)",
+border: "11px solid rgba(248,251,255,0.88)",
 right: 14,
 bottom: -18,
-boxShadow: "0 0 25px rgba(34,255,127,0.35)",
+boxShadow: `0 0 25px ${GLOW}`,
 };
 
 const adGlow: CSSProperties = {
@@ -1744,24 +1751,24 @@ position: "absolute",
 width: 120,
 height: 70,
 borderRadius: 18,
-background:
-"linear-gradient(135deg, rgba(34,255,127,0.42), rgba(255,255,255,0.06))",
+background: "linear-gradient(135deg, rgba(255,255,255,0.34), rgba(255,255,255,0.06))",
 filter: "blur(8px)",
 left: 12,
 top: 18,
 };
+
 const adRoad: CSSProperties = {
 position: "absolute",
 left: 0,
 right: 0,
 bottom: 0,
 height: 28,
-background:
-"linear-gradient(180deg, transparent, rgba(0,0,0,0.65))",
+background: "linear-gradient(180deg, transparent, rgba(0,0,0,0.65))",
 };
+
 const miniGreen: CSSProperties = {
 marginTop: "auto",
-color: "#22ff7f",
+color: WHITE,
 fontSize: 11,
 fontWeight: 950,
 };
@@ -1773,22 +1780,23 @@ overflow: "hidden",
 borderRadius: 24,
 padding: 16,
 background: "rgba(255,255,255,0.05)",
-border: "1px solid rgba(34,255,127,0.16)",
+border: `1px solid ${LINE}`,
 marginBottom: 18,
 };
+
 const testimonialStrip: CSSProperties = {
 marginTop: 22,
 padding: 22,
 position: "relative",
 overflow: "hidden",
 borderRadius: 28,
-background: "linear-gradient(135deg, rgba(34,255,127,0.14), rgba(2,6,23,0.95))",
-border: "1px solid rgba(34,255,127,0.25)",
-boxShadow: "0 24px 80px rgba(34,255,127,0.10)",
+background: "linear-gradient(135deg, rgba(255,255,255,0.10), rgba(2,3,6,0.96))",
+border: `1px solid ${LINE_STRONG}`,
+boxShadow: `0 24px 80px ${GLOW_SOFT}`,
 };
 
 const stars: CSSProperties = {
-color: "#39ff6a",
+color: WHITE,
 fontSize: 18,
 letterSpacing: 2,
 marginBottom: 8,
@@ -1796,7 +1804,7 @@ marginBottom: 8,
 
 const testimonialTitle: CSSProperties = {
 margin: 0,
-color: "#fff",
+color: WHITE,
 fontSize: 22,
 fontWeight: 900,
 };
@@ -1815,7 +1823,6 @@ gridTemplateColumns: "repeat(3, 1fr)",
 gap: 10,
 };
 
-
 const generatedImage: CSSProperties = {
 width: "100%",
 height: "100%",
@@ -1831,7 +1838,7 @@ border: "none",
 borderRadius: 14,
 padding: "10px 14px",
 background: "rgba(255,255,255,0.08)",
-color: "white",
+color: WHITE,
 fontWeight: 800,
 };
 
@@ -1840,8 +1847,8 @@ width: "100%",
 padding: "15px",
 border: "none",
 borderRadius: 18,
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
-color: "#04140c",
+background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+color: "#05070b",
 fontWeight: 950,
 };
 
@@ -1864,23 +1871,20 @@ borderRadius: 28,
 padding: 22,
 transition: "all 0.3s ease",
 transform: "translateY(0px)",
-background:
-"linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))",
-
-border: "1px solid rgba(34,255,127,0.18)",
-
+background: "linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.025))",
+border: `1px solid ${LINE}`,
 minHeight: 120,
-
-boxShadow: "0 10px 35px rgba(34,255,127,0.08)",
-
+boxShadow: `0 10px 35px ${GLOW_SOFT}`,
 backdropFilter: "blur(18px)",
+color: WHITE,
 };
+
 const actionBgGlow: CSSProperties = {
 position: "absolute",
 width: 160,
 height: 160,
 borderRadius: "50%",
-background: "rgba(0,255,140,0.12)",
+background: GLOW_SOFT,
 top: -60,
 right: -40,
 filter: "blur(30px)",
@@ -1890,23 +1894,24 @@ pointerEvents: "none",
 const actionBgLines: CSSProperties = {
 position: "absolute",
 inset: 0,
-background:
-"linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.03) 45%, transparent 100%)",
+background: "linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.06) 45%, transparent 100%)",
 opacity: 0.5,
 pointerEvents: "none",
 };
+
 const actionIcon: CSSProperties = {
 width: 38,
 height: 38,
 borderRadius: 12,
 display: "grid",
 placeItems: "center",
-background: "rgba(34,255,127,0.10)",
-border: "1px solid rgba(34,255,127,0.22)",
-color: "#22ff7f",
+background: "rgba(255,255,255,0.08)",
+border: `1px solid ${LINE_STRONG}`,
+color: WHITE,
 fontWeight: 950,
 fontSize: 12,
 };
+
 const bgGlowLeft: CSSProperties = {
 position: "fixed",
 left: -120,
@@ -1914,7 +1919,7 @@ top: 180,
 width: 280,
 height: 280,
 borderRadius: "50%",
-background: "rgba(34,255,127,0.12)",
+background: "rgba(255,255,255,0.07)",
 filter: "blur(80px)",
 pointerEvents: "none",
 };
@@ -1926,7 +1931,7 @@ top: 420,
 width: 320,
 height: 320,
 borderRadius: "50%",
-background: "rgba(34,255,127,0.10)",
+background: "rgba(255,255,255,0.065)",
 filter: "blur(90px)",
 pointerEvents: "none",
 };
@@ -1934,23 +1939,21 @@ pointerEvents: "none",
 const bgParticles: CSSProperties = {
 position: "fixed",
 inset: 0,
-backgroundImage:
-"radial-gradient(rgba(34,255,127,0.22) 1px, transparent 1px)",
+backgroundImage: "radial-gradient(rgba(255,255,255,0.16) 1px, transparent 1px)",
 backgroundSize: "34px 34px",
-opacity: 0.18,
+opacity: 0.14,
 pointerEvents: "none",
 };
+
 const chatBox: CSSProperties = {
 position: "relative",
 overflow: "hidden",
 marginTop: 34,
 padding: 28,
 borderRadius: 36,
-background:
-"linear-gradient(180deg, rgba(8,18,14,0.96) 0%, rgba(2,7,5,0.98) 100%)",
-border: "1px solid rgba(34,255,127,0.18)",
-boxShadow:
-"0 0 55px rgba(34,255,127,0.10), inset 0 1px 0 rgba(255,255,255,0.05)",
+background: "linear-gradient(180deg, rgba(12,14,20,0.96) 0%, rgba(2,3,6,0.98) 100%)",
+border: `1px solid ${LINE}`,
+boxShadow: `0 0 55px ${GLOW_SOFT}, inset 0 1px 0 rgba(255,255,255,0.08)`,
 backdropFilter: "blur(28px)",
 };
 
@@ -1961,7 +1964,7 @@ margin: 0,
 };
 
 const onlinePill: CSSProperties = {
-color: "#22ff7f",
+color: WHITE,
 fontWeight: 900,
 };
 
@@ -1990,7 +1993,7 @@ display: "flex",
 gap: 10,
 alignItems: "center",
 borderRadius: 999,
-border: "1px solid rgba(255,255,255,0.09)",
+border: `1px solid ${LINE}`,
 background: "rgba(255,255,255,0.055)",
 padding: 8,
 };
@@ -1999,7 +2002,7 @@ const chatInputStyle: CSSProperties = {
 flex: 1,
 border: "none",
 background: "transparent",
-color: "white",
+color: WHITE,
 outline: "none",
 padding: "10px 8px",
 };
@@ -2009,8 +2012,8 @@ width: 44,
 height: 44,
 borderRadius: "50%",
 border: "none",
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
-color: "#04140c",
+background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+color: "#05070b",
 fontWeight: 950,
 fontSize: 22,
 };
@@ -2021,25 +2024,28 @@ left: 24,
 right: 24,
 height: 78,
 bottom: "calc(18px + env(safe-area-inset-bottom))",
-background: "rgba(2,7,5,0.96)",
-borderTop: "1px solid rgba(34,255,127,0.14)",
+background: "rgba(2,3,6,0.96)",
+border: `1px solid ${LINE}`,
+borderRadius: 34,
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
 zIndex: 9999,
 backdropFilter: "blur(18px)",
+boxShadow: `0 0 34px ${GLOW_SOFT}`,
 };
 
 const navBtn: CSSProperties = {
 border: "none",
 background: "transparent",
-color: "rgba(255,255,255,0.6)",
+color: "rgba(255,255,255,0.58)",
 fontWeight: 850,
 };
 
 const navActive: CSSProperties = {
 ...navBtn,
-color: "#22ff7f",
+color: WHITE,
+textShadow: `0 0 16px ${GLOW}`,
 };
 
 const plusBtn: CSSProperties = {
@@ -2047,21 +2053,21 @@ width: 66,
 height: 66,
 borderRadius: "50%",
 border: "none",
-background: "linear-gradient(135deg,#22ff7f,#16a34a)",
-color: "#04140c",
+background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+color: "#05070b",
 fontSize: 38,
 fontWeight: 950,
-boxShadow: "0 0 34px rgba(34,255,127,0.42)",
+boxShadow: `0 0 34px ${GLOW}`,
 };
 
 const setupSliderBox: React.CSSProperties = {
 marginTop: 22,
 padding: "22px",
 borderRadius: 28,
-border: "1px solid rgba(34,255,127,0.22)",
-background:
-"linear-gradient(135deg, rgba(0,0,0,0.82), rgba(5,18,12,0.96))",
+border: `1px solid ${LINE}`,
+background: "linear-gradient(135deg, rgba(0,0,0,0.84), rgba(10,12,18,0.96))",
 overflow: "hidden",
+boxShadow: `0 0 34px ${GLOW_SOFT}`,
 };
 
 const setupSlideInner: React.CSSProperties = {
@@ -2076,21 +2082,21 @@ marginBottom: 12,
 };
 
 const setupStep: React.CSSProperties = {
-color: "#22ff7f",
+color: WHITE,
 fontSize: 12,
 fontWeight: 900,
 letterSpacing: 1.2,
 };
 
 const setupTime: React.CSSProperties = {
-color: "#22ff7f",
+color: WHITE,
 fontSize: 12,
 fontWeight: 800,
 opacity: 0.9,
 };
 
 const setupTitle: React.CSSProperties = {
-color: "#fff",
+color: WHITE,
 fontSize: 24,
 fontWeight: 900,
 margin: "0 0 8px",
@@ -2113,9 +2119,11 @@ marginTop: 18,
 const setupDot: React.CSSProperties = {
 height: 7,
 borderRadius: 999,
-background: "#22ff7f",
+background: WHITE,
 transition: "all 0.35s ease",
+boxShadow: `0 0 12px ${GLOW}`,
 };
+
 const refreshBtn: CSSProperties = {
 position: "fixed",
 top: "calc(78px + env(safe-area-inset-top))",
@@ -2124,12 +2132,14 @@ zIndex: 9999,
 width: 42,
 height: 42,
 borderRadius: "50%",
-border: "1px solid rgba(34,255,127,0.35)",
-background: "rgba(0,0,0,0.55)",
-color: "#22ff7f",
+border: `1px solid ${LINE_STRONG}`,
+background: "rgba(0,0,0,0.58)",
+color: WHITE,
 fontSize: 24,
 fontWeight: 900,
+boxShadow: `0 0 20px ${GLOW_SOFT}`,
 };
+
 const assistantGlow: CSSProperties = {
 position: "absolute",
 top: -110,
@@ -2137,7 +2147,7 @@ right: -90,
 width: 260,
 height: 260,
 borderRadius: "50%",
-background: "rgba(34,255,127,0.14)",
+background: GLOW_SOFT,
 filter: "blur(90px)",
 pointerEvents: "none",
 };
