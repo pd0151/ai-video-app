@@ -1130,9 +1130,21 @@ style={{
 alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
 background:
 msg.role === "user"
-? "linear-gradient(135deg,#16a34a,#22ff7f)"
-: "rgba(255,255,255,0.08)",
-color: msg.role === "user" ? "#04140c" : "white",
+? "linear-gradient(135deg, rgba(90,140,255,0.22), rgba(255,255,255,0.06))"
+: "rgba(255,255,255,0.04)",
+border:
+msg.role === "user"
+? "1px solid rgba(140,180,255,0.18)"
+: "1px solid rgba(255,255,255,0.06)",
+
+boxShadow:
+msg.role === "user"
+? "0 0 25px rgba(120,170,255,0.12)"
+: "0 0 12px rgba(255,255,255,0.03)",
+
+backdropFilter: "blur(18px)",
+
+color: "#ffffff",
 }}
 >
 {msg.content}
