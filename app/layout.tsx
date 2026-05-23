@@ -136,7 +136,7 @@ height: 74,
 borderRadius: "50%",
 border: "2px solid rgba(57,255,122,0.7)",
 background:
-"linear-gradient(135deg,#1aff66 0%,#00c853 100%)",
+"linear-gradient(135deg,#ffffff 0%,#dce6f5 100%)",
 color: "#04110a",
 fontSize: 42,
 fontWeight: 300,

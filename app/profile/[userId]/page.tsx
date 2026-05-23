@@ -544,7 +544,8 @@ color: "#04140c",
 display: "grid",
 placeItems: "center",
 fontWeight: 950,
-boxShadow: "0 0 25px rgba(34,255,127,0.45)",
+boxShadow:
+"0 0 28px rgba(220,235,255,0.18), 0 0 60px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.18)",
 cursor: "pointer",
 };
 
