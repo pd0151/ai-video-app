@@ -622,435 +622,79 @@ PRO
 
 
 <section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
+<div style={heroPhoneGlow} />
+
 <div style={aiPill}>
 <span style={greenDot} />
 GET STARTED
 </div>
 
+<div style={premiumHeroGrid}>
+<div>
 <h2 style={aiTitle}>
 Set up in minutes.
 <br />
-Never miss a call again.
+Never miss a business
+<br />
+<span style={{ color: "#cfdcff" }}>call again.</span>
 </h2>
 
 <p style={aiText}>
-Sign up, forward your number, let AdForge answer calls and promote your business 24/7.
+AdForge AI handles calls, captures leads and helps you grow your business
+24/7.
 </p>
+</div>
 
-<div style={compactSteps}>
+<div style={phoneMockup}>
+<div style={phoneScreen}>
+<b>AdForge</b>
+<div style={waveFake} />
+<span>AI Answering...</span>
+</div>
+</div>
+</div>
+
+<div style={setupPanel}>
 {[
-["01", "Sign up", "Create your account"],
-["02", "Forward number", "Route calls to AI"],
-["03", "AI answers", "Captures job details"],
-["04", "Advertise", "Promote your business"],
-["05", "More jobs", "SMS + WhatsApp leads"],
-].map(([num, title, sub]) => (
-<div key={num} style={compactStep}>
-<div style={stepNum}>{num}</div>
-<div>
-<b style={stepMain}>{title}</b>
-<p style={stepSub}>{sub}</p>
+["01", "Sign up", "Create your AdForge account in less than a minute."],
+["02", "Forward your number", "Forward your business number to AdForge AI."],
+["03", "AI answers every call", "AI speaks naturally, captures job details and qualifies leads 24/7."],
+["04", "Advertise your business", "Create AI adverts, videos and posts that bring more eyes to you."],
+["05", "Get more booked jobs", "Receive WhatsApp + SMS alerts and watch your business grow."],
+].map(([num, title, text]) => (
+<div key={num} style={setupRow}>
+<div style={stepCircle}>{num}</div>
+
+<div style={stepIcon}>●</div>
+
+<div style={{ flex: 1 }}>
+<b style={stepTitle}>{title}</b>
+<p style={stepText}>{text}</p>
 </div>
 </div>
 ))}
 </div>
 
-<button style={aiCta}>⚡ Launch AI Receptionist</button>
-</section>
-
-
-
-<section style={heroCard}>
-    <video
-autoPlay
-muted
-loop
-playsInline
-preload="metadata"
-style={{
-position: "absolute",
-inset: 0,
-pointerEvents: "none",
-transform: "translateZ(0)",
-width: "100%",
-height: "100%",
-objectFit: "cover",
-opacity: 0.22,
-zIndex: 0,
-}}
->
-<source src="/videos/15474586_2160_3840_30fps.mp4" type="video/mp4" />
-</video>
-<div style={heroTop}>
-    <div style={{ position: "relative", zIndex: 2 }}></div>
-<div>
-<div style={heroPill}>AI CREATIVE STUDIO</div>
-<h2 style={heroTitle}>Create high-converting ads</h2>
-</div>
-<div style={liveBadge}>LIVE</div>
-</div>
-
-<div style={promptBox}>
-<textarea
-value={prompt}
-onChange={(e) => setPrompt(e.target.value)}
-placeholder="Describe your business, offer or service..."
-style={promptInput}
-/>
-
-<div style={toolRow}>
-<button
-style={chip}
-onClick={() => setPrompt("{businessText.prompt}")}
->
-Use Example
-</button>
-
-<button
-style={chip}
-onClick={() => setPrompt(`${prompt} make this advert better`)}
->
-Improve Prompt
-</button>
-
-<label style={chip}>
-Upload Media
-<input
-type="file"
-accept="image/*,video/*"
-onChange={(e) => {
-const file = e.target.files?.[0];
-if (file) uploadMedia(file);
-}}
-style={{ display: "none" }}
-/>
-</label>
-
-<button className="green-pulse" style={createBtn} onClick={generateAd}>
-{loadingImage ? "Creating..." : "Generate Ad"}
-</button>
-</div>
-</div>
-</section>
-
-<section style={showcase}>
-<div style={sectionTop}>
-<h3 style={sectionTitle}>Recent AI Generated Ads</h3>
-<button style={viewBtn} onClick={() => router.push("/feed")}>
-View all
-</button>
-</div>
-
-<div ref={adScrollerRef} style={adScroller} className="ad-scroller">
-<div style={adTrack}>
-{[...recentPosts, ...recentPosts].map((post, i) => (
-<div key={i} style={adPreview}>
-<img
-src={post.image_url || post.video_url || "/placeholder.png"}
-alt="Ad"
-style={adImage}
-/>
-
-<b style={adTitle}>
-{post.content || "AI Generated Ad"}
-</b>
-
-<small style={adSub}>
-Premium advert template
-</small>
-
-<span style={miniGreen}>
-READY TO POST
-</span>
+<div style={premiumStats}>
+{[
+["128", "Calls Answered", "Today"],
+["42", "Leads Captured", "Today"],
+["19", "Jobs Booked", "Today"],
+["24/7", "AI Always On", "Never Miss a Call"],
+].map(([num, label, sub]) => (
+<div key={label} style={premiumStat}>
+<b>{num}</b>
+<span>{label}</span>
+<small>{sub}</small>
 </div>
 ))}
 </div>
-</div>
-</section>
 
-{image && (
-<section style={generatedCard}>
-<div style={sectionTop}>
-<b style={{ color: "#FFFFFF" }}>Generated Advert</b>
-<button style={smallDarkBtn} onClick={generateAd}>
-Regenerate
-</button>
-</div>
-
-<img src={image} alt="Generated ad" style={generatedImage} />
-
-<button style={useBtn} onClick={useThisAd}>
-Post to Feed
+<button style={aiCta}>
+⚡ Launch AI Receptionist
 </button>
 </section>
-)}
 
-<section style={actionsCard}>
-<h3 style={sectionTitle}>Quick Actions</h3>
-
-<div style={actionGrid}>
-<button style={actionCard} onClick={generateAd}>
-    <div style={actionBgGlow} />
-<div style={actionBgLines} />
-
-
-<div
-style={{
-position: "absolute",
-inset: 0,
-backgroundImage: "url('/images/quick-2.jpg')",
-backgroundSize: "cover",
-backgroundPosition: "center",
-opacity: 0.22,
-zIndex: 0,
-pointerEvents: "none",
-}}
-/>
-<span style={actionIcon}>01</span>
-<b>Generate Ad</b>
-<small>Create viral ads</small>
-</button>
-
-<button style={actionCard} onClick={() => router.push("/video")}>
-  <div style={actionBgGlow} />
-<div style={actionBgLines} />  
-
-
-
-<div
-style={{
-position: "absolute",
-inset: 0,
-backgroundImage: "url('/images/quick-1.jpg')",
-backgroundSize: "cover",
-backgroundPosition: "center",
-opacity: 0.22,
-zIndex: 0,
-pointerEvents: "none",
-}}
-/>
-<span style={actionIcon}>02</span>
-<b>Create AI Video</b>
-<small>Turn ideas into video</small>
-</button>
-
-<label style={actionCard}>
-    <div style={actionBgGlow} />
-<div style={actionBgLines} />
-
-<div
-style={{
-position: "absolute",
-inset: 0,
-backgroundImage: "url('/images/quick-3.jpg')",
-backgroundSize: "cover",
-backgroundPosition: "center",
-opacity: 0.22,
-zIndex: 0,
-pointerEvents: "none",
-}}
-/>
-<span style={actionIcon}>03</span>
-<b>Upload Media</b>
-<small>Add your own content</small>
-<input
-type="file"
-accept="image/*,video/*"
-onChange={(e) => {
-const file = e.target.files?.[0];
-if (file) uploadMedia(file);
-}}
-style={{ display: "none" }}
-/>
-</label>
-
-<button style={actionCard} onClick={() => router.push("/feed")}>
-    <div style={actionBgGlow} />
-<div style={actionBgLines} />
-
-
-<div
-style={{
-position: "absolute",
-inset: 0,
-backgroundImage: "url('/images/quick-4.jpg')",
-backgroundSize: "cover",
-backgroundPosition: "center",
-opacity: 0.22,
-zIndex: 0,
-pointerEvents: "none",
-}}
-/>
-<span style={actionIcon}>04</span>
-<b>Live Feed</b>
-<small>View campaigns</small>
-</button>
-</div>
-</section>
-<section style={testimonialStrip}>
-<div style={stars}>★★★★★</div>
-
-<h3 style={testimonialTitle}>
-Businesses are booking more jobs with AdForge
-</h3>
-
-<p style={testimonialText}>
-“The AI receptionist alone has brought in jobs we would’ve missed overnight.”
-</p>
-
-<div style={testimonialStats}>
-<div style={actionCard}>
-<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-<span style={{ fontSize: 12, color: "#FFFFFF", fontWeight: 900 }}>
-LIVE
-</span>
-
-<b
-style={{
-fontSize: 26,
-lineHeight: 1,
-letterSpacing: -1,
-fontWeight: 950,
-}}
->
-24/7
-</b>
-
-<small
-style={{
-fontSize: 14,
-opacity: 0.72,
-lineHeight: 1.4,
-}}
->
-AI Calls Answered
-</small>
-</div>
-</div>
-
-<div style={actionCard}>
-<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-<span style={{ fontSize: 12, color: "#FFFFFF", fontWeight: 900 }}>
-LIVE
-</span>
-
-<b
-style={{
-fontSize: 26,
-lineHeight: 1,
-letterSpacing: -1,
-fontWeight: 950,
-}}
->
-24/7
-</b>
-
-<small
-style={{
-fontSize: 14,
-opacity: 0.72,
-lineHeight: 1.4,
-}}
->
-AI Calls Answered
-</small>
-</div>
-</div>
-
-<div style={actionCard}>
-<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-<span style={{ fontSize: 12, color: "#FFFFFF", fontWeight: 900 }}>
-LIVE
-</span>
-
-<b
-style={{
-fontSize: 26,
-lineHeight: 1,
-letterSpacing: -1,
-fontWeight: 950,
-}}
->
-24/7
-</b>
-
-<small
-style={{
-fontSize: 14,
-opacity: 0.72,
-lineHeight: 1.4,
-}}
->
-AI Calls Answered
-</small>
-</div>
-</div>
-</div>
-</section>
-<section style={chatBox}>
-    <div style={assistantGlow} />
-
-<div style={sectionTop}>
-<h3 style={chatTitle}>AI Ad Assistant</h3>
-<span style={onlinePill}>Online ●</span>
-</div>
-
-<div style={messages}>
-{chatMessages.length === 0 && (
-<div style={bubble}>
-Tell me what you sell and I’ll help sharpen the offer, wording
-and advert angle.
-</div>
-)}
-
-{chatMessages.map((msg, i) => (
-<div
-key={i}
-style={{
-...bubble,
-alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
-background:
-msg.role === "user"
-? "linear-gradient(135deg, rgba(90,140,255,0.22), rgba(255,255,255,0.06))"
-: "rgba(255,255,255,0.04)",
-border:
-msg.role === "user"
-? "1px solid rgba(140,180,255,0.18)"
-: "1px solid rgba(255,255,255,0.06)",
-
-boxShadow:
-msg.role === "user"
-? "0 0 25px rgba(120,170,255,0.12)"
-: "0 0 12px rgba(255,255,255,0.03)",
-
-backdropFilter: "blur(18px)",
-
-color: "#ffffff",
-}}
->
-{msg.content}
-</div>
-))}
-
-{chatLoading && <div style={typing}>AI is typing...</div>}
-</div>
-
-<div style={chatInputWrap}>
-<input
-value={chatInput}
-onChange={(e) => setChatInput(e.target.value)}
-placeholder="Ask AI to improve your advert..."
-style={chatInputStyle}
-onKeyDown={(e) => {
-if (e.key === "Enter") sendChatMessage();
-}}
-/>
-
-<button style={sendCircle} onClick={sendChatMessage}>
-→
-</button>
-</div>
-</section>
 
 <nav style={bottomNav}>
 <button style={navActive} onClick={() => router.push("/")}>
@@ -2057,22 +1701,9 @@ filter: "blur(45px)",
 pointerEvents: "none",
 };
 
-const premiumHeroGrid: CSSProperties = {
-display: "grid",
-gridTemplateColumns: "1fr 150px",
-gap: 12,
-alignItems: "center",
-};
 
-const phoneMockup: CSSProperties = {
-height: 210,
-borderRadius: 32,
-background: "linear-gradient(145deg,#101622,#030407)",
-border: "1px solid rgba(220,235,255,0.22)",
-boxShadow: "0 0 35px rgba(220,235,255,0.16)",
-padding: 10,
-transform: "rotate(8deg)",
-};
+
+
 
 const phoneScreen: CSSProperties = {
 height: "100%",
@@ -2093,82 +1724,6 @@ background:
 "linear-gradient(90deg, transparent, rgba(220,235,255,0.9), transparent)",
 borderRadius: 999,
 boxShadow: "0 0 24px rgba(220,235,255,0.45)",
-};
-
-const setupPanel: CSSProperties = {
-marginTop: 24,
-borderRadius: 30,
-overflow: "hidden",
-background: "linear-gradient(180deg, rgba(12,16,24,0.92), rgba(3,5,10,0.98))",
-border: "1px solid rgba(220,235,255,0.18)",
-boxShadow:
-"0 0 30px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08)",
-};
-
-const setupRow: CSSProperties = {
-display: "flex",
-alignItems: "center",
-gap: 14,
-padding: "16px 14px",
-borderBottom: "1px solid rgba(255,255,255,0.07)",
-};
-
-const stepCircle: CSSProperties = {
-width: 44,
-height: 44,
-borderRadius: "50%",
-display: "grid",
-placeItems: "center",
-border: "1px solid rgba(220,235,255,0.42)",
-boxShadow: "0 0 22px rgba(220,235,255,0.22)",
-fontWeight: 950,
-};
-
-const stepIcon: CSSProperties = {
-width: 44,
-height: 44,
-borderRadius: 16,
-display: "grid",
-placeItems: "center",
-background: "rgba(255,255,255,0.08)",
-border: "1px solid rgba(220,235,255,0.12)",
-color: "#fff",
-};
-
-const stepTitle: CSSProperties = {
-display: "block",
-color: "#fff",
-fontSize: 17,
-fontWeight: 950,
-marginBottom: 4,
-};
-
-const stepText: CSSProperties = {
-margin: 0,
-color: "rgba(255,255,255,0.66)",
-fontSize: 13,
-lineHeight: 1.35,
-};
-
-const premiumStats: CSSProperties = {
-marginTop: 18,
-display: "grid",
-gridTemplateColumns: "repeat(4, 1fr)",
-borderRadius: 24,
-overflow: "hidden",
-background: "linear-gradient(180deg, rgba(14,18,28,0.92), rgba(3,5,10,0.98))",
-border: "1px solid rgba(220,235,255,0.18)",
-boxShadow: "0 0 28px rgba(220,235,255,0.12)",
-};
-
-const premiumStat: CSSProperties = {
-padding: "16px 6px",
-textAlign: "center",
-borderRight: "1px solid rgba(255,255,255,0.08)",
-display: "flex",
-flexDirection: "column",
-gap: 4,
-color: "white",
 };
 
 const aiHero: CSSProperties = {
@@ -2234,19 +1789,6 @@ lineHeight: 1.25,
 color: "rgba(255,255,255,0.58)",
 };
 
-const aiCta: CSSProperties = {
-width: "100%",
-marginTop: 18,
-border: "1px solid rgba(220,235,255,0.28)",
-borderRadius: 999,
-padding: "16px 18px",
-background: "linear-gradient(135deg,#ffffff 0%,#dce6f5 100%)",
-color: "#05070b",
-fontSize: 18,
-fontWeight: 950,
-boxShadow:
-"0 0 24px rgba(220,235,255,0.24), 0 0 60px rgba(220,235,255,0.10)",
-};
 
 const compactSteps: CSSProperties = {
 marginTop: 20,
@@ -2268,4 +1810,110 @@ display: "flex",
 flexDirection: "column",
 gap: 7,
 color: "white",
+};
+
+const premiumHeroGrid: CSSProperties = {
+display: "grid",
+gridTemplateColumns: "1fr 105px",
+gap: 8,
+alignItems: "center",
+};
+
+const phoneMockup: CSSProperties = {
+height: 135,
+borderRadius: 24,
+background: "linear-gradient(145deg,#101622,#030407)",
+border: "1px solid rgba(220,235,255,0.22)",
+boxShadow: "0 0 24px rgba(220,235,255,0.13)",
+padding: 8,
+transform: "rotate(7deg)",
+};
+
+const setupPanel: CSSProperties = {
+marginTop: 14,
+borderRadius: 22,
+overflow: "hidden",
+background: "linear-gradient(180deg, rgba(12,16,24,0.92), rgba(3,5,10,0.98))",
+border: "1px solid rgba(220,235,255,0.18)",
+};
+
+const setupRow: CSSProperties = {
+display: "flex",
+alignItems: "center",
+gap: 9,
+padding: "9px 10px",
+borderBottom: "1px solid rgba(255,255,255,0.07)",
+};
+
+const stepCircle: CSSProperties = {
+width: 32,
+height: 32,
+minWidth: 32,
+borderRadius: "50%",
+display: "grid",
+placeItems: "center",
+border: "1px solid rgba(220,235,255,0.38)",
+fontSize: 12,
+fontWeight: 950,
+};
+
+const stepIcon: CSSProperties = {
+width: 32,
+height: 32,
+minWidth: 32,
+borderRadius: 12,
+display: "grid",
+placeItems: "center",
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(220,235,255,0.12)",
+color: "#fff",
+};
+
+const stepTitle: CSSProperties = {
+display: "block",
+color: "#fff",
+fontSize: 14,
+fontWeight: 950,
+marginBottom: 2,
+};
+
+const stepText: CSSProperties = {
+margin: 0,
+color: "rgba(255,255,255,0.62)",
+fontSize: 11,
+lineHeight: 1.25,
+};
+
+const premiumStats: CSSProperties = {
+marginTop: 12,
+display: "grid",
+gridTemplateColumns: "repeat(4, 1fr)",
+borderRadius: 18,
+overflow: "hidden",
+background: "linear-gradient(180deg, rgba(14,18,28,0.92), rgba(3,5,10,0.98))",
+border: "1px solid rgba(220,235,255,0.18)",
+};
+
+const premiumStat: CSSProperties = {
+padding: "10px 4px",
+textAlign: "center",
+borderRight: "1px solid rgba(255,255,255,0.08)",
+display: "flex",
+flexDirection: "column",
+gap: 2,
+color: "white",
+fontSize: 11,
+};
+
+const aiCta: CSSProperties = {
+width: "100%",
+marginTop: 14,
+border: "1px solid rgba(220,235,255,0.28)",
+borderRadius: 999,
+padding: "14px 16px",
+boxShadow:
+"0 0 24px rgba(220,235,255,0.24), 0 0 55px rgba(220,235,255,0.10)",
+color: "#05070b",
+fontSize: 17,
+fontWeight: 950,
 };
