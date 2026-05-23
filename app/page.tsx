@@ -622,212 +622,77 @@ PRO
 
 
 <section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
-<div className="hero-particles" />
-<div className="hero-beam" />
-<div className="hero-wave" />
-
-<div style={heroGlow} />
-<div
-className="wave-line"
-style={{
-position: "absolute",
-top: 0,
-left: 30,
-right: 30,
-height: 2,
-borderRadius: 999,
-background:
-"linear-gradient(90deg, transparent, #FFFFFF, transparent)",
-opacity: 0.9,
-animation: "borderGlow 4s ease-in-out infinite",
-}}
-/>
+<div style={heroPhoneGlow} />
 
 <div style={aiPill}>
 <span style={greenDot} />
-LIVE AI RECEPTIONIST
+GET STARTED
 </div>
 
-<div style={waveWrap}>
-<div className="wave-line" style={waveLine} />
-</div>
-
+<div style={premiumHeroGrid}>
+<div>
 <h2 style={aiTitle}>
-Turn missed calls
+Set up in minutes.
 <br />
-into <span style={{ color: "#FFFFFF" }}>booked jobs</span>
+Never miss a business
+<br />
+<span style={{ color: "#cfdcff" }}>call again.</span>
 </h2>
 
 <p style={aiText}>
-Your AI receptionist answers missed calls instantly, speaks to customers naturally,
-captures job details, qualifies leads and sends bookings directly to your dashboard,
-SMS or WhatsApp in real time.
+AdForge AI handles calls, captures leads and helps you grow your business
+24/7.
 </p>
-
-<div
-style={{
-display: "grid",
-gridTemplateColumns: "1fr 1fr",
-gap: 10,
-marginTop: 18,
-marginBottom: 18,
-}}
->
-{[
-["24/7 Answering", "Never miss inbound calls"],
-["Instant Alerts", "SMS + WhatsApp updates"],
-["Lead Capture", "Collects customer details"],
-["Books Jobs", "Sends leads to dashboard"],
-].map(([title, sub]) => (
-<div
-key={title}
-style={{
-position: "relative",
-overflow: "hidden",
-padding: "8px 9px",
-borderRadius: 15,
-background:
-"linear-gradient(145deg, rgba(8,12,10,0.92), rgba(15,25,20,0.88))",
-border: "1px solid rgba(34,255,127,0.16)",
-boxShadow:
-"0 0 0 1px rgba(255,255,255,0.03), 0 10px 30px rgba(0,0,0,0.35)",
-backdropFilter: "blur(14px)",
-}}
->
-<div
-style={{
-width: 34,
-height: 4,
-borderRadius: 999,
-background: "#FFFFFF",
-marginBottom: 7,
-boxShadow: "0 0 14px rgba(34,255,127,0.8)",
-}}
-/>
-
-<div
-style={{
-color: "white",
-fontSize: 12,
-fontWeight: 900,
-marginBottom: 6,
-letterSpacing: -0.3,
-}}
->
-{title}
 </div>
 
-<div
-style={{
-color: "rgba(255,255,255,0.62)",
-fontSize: 12,
-lineHeight: 1.5,
-}}
->
-{sub}
+<div style={phoneMockup}>
+<div style={phoneScreen}>
+<b>AdForge</b>
+<div style={waveFake} />
+<span>AI Answering...</span>
+</div>
+</div>
+</div>
+
+<div style={setupPanel}>
+{[
+["01", "Sign up", "Create your AdForge account in less than a minute."],
+["02", "Forward your number", "Forward your business number to AdForge AI."],
+["03", "AI answers every call", "AI speaks naturally, captures job details and qualifies leads 24/7."],
+["04", "Advertise your business", "Create AI adverts, videos and posts that bring more eyes to you."],
+["05", "Get more booked jobs", "Receive WhatsApp + SMS alerts and watch your business grow."],
+].map(([num, title, text]) => (
+<div key={num} style={setupRow}>
+<div style={stepCircle}>{num}</div>
+
+<div style={stepIcon}>●</div>
+
+<div style={{ flex: 1 }}>
+<b style={stepTitle}>{title}</b>
+<p style={stepText}>{text}</p>
 </div>
 </div>
 ))}
 </div>
 
-<button
-className="green-pulse"
-style={{
-...aiCta,
-padding: "16px 22px",
-borderRadius: 22,
-fontSize: 17,
-fontWeight: 900,
-letterSpacing: -0.5,
-background:
-"linear-gradient(135deg,#FFFFFF 0%,#12d96b 100%)",
-boxShadow:
-"0 0 25px rgba(34,255,127,0.45), inset 0 1px 0 rgba(255,255,255,0.25)",
-transform: "scale(0.96)",
-animation: "pulseGlow 2s ease-in-out infinite",
-}}
->
+<div style={premiumStats}>
+{[
+["128", "Calls Answered", "Today"],
+["42", "Leads Captured", "Today"],
+["19", "Jobs Booked", "Today"],
+["24/7", "AI Always On", "Never Miss a Call"],
+].map(([num, label, sub]) => (
+<div key={label} style={premiumStat}>
+<b>{num}</b>
+<span>{label}</span>
+<small>{sub}</small>
+</div>
+))}
+</div>
+
+<button style={aiCta}>
 ⚡ Launch AI Receptionist
 </button>
-<div
-style={{
-display: "grid",
-gridTemplateColumns: "repeat(3,1fr)",
-gap: 12,
-marginTop: 22,
-}}
->
-{[
-["247+", "Calls Answered"],
-["81", "Businesses Live"],
-["£18k+", "Jobs Booked"],
-].map(([num, label]) => (
-<div
-key={label}
-style={{
-padding: 16,
-borderRadius: 20,
-background: "rgba(255,255,255,0.04)",
-border: "1px solid rgba(255,255,255,0.08)",
-textAlign: "center",
-}}
->
-<div
-style={{
-color: "#FFFFFF",
-fontSize: 24,
-fontWeight: 900,
-}}
->
-{num}
-</div>
-
-<div
-style={{
-color: "rgba(255,255,255,0.7)",
-fontSize: 12,
-marginTop: 4,
-}}
->
-{label}
-</div>
-</div>
-))}
-</div>
-<div style={setupSliderBox}>
-<div key={setupSlide} style={setupSlideInner}>
-<div style={setupTopRow}>
-<span style={setupStep}>
-STEP {setupSlides[setupSlide].step}
-</span>
-
-<span style={setupTime}>
-5 min setup
-</span>
-</div>
-
-<h3 style={setupTitle}>
-{setupSlides[setupSlide].title}
-</h3>
-
-<p style={setupText}>
-{setupSlides[setupSlide].text}
-</p>
-
-<div style={setupDots}>
-{setupSlides.map((_, index) => (
-<span
-key={index}
-style={{
-...setupDot,
-opacity: index === setupSlide ? 1 : 0.25,
-width: index === setupSlide ? 24 : 7,
-}}
-/>
-))}
-</div>
-</div>
-</div>
 </section>
 
 
@@ -1544,30 +1409,7 @@ position: "relative",
 zIndex: 2,
 };
 
-const aiCta: CSSProperties = {
-width: "100%",
-border: "1px solid rgba(255,255,255,0.16)",
-borderRadius: 22,
-padding: "20px 24px",
 
-background:
-"linear-gradient(135deg,#ffffff 0%,#dce6f5 100%)",
-
-color: "#05070b",
-
-fontSize: 22,
-fontWeight: 900,
-
-marginTop: 26,
-marginBottom: 22,
-
-cursor: "pointer",
-
-boxShadow:
-"0 0 18px rgba(220,235,255,0.28), 0 0 60px rgba(220,235,255,0.10)",
-
-transition: "0.25s",
-};
 
 const aiLeadCard: CSSProperties = {
 marginTop: 18,
@@ -2273,4 +2115,143 @@ borderRadius: "50%",
 background: GLOW_SOFT,
 filter: "blur(90px)",
 pointerEvents: "none",
+};
+const heroPhoneGlow: CSSProperties = {
+position: "absolute",
+top: 20,
+right: -80,
+width: 260,
+height: 260,
+borderRadius: "50%",
+background: "radial-gradient(circle, rgba(180,210,255,0.22), transparent 70%)",
+filter: "blur(45px)",
+pointerEvents: "none",
+};
+
+const premiumHeroGrid: CSSProperties = {
+display: "grid",
+gridTemplateColumns: "1fr 150px",
+gap: 12,
+alignItems: "center",
+};
+
+const phoneMockup: CSSProperties = {
+height: 210,
+borderRadius: 32,
+background: "linear-gradient(145deg,#101622,#030407)",
+border: "1px solid rgba(220,235,255,0.22)",
+boxShadow: "0 0 35px rgba(220,235,255,0.16)",
+padding: 10,
+transform: "rotate(8deg)",
+};
+
+const phoneScreen: CSSProperties = {
+height: "100%",
+borderRadius: 24,
+background: "linear-gradient(180deg,#07101d,#020305)",
+display: "flex",
+flexDirection: "column",
+justifyContent: "center",
+alignItems: "center",
+gap: 14,
+color: "white",
+};
+
+const waveFake: CSSProperties = {
+width: 90,
+height: 34,
+background:
+"linear-gradient(90deg, transparent, rgba(220,235,255,0.9), transparent)",
+borderRadius: 999,
+boxShadow: "0 0 24px rgba(220,235,255,0.45)",
+};
+
+const setupPanel: CSSProperties = {
+marginTop: 24,
+borderRadius: 30,
+overflow: "hidden",
+background: "linear-gradient(180deg, rgba(12,16,24,0.92), rgba(3,5,10,0.98))",
+border: "1px solid rgba(220,235,255,0.18)",
+boxShadow:
+"0 0 30px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08)",
+};
+
+const setupRow: CSSProperties = {
+display: "flex",
+alignItems: "center",
+gap: 14,
+padding: "16px 14px",
+borderBottom: "1px solid rgba(255,255,255,0.07)",
+};
+
+const stepCircle: CSSProperties = {
+width: 44,
+height: 44,
+borderRadius: "50%",
+display: "grid",
+placeItems: "center",
+border: "1px solid rgba(220,235,255,0.42)",
+boxShadow: "0 0 22px rgba(220,235,255,0.22)",
+fontWeight: 950,
+};
+
+const stepIcon: CSSProperties = {
+width: 44,
+height: 44,
+borderRadius: 16,
+display: "grid",
+placeItems: "center",
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(220,235,255,0.12)",
+color: "#fff",
+};
+
+const stepTitle: CSSProperties = {
+display: "block",
+color: "#fff",
+fontSize: 17,
+fontWeight: 950,
+marginBottom: 4,
+};
+
+const stepText: CSSProperties = {
+margin: 0,
+color: "rgba(255,255,255,0.66)",
+fontSize: 13,
+lineHeight: 1.35,
+};
+
+const premiumStats: CSSProperties = {
+marginTop: 18,
+display: "grid",
+gridTemplateColumns: "repeat(4, 1fr)",
+borderRadius: 24,
+overflow: "hidden",
+background: "linear-gradient(180deg, rgba(14,18,28,0.92), rgba(3,5,10,0.98))",
+border: "1px solid rgba(220,235,255,0.18)",
+boxShadow: "0 0 28px rgba(220,235,255,0.12)",
+};
+
+const premiumStat: CSSProperties = {
+padding: "16px 6px",
+textAlign: "center",
+borderRight: "1px solid rgba(255,255,255,0.08)",
+display: "flex",
+flexDirection: "column",
+gap: 4,
+color: "white",
+};
+
+const aiCta: CSSProperties = {
+width: "100%",
+marginTop: 22,
+border: "1px solid rgba(220,235,255,0.28)",
+borderRadius: 999,
+padding: "18px 20px",
+background: "linear-gradient(135deg,#ffffff 0%,#dce6f5 100%)",
+color: "#05070b",
+fontSize: 20,
+fontWeight: 950,
+boxShadow:
+"0 0 28px rgba(220,235,255,0.35), 0 0 75px rgba(220,235,255,0.14)",
 };
