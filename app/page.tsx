@@ -567,6 +567,26 @@ animation: pulseGlow 2.5s ease-in-out infinite;
 .wave-line {
 animation: greenWave 3s ease-in-out infinite;
 }
+
+.auto-rail {
+display: flex;
+gap: 14px;
+width: max-content;
+animation: railMove 18s linear infinite;
+}
+
+.auto-rail:hover {
+animation-play-state: paused;
+}
+
+@keyframes railMove {
+0% {
+transform: translateX(0);
+}
+100% {
+transform: translateX(-50%);
+}
+}
 `}</style>
 
 <div style={bgGlow1} />
@@ -701,7 +721,12 @@ AdForge AI handles calls, captures leads and helps you grow your business
 </div>
 
 <div style={adsScroll}>
+<div className="auto-rail">
+
 {[
+"https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
+"https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
+"https://videos.pexels.com/video-files/3195394/3195394-uhd_1440_2560_25fps.mp4",
 "https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
 "https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
 "https://videos.pexels.com/video-files/3195394/3195394-uhd_1440_2560_25fps.mp4",
@@ -717,6 +742,7 @@ AdForge AI handles calls, captures leads and helps you grow your business
 </div>
 </div>
 ))}
+</div>
 </div>
 </section>
 
