@@ -604,9 +604,7 @@ transform: translateX(-50%);
 }
 }
 
-.auto-rail:hover {
-animation-play-state: paused;
-}
+
 
 
 `}</style>
@@ -757,7 +755,12 @@ flexDirection: "row",
 flexWrap: "nowrap",
 gap: 14,
 width: "max-content",
-animation: "railMove 18s linear infinite",
+minWidth: "max-content",
+willChange: "transform",
+animationName: "railMove",
+animationDuration: "18s",
+animationTimingFunction: "linear",
+animationIterationCount: "infinite",
 }}
 >
 {[
