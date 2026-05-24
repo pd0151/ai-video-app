@@ -765,7 +765,7 @@ if (!el) return;
 let x = 0;
 
 const move = () => {
-x += 1;
+x += 3;
 el.scrollLeft = x;
 
 if (x >= el.scrollWidth - el.clientWidth - 10) {
