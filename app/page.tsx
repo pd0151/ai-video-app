@@ -2408,14 +2408,19 @@ marginTop: 18,
 
 const premiumAdRail: CSSProperties = {
 display: "flex",
-gap: 12,
+flexDirection: "row",
+flexWrap: "nowrap",
+gap: 14,
 overflowX: "auto",
-paddingBottom: 6,
+width: "100%",
+scrollBehavior: "smooth",
 };
 
 const premiumAdCard: CSSProperties = {
 width: 210,
+flex: "0 0 210px",
 minWidth: 210,
+maxWidth: 210,
 height: 265,
 borderRadius: 26,
 overflow: "hidden",
