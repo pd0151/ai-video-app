@@ -757,7 +757,16 @@ display: "flex",
 flexDirection: "row",
 }}
 >
-<div className="auto-rail">
+<div
+style={{
+display: "flex",
+flexDirection: "row",
+flexWrap: "nowrap",
+gap: 14,
+width: "max-content",
+animation: "railMove 18s linear infinite",
+}}
+>
 {[
 "https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
 "https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
@@ -766,7 +775,8 @@ flexDirection: "row",
 "https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
 "https://videos.pexels.com/video-files/3195394/3195394-uhd_1440_2560_25fps.mp4",
 ].map((src, i) => (
-<div key={i} style={premiumAdCard}>
+<div key={i} style={{ ...premiumAdCard, flex: "0 0 210px" }}>
+
 <video
 autoPlay
 muted
