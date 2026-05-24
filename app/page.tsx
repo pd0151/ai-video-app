@@ -798,15 +798,14 @@ width: "max-content",
 "/images/videos/video-3.mp4",
 ].map((src, i) => (
 <div key={i} style={{ ...premiumAdCard, flex: "0 0 210px" }}>
-
 <video
+src={src}
 autoPlay
 muted
 loop
 playsInline
 style={premiumAdImage}
 >
-<source src={src} type="video/mp4" />
 </video>
 
 <div style={premiumAdOverlay}>
