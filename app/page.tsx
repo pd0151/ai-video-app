@@ -760,14 +760,31 @@ flexDirection: "row",
 }}
 >
 <div
+ref={(el) => {
+if (!el) return;
+let x = 0;
+
+const move = () => {
+x += 1;
+el.scrollLeft = x;
+
+if (x >= el.scrollWidth / 2) {
+x = 0;
+el.scrollLeft = 0;
+}
+
+requestAnimationFrame(move);
+};
+
+requestAnimationFrame(move);
+}}
 style={{
 display: "flex",
 flexDirection: "row",
 flexWrap: "nowrap",
 gap: 14,
-width: "max-content",
-minWidth: "max-content",
-animation: "autoSlideAds 12s linear infinite",
+overflowX: "hidden",
+width: "100%",
 }}
 >
 {[
