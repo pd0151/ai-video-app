@@ -608,14 +608,7 @@ transform: translateX(-50%);
 animation-play-state: paused;
 }
 
-@keyframes railMove {
-0% {
-transform: translateX(0);
-}
-100% {
-transform: translateX(-50%);
-}
-}
+
 `}</style>
 
 <div style={bgGlow1} />
@@ -771,6 +764,7 @@ animation: "railMove 18s linear infinite",
 "https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
 "https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
 "https://videos.pexels.com/video-files/3195394/3195394-uhd_1440_2560_25fps.mp4",
+
 "https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
 "https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
 "https://videos.pexels.com/video-files/3195394/3195394-uhd_1440_2560_25fps.mp4",
