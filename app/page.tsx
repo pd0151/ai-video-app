@@ -968,10 +968,21 @@ minWidth: 210,
 maxWidth: 210,
 }}
 >
+{post.video_url ? (
+<video
+src={post.video_url}
+style={premiumAdImage}
+autoPlay
+muted
+loop
+playsInline
+/>
+) : (
 <img
-src={post.image_url || post.video_url || "/placeholder.png"}
+src={post.image_url || "/placeholder.png"}
 style={premiumAdImage}
 />
+)}
 
 <div style={premiumAdOverlay}>
 <b>{post.content || "AI Generated Ad"}</b>
