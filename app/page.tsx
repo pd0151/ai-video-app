@@ -762,14 +762,17 @@ flexWrap: "nowrap",
 >
 <div
 ref={(el) => {
-if (!el) return;
+if (!el || (el as any).dataset.started === "true") return;
+
+(el as any).dataset.started = "true";
+
 let x = 0;
 
 const move = () => {
-x += 1;
+x += 0.5;
 el.scrollLeft = x;
 
-if (x >= el.scrollWidth - el.clientWidth ) {
+if (x >= el.scrollWidth - el.clientWidth) {
 x = 0;
 el.scrollLeft = 0;
 }
