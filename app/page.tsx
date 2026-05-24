@@ -757,6 +757,7 @@ overflow: "hidden",
 width: "100%",
 display: "flex",
 flexDirection: "row",
+flexWrap: "nowrap",
 }}
 >
 <div
@@ -765,11 +766,11 @@ if (!el) return;
 let x = 0;
 
 const move = () => {
-x += 2;
+x += 1;
 el.scrollLeft = x;
 
-if (x >= el.scrollWidth - el.clientWidth - 10) {
-x = 3;
+if (x >= el.scrollWidth - el.clientWidth ) {
+x = 0;
 el.scrollLeft = 0;
 }
 
@@ -932,7 +933,15 @@ View all
 
 <div style={premiumAdRail}>
 {recentPosts.slice(0, 6).map((post, i) => (
-<div key={i} style={premiumAdCard}>
+<div
+key={i}
+style={{
+...premiumAdCard,
+flex: "0 0 210px",
+minWidth: 210,
+maxWidth: 210,
+}}
+>
 <img
 src={post.image_url || post.video_url || "/placeholder.png"}
 style={premiumAdImage}
