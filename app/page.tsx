@@ -727,9 +727,6 @@ AdForge AI handles calls, captures leads and helps you grow your business
 "https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
 "https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
 "https://videos.pexels.com/video-files/3195394/3195394-uhd_1440_2560_25fps.mp4",
-"https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
-"https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
-"https://videos.pexels.com/video-files/3195394/3195394-uhd_1440_2560_25fps.mp4",
 ].map((src, i) => (
 <div key={i} style={premiumAdCard}>
 <video autoPlay muted loop playsInline style={premiumAdImage}>
