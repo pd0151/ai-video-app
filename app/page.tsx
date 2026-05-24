@@ -756,10 +756,20 @@ placeholder="Describe your offer, business or promotion..."
 style={studioInput}
 />
 
+{image && (
+<div style={studioPreview}>
+<img src={image} style={studioPreviewImg} />
+<button style={studioPreviewBtn} onClick={() => router.push("/feed")}>
+Share to Feed
+</button>
+</div>
+)}
+
 <div style={studioButtons}>
 <button
 type="button"
 style={studioBtn}
+disabled={loadingImage}
 onClick={(e) => {
 e.preventDefault();
 e.stopPropagation();
@@ -773,26 +783,21 @@ return;
 generateAd();
 }}
 >
-Generate Ad
+{loadingImage ? "Generating..." : "Generate Ad"}
 </button>
+
 <button
 type="button"
 style={studioBtn}
 onClick={(e) => {
 e.preventDefault();
 e.stopPropagation();
-
-if (!prompt.trim()) {
-setPrompt("Create a premium advert for my business");
-setTimeout(() => generateAd(), 50);
-return;
-}
-
-generateAd();
+router.push("/video");
 }}
 >
-Generate Ad
+AI Video
 </button>
+
 <label style={studioBtn}>
 Upload
 <input
@@ -2370,4 +2375,28 @@ background: "linear-gradient(135deg,#ffffff,#dce6f5)",
 color: "#05070b",
 fontWeight: 950,
 fontSize: 22,
+};
+const studioPreview: CSSProperties = {
+marginTop: 14,
+borderRadius: 24,
+overflow: "hidden",
+border: "1px solid rgba(220,235,255,0.14)",
+background: "#05070b",
+boxShadow: "0 0 28px rgba(220,235,255,0.10)",
+};
+
+const studioPreviewImg: CSSProperties = {
+width: "100%",
+display: "block",
+objectFit: "cover",
+};
+
+const studioPreviewBtn: CSSProperties = {
+width: "100%",
+border: "none",
+padding: "14px 16px",
+background: "linear-gradient(135deg,#ffffff,#dce6f5)",
+color: "#05070b",
+fontWeight: 950,
+fontSize: 16,
 };
