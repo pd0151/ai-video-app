@@ -792,13 +792,10 @@ width: "max-content",
 }}
 >
 {[
-"https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
-"https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
-"https://videos.pexels.com/video-files/3195394/3195394-uhd_1440_2560_25fps.mp4",
-
-"https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
-"https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
-"https://videos.pexels.com/video-files/3195394/3195394-uhd_1440_2560_25fps.mp4",
+"/images/videos/video-2.mp4",
+"/images/videos/video-3.mp4",
+"/images/videos/video-2.mp4",
+"/images/videos/video-3.mp4",
 ].map((src, i) => (
 <div key={i} style={{ ...premiumAdCard, flex: "0 0 210px" }}>
 
