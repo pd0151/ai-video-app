@@ -430,12 +430,24 @@ return (
 ↻
 </button>
 <style jsx global>{`
+@keyframes scrollAds {
+0% {
+transform: translateX(0);
+}
+
+100% {
+transform: translateX(-50%);
+}
+}
+
 @keyframes premiumFade {
 0% {
 opacity: 0;
 transform: translateY(10px);
 filter: blur(5px);
 }
+}
+
 @keyframes pulseGlow {
 0% {
 transform: scale(0.96);
@@ -2190,24 +2202,37 @@ fontSize: 14,
 fontWeight: 900,
 };
 
+
 const adsScroll: CSSProperties = {
 display: "flex",
 flexDirection: "row",
 flexWrap: "nowrap",
-overflow: "hidden",
-width: "100%",
+overflowX: "auto",
+overflowY: "hidden",
 gap: 14,
+width: "100%",
+paddingBottom: 6,
+scrollBehavior: "smooth",
+WebkitOverflowScrolling: "touch",
+};
+
+const autoRail: CSSProperties = {
+display: "flex",
+flexDirection: "row",
+gap: 14,
+width: "max-content",
+animation: "scrollAds 25s linear infinite",
 };
 
 const adCard: CSSProperties = {
-minWidth: 230,
-height: 300,
-borderRadius: 26,
-overflow: "hidden",
 position: "relative",
+flex: "0 0 180px",
+width: 180,
+height: 260,
+borderRadius: 28,
+overflow: "hidden",
+background: "#050816",
 border: "1px solid rgba(255,255,255,0.08)",
-background: "#05070b",
-boxShadow: "0 0 25px rgba(180,210,255,0.10)",
 };
 
 const adImage: CSSProperties = {
