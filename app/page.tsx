@@ -761,7 +761,15 @@ style={studioInput}
 type="button"
 style={studioBtn}
 onClick={(e) => {
+e.preventDefault();
 e.stopPropagation();
+
+if (!prompt.trim()) {
+setPrompt("Create a premium advert for my business");
+setTimeout(() => generateAd(), 50);
+return;
+}
+
 generateAd();
 }}
 >
