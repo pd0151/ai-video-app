@@ -977,11 +977,26 @@ muted
 loop
 playsInline
 />
-) : (
+) : post.image_url ? (
 <img
-src={post.image_url || "/placeholder.png"}
+src={post.image_url}
 style={premiumAdImage}
 />
+) : (
+<div
+style={{
+...premiumAdImage,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+background: "linear-gradient(135deg, #111827, #020617)",
+color: "#fff",
+fontWeight: 900,
+fontSize: 18,
+}}
+>
+No Media
+</div>
 )}
 
 <div style={premiumAdOverlay}>
