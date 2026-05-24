@@ -770,8 +770,8 @@ x += 1;
 el.scrollLeft = x;
 
 if (x >= el.scrollWidth - el.clientWidth ) {
-x = 0;
-el.scrollLeft = 0;
+x = 2;
+el.scrollLeft = 2;
 }
 
 requestAnimationFrame(move);
