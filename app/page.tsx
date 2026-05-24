@@ -703,10 +703,16 @@ AdForge AI handles calls, captures leads and helps you grow your business
 <div style={adsScroll}>
 {[1,2,3].map((i) => (
 <div key={i} style={adCard}>
-<img
-src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop"
+<video
+autoPlay
+muted
+loop
+playsInline
+preload="metadata"
 style={adImage}
-/>
+>
+<source src="/videos/15474586_2160_3840_30fps.mp4" type="video/mp4" />
+</video>
 
 <div style={adOverlay}>
 <b>Tyre Replacement</b>
@@ -754,7 +760,16 @@ style={studioInput}
 />
 
 <div style={studioButtons}>
-<button style={studioBtn} onClick={generateAd}>Generate Ad</button>
+<button
+type="button"
+style={studioBtn}
+onClick={(e) => {
+e.stopPropagation();
+generateAd();
+}}
+>
+Generate Ad
+</button>
 <button style={studioBtn} onClick={() => router.push("/video")}>AI Video</button>
 
 <label style={studioBtn}>
@@ -1345,11 +1360,11 @@ gap: 12,
 width: "max-content",
 };
 
-const liveadImage: CSSProperties = {
+const liveAdImage: CSSProperties = {
 width: "100%",
-height: 112,
+height: "100%",
 objectFit: "cover",
-borderRadius: 14,
+display: "block",
 };
 
 const liveadPreview: CSSProperties = {
