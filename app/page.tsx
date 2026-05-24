@@ -934,7 +934,30 @@ View all
 </button>
 </div>
 
-<div style={premiumAdRail}>
+<div
+ref={(el) => {
+if (!el || (el as any).dataset.started === "true") return;
+
+(el as any).dataset.started = "true";
+
+let x = 0;
+
+const move = () => {
+x += 0.45;
+el.scrollLeft = x;
+
+if (x >= el.scrollWidth - el.clientWidth) {
+x = 0;
+el.scrollLeft = 0;
+}
+
+requestAnimationFrame(move);
+};
+
+requestAnimationFrame(move);
+}}
+style={premiumAdRail}
+>
 {recentPosts.slice(0, 6).map((post, i) => (
 <div
 key={i}
@@ -2414,7 +2437,7 @@ display: "flex",
 flexDirection: "row",
 flexWrap: "nowrap",
 gap: 14,
-overflowX: "auto",
+overflowX: "hidden",
 width: "100%",
 scrollBehavior: "smooth",
 };
