@@ -595,6 +595,17 @@ min-width: 210px;
 flex-shrink: 0;
 }
 
+@keyframes autoSlideAds {
+0% {
+transform: translateX(0);
+}
+
+100% {
+transform: translateX(-320px);
+}
+}
+
+
 @keyframes railMove {
 from {
 transform: translateX(0);
@@ -756,11 +767,7 @@ flexWrap: "nowrap",
 gap: 14,
 width: "max-content",
 minWidth: "max-content",
-willChange: "transform",
-animationName: "railMove",
-animationDuration: "18s",
-animationTimingFunction: "linear",
-animationIterationCount: "infinite",
+animation: "autoSlideAds 12s linear infinite",
 }}
 >
 {[
