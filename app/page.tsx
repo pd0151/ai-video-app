@@ -569,11 +569,16 @@ animation: greenWave 3s ease-in-out infinite;
 }
 
 .auto-rail {
-display: flex;
-flex-direction: row;
+display: flex !important;
+flex-direction: row !important;
+flex-wrap: nowrap !important;
 gap: 14px;
 width: max-content;
-animation: railMove 22s linear infinite;
+animation: railMove 18s linear infinite;
+}
+
+.auto-rail > div {
+flex: 0 0 210px !important;
 }
 
 @keyframes railMove {
@@ -2322,6 +2327,7 @@ paddingBottom: 6,
 };
 
 const premiumAdCard: CSSProperties = {
+width: 210,
 minWidth: 210,
 height: 265,
 borderRadius: 26,
@@ -2329,7 +2335,6 @@ overflow: "hidden",
 position: "relative",
 background: "#05070b",
 border: "1px solid rgba(220,235,255,0.12)",
-boxShadow: "0 0 28px rgba(220,235,255,0.10)",
 };
 
 const premiumAdImage: CSSProperties = {
