@@ -734,6 +734,120 @@ style={adImage}
 </div>
 </section>
 
+
+<section style={studioPanel}>
+<div style={studioTop}>
+<div>
+<span style={studioPill}>AI STUDIO</span>
+<h3 style={studioTitle}>Create ads, videos & posts</h3>
+<p style={studioText}>
+Generate premium content, upload media and promote your business in seconds.
+</p>
+</div>
+</div>
+
+<textarea
+value={prompt}
+onChange={(e) => setPrompt(e.target.value)}
+placeholder="Describe your offer, business or promotion..."
+style={studioInput}
+/>
+
+<div style={studioButtons}>
+<button style={studioBtn} onClick={generateAd}>Generate Ad</button>
+<button style={studioBtn} onClick={() => router.push("/video")}>AI Video</button>
+
+<label style={studioBtn}>
+Upload
+<input
+type="file"
+accept="image/*,video/*"
+onChange={(e) => {
+const file = e.target.files?.[0];
+if (file) uploadMedia(file);
+}}
+style={{ display: "none" }}
+/>
+</label>
+</div>
+</section>
+
+<section style={premiumAdsSection}>
+<div style={studioTop}>
+<div>
+<span style={studioPill}>LIVE FEED</span>
+<h3 style={studioTitle}>Recent AI Generated Ads</h3>
+</div>
+
+<button style={viewBtn} onClick={() => router.push("/feed")}>
+View all
+</button>
+</div>
+
+<div style={premiumAdRail}>
+{recentPosts.slice(0, 6).map((post, i) => (
+<div key={i} style={premiumAdCard}>
+<img
+src={post.image_url || post.video_url || "/placeholder.png"}
+style={premiumAdImage}
+/>
+
+<div style={premiumAdOverlay}>
+<b>{post.content || "AI Generated Ad"}</b>
+<span>Ready to post</span>
+</div>
+</div>
+))}
+</div>
+</section>
+
+<section style={assistantPanel}>
+<div style={studioTop}>
+<div>
+<span style={studioPill}>AI ASSISTANT</span>
+<h3 style={studioTitle}>Improve your advert</h3>
+</div>
+</div>
+
+<div style={assistantMessages}>
+{chatMessages.length === 0 && (
+<div style={assistantBubble}>
+Tell me what you sell and I’ll sharpen your offer, wording and advert angle.
+</div>
+)}
+
+{chatMessages.map((msg, i) => (
+<div
+key={i}
+style={{
+...assistantBubble,
+alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
+opacity: msg.role === "user" ? 1 : 0.9,
+}}
+>
+{msg.content}
+</div>
+))}
+</div>
+
+<div style={assistantInputRow}>
+<input
+value={chatInput}
+onChange={(e) => setChatInput(e.target.value)}
+placeholder="Ask AI to improve this..."
+style={assistantInput}
+onKeyDown={(e) => {
+if (e.key === "Enter") sendChatMessage();
+}}
+/>
+
+<button style={assistantSend} onClick={sendChatMessage}>
+→
+</button>
+</div>
+</section>
+
+
 <nav style={bottomNav}>
 <button style={navActive} onClick={() => router.push("/")}>
 Home
@@ -2040,4 +2154,184 @@ color: "white",
 display: "flex",
 flexDirection: "column",
 gap: 6,
+};
+const studioPanel: CSSProperties = {
+position: "relative",
+zIndex: 2,
+marginTop: 18,
+padding: 18,
+borderRadius: 28,
+background:
+"linear-gradient(180deg, rgba(13,18,28,0.96), rgba(3,5,10,0.98))",
+border: "1px solid rgba(220,235,255,0.14)",
+boxShadow:
+"0 0 35px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.08)",
+};
+
+const studioTop: CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+gap: 12,
+marginBottom: 14,
+};
+
+const studioPill: CSSProperties = {
+display: "inline-flex",
+padding: "7px 11px",
+borderRadius: 999,
+background: "rgba(255,255,255,0.07)",
+border: "1px solid rgba(220,235,255,0.14)",
+color: "#fff",
+fontSize: 11,
+fontWeight: 900,
+letterSpacing: 1.2,
+marginBottom: 8,
+};
+
+const studioTitle: CSSProperties = {
+margin: 0,
+color: "#fff",
+fontSize: 24,
+fontWeight: 950,
+letterSpacing: -1,
+};
+
+const studioText: CSSProperties = {
+margin: "8px 0 0",
+color: "rgba(255,255,255,0.62)",
+fontSize: 14,
+lineHeight: 1.4,
+};
+
+const studioInput: CSSProperties = {
+width: "100%",
+height: 92,
+borderRadius: 22,
+padding: 14,
+background: "rgba(255,255,255,0.055)",
+border: "1px solid rgba(220,235,255,0.12)",
+color: "#fff",
+outline: "none",
+resize: "none",
+fontSize: 15,
+};
+
+const studioButtons: CSSProperties = {
+display: "grid",
+gridTemplateColumns: "1fr 1fr 1fr",
+gap: 10,
+marginTop: 12,
+};
+
+const studioBtn: CSSProperties = {
+border: "1px solid rgba(220,235,255,0.18)",
+borderRadius: 18,
+padding: "13px 8px",
+background: "linear-gradient(135deg,#ffffff,#dce6f5)",
+color: "#05070b",
+fontWeight: 950,
+textAlign: "center",
+};
+
+const premiumAdsSection: CSSProperties = {
+position: "relative",
+zIndex: 2,
+marginTop: 18,
+};
+
+const premiumAdRail: CSSProperties = {
+display: "flex",
+gap: 12,
+overflowX: "auto",
+paddingBottom: 6,
+};
+
+const premiumAdCard: CSSProperties = {
+minWidth: 210,
+height: 265,
+borderRadius: 26,
+overflow: "hidden",
+position: "relative",
+background: "#05070b",
+border: "1px solid rgba(220,235,255,0.12)",
+boxShadow: "0 0 28px rgba(220,235,255,0.10)",
+};
+
+const premiumAdImage: CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "cover",
+};
+
+const premiumAdOverlay: CSSProperties = {
+position: "absolute",
+left: 0,
+right: 0,
+bottom: 0,
+padding: 14,
+background: "linear-gradient(180deg, transparent, rgba(0,0,0,0.92))",
+display: "flex",
+flexDirection: "column",
+gap: 4,
+color: "#fff",
+};
+
+const assistantPanel: CSSProperties = {
+position: "relative",
+zIndex: 2,
+marginTop: 18,
+padding: 18,
+borderRadius: 28,
+background:
+"linear-gradient(180deg, rgba(13,18,28,0.96), rgba(3,5,10,0.98))",
+border: "1px solid rgba(220,235,255,0.14)",
+boxShadow: "0 0 35px rgba(220,235,255,0.10)",
+};
+
+const assistantMessages: CSSProperties = {
+display: "flex",
+flexDirection: "column",
+gap: 10,
+};
+
+const assistantBubble: CSSProperties = {
+maxWidth: "88%",
+padding: 13,
+borderRadius: 18,
+background: "rgba(255,255,255,0.07)",
+border: "1px solid rgba(220,235,255,0.10)",
+color: "#fff",
+fontSize: 14,
+lineHeight: 1.4,
+};
+
+const assistantInputRow: CSSProperties = {
+marginTop: 12,
+display: "flex",
+gap: 10,
+padding: 8,
+borderRadius: 999,
+background: "rgba(255,255,255,0.055)",
+border: "1px solid rgba(220,235,255,0.12)",
+};
+
+const assistantInput: CSSProperties = {
+flex: 1,
+border: "none",
+outline: "none",
+background: "transparent",
+color: "#fff",
+padding: "9px 8px",
+};
+
+const assistantSend: CSSProperties = {
+width: 42,
+height: 42,
+borderRadius: "50%",
+border: "none",
+background: "linear-gradient(135deg,#ffffff,#dce6f5)",
+color: "#05070b",
+fontWeight: 950,
+fontSize: 22,
 };
