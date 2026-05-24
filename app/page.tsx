@@ -1729,7 +1729,7 @@ boxShadow: "0 0 24px rgba(220,235,255,0.45)",
 const aiHero: CSSProperties = {
 position: "relative",
 overflow: "hidden",
-padding: "20px 22px 24px",
+padding: "14px 16px 16px",
 borderRadius: 28,
 background:
 "radial-gradient(circle at top right, rgba(120,170,255,0.16), transparent 38%), linear-gradient(180deg, rgba(13,18,28,0.96), rgba(3,5,10,0.98))",
@@ -1742,7 +1742,7 @@ cursor: "pointer",
 };
 
 const aiTitle: CSSProperties = {
-fontSize: 45,
+fontSize: 32,
 lineHeight: 0.95,
 fontWeight: 950,
 letterSpacing: -2,
@@ -1820,7 +1820,7 @@ alignItems: "center",
 };
 
 const phoneMockup: CSSProperties = {
-height: 135,
+height: 95,
 borderRadius: 24,
 background: "linear-gradient(145deg,#101622,#030407)",
 border: "1px solid rgba(220,235,255,0.22)",
@@ -1841,7 +1841,7 @@ const setupRow: CSSProperties = {
 display: "flex",
 alignItems: "center",
 gap: 9,
-padding: "9px 10px",
+padding: "7px 9px",
 borderBottom: "1px solid rgba(255,255,255,0.07)",
 };
 
