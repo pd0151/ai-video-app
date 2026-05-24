@@ -768,7 +768,7 @@ const move = () => {
 x += 1;
 el.scrollLeft = x;
 
-if (x >= el.scrollWidth / 2) {
+if (x >= el.scrollWidth - el.clientWidth) {
 x = 0;
 el.scrollLeft = 0;
 }
