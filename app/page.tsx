@@ -760,33 +760,22 @@ flexDirection: "row",
 }}
 >
 <div
-ref={(el) => {
-if (!el) return;
-let x = 0;
-
-const move = () => {
-x += 0.4;
-el.scrollLeft = x;
-
-if (x >= el.scrollWidth - el.clientWidth - 10) {
-x = 0;
-el.scrollLeft = 0;
-}
-
-requestAnimationFrame(move);
-};
-
-requestAnimationFrame(move);
+style={{
+overflow: "hidden",
+width: "100%",
 }}
+>
+<div
+className="auto-rail"
 style={{
 display: "flex",
 flexDirection: "row",
 flexWrap: "nowrap",
 gap: 14,
-overflowX: "hidden",
-width: "100%",
+width: "max-content",
+animation: "railMove 40s linear infinite",
 }}
->
+></div>
 {[
 "https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
 "https://videos.pexels.com/video-files/2795405/2795405-uhd_1440_2560_25fps.mp4",
