@@ -570,9 +570,19 @@ animation: greenWave 3s ease-in-out infinite;
 
 .auto-rail {
 display: flex;
+flex-direction: row;
 gap: 14px;
 width: max-content;
-animation: railMove 18s linear infinite;
+animation: railMove 22s linear infinite;
+}
+
+@keyframes railMove {
+from {
+transform: translateX(0);
+}
+to {
+transform: translateX(-50%);
+}
 }
 
 .auto-rail:hover {
@@ -720,7 +730,7 @@ AdForge AI handles calls, captures leads and helps you grow your business
 <b style={liveText}>LIVE</b>
 </div>
 
-<div style={adsScroll}>
+<div style={adsScrollAuto}>
 <div className="auto-rail">
 
 {[
@@ -1384,12 +1394,12 @@ color: WHITE,
 fontWeight: 900,
 };
 
-const adScroller: CSSProperties = {
-overflowX: "auto",
-overflowY: "hidden",
-scrollBehavior: "auto",
-scrollbarWidth: "none",
+const adsScrollAuto: CSSProperties = {
+overflow: "hidden",
+width: "100%",
+marginTop: 10,
 };
+
 
 const adTitle: CSSProperties = {
 fontSize: 15,
