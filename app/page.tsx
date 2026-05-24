@@ -1833,16 +1833,19 @@ const setupPanel: CSSProperties = {
 marginTop: 14,
 borderRadius: 22,
 overflow: "hidden",
-background: "linear-gradient(180deg, rgba(12,16,24,0.92), rgba(3,5,10,0.98))",
-border: "1px solid rgba(220,235,255,0.18)",
+background:
+"linear-gradient(180deg, rgba(12,16,24,0.88), rgba(3,5,10,0.96))",
+border: "1px solid rgba(220,235,255,0.12)",
+boxShadow:
+"0 0 18px rgba(220,235,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
 };
 
 const setupRow: CSSProperties = {
 display: "flex",
 alignItems: "center",
-gap: 9,
-padding: "7px 9px",
-borderBottom: "1px solid rgba(255,255,255,0.07)",
+gap: 10,
+padding: "8px 10px",
+borderBottom: "1px solid rgba(255,255,255,0.05)",
 };
 
 const stepCircle: CSSProperties = {
@@ -1868,20 +1871,19 @@ background: "rgba(255,255,255,0.08)",
 border: "1px solid rgba(220,235,255,0.12)",
 color: "#fff",
 };
-
 const stepTitle: CSSProperties = {
 display: "block",
 color: "#fff",
 fontSize: 14,
-fontWeight: 950,
-marginBottom: 2,
+fontWeight: 900,
+marginBottom: 1,
 };
 
 const stepText: CSSProperties = {
 margin: 0,
-color: "rgba(255,255,255,0.62)",
+color: "rgba(255,255,255,0.58)",
 fontSize: 11,
-lineHeight: 1.25,
+lineHeight: 1.15,
 };
 
 const premiumStats: CSSProperties = {
