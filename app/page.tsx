@@ -581,6 +581,10 @@ animation: greenWave 3s ease-in-out infinite;
 }
 
 .auto-rail {
+display: flex !important;
+flex-direction: row !important;
+flex-wrap: nowrap !important;
+align-items: stretch;
 display: flex;
 flex-direction: row;
 flex-wrap: nowrap;
@@ -748,7 +752,14 @@ AdForge AI handles calls, captures leads and helps you grow your business
 <b style={liveText}>LIVE</b>
 </div>
  
-<div style={{ overflow: "hidden", width: "100%" }}>
+<div
+style={{
+overflow: "hidden",
+width: "100%",
+display: "flex",
+flexDirection: "row",
+}}
+>
 <div className="auto-rail">
 {[
 "https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
