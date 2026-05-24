@@ -581,6 +581,7 @@ animation: railMove 18s linear infinite;
 min-width: 210px;
 flex-shrink: 0;
 }
+
 @keyframes railMove {
 from {
 transform: translateX(0);
@@ -735,7 +736,7 @@ AdForge AI handles calls, captures leads and helps you grow your business
 <b style={liveText}>LIVE</b>
 </div>
  
-<div style={adsScroll}>
+<div style={{ overflow: "hidden", width: "100%" }}>
 <div className="auto-rail">
 {[
 "https://videos.pexels.com/video-files/855450/855450-hd_1080_1920_30fps.mp4",
