@@ -770,8 +770,8 @@ x += 1;
 el.scrollLeft = x;
 
 if (x >= el.scrollWidth - el.clientWidth ) {
-x = 2;
-el.scrollLeft = 2;
+x = 0;
+el.scrollLeft = 0;
 }
 
 requestAnimationFrame(move);
@@ -785,7 +785,7 @@ flexDirection: "row",
 flexWrap: "nowrap",
 gap: 14,
 overflowX: "hidden",
-width: "100%",
+width: "max-content",
 }}
 >
 {[
