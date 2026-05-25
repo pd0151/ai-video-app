@@ -2684,10 +2684,10 @@ animation: "pulseDot 1.5s ease-in-out infinite",
 };
 const realPhone: CSSProperties = {
 position: "absolute",
-right: 24,
-top: 122,
-width: 105,
-height: 175,
+right: 46,
+top: 155,
+width: 88,
+height: 150,
 borderRadius: 30,
 padding: 5,
 background:
