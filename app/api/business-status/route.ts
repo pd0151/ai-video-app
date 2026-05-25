@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -6,8 +6,10 @@ process.env.NEXT_PUBLIC_SUPABASE_URL as string,
 process.env.SUPABASE_SERVICE_ROLE_KEY as string
 );
 
-export async function GET(req: Request) {
-const { searchParams } = new URL(req.url);
+import { NextResponse, NextRequest } from "next/server";
+
+export async function GET(req: NextRequest) {
+const searchParams = req.nextUrl.searchParams;
 const email = searchParams.get("email");
 
 if (!email) {
