@@ -684,44 +684,41 @@ AdForge AI handles calls, captures leads and helps you grow your business
 </p>
 </div>
 
-<div style={premiumPhone}>
-<div style={phoneGlow} />
+<div style={realPhone}>
+<div style={phoneOuterGlow} />
+<div style={phoneNotch} />
 
-<div style={phoneTop}>
-<span style={phoneBrand}>AdForge</span>
-<span style={liveDot} />
-</div>
-
-<div style={waveWrap}>
-<span style={{ ...waveBar, height: 10, animationDelay: "0s" }} />
-<span style={{ ...waveBar, height: 22, animationDelay: "0.12s" }} />
-<span style={{ ...waveBar, height: 15, animationDelay: "0.24s" }} />
-<span style={{ ...waveBar, height: 28, animationDelay: "0.36s" }} />
-<span style={{ ...waveBar, height: 13, animationDelay: "0.48s" }} />
+<div style={phoneScreenInner}>
+<div style={phoneStatusRow}>
+<span style={phoneTime}>LIVE</span>
+<span style={phoneSignal}>●</span>
 </div>
 
-<div style={phoneText}>AI handling call</div>
+<div style={callerCircle}>
+<span>AI</span>
 </div>
-</div>
-<div style={setupPanel}>
-{[
-["01", "Sign up", "Create your AdForge account in less than a minute."],
-["02", "Forward your number", "Forward your business number to AdForge AI."],
-["03", "AI answers every call", "AI speaks naturally, captures job details and qualifies leads 24/7."],
-["04", "Advertise your business", "Create AI adverts, videos and posts that bring more eyes to you."],
-["05", "Get more booked jobs", "Receive WhatsApp + SMS alerts and watch your business grow."],
-].map(([num, title, text]) => (
-<div key={num} style={setupRow}>
-<div style={stepCircle}>{num}</div>
 
-<div style={stepIcon}>●</div>
+<div style={callTitle}>AdForge</div>
+<div style={callSub}>Answering customer call</div>
 
-<div style={{ flex: 1 }}>
-<b style={stepTitle}>{title}</b>
-<p style={stepText}>{text}</p>
+<div style={realWaveWrap}>
+<span style={{ ...realWaveBar, height: 12, animationDelay: "0s" }} />
+<span style={{ ...realWaveBar, height: 26, animationDelay: "0.1s" }} />
+<span style={{ ...realWaveBar, height: 18, animationDelay: "0.2s" }} />
+<span style={{ ...realWaveBar, height: 34, animationDelay: "0.3s" }} />
+<span style={{ ...realWaveBar, height: 20, animationDelay: "0.4s" }} />
+<span style={{ ...realWaveBar, height: 28, animationDelay: "0.5s" }} />
+</div>
+
+<div style={callTimer}>00:18</div>
+
+<div style={callActions}>
+<div style={callButton}>✕</div>
+<div style={callButtonGreen}>✓</div>
 </div>
 </div>
-))}
+</div>
+
 </div>
 
 <div style={premiumStats}>
@@ -2657,4 +2654,165 @@ fontSize: 15,
 fontWeight: 800,
 color: "rgba(255,255,255,0.92)",
 lineHeight: 1.15,
+};
+
+const realPhone: CSSProperties = {
+position: "absolute",
+right: 18,
+top: 135,
+width: 118,
+height: 205,
+borderRadius: 34,
+padding: 6,
+background:
+"linear-gradient(145deg, rgba(255,255,255,0.35), rgba(20,28,46,0.9) 20%, rgba(0,0,0,1) 75%)",
+border: "1px solid rgba(255,255,255,0.28)",
+boxShadow:
+"0 30px 75px rgba(0,0,0,0.8), 0 0 42px rgba(130,170,255,0.35), inset 0 1px 0 rgba(255,255,255,0.35)",
+transform: "rotate(7deg)",
+zIndex: 5,
+overflow: "hidden",
+animation: "phoneFloat 4s ease-in-out infinite",
+};
+
+const phoneOuterGlow: CSSProperties = {
+position: "absolute",
+inset: -18,
+background:
+"radial-gradient(circle at 40% 20%, rgba(207,220,255,0.5), transparent 45%), radial-gradient(circle at 70% 80%, rgba(34,255,127,0.22), transparent 50%)",
+filter: "blur(14px)",
+opacity: 0.9,
+};
+
+const phoneNotch: CSSProperties = {
+position: "absolute",
+top: 8,
+left: "50%",
+transform: "translateX(-50%)",
+width: 42,
+height: 9,
+borderRadius: 999,
+background: "rgba(0,0,0,0.85)",
+zIndex: 4,
+boxShadow: "inset 0 1px 2px rgba(255,255,255,0.18)",
+};
+
+const phoneScreenInner: CSSProperties = {
+position: "relative",
+width: "100%",
+height: "100%",
+borderRadius: 28,
+overflow: "hidden",
+background:
+"radial-gradient(circle at 50% 8%, rgba(207,220,255,0.22), transparent 38%), linear-gradient(180deg, rgba(18,28,50,0.96), rgba(2,6,16,1))",
+border: "1px solid rgba(255,255,255,0.12)",
+padding: "22px 10px 10px",
+boxSizing: "border-box",
+};
+
+const phoneStatusRow: CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+fontSize: 8,
+fontWeight: 900,
+color: "rgba(255,255,255,0.7)",
+};
+
+const phoneTime: CSSProperties = {
+letterSpacing: 1,
+};
+
+const phoneSignal: CSSProperties = {
+color: "#22ff7f",
+textShadow: "0 0 12px rgba(34,255,127,1)",
+animation: "pulseDot 1.5s ease-in-out infinite",
+};
+
+const callerCircle: CSSProperties = {
+width: 42,
+height: 42,
+borderRadius: "50%",
+margin: "14px auto 8px",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+background:
+"linear-gradient(180deg, rgba(255,255,255,0.95), rgba(207,220,255,0.7))",
+color: "#050814",
+fontSize: 15,
+fontWeight: 1000,
+boxShadow: "0 0 28px rgba(207,220,255,0.35)",
+};
+
+const callTitle: CSSProperties = {
+textAlign: "center",
+fontSize: 18,
+fontWeight: 1000,
+color: "white",
+letterSpacing: -0.5,
+};
+
+const callSub: CSSProperties = {
+textAlign: "center",
+marginTop: 4,
+fontSize: 9,
+lineHeight: 1.15,
+color: "rgba(255,255,255,0.62)",
+fontWeight: 700,
+};
+
+const realWaveWrap: CSSProperties = {
+margin: "14px auto 8px",
+height: 36,
+display: "flex",
+justifyContent: "center",
+alignItems: "center",
+gap: 4,
+};
+
+const realWaveBar: CSSProperties = {
+width: 4,
+borderRadius: 999,
+background: "linear-gradient(180deg, #ffffff, #cfdcff, #22ff7f)",
+boxShadow: "0 0 13px rgba(207,220,255,0.75)",
+animation: "waveMove 1s ease-in-out infinite",
+};
+
+const callTimer: CSSProperties = {
+textAlign: "center",
+fontSize: 9,
+fontWeight: 900,
+color: "rgba(255,255,255,0.55)",
+letterSpacing: 1,
+};
+
+const callActions: CSSProperties = {
+position: "absolute",
+left: 12,
+right: 12,
+bottom: 11,
+display: "flex",
+justifyContent: "space-between",
+};
+
+const callButton: CSSProperties = {
+width: 30,
+height: 30,
+borderRadius: "50%",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+background: "rgba(255,255,255,0.12)",
+color: "white",
+fontSize: 13,
+fontWeight: 900,
+border: "1px solid rgba(255,255,255,0.12)",
+};
+
+const callButtonGreen: CSSProperties = {
+...callButton,
+background: "linear-gradient(180deg, #22ff7f, #0fb85b)",
+color: "#041008",
+boxShadow: "0 0 22px rgba(34,255,127,0.65)",
 };
