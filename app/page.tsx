@@ -792,10 +792,10 @@ width: "max-content",
 }}
 >
 {[
-"/images/videos/video-2.mp4",
-"/images/videos/video-2.mp4",
-"/images/videos/video-2.mp4",
-"/images/videos/video-2.mp4",
+"/video-3.mp4",
+"/video-2.mp4",
+"/video-2.mp4",
+"/video-2.mp4",
 ].map((src, i) => (
 <div key={i} style={{ ...premiumAdCard, flex: "0 0 210px" }}>
 <video
