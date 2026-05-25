@@ -685,13 +685,13 @@ AdForge AI handles calls, captures leads and helps you grow your business
 </div>
 
 <div style={realPhone}>
-<div style={phoneOuterGlow} />
+<div style={phoneGlassGlow} />
 <div style={phoneNotch} />
 
 <div style={phoneScreenInner}>
 <div style={phoneStatusRow}>
-<span style={phoneTime}>LIVE</span>
-<span style={phoneSignal}>●</span>
+<span style={phoneLiveText}>LIVE</span>
+<span style={phoneGreenDot} />
 </div>
 
 <div style={callerCircle}>
@@ -702,18 +702,28 @@ AdForge AI handles calls, captures leads and helps you grow your business
 <div style={callSub}>Answering customer call</div>
 
 <div style={realWaveWrap}>
-<span style={{ ...realWaveBar, height: 12, animationDelay: "0s" }} />
-<span style={{ ...realWaveBar, height: 26, animationDelay: "0.1s" }} />
-<span style={{ ...realWaveBar, height: 18, animationDelay: "0.2s" }} />
-<span style={{ ...realWaveBar, height: 34, animationDelay: "0.3s" }} />
-<span style={{ ...realWaveBar, height: 20, animationDelay: "0.4s" }} />
-<span style={{ ...realWaveBar, height: 28, animationDelay: "0.5s" }} />
+<span style={{ ...realWaveBar, height: 10, animationDelay: "0s" }} />
+<span style={{ ...realWaveBar, height: 22, animationDelay: "0.1s" }} />
+<span style={{ ...realWaveBar, height: 14, animationDelay: "0.2s" }} />
+<span style={{ ...realWaveBar, height: 30, animationDelay: "0.3s" }} />
+<span style={{ ...realWaveBar, height: 18, animationDelay: "0.4s" }} />
+<span style={{ ...realWaveBar, height: 24, animationDelay: "0.5s" }} />
 </div>
 
 <div style={callTimer}>00:18</div>
 
+<div style={miniLeadCard}>
+<b>Customer enquiry</b>
+<span>Tyre replacement</span>
+</div>
+
+<div style={miniLeadInfo}>
+<span>Lead captured</span>
+<span>Liverpool, UK</span>
+</div>
+
 <div style={callActions}>
-<div style={callButton}>✕</div>
+<div style={callButton}>×</div>
 <div style={callButtonGreen}>✓</div>
 </div>
 </div>
@@ -2656,68 +2666,12 @@ color: "rgba(255,255,255,0.92)",
 lineHeight: 1.15,
 };
 
-const realPhone: CSSProperties = {
-position: "absolute",
-right: 18,
-top: 135,
-width: 118,
-height: 205,
-borderRadius: 34,
-padding: 6,
-background:
-"linear-gradient(145deg, rgba(255,255,255,0.35), rgba(20,28,46,0.9) 20%, rgba(0,0,0,1) 75%)",
-border: "1px solid rgba(255,255,255,0.28)",
-boxShadow:
-"0 30px 75px rgba(0,0,0,0.8), 0 0 42px rgba(130,170,255,0.35), inset 0 1px 0 rgba(255,255,255,0.35)",
-transform: "rotate(7deg)",
-zIndex: 5,
-overflow: "hidden",
-animation: "phoneFloat 4s ease-in-out infinite",
-};
 
-const phoneOuterGlow: CSSProperties = {
-position: "absolute",
-inset: -18,
-background:
-"radial-gradient(circle at 40% 20%, rgba(207,220,255,0.5), transparent 45%), radial-gradient(circle at 70% 80%, rgba(34,255,127,0.22), transparent 50%)",
-filter: "blur(14px)",
-opacity: 0.9,
-};
 
-const phoneNotch: CSSProperties = {
-position: "absolute",
-top: 8,
-left: "50%",
-transform: "translateX(-50%)",
-width: 42,
-height: 9,
-borderRadius: 999,
-background: "rgba(0,0,0,0.85)",
-zIndex: 4,
-boxShadow: "inset 0 1px 2px rgba(255,255,255,0.18)",
-};
 
-const phoneScreenInner: CSSProperties = {
-position: "relative",
-width: "100%",
-height: "100%",
-borderRadius: 28,
-overflow: "hidden",
-background:
-"radial-gradient(circle at 50% 8%, rgba(207,220,255,0.22), transparent 38%), linear-gradient(180deg, rgba(18,28,50,0.96), rgba(2,6,16,1))",
-border: "1px solid rgba(255,255,255,0.12)",
-padding: "22px 10px 10px",
-boxSizing: "border-box",
-};
 
-const phoneStatusRow: CSSProperties = {
-display: "flex",
-justifyContent: "space-between",
-alignItems: "center",
-fontSize: 8,
-fontWeight: 900,
-color: "rgba(255,255,255,0.7)",
-};
+
+
 
 const phoneTime: CSSProperties = {
 letterSpacing: 1,
@@ -2728,77 +2682,173 @@ color: "#22ff7f",
 textShadow: "0 0 12px rgba(34,255,127,1)",
 animation: "pulseDot 1.5s ease-in-out infinite",
 };
+const realPhone: CSSProperties = {
+position: "absolute",
+right: 24,
+top: 122,
+width: 105,
+height: 175,
+borderRadius: 30,
+padding: 5,
+background:
+"linear-gradient(145deg, rgba(255,255,255,0.45), rgba(35,42,62,0.95) 20%, rgba(0,0,0,1) 78%)",
+border: "1px solid rgba(255,255,255,0.3)",
+boxShadow:
+"0 24px 55px rgba(0,0,0,0.75), 0 0 34px rgba(130,170,255,0.25), inset 0 1px 0 rgba(255,255,255,0.35)",
+transform: "rotate(7deg)",
+zIndex: 5,
+overflow: "hidden",
+animation: "phoneFloat 4s ease-in-out infinite",
+};
+
+const phoneGlassGlow: CSSProperties = {
+position: "absolute",
+inset: -18,
+background:
+"radial-gradient(circle at 45% 20%, rgba(207,220,255,0.45), transparent 42%), radial-gradient(circle at 80% 88%, rgba(34,255,127,0.3), transparent 45%)",
+filter: "blur(13px)",
+opacity: 0.85,
+};
+
+const phoneNotch: CSSProperties = {
+position: "absolute",
+top: 8,
+left: "50%",
+transform: "translateX(-50%)",
+width: 36,
+height: 8,
+borderRadius: 999,
+background: "rgba(0,0,0,0.88)",
+zIndex: 4,
+};
+
+const phoneScreenInner: CSSProperties = {
+position: "relative",
+width: "100%",
+height: "100%",
+borderRadius: 25,
+overflow: "hidden",
+background:
+"radial-gradient(circle at 50% 8%, rgba(207,220,255,0.24), transparent 35%), linear-gradient(180deg, rgba(15,24,46,0.98), rgba(2,5,13,1))",
+border: "1px solid rgba(255,255,255,0.12)",
+padding: "20px 8px 9px",
+boxSizing: "border-box",
+};
+
+const phoneStatusRow: CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+};
+
+const phoneLiveText: CSSProperties = {
+fontSize: 7,
+fontWeight: 900,
+letterSpacing: 1,
+color: "rgba(255,255,255,0.72)",
+};
+
+const phoneGreenDot: CSSProperties = {
+width: 5,
+height: 5,
+borderRadius: "50%",
+background: "#22ff7f",
+boxShadow: "0 0 12px rgba(34,255,127,1)",
+animation: "pulseDot 1.5s ease-in-out infinite",
+};
 
 const callerCircle: CSSProperties = {
-width: 42,
-height: 42,
+width: 34,
+height: 34,
 borderRadius: "50%",
-margin: "14px auto 8px",
+margin: "10px auto 6px",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
 background:
-"linear-gradient(180deg, rgba(255,255,255,0.95), rgba(207,220,255,0.7))",
+"linear-gradient(180deg, rgba(255,255,255,0.96), rgba(207,220,255,0.72))",
 color: "#050814",
-fontSize: 15,
+fontSize: 13,
 fontWeight: 1000,
-boxShadow: "0 0 28px rgba(207,220,255,0.35)",
+boxShadow: "0 0 22px rgba(207,220,255,0.38)",
 };
 
 const callTitle: CSSProperties = {
 textAlign: "center",
-fontSize: 18,
+fontSize: 15,
 fontWeight: 1000,
 color: "white",
-letterSpacing: -0.5,
+letterSpacing: -0.4,
 };
 
 const callSub: CSSProperties = {
 textAlign: "center",
-marginTop: 4,
-fontSize: 9,
-lineHeight: 1.15,
+marginTop: 2,
+fontSize: 7.5,
+lineHeight: 1.1,
 color: "rgba(255,255,255,0.62)",
 fontWeight: 700,
 };
 
 const realWaveWrap: CSSProperties = {
-margin: "14px auto 8px",
-height: 36,
+margin: "9px auto 4px",
+height: 27,
 display: "flex",
 justifyContent: "center",
 alignItems: "center",
-gap: 4,
+gap: 3,
 };
 
 const realWaveBar: CSSProperties = {
-width: 4,
+width: 3,
 borderRadius: 999,
 background: "linear-gradient(180deg, #ffffff, #cfdcff, #22ff7f)",
-boxShadow: "0 0 13px rgba(207,220,255,0.75)",
+boxShadow: "0 0 10px rgba(207,220,255,0.75)",
 animation: "waveMove 1s ease-in-out infinite",
 };
 
 const callTimer: CSSProperties = {
 textAlign: "center",
-fontSize: 9,
+fontSize: 7,
 fontWeight: 900,
 color: "rgba(255,255,255,0.55)",
 letterSpacing: 1,
 };
 
+const miniLeadCard: CSSProperties = {
+marginTop: 6,
+padding: "5px 6px",
+borderRadius: 9,
+background: "rgba(255,255,255,0.07)",
+border: "1px solid rgba(255,255,255,0.08)",
+display: "flex",
+flexDirection: "column",
+gap: 1,
+fontSize: 6.5,
+color: "rgba(255,255,255,0.78)",
+};
+
+const miniLeadInfo: CSSProperties = {
+marginTop: 4,
+display: "flex",
+flexDirection: "column",
+gap: 1,
+fontSize: 6,
+color: "rgba(207,220,255,0.68)",
+};
+
 const callActions: CSSProperties = {
 position: "absolute",
-left: 12,
-right: 12,
-bottom: 11,
+left: 9,
+right: 9,
+bottom: 8,
 display: "flex",
 justifyContent: "space-between",
 };
 
 const callButton: CSSProperties = {
-width: 30,
-height: 30,
+width: 24,
+height: 24,
 borderRadius: "50%",
 display: "flex",
 alignItems: "center",
@@ -2814,5 +2864,18 @@ const callButtonGreen: CSSProperties = {
 ...callButton,
 background: "linear-gradient(180deg, #22ff7f, #0fb85b)",
 color: "#041008",
-boxShadow: "0 0 22px rgba(34,255,127,0.65)",
+boxShadow: "0 0 18px rgba(34,255,127,0.65)",
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
