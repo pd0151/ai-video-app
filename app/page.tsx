@@ -798,7 +798,7 @@ width: "max-content",
 >
 {[
 "/video-3.mp4",
-"/video-2.mp4",
+"/video-2.jpg",
 "/video-2.mp4",
 "/video-2.mp4",
 ].map((src, i) => (
