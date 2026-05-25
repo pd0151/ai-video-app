@@ -2684,8 +2684,8 @@ animation: "pulseDot 1.5s ease-in-out infinite",
 };
 const realPhone: CSSProperties = {
 position: "absolute",
-right: 46,
-top: 155,
+right: 35,
+top: 110,
 width: 88,
 height: 150,
 borderRadius: 30,
@@ -2695,7 +2695,7 @@ background:
 border: "1px solid rgba(255,255,255,0.3)",
 boxShadow:
 "0 24px 55px rgba(0,0,0,0.75), 0 0 34px rgba(130,170,255,0.25), inset 0 1px 0 rgba(255,255,255,0.35)",
-transform: "rotate(7deg)",
+transform: "rotate(4deg)",
 zIndex: 5,
 overflow: "hidden",
 animation: "phoneFloat 4s ease-in-out infinite",
