@@ -677,7 +677,7 @@ Never miss a business
 <br />
 <span style={{ color: "#cfdcff" }}>call again.</span>
 </h2>
-</div>
+
 <p style={aiText}>
 AdForge AI handles calls, captures leads and helps you grow your business
 24/7.
@@ -702,7 +702,7 @@ AdForge AI handles calls, captures leads and helps you grow your business
 
 <div style={phoneText}>AI handling call</div>
 </div>
-
+</div>
 <div style={setupPanel}>
 {[
 ["01", "Sign up", "Create your AdForge account in less than a minute."],
@@ -2580,18 +2580,18 @@ fontSize: 16,
 
 const premiumPhone: CSSProperties = {
 position: "absolute",
-right: 28,
-top: 155,
-width: 145,
-height: 160,
-borderRadius: 34,
+right: 24,
+top: 125,
+width: 135,
+height: 145,
+borderRadius: 32,
 background:
 "linear-gradient(160deg, rgba(255,255,255,0.16), rgba(5,10,22,0.96) 45%, rgba(0,0,0,1))",
 border: "1px solid rgba(255,255,255,0.18)",
 boxShadow:
 "0 25px 70px rgba(0,0,0,0.75), 0 0 45px rgba(125,170,255,0.28), inset 0 1px 0 rgba(255,255,255,0.25)",
 transform: "rotate(7deg)",
-padding: 18,
+padding: 16,
 overflow: "hidden",
 zIndex: 3,
 animation: "phoneFloat 4s ease-in-out infinite",
