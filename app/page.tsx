@@ -429,48 +429,7 @@ return (
 <button onClick={refreshPage} style={refreshBtn}>
 ↻
 </button>
-<style jsx global>{`
-@keyframes scrollAds {
-0% {
-transform: translateX(0);
-}
 
-100% {
-transform: translateX(-50%);
-}
-}
-
-@keyframes premiumFade {
-0% {
-opacity: 0;
-transform: translateY(10px);
-filter: blur(5px);
-}
-}
-
-@keyframes pulseGlow {
-0% {
-transform: scale(0.96);
-box-shadow: 0 0 18px rgba(34,255,127,0.25);
-}
-
-50% {
-transform: scale(1);
-box-shadow: 0 0 35px rgba(34,255,127,0.55);
-}
-
-100% {
-transform: scale(0.96);
-box-shadow: 0 0 18px rgba(34,255,127,0.25);
-}
-}
-100% {
-opacity: 1;
-transform: translateY(0);
-filter: blur(0);
-}
-}
-`}</style>
 
 
 <style jsx global>{`
@@ -718,7 +677,7 @@ Never miss a business
 <br />
 <span style={{ color: "#cfdcff" }}>call again.</span>
 </h2>
-
+</div>
 <p style={aiText}>
 AdForge AI handles calls, captures leads and helps you grow your business
 24/7.
