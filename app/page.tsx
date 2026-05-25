@@ -2685,7 +2685,7 @@ animation: "pulseDot 1.5s ease-in-out infinite",
 const realPhone: CSSProperties = {
 position: "absolute",
 right: 35,
-top: 90,
+top: 70,
 width: 88,
 height: 150,
 borderRadius: 30,
