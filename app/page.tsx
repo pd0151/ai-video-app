@@ -615,7 +615,36 @@ transform: translateX(-50%);
 }
 }
 
+@keyframes phoneFloat {
+0%, 100% {
+transform: rotate(7deg) translateY(0);
+}
+50% {
+transform: rotate(7deg) translateY(-10px);
+}
+}
 
+@keyframes waveMove {
+0%, 100% {
+transform: scaleY(0.45);
+opacity: 0.55;
+}
+50% {
+transform: scaleY(1.25);
+opacity: 1;
+}
+}
+
+@keyframes pulseDot {
+0%, 100% {
+transform: scale(1);
+opacity: 1;
+}
+50% {
+transform: scale(1.5);
+opacity: 0.6;
+}
+}
 
 
 `}</style>
@@ -696,13 +725,23 @@ AdForge AI handles calls, captures leads and helps you grow your business
 </p>
 </div>
 
-<div style={phoneMockup}>
-<div style={phoneScreen}>
-<b>AdForge</b>
-<div style={waveFake} />
-<span>AI Answering...</span>
+<div style={premiumPhone}>
+<div style={phoneGlow} />
+
+<div style={phoneTop}>
+<span style={phoneBrand}>AdForge</span>
+<span style={liveDot} />
 </div>
+
+<div style={waveWrap}>
+<span style={{ ...waveBar, height: 10, animationDelay: "0s" }} />
+<span style={{ ...waveBar, height: 22, animationDelay: "0.12s" }} />
+<span style={{ ...waveBar, height: 15, animationDelay: "0.24s" }} />
+<span style={{ ...waveBar, height: 28, animationDelay: "0.36s" }} />
+<span style={{ ...waveBar, height: 13, animationDelay: "0.48s" }} />
 </div>
+
+<div style={phoneText}>AI handling call</div>
 </div>
 
 <div style={setupPanel}>
@@ -2577,4 +2616,86 @@ background: "linear-gradient(135deg,#ffffff,#dce6f5)",
 color: "#05070b",
 fontWeight: 950,
 fontSize: 16,
+};
+
+
+const premiumPhone: CSSProperties = {
+position: "absolute",
+right: 28,
+top: 155,
+width: 145,
+height: 160,
+borderRadius: 34,
+background:
+"linear-gradient(160deg, rgba(255,255,255,0.16), rgba(5,10,22,0.96) 45%, rgba(0,0,0,1))",
+border: "1px solid rgba(255,255,255,0.18)",
+boxShadow:
+"0 25px 70px rgba(0,0,0,0.75), 0 0 45px rgba(125,170,255,0.28), inset 0 1px 0 rgba(255,255,255,0.25)",
+transform: "rotate(7deg)",
+padding: 18,
+overflow: "hidden",
+zIndex: 3,
+animation: "phoneFloat 4s ease-in-out infinite",
+};
+
+const phoneGlow: CSSProperties = {
+position: "absolute",
+inset: -30,
+background:
+"radial-gradient(circle at 50% 25%, rgba(170,205,255,0.45), transparent 45%)",
+filter: "blur(14px)",
+opacity: 0.75,
+};
+
+const phoneTop: CSSProperties = {
+position: "relative",
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+zIndex: 2,
+};
+
+const phoneBrand: CSSProperties = {
+fontSize: 22,
+fontWeight: 900,
+color: "white",
+letterSpacing: -0.6,
+};
+
+const liveDot: CSSProperties = {
+width: 9,
+height: 9,
+borderRadius: "50%",
+background: "#22ff7f",
+boxShadow: "0 0 18px rgba(34,255,127,0.9)",
+animation: "pulseDot 1.5s ease-in-out infinite",
+};
+
+const phoneWaveWrap: CSSProperties = {
+position: "relative",
+zIndex: 2,
+marginTop: 28,
+height: 42,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+gap: 7,
+};
+
+const waveBar: CSSProperties = {
+width: 7,
+borderRadius: 999,
+background: "linear-gradient(180deg, #ffffff, #9fb8ff)",
+boxShadow: "0 0 16px rgba(160,190,255,0.8)",
+animation: "waveMove 1s ease-in-out infinite",
+};
+
+const phoneText: CSSProperties = {
+position: "relative",
+zIndex: 2,
+marginTop: 16,
+fontSize: 15,
+fontWeight: 800,
+color: "rgba(255,255,255,0.92)",
+lineHeight: 1.15,
 };
