@@ -202,9 +202,9 @@ display: "flex",
 flexDirection: "column",
 gap: 16,
 color: "white",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.2)",
+border: "1px solid rgba(220,235,255,0.22)",
 boxShadow:
-"0 0 70px rgba(rgba(220,235,255,0,22),0.1), 0 24px 90px rgba(0,0,0,0.65)",
+"0 0 18px rgba(220,235,255,0.22), 0 0 44px rgba(120,160,255,0.14), 0 24px 90px rgba(0,0,0,0.65)",
 };
 
 const badge: React.CSSProperties = {
@@ -248,7 +248,7 @@ const activeTab: React.CSSProperties = {
 ...tab,
 background: "linear-gradient(135deg, #FFFFFF, #7dff9e)",
 color: "#001b0b",
-boxShadow: "0 0 30px rgba(rgba(220,235,255,0,22),0.25)",
+boxShadow: "0 0 18px rgba(220,235,255,0.22), 0 0 44px rgba(120,160,255,0.14)",
 };
 
 const inputStyle: React.CSSProperties = {
@@ -271,7 +271,7 @@ color: "#001b0b",
 fontSize: 22,
 fontWeight: 950,
 cursor: "pointer",
-boxShadow: "0 0 35px rgba(rgba(220,235,255,0,22),0.35)",
+boxShadow: "0 0 18px rgba(220,235,255,0.22), 0 0 44px rgba(120,160,255,0.14)",
 };
 
 const forgotBtn: React.CSSProperties = {
