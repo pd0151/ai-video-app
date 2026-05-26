@@ -111,26 +111,17 @@ return "Not given";
 function extractTyreSize(transcript: string) {
 const lower = transcript.toLowerCase();
 
-const tyreArea =
-lower.match(/tyre size.{0,120}/i)?.[0] ||
-lower.match(/tire size.{0,120}/i)?.[0] ||
-lower.match(/size is.{0,120}/i)?.[0] ||
-lower.match(/it is.{0,120}/i)?.[0] ||
-lower;
-
-const normal = wordsToDigits(tyreArea)
-.replace(/fifty\s*five/g, "55")
-.replace(/sixteen/g, "16")
-.replace(/seventeen/g, "17")
-.replace(/eighteen/g, "18")
-.replace(/nineteen/g, "19")
+const converted = wordsToDigits(lower)
+.replace(/r\s+/g, "r")
 .replace(/\s+/g, "");
 
-const found = normal.match(/(\d{3})\/?(\d{2})r?(\d{2})/i);
+const found =
+converted.match(/(\d{3})\/?(\d{2})r?(\d{2})/i) ||
+converted.match(/(\d{3})(\d{2})(\d{2})/i);
 
 if (!found) return "Not given";
 
-return `${found[1]}/${found[2]}/${found[3]}`;
+return `${found[1]}/${found[2]}R${found[3]}`;
 }
 
 function extractPostcode(transcript: string) {
