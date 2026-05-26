@@ -181,10 +181,19 @@ Forgot password?
 );
 }
 
+const xeonBorder = "1px solid rgba(220,235,255,0.28)";
+const xeonGlow =
+"0 0 3px rgba(255,255,255,0.55), 0 0 22px rgba(220,235,255,0.28), 0 0 60px rgba(120,160,255,0.16)";
+const xeonGlowStrong =
+"0 0 6px rgba(255,255,255,0.85), 0 0 30px rgba(220,235,255,0.45), 0 0 75px rgba(120,160,255,0.22)";
+const glassBg = "rgba(8,12,22,0.78)";
+const cardBg = "rgba(10,14,24,0.92)";
+const whiteBtn = "linear-gradient(180deg,#ffffff,#eaf0ff)";
+
 const page: React.CSSProperties = {
 minHeight: "100vh",
 background:
-"radial-gradient(circle at top, #063b1f 0%, #03100c 42%, #020204 100%)",
+"radial-gradient(circle at 72% 0%, rgba(220,235,255,0.10), transparent 34%), radial-gradient(circle at 28% 35%, rgba(120,160,255,0.10), transparent 32%), #05070d",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
@@ -195,16 +204,16 @@ fontFamily: "Inter, Arial, sans-serif",
 const card: React.CSSProperties = {
 width: "100%",
 maxWidth: 460,
-background: "rgba(2,20,12,0.88)",
+background: cardBg,
 padding: 28,
 borderRadius: 28,
 display: "flex",
 flexDirection: "column",
 gap: 16,
 color: "white",
-border: "1px solid rgba(220,235,255,0.22)",
-boxShadow:
-"0 0 18px rgba(220,235,255,0.22), 0 0 44px rgba(120,160,255,0.14), 0 24px 90px rgba(0,0,0,0.65)",
+border: xeonBorder,
+boxShadow: xeonGlowStrong,
+backdropFilter: "blur(18px)",
 };
 
 const badge: React.CSSProperties = {
@@ -236,55 +245,65 @@ const tab: React.CSSProperties = {
 flex: 1,
 height: 58,
 borderRadius: 18,
-border: "1px solid rgba(rgba(220,235,255,0,22),0.14)",
+border: xeonBorder,
 fontSize: 21,
 fontWeight: 900,
 cursor: "pointer",
-background: "rgba(0,0,0,0.32)",
+background: glassBg,
 color: "white",
+boxShadow: xeonGlow,
 };
 
 const activeTab: React.CSSProperties = {
 ...tab,
-background: "linear-gradient(135deg, #FFFFFF, #7dff9e)",
-color: "#001b0b",
-boxShadow: "0 0 18px rgba(220,235,255,0.22), 0 0 44px rgba(120,160,255,0.14)",
+background: whiteBtn,
+color: "#05070d",
+boxShadow: xeonGlowStrong,
 };
 
 const inputStyle: React.CSSProperties = {
 height: 58,
 borderRadius: 18,
-border: "1px solid rgba(rgba(220,235,255,0,22),0.2)",
+border: xeonBorder,
 padding: "0 18px",
 fontSize: 18,
 outline: "none",
-background: "rgba(0,0,0,0.35)",
+background: glassBg,
 color: "white",
+boxShadow: xeonGlow,
 };
 
 const submitBtn: React.CSSProperties = {
 height: 60,
 borderRadius: 18,
-border: "none",
-background: "linear-gradient(135deg, #FFFFFF, #7dff9e)",
-color: "#001b0b",
+border: "1px solid rgba(255,255,255,0.78)",
+background: whiteBtn,
+color: "#05070d",
 fontSize: 22,
 fontWeight: 950,
 cursor: "pointer",
-boxShadow: "0 0 18px rgba(220,235,255,0.22), 0 0 44px rgba(120,160,255,0.14)",
+boxShadow: xeonGlowStrong,
 };
 
 const forgotBtn: React.CSSProperties = {
 background: "transparent",
-border: "none",
-color: "#FFFFFF",
+border: xeonBorder,
+color: "#ffffff",
 fontWeight: 900,
 fontSize: 16,
 cursor: "pointer",
+borderRadius: 14,
+padding: "12px 16px",
+boxShadow: xeonGlow,
 };
 
 const messageBox: React.CSSProperties = {
 fontSize: 16,
 fontWeight: 800,
-color: "#FFFFFF",
+color: "#ffffff",
+background: glassBg,
+border: xeonBorder,
+borderRadius: 14,
+padding: 12,
+boxShadow: xeonGlow,
 };
