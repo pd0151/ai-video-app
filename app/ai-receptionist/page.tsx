@@ -532,16 +532,26 @@ return (
 </div>
 );
 }
-const green = "#FFFFFF";
-const darkGreen = "#16a34a";
+const green = "#ffffff";
+const darkGreen = "#eaf0ff";
+
+const xeonBorder = "1px solid rgba(220,235,255,0.28)";
+const xeonGlow =
+"0 0 3px rgba(255,255,255,0.55), 0 0 22px rgba(220,235,255,0.28), 0 0 60px rgba(120,160,255,0.16)";
+const xeonGlowStrong =
+"0 0 6px rgba(255,255,255,0.85), 0 0 30px rgba(220,235,255,0.45), 0 0 75px rgba(120,160,255,0.22)";
+const glassBg = "rgba(8,12,22,0.78)";
+const cardBg = "rgba(10,14,24,0.92)";
+const whiteBtn = "linear-gradient(180deg,#ffffff,#eaf0ff)";
 
 const progressWrap: React.CSSProperties = {
 marginBottom: 20,
 padding: 16,
 borderRadius: 20,
-background: "rgba(0,0,0,0.38)",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.20)",
-boxShadow: "0 0 30px rgba(rgba(220,235,255,0,22),0.08)",
+background: cardBg,
+border: xeonBorder,
+boxShadow: xeonGlow,
+backdropFilter: "blur(16px)",
 };
 
 const progressTop: React.CSSProperties = {
@@ -558,14 +568,15 @@ height: 10,
 borderRadius: 999,
 background: "rgba(255,255,255,0.08)",
 overflow: "hidden",
+border: xeonBorder,
 };
 
 const progressBar: React.CSSProperties = {
 height: "100%",
 borderRadius: 999,
-background: `linear-gradient(90deg,${green},${darkGreen})`,
+background: whiteBtn,
 transition: "width 1s ease",
-boxShadow: "0 0 22px rgba(rgba(220,235,255,0,22),0.75)",
+boxShadow: xeonGlowStrong,
 };
 
 const page: React.CSSProperties = {
@@ -574,7 +585,7 @@ padding: "86px 18px 155px",
 color: "white",
 fontFamily: "Inter, Arial, sans-serif",
 background:
-"radial-gradient(circle at top,#081812 0%,#03100c 35%,#020204 100%)",
+"radial-gradient(circle at 72% 0%, rgba(220,235,255,0.10), transparent 34%), radial-gradient(circle at 28% 35%, rgba(120,160,255,0.10), transparent 32%), #05070d",
 overflowX: "hidden",
 };
 
@@ -585,13 +596,14 @@ left: 18,
 width: 46,
 height: 46,
 borderRadius: 15,
-border: "1px solid rgba(rgba(220,235,255,0,22),0.22)",
-background: "rgba(0,0,0,0.35)",
+border: xeonBorder,
+background: glassBg,
 backdropFilter: "blur(16px)",
 color: "white",
 fontSize: 34,
 lineHeight: 0,
 zIndex: 30,
+boxShadow: xeonGlow,
 };
 
 const hero: React.CSSProperties = {
@@ -602,9 +614,9 @@ padding: 16,
 marginBottom: 14,
 minHeight: 525,
 background:
-"radial-gradient(circle at 78% 34%, rgba(rgba(220,235,255,0,22),0.18), transparent 34%), linear-gradient(145deg, rgba(4,28,18,0.92), rgba(0,0,0,0.96))",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.42)",
-boxShadow: "0 0 38px rgba(rgba(220,235,255,0,22),0.10)",
+"radial-gradient(circle at 78% 34%, rgba(220,235,255,0.12), transparent 34%), linear-gradient(145deg, rgba(10,14,24,0.96), rgba(0,0,0,0.98))",
+border: xeonBorder,
+boxShadow: xeonGlowStrong,
 overflow: "hidden",
 };
 
@@ -622,12 +634,13 @@ alignItems: "center",
 gap: 7,
 padding: "8px 12px",
 borderRadius: 999,
-background: "rgba(rgba(220,235,255,0,22),0.08)",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.18)",
+background: glassBg,
+border: xeonBorder,
 color: green,
 fontSize: 12,
 fontWeight: 950,
 whiteSpace: "nowrap",
+boxShadow: xeonGlow,
 };
 
 const onlinePill: React.CSSProperties = {
@@ -636,27 +649,28 @@ alignItems: "center",
 gap: 8,
 padding: "8px 12px",
 borderRadius: 999,
-background: "rgba(0,0,0,0.55)",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.22)",
+background: glassBg,
+border: xeonBorder,
 fontSize: 12,
 fontWeight: 950,
 whiteSpace: "nowrap",
+boxShadow: xeonGlow,
 };
 
 const greenDot: React.CSSProperties = {
 width: 8,
 height: 8,
 borderRadius: "50%",
-background: green,
-boxShadow: "0 0 12px rgba(rgba(220,235,255,0,22),0.9)",
+background: "#ffffff",
+boxShadow: "0 0 14px rgba(220,235,255,0.9)",
 };
 
 const bigGreenDot: React.CSSProperties = {
 width: 17,
 height: 17,
 borderRadius: "50%",
-background: `linear-gradient(135deg,${green},${darkGreen})`,
-boxShadow: "0 0 18px rgba(rgba(220,235,255,0,22),0.85)",
+background: whiteBtn,
+boxShadow: "0 0 18px rgba(220,235,255,0.85)",
 };
 
 const heroInner: React.CSSProperties = {
@@ -681,7 +695,8 @@ fontWeight: 950,
 const titlePurple: React.CSSProperties = {
 display: "block",
 marginTop: 6,
-color: green,
+color: "#ffffff",
+textShadow: "0 0 18px rgba(220,235,255,0.45)",
 };
 
 const setupBox: React.CSSProperties = {
@@ -691,11 +706,12 @@ gap: 8,
 marginTop: 14,
 padding: "8px 12px",
 borderRadius: 14,
-background: "rgba(rgba(220,235,255,0,22),0.08)",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.22)",
+background: glassBg,
+border: xeonBorder,
 fontWeight: 900,
 fontSize: 13,
 maxWidth: 270,
+boxShadow: xeonGlow,
 };
 
 const tickBox: React.CSSProperties = {
@@ -705,9 +721,10 @@ minWidth: 24,
 borderRadius: 7,
 display: "grid",
 placeItems: "center",
-background: `linear-gradient(135deg,${green},${darkGreen})`,
-color: "#04140c",
+background: whiteBtn,
+color: "#05070d",
 fontWeight: 950,
+boxShadow: xeonGlow,
 };
 
 const subText: React.CSSProperties = {
@@ -723,7 +740,7 @@ position: "absolute",
 width: 232,
 height: 232,
 borderRadius: "50%",
-background: "radial-gradient(circle, rgba(rgba(220,235,255,0,22),0.55), transparent 66%)",
+background: "radial-gradient(circle, rgba(220,235,255,0.35), transparent 66%)",
 filter: "blur(14px)",
 opacity: 0.82,
 };
@@ -750,7 +767,7 @@ top: 70,
 width: 185,
 height: 185,
 borderRadius: "50%",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.16)",
+border: xeonBorder,
 };
 
 const robotOrbitTwo: React.CSSProperties = {
@@ -760,8 +777,8 @@ bottom: 28,
 width: 168,
 height: 44,
 borderRadius: "50%",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.42)",
-boxShadow: "0 0 26px rgba(rgba(220,235,255,0,22),0.22)",
+border: xeonBorder,
+boxShadow: xeonGlow,
 };
 
 const headsetBand: React.CSSProperties = {
@@ -770,8 +787,9 @@ top: 35,
 width: 150,
 height: 118,
 borderRadius: "70px 70px 22px 22px",
-borderTop: `9px solid ${green}`,
+borderTop: "9px solid #ffffff",
 zIndex: 4,
+filter: "drop-shadow(0 0 16px rgba(220,235,255,0.55))",
 };
 
 const robotHead: React.CSSProperties = {
@@ -779,9 +797,9 @@ position: "relative",
 width: 130,
 height: 110,
 borderRadius: 34,
-background: "linear-gradient(145deg,#06120d,#020617)",
-border: `5px solid ${green}`,
-boxShadow: "0 0 38px rgba(rgba(220,235,255,0,22),0.52)",
+background: "linear-gradient(145deg,#101827,#020617)",
+border: "5px solid #ffffff",
+boxShadow: xeonGlowStrong,
 zIndex: 5,
 };
 
@@ -792,8 +810,8 @@ left: 34,
 width: 18,
 height: 18,
 borderRadius: "50%",
-background: "#5eead4",
-boxShadow: "0 0 18px #5eead4",
+background: "#ffffff",
+boxShadow: "0 0 18px rgba(220,235,255,0.9)",
 };
 
 const eyeRight: React.CSSProperties = {
@@ -809,7 +827,7 @@ bottom: 25,
 width: 34,
 height: 16,
 transform: "translateX(-50%)",
-borderBottom: "5px solid #5eead4",
+borderBottom: "5px solid #ffffff",
 borderRadius: "0 0 30px 30px",
 };
 
@@ -818,10 +836,11 @@ position: "absolute",
 width: 26,
 height: 64,
 borderRadius: 18,
-background: `linear-gradient(${green},${darkGreen})`,
+background: whiteBtn,
 left: 30,
 top: 93,
 zIndex: 6,
+boxShadow: xeonGlow,
 };
 
 const earRight: React.CSSProperties = {
@@ -835,10 +854,11 @@ position: "absolute",
 width: 56,
 height: 8,
 borderRadius: 999,
-background: green,
+background: "#ffffff",
 right: 22,
 top: 156,
 zIndex: 7,
+boxShadow: xeonGlow,
 };
 
 const robotBody: React.CSSProperties = {
@@ -847,8 +867,9 @@ width: 108,
 height: 66,
 bottom: 49,
 borderRadius: "50px 50px 32px 32px",
-background: `linear-gradient(145deg,${green},${darkGreen})`,
+background: whiteBtn,
 zIndex: 3,
+boxShadow: xeonGlow,
 };
 
 const baseRing: React.CSSProperties = {
@@ -857,7 +878,7 @@ bottom: 34,
 width: 122,
 height: 29,
 borderRadius: "50%",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.22)",
+border: xeonBorder,
 };
 
 const ambientOne: React.CSSProperties = {
@@ -865,7 +886,7 @@ position: "absolute",
 width: 320,
 height: 320,
 borderRadius: "50%",
-background: "radial-gradient(circle, rgba(rgba(220,235,255,0,22),0.18), transparent 70%)",
+background: "radial-gradient(circle, rgba(220,235,255,0.16), transparent 70%)",
 top: -80,
 right: -60,
 filter: "blur(20px)",
@@ -878,13 +899,14 @@ position: "absolute",
 width: 260,
 height: 260,
 borderRadius: "50%",
-background: "radial-gradient(circle, rgba(rgba(220,235,255,0,22),0.12), transparent 70%)",
+background: "radial-gradient(circle, rgba(120,160,255,0.12), transparent 70%)",
 bottom: 40,
 left: -100,
 filter: "blur(24px)",
 animation: "ambientGlow 9s ease-in-out infinite reverse",
 pointerEvents: "none",
 };
+
 const featureGrid: React.CSSProperties = {
 position: "absolute",
 left: 16,
@@ -899,10 +921,9 @@ const featureCard: React.CSSProperties = {
 minHeight: 88,
 padding: "10px 6px",
 borderRadius: 16,
-background: "rgba(0,0,0,0.42)",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.12)",
-boxShadow:
-"0 0 18px rgba(rgba(220,235,255,0,22),0.08), inset 0 1px 0 rgba(255,255,255,0.03)",
+background: glassBg,
+border: xeonBorder,
+boxShadow: xeonGlow,
 textAlign: "center",
 backdropFilter: "blur(10px)",
 };
@@ -938,11 +959,9 @@ position: "relative",
 minHeight: 102,
 padding: 12,
 borderRadius: 20,
-background:
-"linear-gradient(180deg, rgba(0,0,0,0.92), rgba(5,25,15,0.92))",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.14)",
-boxShadow:
-"0 0 26px rgba(rgba(220,235,255,0,22),0.08), inset 0 1px 0 rgba(255,255,255,0.04)",
+background: cardBg,
+border: xeonBorder,
+boxShadow: xeonGlow,
 backdropFilter: "blur(14px)",
 };
 
@@ -955,9 +974,11 @@ height: 34,
 display: "grid",
 placeItems: "center",
 borderRadius: 10,
-background: "rgba(rgba(220,235,255,0,22),0.12)",
+background: glassBg,
+border: xeonBorder,
 color: green,
 fontSize: 18,
+boxShadow: xeonGlow,
 };
 
 const statValue: React.CSSProperties = {
@@ -987,8 +1008,9 @@ gap: 8,
 marginBottom: 14,
 padding: 13,
 borderRadius: 20,
-background: "rgba(0,0,0,0.42)",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.12)",
+background: cardBg,
+border: xeonBorder,
+boxShadow: xeonGlow,
 backdropFilter: "blur(14px)",
 };
 
@@ -1018,7 +1040,7 @@ fontWeight: 950,
 
 const purpleNumber: React.CSSProperties = {
 margin: "4px 0",
-color: "#86efac",
+color: "#ffffff",
 fontSize: 17,
 fontWeight: 950,
 };
@@ -1034,12 +1056,14 @@ margin: 0,
 color: green,
 fontSize: 11,
 };
+
 const panel: React.CSSProperties = {
 borderRadius: 22,
 padding: 16,
-background: "rgba(0,0,0,0.42)",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.14)",
-boxShadow: "0 0 24px rgba(rgba(220,235,255,0,22),0.08)",
+background: cardBg,
+border: xeonBorder,
+boxShadow: xeonGlow,
+backdropFilter: "blur(16px)",
 };
 
 const panelHeader: React.CSSProperties = {
@@ -1060,23 +1084,25 @@ fontWeight: 900,
 };
 
 const lockBox: React.CSSProperties = {
-background: "rgba(0,0,0,0.35)",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.16)",
+background: glassBg,
+border: xeonBorder,
 borderRadius: 18,
 padding: 18,
 marginTop: 16,
 marginBottom: 16,
 textAlign: "center",
+boxShadow: xeonGlow,
 };
 
 const upgradeBtn: React.CSSProperties = {
 padding: 16,
 borderRadius: 18,
-border: "1px solid rgba(rgba(220,235,255,0,22),0.25)",
-background: "linear-gradient(90deg,#FFFFFF,#16a34a)",
-color: "#04140c",
+border: "1px solid rgba(255,255,255,0.78)",
+background: whiteBtn,
+color: "#05070d",
 fontWeight: 900,
 fontSize: 16,
+boxShadow: xeonGlowStrong,
 };
 
 const empty: React.CSSProperties = {
@@ -1087,14 +1113,13 @@ fontSize: 17,
 const leadCard: React.CSSProperties = {
 position: "relative",
 overflow: "hidden",
-background:
-"linear-gradient(145deg, rgba(0,0,0,0.96), rgba(5,30,18,0.94))",
-border: "1px solid rgba(rgba(220,235,255,0,22),0.18)",
+background: cardBg,
+border: xeonBorder,
 borderRadius: 28,
 padding: 18,
 marginTop: 16,
-boxShadow:
-"0 0 22px rgba(rgba(220,235,255,0,22),0.08), inset 0 1px 0 rgba(255,255,255,0.03)",
+boxShadow: xeonGlow,
+backdropFilter: "blur(14px)",
 };
 
 const leadTop: React.CSSProperties = {
@@ -1117,22 +1142,24 @@ margin: "4px 0 0",
 };
 
 const statusBadge: React.CSSProperties = {
-background: "rgba(rgba(220,235,255,0,22),0.12)",
+background: glassBg,
 color: green,
 padding: "9px 13px",
 borderRadius: 999,
 fontSize: 11,
 fontWeight: 950,
-boxShadow: "0 0 18px rgba(rgba(220,235,255,0,22),0.18)",
+border: xeonBorder,
+boxShadow: xeonGlow,
 };
 
 const infoBox: React.CSSProperties = {
 marginTop: 16,
-background: "rgba(0,0,0,0.22)",
+background: glassBg,
 padding: 16,
 borderRadius: 20,
 lineHeight: 1.65,
-border: "1px solid rgba(rgba(220,235,255,0,22),0.08)",
+border: xeonBorder,
+boxShadow: xeonGlow,
 };
 
 const leadButtons: React.CSSProperties = {
@@ -1145,22 +1172,25 @@ marginTop: 14,
 const callBtn: React.CSSProperties = {
 padding: 15,
 borderRadius: 16,
-background: "linear-gradient(90deg,#FFFFFF,#16a34a)",
-color: "#04140c",
+background: whiteBtn,
+color: "#05070d",
 textDecoration: "none",
 textAlign: "center",
 fontWeight: 900,
+border: "1px solid rgba(255,255,255,0.78)",
+boxShadow: xeonGlow,
 };
 
 const waBtn: React.CSSProperties = {
 padding: 14,
 borderRadius: 16,
-background: "rgba(255,255,255,0.08)",
+background: glassBg,
 color: "white",
 textDecoration: "none",
 textAlign: "center",
 fontWeight: 900,
-border: "1px solid rgba(rgba(220,235,255,0,22),0.16)",
+border: xeonBorder,
+boxShadow: xeonGlow,
 };
 
 const statusRow: React.CSSProperties = {
@@ -1173,22 +1203,24 @@ marginTop: 12,
 const smallBtn: React.CSSProperties = {
 padding: "8px 6px",
 borderRadius: 12,
-border: "1px solid rgba(rgba(220,235,255,0,22),0.16)",
-background: "rgba(255,255,255,0.05)",
+border: xeonBorder,
+background: glassBg,
 color: "white",
 fontWeight: 800,
 fontSize: 12,
+boxShadow: xeonGlow,
 };
+
 const testButton: React.CSSProperties = {
 marginTop: 18,
 width: 205,
 maxWidth: "100%",
 padding: "15px 16px",
 borderRadius: 15,
-border: "none",
-background: "linear-gradient(90deg,#FFFFFF,#16a34a)",
-color: "#04140c",
+border: "1px solid rgba(255,255,255,0.78)",
+background: whiteBtn,
+color: "#05070d",
 fontSize: 16,
 fontWeight: 950,
-boxShadow: "0 16px 35px rgba(rgba(220,235,255,0,22),0.18)",
+boxShadow: xeonGlowStrong,
 };
