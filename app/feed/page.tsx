@@ -570,7 +570,7 @@ const content: React.CSSProperties = {
 position: "absolute",
 left: 20,
 right: 96,
-bottom: 34,
+bottom: 72,
 zIndex: 5,
 };
 
@@ -633,7 +633,7 @@ boxShadow: xeonGlow,
 const rightActions: React.CSSProperties = {
 position: "absolute",
 right: 16,
-bottom: 110,
+bottom: 150,
 zIndex: 7,
 display: "flex",
 flexDirection: "column",
