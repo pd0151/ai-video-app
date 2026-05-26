@@ -23,6 +23,13 @@ tyre_size?: string | null;
 issue?: string | null;
 };
 
+
+function getJobValue(job: string | null, label: string) {
+if (!job) return "";
+
+const match = job.match(new RegExp(`${label}:\\s*([^\\n]+)`, "i"));
+return match?.[1]?.trim() || "";
+}
 export default function AIReceptionistPage() {
 const router = useRouter();
 
@@ -475,9 +482,9 @@ return (
 </div>
 
 <div style={infoBox}>
-<p><b>👤 Customer:</b> {lead.name || "Not provided"}</p>
-<p><b>🚗 Vehicle:</b> {lead.vehicle || "Not provided"}</p>
-<p><b>🛞 Tyre size:</b> {lead.tyre_size || "Not provided"}</p>
+<p><b>👤 Customer:</b> {lead.name || getJobValue(lead.job, "Name") || "Not provided"}</p>
+<p><b>🚗 Vehicle:</b> {lead.vehicle || getJobValue(lead.job, "Vehicle") || "Not provided"}</p>
+<p><b>🛞 Tyre size:</b> {lead.tyre_size || getJobValue(lead.job, "Tyre size") || "Not provided"}</p>
 <p>
 <b>⚠️ Issue:</b>{" "}
 {lead.issue || lead.job?.split("Phone:")[0] || "No details"}
