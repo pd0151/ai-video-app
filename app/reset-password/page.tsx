@@ -61,7 +61,7 @@ style={{
 width: "100%",
 padding: 18,
 borderRadius: 16,
-border: "1px solid rgba(34,255,127,0.35)",
+border: "1px solid rgba(rgba(220,235,255,0,22),0.35)",
 background: "#020b08",
 color: "white",
 fontSize: 18,

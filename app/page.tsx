@@ -465,8 +465,8 @@ transform: translateY(0px);
 
 
 @keyframes pulseGlow {
-0%, 100% { box-shadow: 0 0 24px rgba(34,255,127,0.25); }
-50% { box-shadow: 0 0 48px rgba(34,255,127,0.55); }
+0%, 100% { box-shadow: 0 0 24px rgba(rgba(220,235,255,0,22),0.25); }
+50% { box-shadow: 0 0 48px rgba(rgba(220,235,255,0,22),0.55); }
 }
 
 
@@ -2632,8 +2632,8 @@ const liveDot: CSSProperties = {
 width: 9,
 height: 9,
 borderRadius: "50%",
-background: "#22ff7f",
-boxShadow: "0 0 18px rgba(34,255,127,0.9)",
+background: "#ffffff",
+boxShadow: "0 0 18px rgba(rgba(220,235,255,0,22),0.9)",
 animation: "pulseDot 1.5s ease-in-out infinite",
 };
 
@@ -2678,8 +2678,8 @@ letterSpacing: 1,
 };
 
 const phoneSignal: CSSProperties = {
-color: "#22ff7f",
-textShadow: "0 0 12px rgba(34,255,127,1)",
+color: "#ffffff",
+textShadow: "0 0 12px rgba(rgba(220,235,255,0,22),1)",
 animation: "pulseDot 1.5s ease-in-out infinite",
 };
 const realPhone: CSSProperties = {
@@ -2705,7 +2705,7 @@ const phoneGlassGlow: CSSProperties = {
 position: "absolute",
 inset: -18,
 background:
-"radial-gradient(circle at 45% 20%, rgba(207,220,255,0.45), transparent 42%), radial-gradient(circle at 80% 88%, rgba(34,255,127,0.3), transparent 45%)",
+"radial-gradient(circle at 45% 20%, rgba(207,220,255,0.45), transparent 42%), radial-gradient(circle at 80% 88%, rgba(rgba(220,235,255,0,22),0.3), transparent 45%)",
 filter: "blur(13px)",
 opacity: 0.85,
 };
@@ -2752,8 +2752,8 @@ const phoneGreenDot: CSSProperties = {
 width: 5,
 height: 5,
 borderRadius: "50%",
-background: "#22ff7f",
-boxShadow: "0 0 12px rgba(34,255,127,1)",
+background: "#ffffff",
+boxShadow: "0 0 12px rgba(rgba(220,235,255,0,22),1)",
 animation: "pulseDot 1.5s ease-in-out infinite",
 };
 
@@ -2802,7 +2802,7 @@ gap: 3,
 const realWaveBar: CSSProperties = {
 width: 3,
 borderRadius: 999,
-background: "linear-gradient(180deg, #ffffff, #cfdcff, #22ff7f)",
+background: "linear-gradient(180deg, #ffffff, #cfdcff, #ffffff)",
 boxShadow: "0 0 10px rgba(207,220,255,0.75)",
 animation: "waveMove 1s ease-in-out infinite",
 };
@@ -2862,9 +2862,9 @@ border: "1px solid rgba(255,255,255,0.12)",
 
 const callButtonGreen: CSSProperties = {
 ...callButton,
-background: "linear-gradient(180deg, #22ff7f, #0fb85b)",
+background: "linear-gradient(180deg, #ffffff, #0fb85b)",
 color: "#041008",
-boxShadow: "0 0 18px rgba(34,255,127,0.65)",
+boxShadow: "0 0 18px rgba(rgba(220,235,255,0,22),0.65)",
 };
 
 

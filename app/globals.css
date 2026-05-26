@@ -1,11 +1,56 @@
-html, body {
-margin: 0;
-padding: 0;
-background: #0f172a;
-color: white;
-font-family: Arial, sans-serif;
+:root {
+--bg-main: #05070d;
+--bg-card: rgba(13, 18, 31, 0.92);
+--bg-card-soft: rgba(18, 24, 38, 0.78);
+
+--border-soft: rgba(255, 255, 255, 0.12);
+--border-green: rgba(34, 255, 127, 0.35);
+
+--text-main: #ffffff;
+--text-muted: rgba(255, 255, 255, 0.62);
+
+--green: #ffffff;
+--green-glow: rgba(34, 255, 127, 0.45);
+
+--button-light: linear-gradient(180deg, #ffffff, #eaf0ff);
+--button-dark: rgba(255, 255, 255, 0.08);
+
+--shadow-card: 0 0 22px rgba(220,235,255,0.18);
+--shadow-green: 0 0 28px rgba(rgba(220,235,255,0,22),0.45);
 }
 
-* {
-box-sizing: border-box;
+html,
+body {
+margin: 0;
+padding: 0;
+background:
+radial-gradient(circle at 70% 0%, rgba(rgba(220,235,255,0,22),0.13), transparent 34%),
+radial-gradient(circle at 30% 35%, rgba(90,120,255,0.11), transparent 32%),
+#05070d !important;
+
+color: var(--text-main);
+font-family: sans-serif;
+}
+div,
+section,
+button,
+input,
+textarea {
+border-color: rgba(220,235,255,0.14);
+}
+
+button,
+.card,
+.glow-card {
+box-shadow:
+0 0 18px rgba(220,235,255,0.18),
+0 0 40px rgba(120,160,255,0.10);
+
+border: 1px solid rgba(220,235,255,0.16);
+}
+
+.card,
+.glow-card {
+background: rgba(13,18,31,0.88);
+backdrop-filter: blur(18px);
 }
