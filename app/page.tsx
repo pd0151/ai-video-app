@@ -915,13 +915,8 @@ style={studioInput}
 
 <div style={studioCards}>
 <button
-onClick={() => {
-if (!prompt.trim()) {
-alert("Enter prompt");
-return;
-}
-generateAd();
-}}
+type="button"
+onClick={generateAd}
 style={toolCard}
 >
 <span style={toolIcon}>✦</span>
