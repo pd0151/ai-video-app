@@ -874,17 +874,35 @@ style={premiumAdImage}
 </section>
 
 
-<section style={studioPanel}>
-<div style={studioTop}>
-<div>
+<section style={premiumStudio}>
+<div style={studioTopRow}>
 <span style={studioPill}>AI STUDIO</span>
-<h3 style={studioTitle}>Create ads, videos & posts</h3>
+<span style={studioMiniPill}>Premium Tools</span>
+</div>
+
+<div style={studioHeroRow}>
+<div>
+<h2 style={studioTitle}>
+Create ads, videos
+<br />& posts that <span style={studioAccent}>convert</span>
+</h2>
+
 <p style={studioText}>
-Generate premium content, upload media and promote your business in seconds.
+Generate premium content, upgrade real photos and promote your business in seconds.
 </p>
+</div>
+
+<div style={studioVisual}>
+<div style={visualCard}>T</div>
+<div style={visualImageBox}>
+<div style={visualMountain} />
+<div style={visualSun} />
+</div>
+<div style={visualPlay}>▶</div>
 </div>
 </div>
 
+<div style={studioInputWrap}>
 <textarea
 value={prompt}
 onChange={(e) => setPrompt(e.target.value)}
@@ -892,50 +910,37 @@ placeholder="Describe your offer, business or promotion..."
 style={studioInput}
 />
 
-{image && (
-<div style={studioPreview}>
-<img src={image} style={studioPreviewImg} />
-<button style={studioPreviewBtn} onClick={useThisAd}>
-Share to Feed
-</button>
+<button style={enhanceBtn}>Enhance with AI</button>
 </div>
-)}
 
-<div style={studioButtons}>
-<button
-type="button"
-style={studioBtn}
-disabled={loadingImage}
-onClick={(e) => {
-e.preventDefault();
-e.stopPropagation();
-
-if (!prompt.trim()) {
-setPrompt("Create a premium advert for my business");
-setTimeout(() => generateAd(), 50);
-return;
-}
-
-generateAd();
-}}
->
-{loadingImage ? "Generating..." : "Generate Ad"}
+<div style={studioCards}>
+<button onClick={generateAd} style={toolCard}>
+<span style={toolIcon}>✦</span>
+<b>Generate Ad</b>
+<small>Create stunning ads in seconds</small>
+<span style={toolArrow}>›</span>
 </button>
 
-<button
-type="button"
-style={studioBtn}
-onClick={(e) => {
-e.preventDefault();
-e.stopPropagation();
-router.push("/video");
-}}
->
-AI Video
+<button onClick={() => router.push("/upgrade-photo")} style={toolCardActive}>
+<span style={toolIcon}>▧</span>
+<b>Upgrade Photo</b>
+<small>Turn your photo into a premium ad</small>
+<span style={toolArrow}>›</span>
 </button>
 
-<label style={studioBtn}>
-Upload
+<button onClick={() => router.push("/video")} style={toolCard}>
+<span style={toolIcon}>▶</span>
+<b>AI Video</b>
+<small>Create engaging videos with AI</small>
+<span style={toolArrow}>›</span>
+</button>
+
+<label style={toolCard}>
+<span style={toolIcon}>⇧</span>
+<b>Upload</b>
+<small>Upload your media to get started</small>
+<span style={toolArrow}>›</span>
+
 <input
 type="file"
 accept="image/*,video/*"
@@ -2421,18 +2426,7 @@ gap: 12,
 marginBottom: 14,
 };
 
-const studioPill: CSSProperties = {
-display: "inline-flex",
-padding: "7px 11px",
-borderRadius: 999,
-background: "rgba(255,255,255,0.07)",
-border: "1px solid rgba(220,235,255,0.14)",
-color: "#fff",
-fontSize: 11,
-fontWeight: 900,
-letterSpacing: 1.2,
-marginBottom: 8,
-};
+
 
 const installBtn: React.CSSProperties = {
 height: 58,
@@ -2448,33 +2442,11 @@ cursor: "pointer",
 boxShadow:
 "0 0 10px rgba(255,255,255,0.6), 0 0 40px rgba(180,210,255,0.35)",
 };
-const studioTitle: CSSProperties = {
-margin: 0,
-color: "#fff",
-fontSize: 24,
-fontWeight: 950,
-letterSpacing: -1,
-};
 
-const studioText: CSSProperties = {
-margin: "8px 0 0",
-color: "rgba(255,255,255,0.62)",
-fontSize: 14,
-lineHeight: 1.4,
-};
 
-const studioInput: CSSProperties = {
-width: "100%",
-height: 92,
-borderRadius: 22,
-padding: 14,
-background: "rgba(255,255,255,0.055)",
-border: "1px solid rgba(220,235,255,0.12)",
-color: "#fff",
-outline: "none",
-resize: "none",
-fontSize: 15,
-};
+
+
+
 
 const studioButtons: CSSProperties = {
 display: "grid",
@@ -2907,6 +2879,215 @@ color: "#041008",
 boxShadow: "0 0 18px rgba(rgba(220,235,255,0,22),0.65)",
 };
 
+const premiumStudio: React.CSSProperties = {
+position: "relative",
+overflow: "hidden",
+borderRadius: 34,
+padding: 22,
+marginTop: 28,
+background:
+"radial-gradient(circle at 78% 18%, rgba(140,120,255,0.22), transparent 34%), linear-gradient(145deg, rgba(10,14,26,0.96), rgba(2,4,10,0.98))",
+border: "1px solid rgba(220,235,255,0.22)",
+boxShadow:
+"0 0 4px rgba(255,255,255,0.55), 0 0 28px rgba(220,235,255,0.22), 0 0 70px rgba(120,160,255,0.14)",
+};
+
+const studioTopRow: React.CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+marginBottom: 18,
+};
+
+const studioPill: React.CSSProperties = {
+display: "inline-flex",
+padding: "9px 14px",
+borderRadius: 999,
+border: "1px solid rgba(220,235,255,0.24)",
+color: "white",
+fontSize: 12,
+fontWeight: 950,
+letterSpacing: 3,
+background: "rgba(255,255,255,0.06)",
+boxShadow: "0 0 22px rgba(220,235,255,0.18)",
+};
+
+const studioMiniPill: React.CSSProperties = {
+fontSize: 12,
+color: "rgba(255,255,255,0.58)",
+fontWeight: 800,
+};
+
+const studioHeroRow: React.CSSProperties = {
+display: "grid",
+gridTemplateColumns: "1.15fr 0.85fr",
+gap: 12,
+alignItems: "center",
+};
+
+const studioTitle: React.CSSProperties = {
+margin: 0,
+fontSize: "clamp(30px, 8vw, 48px)",
+lineHeight: 0.95,
+letterSpacing: -2,
+fontWeight: 950,
+};
+
+const studioAccent: React.CSSProperties = {
+color: "#b8c7ff",
+textShadow: "0 0 22px rgba(180,200,255,0.55)",
+};
+
+const studioText: React.CSSProperties = {
+margin: "14px 0 0",
+color: "rgba(255,255,255,0.66)",
+fontSize: 15,
+lineHeight: 1.45,
+};
+
+const studioVisual: React.CSSProperties = {
+position: "relative",
+height: 130,
+};
+
+const visualImageBox: React.CSSProperties = {
+position: "absolute",
+right: 12,
+top: 12,
+width: 118,
+height: 92,
+borderRadius: 22,
+background: "linear-gradient(145deg, rgba(170,180,255,0.38), rgba(60,70,120,0.18))",
+border: "1px solid rgba(220,235,255,0.26)",
+boxShadow: "0 0 38px rgba(160,170,255,0.32)",
+};
+
+const visualMountain: React.CSSProperties = {
+position: "absolute",
+left: 20,
+bottom: 20,
+width: 68,
+height: 42,
+background: "linear-gradient(135deg, rgba(255,255,255,0.9), rgba(160,170,255,0.45))",
+clipPath: "polygon(0 100%, 42% 25%, 65% 62%, 82% 38%, 100% 100%)",
+};
+
+const visualSun: React.CSSProperties = {
+position: "absolute",
+right: 22,
+top: 22,
+width: 18,
+height: 18,
+borderRadius: "50%",
+background: "white",
+boxShadow: "0 0 20px rgba(255,255,255,0.75)",
+};
+
+const visualCard: React.CSSProperties = {
+position: "absolute",
+left: 8,
+top: 18,
+width: 42,
+height: 42,
+borderRadius: 12,
+display: "grid",
+placeItems: "center",
+fontWeight: 950,
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(220,235,255,0.22)",
+};
+
+const visualPlay: React.CSSProperties = {
+position: "absolute",
+right: 0,
+top: 56,
+width: 48,
+height: 48,
+borderRadius: 15,
+display: "grid",
+placeItems: "center",
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(220,235,255,0.22)",
+};
+
+const studioInputWrap: React.CSSProperties = {
+position: "relative",
+marginTop: 20,
+};
+
+const studioInput: React.CSSProperties = {
+width: "100%",
+minHeight: 130,
+resize: "none",
+boxSizing: "border-box",
+borderRadius: 24,
+padding: "20px 20px 58px",
+background: "rgba(5,8,16,0.82)",
+border: "1px solid rgba(220,235,255,0.22)",
+color: "white",
+fontSize: 16,
+outline: "none",
+boxShadow: "inset 0 0 30px rgba(255,255,255,0.035)",
+};
+
+const enhanceBtn: React.CSSProperties = {
+position: "absolute",
+right: 14,
+bottom: 14,
+borderRadius: 16,
+border: "1px solid rgba(220,235,255,0.26)",
+background: "rgba(255,255,255,0.06)",
+color: "white",
+padding: "10px 14px",
+fontWeight: 900,
+};
+
+const studioCards: React.CSSProperties = {
+display: "grid",
+gridTemplateColumns: "repeat(4, 1fr)",
+gap: 10,
+marginTop: 14,
+};
+
+const toolCard: React.CSSProperties = {
+minHeight: 132,
+borderRadius: 22,
+padding: 12,
+background: "rgba(7,10,20,0.86)",
+border: "1px solid rgba(220,235,255,0.20)",
+color: "white",
+display: "flex",
+flexDirection: "column",
+alignItems: "center",
+justifyContent: "center",
+gap: 7,
+textAlign: "center",
+boxShadow: "0 0 20px rgba(220,235,255,0.10)",
+};
+
+const toolCardActive: React.CSSProperties = {
+...toolCard,
+border: "1px solid rgba(220,235,255,0.48)",
+boxShadow:
+"0 0 4px rgba(255,255,255,0.75), 0 0 28px rgba(220,235,255,0.28), 0 0 55px rgba(120,160,255,0.18)",
+};
+
+const toolIcon: React.CSSProperties = {
+fontSize: 26,
+color: "#dfe8ff",
+};
+
+const toolArrow: React.CSSProperties = {
+width: 28,
+height: 28,
+borderRadius: "50%",
+display: "grid",
+placeItems: "center",
+marginTop: 4,
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(220,235,255,0.20)",
+fontSize: 24,
+};
 
 
 
