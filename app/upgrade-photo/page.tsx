@@ -7,6 +7,7 @@ export default function UpgradePhotoPage() {
 const router = useRouter();
 const [file, setFile] = useState<File | null>(null);
 const [preview, setPreview] = useState("");
+const [generating, setGenerating] = useState(false);
 async function generatePremiumAd() {
 if (!file) {
 alert("Upload a photo first");
@@ -73,8 +74,12 @@ placeholder="Example: Make this a premium mobile tyre fitting advert with bold t
 style={input}
 />
 
-<button onClick={generatePremiumAd} style={mainBtn}>
-Generate Premium Ad
+<button
+onClick={generatePremiumAd}
+disabled={generating}
+style={mainBtn}
+>
+{generating ? "Generating premium ad..." : "Generate Premium Ad"}
 </button>
 </section>
 </main>
