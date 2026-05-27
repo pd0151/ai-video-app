@@ -3,6 +3,35 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+
+
+async function convertToPng(file: File): Promise<File> {
+const img = new Image();
+img.src = URL.createObjectURL(file);
+
+await new Promise((resolve, reject) => {
+img.onload = resolve;
+img.onerror = reject;
+});
+
+const canvas = document.createElement("canvas");
+canvas.width = img.width;
+canvas.height = img.height;
+
+const ctx = canvas.getContext("2d");
+if (!ctx) throw new Error("Could not convert image");
+
+ctx.drawImage(img, 0, 0);
+
+const blob = await new Promise<Blob>((resolve, reject) => {
+canvas.toBlob((b) => {
+if (!b) reject(new Error("PNG conversion failed"));
+else resolve(b);
+}, "image/png");
+});
+
+return new File([blob], "upload.png", { type: "image/png" });
+}
 export default function UpgradePhotoPage() {
 const router = useRouter();
 const [file, setFile] = useState<File | null>(null);
@@ -23,7 +52,8 @@ return;
 }
 
 const formData = new FormData();
-formData.append("image", file);
+const pngFile = await convertToPng(file);
+formData.append("image", pngFile);
 formData.append("prompt", userPrompt);
 
 const res = await fetch("/api/edit-image", {
