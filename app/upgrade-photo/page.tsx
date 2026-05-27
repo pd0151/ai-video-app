@@ -32,6 +32,38 @@ else resolve(b);
 
 return new File([blob], "upload.png", { type: "image/png" });
 }
+
+async function resizeImage(file: File): Promise<File> {
+const img = new Image();
+img.src = URL.createObjectURL(file);
+
+await new Promise((resolve, reject) => {
+img.onload = resolve;
+img.onerror = reject;
+});
+
+const maxWidth = 1200;
+const scale = Math.min(1, maxWidth / img.width);
+
+const canvas = document.createElement("canvas");
+canvas.width = img.width * scale;
+canvas.height = img.height * scale;
+
+const ctx = canvas.getContext("2d");
+if (!ctx) throw new Error("Resize failed");
+
+ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+const blob = await new Promise<Blob>((resolve, reject) => {
+canvas.toBlob(
+(b) => (b ? resolve(b) : reject(new Error("Compression failed"))),
+"image/jpeg",
+0.75
+);
+});
+
+return new File([blob], "upload.jpg", { type: "image/jpeg" });
+}
 export default function UpgradePhotoPage() {
 const router = useRouter();
 const [file, setFile] = useState<File | null>(null);
@@ -54,7 +86,8 @@ return;
 
 const formData = new FormData();
 const pngFile = await convertToPng(file);
-formData.append("image", pngFile);
+const smallerFile = await resizeImage(pngFile);
+formData.append("image", smallerFile);
 formData.append("prompt", userPrompt);
 
 const res = await fetch("/api/edit-image", {
