@@ -2886,14 +2886,15 @@ boxShadow: "0 0 18px rgba(rgba(220,235,255,0,22),0.65)",
 const premiumStudio: React.CSSProperties = {
 position: "relative",
 overflow: "hidden",
-borderRadius: 22,
-padding: 10,
+borderRadius: 34,
+padding: 14,
 marginTop: 10,
 background:
-"radial-gradient(circle at 78% 18%, rgba(140,120,255,0.22), transparent 34%), linear-gradient(145deg, rgba(10,14,26,0.96), rgba(2,4,10,0.98))",
+"radial-gradient(circle at 85% 10%, rgba(130,120,255,0.34), transparent 34%), linear-gradient(160deg, rgba(12,16,34,0.98), rgba(2,4,12,0.98))",
 border: "1px solid rgba(220,235,255,0.22)",
 boxShadow:
-"0 0 4px rgba(255,255,255,0.55), 0 0 28px rgba(220,235,255,0.22), 0 0 70px rgba(120,160,255,0.14)",
+"0 0 8px rgba(255,255,255,0.45), 0 0 38px rgba(130,120,255,0.22), inset 0 0 45px rgba(255,255,255,0.04)",
+
 };
 
 const studioTopRow: React.CSSProperties = {
@@ -3055,9 +3056,10 @@ marginTop: 12,
 
 const toolCard: React.CSSProperties = {
 minHeight: 52,
-borderRadius: 18,
+borderRadius: 22,
 padding: 6,
-background: "rgba(7,10,20,0.86)",
+background:
+"linear-gradient(145deg, rgba(255,255,255,0.08), rgba(4,7,18,0.96))",
 border: "1px solid rgba(220,235,255,0.20)",
 color: "white",
 display: "flex",
@@ -3066,7 +3068,8 @@ alignItems: "center",
 justifyContent: "center",
 gap: 6,
 textAlign: "center",
-boxShadow: "0 0 20px rgba(220,235,255,0.10)",
+boxShadow:
+"inset 0 1px 0 rgba(255,255,255,0.18), 0 10px 28px rgba(0,0,0,0.45)",
 };
 
 const toolCardActive: React.CSSProperties = {
