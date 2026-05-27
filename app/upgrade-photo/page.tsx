@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
+import { createClient } from "@supabase/supabase-js";
+const supabase = createClient(
+process.env.NEXT_PUBLIC_SUPABASE_URL!,
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 
 async function convertToPng(file: File): Promise<File> {
@@ -107,7 +111,34 @@ setPreview(data.imageUrl);
 setGenerating(false);
 }
 async function shareToFeed() {
-alert("Feed sharing coming next");
+if (!preview) {
+alert("No image to share");
+return;
+}
+
+const { data: userData } = await supabase.auth.getUser();
+const user = userData?.user;
+
+if (!user) {
+alert("You need to log in first");
+return;
+}
+
+const { error } = await supabase.from("posts").insert({
+image_url: preview,
+content: "AI generated advert",
+user_id: user.id,
+created_at: new Date().toISOString(),
+});
+
+if (error) {
+console.error("Share error:", error);
+alert(error.message);
+return;
+}
+
+alert("Shared to feed");
+router.push("/feed");
 }
 return (
 <main style={page}>
