@@ -99,12 +99,16 @@ const data = await res.json();
 
 if (!res.ok) {
 alert(data.error || "Image generation failed");
+setGenerating(false);
 return;
 }
 
 setPreview(data.imageUrl);
+setGenerating(false);
 }
-
+async function shareToFeed() {
+alert("Feed sharing coming next");
+}
 return (
 <main style={page}>
 <button onClick={() => router.push("/")} style={backBtn}>← Back</button>
@@ -145,6 +149,14 @@ style={mainBtn}
 >
 {generating ? "Generating premium ad..." : "Generate Premium Ad"}
 </button>
+{preview && !generating && (
+<button
+onClick={shareToFeed}
+style={mainBtn}
+>
+Share to feed
+</button>
+)}
 </section>
 </main>
 );
