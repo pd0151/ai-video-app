@@ -944,7 +944,8 @@ width: "100%",
 height: 90,
 borderRadius: 16,
 backgroundImage:
-"url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop)",
+"url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop)",
+
 backgroundSize: "cover",
 backgroundPosition: "center",
 marginBottom: 10,
@@ -982,7 +983,7 @@ width: "100%",
 height: 90,
 borderRadius: 16,
 backgroundImage:
-"url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop)",
+"url(https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop)",
 backgroundSize: "cover",
 backgroundPosition: "center",
 marginBottom: 10,
