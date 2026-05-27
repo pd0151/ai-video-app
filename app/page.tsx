@@ -2925,14 +2925,14 @@ fontWeight: 800,
 const studioHeroRow: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "1.15fr 0.85fr",
-gap: 12,
+gap: 8,
 alignItems: "center",
 };
 
 const studioTitle: React.CSSProperties = {
 margin: 0,
-fontSize: "clamp(30px, 8vw, 48px)",
-lineHeight: 0.95,
+fontSize: "clamp(26px, 7vw, 42px)",
+lineHeight: 0.88,
 letterSpacing: -2,
 fontWeight: 950,
 };
@@ -2943,10 +2943,10 @@ textShadow: "0 0 22px rgba(180,200,255,0.55)",
 };
 
 const studioText: React.CSSProperties = {
-margin: "14px 0 0",
+margin: "8px 0 0",
 color: "rgba(255,255,255,0.66)",
-fontSize: 15,
-lineHeight: 1.45,
+fontSize: 12,
+lineHeight: 1.35,
 };
 
 const studioVisual: React.CSSProperties = {
@@ -3054,9 +3054,9 @@ marginTop: 12,
 };
 
 const toolCard: React.CSSProperties = {
-minHeight: 96,
+minHeight: 78,
 borderRadius: 18,
-padding: 10,
+padding: 8,
 background: "rgba(7,10,20,0.86)",
 border: "1px solid rgba(220,235,255,0.20)",
 color: "white",
@@ -3064,7 +3064,7 @@ display: "flex",
 flexDirection: "column",
 alignItems: "center",
 justifyContent: "center",
-gap: 7,
+gap: 6,
 textAlign: "center",
 boxShadow: "0 0 20px rgba(220,235,255,0.10)",
 };
