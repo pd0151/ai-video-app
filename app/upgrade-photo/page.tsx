@@ -38,6 +38,7 @@ const [file, setFile] = useState<File | null>(null);
 const [preview, setPreview] = useState("");
 const [generating, setGenerating] = useState(false);
 async function generatePremiumAd() {
+    setGenerating(true);
 if (!file) {
 alert("Upload a photo first");
 return;
