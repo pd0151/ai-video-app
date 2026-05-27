@@ -267,6 +267,12 @@ args.vehicle_model ||
 extractVehicle(transcript) ||
 "Not given";
 
+const cleanVehicle = String(vehicle || "")
+.replace(/\bx five\b/gi, "X5")
+.replace(/\bx three\b/gi, "X3")
+.replace(/\bx one\b/gi, "X1");
+
+
 const tyreSize =
 args.tyre_size ||
 args.tyreSize ||
@@ -278,6 +284,10 @@ args.postcode ||
 args.location ||
 extractPostcode(transcript) ||
 "Not given";
+
+const cleanPostcode = String(postcode || "")
+.replace(/liverpool city centre/gi, "L1")
+.replace(/city centre/gi, "L1");
 
 const customerPhone =
 args.customer_phone ||
@@ -292,10 +302,10 @@ args.business_id ||
 body.business_id;
 const jobSummary = `Name: ${name}
 Issue: ${issue}
-Vehicle: ${vehicle}
+Vehicle: ${cleanVehicle}
 Tyre size: ${tyreSize}
 Customer phone: ${customerPhone}
-Postcode: ${postcode}`;
+Postcode: ${cleanPostcode}`;
 const incomingTwilioNumber =
 args.twilio_number ||
 body.twilio_number ||
