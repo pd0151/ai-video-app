@@ -2886,9 +2886,9 @@ boxShadow: "0 0 18px rgba(rgba(220,235,255,0,22),0.65)",
 const premiumStudio: React.CSSProperties = {
 position: "relative",
 overflow: "hidden",
-borderRadius: 28,
-padding: 16,
-marginTop: 18,
+borderRadius: 22,
+padding: 10,
+marginTop: 10,
 background:
 "radial-gradient(circle at 78% 18%, rgba(140,120,255,0.22), transparent 34%), linear-gradient(145deg, rgba(10,14,26,0.96), rgba(2,4,10,0.98))",
 border: "1px solid rgba(220,235,255,0.22)",
@@ -3054,9 +3054,9 @@ marginTop: 12,
 };
 
 const toolCard: React.CSSProperties = {
-minHeight: 78,
+minHeight: 52,
 borderRadius: 18,
-padding: 8,
+padding: 6,
 background: "rgba(7,10,20,0.86)",
 border: "1px solid rgba(220,235,255,0.20)",
 color: "white",
