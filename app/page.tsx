@@ -914,7 +914,16 @@ style={studioInput}
 </div>
 
 <div style={studioCards}>
-<button onClick={generateAd} style={toolCard}>
+<button
+onClick={() => {
+if (!prompt.trim()) {
+alert("Enter prompt");
+return;
+}
+generateAd();
+}}
+style={toolCard}
+>
 <span style={toolIcon}>✦</span>
 <b>Generate Ad</b>
 <small>Create stunning ads in seconds</small>

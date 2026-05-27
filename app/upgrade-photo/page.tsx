@@ -7,6 +7,9 @@ export default function UpgradePhotoPage() {
 const router = useRouter();
 const [file, setFile] = useState<File | null>(null);
 const [preview, setPreview] = useState("");
+async function generatePremiumAd() {
+alert("Premium AI advert generation coming next");
+}
 
 return (
 <main style={page}>
@@ -41,7 +44,9 @@ placeholder="Example: Make this a premium mobile tyre fitting advert with bold t
 style={input}
 />
 
-<button style={mainBtn}>Generate Premium Ad</button>
+<button onClick={generatePremiumAd} style={mainBtn}>
+Generate Premium Ad
+</button>
 </section>
 </main>
 );
