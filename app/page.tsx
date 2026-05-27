@@ -919,6 +919,18 @@ type="button"
 onClick={generateAd}
 style={toolCard}
 >
+    <div
+style={{
+width: "100%",
+height: 90,
+borderRadius: 16,
+backgroundImage:
+"url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop)",
+backgroundSize: "cover",
+backgroundPosition: "center",
+marginBottom: 10,
+}}
+/>
 <span style={toolIcon}>✦</span>
 <b>Generate Ad</b>
 <small>Create stunning ads in seconds</small>
@@ -926,6 +938,18 @@ style={toolCard}
 </button>
 
 <button onClick={() => router.push("/upgrade-photo")} style={toolCardActive}>
+    <div
+style={{
+width: "100%",
+height: 90,
+borderRadius: 16,
+backgroundImage:
+"url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop)",
+backgroundSize: "cover",
+backgroundPosition: "center",
+marginBottom: 10,
+}}
+/>
 <span style={toolIcon}>▧</span>
 <b>Upgrade Photo</b>
 <small>Turn your photo into a premium ad</small>
@@ -933,6 +957,18 @@ style={toolCard}
 </button>
 
 <button onClick={() => router.push("/video")} style={toolCard}>
+    <div
+style={{
+width: "100%",
+height: 90,
+borderRadius: 16,
+backgroundImage:
+"url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop)",
+backgroundSize: "cover",
+backgroundPosition: "center",
+marginBottom: 10,
+}}
+/>
 <span style={toolIcon}>▶</span>
 <b>AI Video</b>
 <small>Create engaging videos with AI</small>
@@ -940,6 +976,18 @@ style={toolCard}
 </button>
 
 <label style={toolCard}>
+    <div
+style={{
+width: "100%",
+height: 90,
+borderRadius: 16,
+backgroundImage:
+"url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop)",
+backgroundSize: "cover",
+backgroundPosition: "center",
+marginBottom: 10,
+}}
+/>
 <span style={toolIcon}>⇧</span>
 <b>Upload</b>
 <small>Upload your media to get started</small>
