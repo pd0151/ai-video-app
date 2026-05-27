@@ -8,7 +8,36 @@ const router = useRouter();
 const [file, setFile] = useState<File | null>(null);
 const [preview, setPreview] = useState("");
 async function generatePremiumAd() {
-alert("Premium AI advert generation coming next");
+if (!file) {
+alert("Upload a photo first");
+return;
+}
+
+const textBox = document.querySelector("textarea") as HTMLTextAreaElement;
+const userPrompt = textBox?.value || "";
+
+if (!userPrompt.trim()) {
+alert("Enter what advert you want");
+return;
+}
+
+const formData = new FormData();
+formData.append("image", file);
+formData.append("prompt", userPrompt);
+
+const res = await fetch("/api/edit-image", {
+method: "POST",
+body: formData,
+});
+
+const data = await res.json();
+
+if (!res.ok) {
+alert(data.error || "Image generation failed");
+return;
+}
+
+setPreview(data.imageUrl);
 }
 
 return (
