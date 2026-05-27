@@ -2882,9 +2882,9 @@ boxShadow: "0 0 18px rgba(rgba(220,235,255,0,22),0.65)",
 const premiumStudio: React.CSSProperties = {
 position: "relative",
 overflow: "hidden",
-borderRadius: 34,
-padding: 22,
-marginTop: 28,
+borderRadius: 28,
+padding: 16,
+marginTop: 18,
 background:
 "radial-gradient(circle at 78% 18%, rgba(140,120,255,0.22), transparent 34%), linear-gradient(145deg, rgba(10,14,26,0.96), rgba(2,4,10,0.98))",
 border: "1px solid rgba(220,235,255,0.22)",
@@ -2947,7 +2947,7 @@ lineHeight: 1.45,
 
 const studioVisual: React.CSSProperties = {
 position: "relative",
-height: 130,
+display: "none",
 };
 
 const visualImageBox: React.CSSProperties = {
@@ -3044,15 +3044,15 @@ fontWeight: 900,
 
 const studioCards: React.CSSProperties = {
 display: "grid",
-gridTemplateColumns: "repeat(4, 1fr)",
+gridTemplateColumns: "repeat(2, 1fr)",
 gap: 10,
-marginTop: 14,
+marginTop: 12,
 };
 
 const toolCard: React.CSSProperties = {
-minHeight: 132,
-borderRadius: 22,
-padding: 12,
+minHeight: 96,
+borderRadius: 18,
+padding: 10,
 background: "rgba(7,10,20,0.86)",
 border: "1px solid rgba(220,235,255,0.20)",
 color: "white",
