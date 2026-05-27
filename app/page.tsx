@@ -914,85 +914,219 @@ style={studioInput}
 </div>
 
 <div style={studioCards}>
+
+{/* BIG HERO CARD */}
 <button
-type="button"
 onClick={generateAd}
+style={{
+gridColumn: "1 / span 2",
+border: "none",
+overflow: "hidden",
+position: "relative",
+borderRadius: 28,
+minHeight: 240,
+padding: 24,
+background:
+"linear-gradient(145deg, rgba(12,14,30,0.96), rgba(4,6,16,0.98))",
+boxShadow:
+"0 20px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06)",
+display: "flex",
+alignItems: "flex-end",
+textAlign: "left",
+}}
+>
+
+<div
+style={{
+position: "absolute",
+inset: 0,
+backgroundImage:
+"url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop)",
+backgroundSize: "cover",
+backgroundPosition: "center",
+opacity: 0.45,
+}}
+/>
+
+<div
+style={{
+position: "absolute",
+inset: 0,
+background:
+"linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.2))",
+}}
+/>
+
+<div style={{ position: "relative", zIndex: 2 }}>
+<div
+style={{
+fontSize: 12,
+letterSpacing: 3,
+marginBottom: 12,
+color: "#c7bfff",
+fontWeight: 700,
+}}
+>
+AI AD GENERATOR
+</div>
+
+<h2
+style={{
+fontSize: 38,
+lineHeight: 1,
+marginBottom: 12,
+color: "white",
+fontWeight: 900,
+}}
+>
+Create ads
+<br />
+that convert
+</h2>
+
+<p
+style={{
+color: "rgba(255,255,255,0.7)",
+fontSize: 15,
+maxWidth: 260,
+marginBottom: 18,
+}}
+>
+Generate premium AI ads & social content instantly.
+</p>
+
+<div
+style={{
+display: "inline-flex",
+alignItems: "center",
+gap: 10,
+padding: "12px 18px",
+borderRadius: 999,
+background:
+"linear-gradient(135deg,#8b5cf6,#6d5cff)",
+color: "white",
+fontWeight: 700,
+fontSize: 14,
+}}
+>
+Generate Now →
+</div>
+</div>
+</button>
+
+
+{/* PHOTO CARD */}
+<button
+onClick={() => router.push("/upgrade-photo")}
 style={toolCard}
 >
-    <div
+<div
 style={{
 width: "100%",
-height: 90,
-borderRadius: 16,
-backgroundImage:
-"url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop)",
-backgroundSize: "cover",
-backgroundPosition: "center",
-marginBottom: 10,
-}}
-/>
-<span style={toolIcon}>✦</span>
-<b>Generate Ad</b>
-<small>Create stunning ads in seconds</small>
-<span style={toolArrow}>›</span>
-</button>
-
-<button onClick={() => router.push("/upgrade-photo")} style={toolCardActive}>
-    <div
-style={{
-width: "100%",
-height: 90,
-borderRadius: 16,
+height: 110,
+borderRadius: 18,
 backgroundImage:
 "url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop)",
-
 backgroundSize: "cover",
 backgroundPosition: "center",
-marginBottom: 10,
+marginBottom: 14,
 }}
 />
-<span style={toolIcon}>▧</span>
-<b>Upgrade Photo</b>
-<small>Turn your photo into a premium ad</small>
-<span style={toolArrow}>›</span>
+
+<b style={{ fontSize: 24 }}>Upgrade Photo</b>
+
+<small
+style={{
+color: "rgba(255,255,255,0.65)",
+marginTop: 6,
+}}
+>
+Turn photos into premium AI ads
+</small>
 </button>
 
-<button onClick={() => router.push("/video")} style={toolCard}>
-    <div
+
+{/* VIDEO CARD */}
+<button
+onClick={() => router.push("/video")}
+style={toolCard}
+>
+<div
 style={{
 width: "100%",
-height: 90,
-borderRadius: 16,
+height: 110,
+borderRadius: 18,
 backgroundImage:
-"url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop)",
+"url(https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200&auto=format&fit=crop)",
 backgroundSize: "cover",
 backgroundPosition: "center",
-marginBottom: 10,
+marginBottom: 14,
 }}
 />
-<span style={toolIcon}>▶</span>
-<b>AI Video</b>
-<small>Create engaging videos with AI</small>
-<span style={toolArrow}>›</span>
+
+<b style={{ fontSize: 24 }}>AI Video</b>
+
+<small
+style={{
+color: "rgba(255,255,255,0.65)",
+marginTop: 6,
+}}
+>
+Create scroll stopping videos
+</small>
 </button>
 
-<label style={toolCard}>
-    <div
+
+{/* UPLOAD STRIP */}
+<label
 style={{
-width: "100%",
-height: 90,
-borderRadius: 16,
-backgroundImage:
-"url(https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop)",
-backgroundSize: "cover",
-backgroundPosition: "center",
-marginBottom: 10,
+gridColumn: "1 / span 2",
+borderRadius: 24,
+padding: 18,
+background:
+"linear-gradient(145deg, rgba(16,18,35,0.96), rgba(4,6,15,0.98))",
+border: "1px solid rgba(255,255,255,0.06)",
+display: "flex",
+alignItems: "center",
+justifyContent: "space-between",
+gap: 14,
 }}
-/>
-<span style={toolIcon}>⇧</span>
-<b>Upload</b>
-<small>Upload your media to get started</small>
-<span style={toolArrow}>›</span>
+>
+
+<div>
+<div
+style={{
+color: "white",
+fontSize: 20,
+fontWeight: 800,
+marginBottom: 4,
+}}
+>
+Upload Media
+</div>
+
+<div
+style={{
+color: "rgba(255,255,255,0.65)",
+fontSize: 14,
+}}
+>
+Upload images & videos to generate content
+</div>
+</div>
+
+<div
+style={{
+padding: "12px 18px",
+borderRadius: 999,
+background:
+"linear-gradient(135deg,#8b5cf6,#6d5cff)",
+color: "white",
+fontWeight: 700,
+}}
+>
+Upload →
+</div>
 
 <input
 type="file"
@@ -1004,6 +1138,7 @@ if (file) uploadMedia(file);
 style={{ display: "none" }}
 />
 </label>
+
 </div>
 </section>
 
