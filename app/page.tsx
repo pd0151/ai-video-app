@@ -58,6 +58,29 @@ const [businessTheme, setBusinessTheme] = useState("default");
 const [image, setImage] = useState<string | null>(null);
 const [loadingImage, setLoadingImage] = useState(false);
 const [isPro, setIsPro] = useState(false);
+const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+useEffect(() => {
+const handler = (e: any) => {
+e.preventDefault();
+setDeferredPrompt(e);
+};
+
+window.addEventListener("beforeinstallprompt", handler);
+
+return () =>
+window.removeEventListener("beforeinstallprompt", handler);
+}, []);
+
+async function installApp() {
+if (!deferredPrompt) {
+alert("On iPhone press Share → Add to Home Screen");
+return;
+}
+
+deferredPrompt.prompt();
+await deferredPrompt.userChoice;
+}
 const [credits, setCredits] = useState(0);
 const [setupSlide, setSetupSlide] = useState(0);
 const adScrollerRef = useRef<HTMLDivElement | null>(null);
@@ -750,6 +773,9 @@ AdForge AI handles calls, captures leads and helps you grow your business
 ⚡ Launch AI Receptionist
 </button>
 </section>
+<button onClick={installApp} style={installBtn}>
+⬇ Install AdForge App
+</button>
 <section style={liveAdsWrap}>
 <div style={sectionTop}>
 <span style={sectionPill}>AI CREATED ADS</span>
@@ -2408,6 +2434,20 @@ letterSpacing: 1.2,
 marginBottom: 8,
 };
 
+const installBtn: React.CSSProperties = {
+height: 58,
+width: "100%",
+borderRadius: 20,
+border: "1px solid rgba(255,255,255,0.18)",
+background:
+"linear-gradient(135deg, rgba(255,255,255,0.95), rgba(210,220,255,0.88))",
+color: "#05070d",
+fontSize: 20,
+fontWeight: 900,
+cursor: "pointer",
+boxShadow:
+"0 0 10px rgba(255,255,255,0.6), 0 0 40px rgba(180,210,255,0.35)",
+};
 const studioTitle: CSSProperties = {
 margin: 0,
 color: "#fff",
