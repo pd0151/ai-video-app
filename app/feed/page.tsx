@@ -452,7 +452,7 @@ letterSpacing: -2,
 
 const topTabs: React.CSSProperties = {
 position: "fixed",
-top: 138,
+top: 108,
 left: 0,
 right: 0,
 zIndex: 25,
