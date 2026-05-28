@@ -882,21 +882,7 @@ style={premiumAdImage}
 
 <section style={premiumStudio}>
 <div style={studioTopRow}>
-<span style={studioPill}>AI STUDIO</span>
-<span style={studioMiniPill}>Premium Tools</span>
-</div>
 
-<div style={studioHeroRow}>
-<div>
-<h2 style={studioTitle}>
-Create premium ads {" "}
-<span style={studioAccent}>convert</span>
-</h2>
-
-<p style={studioText}>
-Write a prompt. generate an ad, then share it to your feed
-</p>
-</div>
 
 <div style={studioVisual}>
 <div style={visualCard}>T</div>
@@ -3124,9 +3110,11 @@ boxShadow: "inset 0 0 30px rgba(255,255,255,0.035)",
 
 
 
-const studioCards: React.CSSProperties = {
-display: "block",
-marginTop: 16,
+const studioCards: CSSProperties = {
+display: "flex",
+flexDirection: "column",
+gap: 14,
+marginTop: 0,
 };
 
 const toolCard: React.CSSProperties = {
@@ -3181,7 +3169,7 @@ gridColumn: "1 / span 2",
 position: "relative",
 overflow: "hidden",
 width: "100%",
-minHeight: 360,
+minHeight: 540,
 marginTop: 0,
 borderRadius: 28,
 border: "1px solid rgba(255,255,255,0.12)",
@@ -3209,8 +3197,11 @@ background:
 const studioHeroContent: React.CSSProperties = {
 position: "relative",
 zIndex: 2,
-gap: 10,
+display: "flex",
+flexDirection: "column",
+justifyContent: "space-between",
 padding: 24,
+gap: 10,
 };
 
 const studioTag: React.CSSProperties = {
