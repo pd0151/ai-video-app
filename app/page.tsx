@@ -298,7 +298,7 @@ Professional branding.
 `,
 }),
 });
-
+console.log("generate-image response", res.status);
 const data = await res.json();
 
 const imageUrl =
