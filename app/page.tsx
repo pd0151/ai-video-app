@@ -305,7 +305,7 @@ const imageUrl =
 data.image || data.url || data.image_url || data.output?.[0];
 
 if (imageUrl) setImage(imageUrl);
-
+return;
 if (!isPro) {
 const newCredits = Math.max(credits - 1, 0);
 setCredits(newCredits);
