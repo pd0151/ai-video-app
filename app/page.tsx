@@ -3327,9 +3327,9 @@ marginBottom: 16,
 };
 
 const promptBox: CSSProperties = {
-height: 70,
-borderRadius: 18,
-padding: "0 14px",
+height: 48,
+borderRadius: 16,
+padding: "0 10px",
 display: "flex",
 alignItems: "center",
 justifyContent: "space-between",
@@ -3351,10 +3351,11 @@ const enhanceBtn: CSSProperties = {
 border: "1px solid rgba(255,255,255,0.18)",
 background: "rgba(255,255,255,0.08)",
 color: "white",
+marginTop: 0,
 borderRadius: 999,
-padding: "10px 13px",
+padding: "8px 10px",
 fontWeight: 800,
-fontSize: 12,
+fontSize: 10,
 whiteSpace: "nowrap",
 };
 
