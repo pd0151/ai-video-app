@@ -883,8 +883,8 @@ style={premiumAdImage}
 <div style={studioHeroRow}>
 <div>
 <h2 style={studioTitle}>
-Create ads, videos
-<br />& posts that <span style={studioAccent}>convert</span>
+Create ads, videos & posts that{" "}
+<span style={studioAccent}>convert</span>
 </h2>
 
 <p style={studioText}>
@@ -3312,18 +3312,20 @@ boxShadow: "0 0 35px rgba(120,80,255,0.28)",
 };
 
 const studioTitle: CSSProperties = {
-fontSize: 34,
-lineHeight: "36px",
+fontSize: 28,
+lineHeight: "32px",
 fontWeight: 900,
 letterSpacing: "-1.5px",
-margin: "18px 0 10px",
+margin: "10px 0 8px",
+maxWidth: 520,
 };
 
 const studioText: CSSProperties = {
-fontSize: 15,
-lineHeight: "20px",
+fontSize: 13,
+lineHeight: "22px",
 color: "rgba(255,255,255,0.68)",
-marginBottom: 16,
+marginBottom: 14,
+maxWidth: 420,
 };
 
 const promptBox: CSSProperties = {
