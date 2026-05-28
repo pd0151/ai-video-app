@@ -936,7 +936,7 @@ style={{
 width: "100%",
 height: 320,
 display: "block",
-objectFit: "cover",
+objectFit: "contain",
 }}
 />
 
