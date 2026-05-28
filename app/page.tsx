@@ -908,16 +908,7 @@ Generate premium content, upgrade real photos and promote your business in secon
 </div>
 </div>
 
-<div style={studioInputWrap}>
-<textarea
-value={prompt}
-onChange={(e) => setPrompt(e.target.value)}
-placeholder="Describe your offer, business or promotion..."
-style={studioInput}
-/>
 
-<button style={enhanceBtn}>Enhance with AI</button>
-</div>
 
 {image && (
 <div
@@ -1000,7 +991,16 @@ Generate premium AI ads & social content instantly.
 </span>
 </div>
 </button>
+<div style={studioInputWrap}>
+<textarea
+value={prompt}
+onChange={(e) => setPrompt(e.target.value)}
+placeholder="Describe your offer, business or promotion..."
+style={studioInput}
+/>
 
+<button style={enhanceBtn}>Enhance with AI</button>
+</div>
 
 
 {/* UPGRADE PHOTO */}
