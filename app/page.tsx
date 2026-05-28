@@ -3298,13 +3298,13 @@ flexShrink: 0,
 
 
 const studioSection: CSSProperties = {
-padding: "22px 14px 90px",
+padding: "6px 14px 18px",
 background: "linear-gradient(180deg,#050814,#07040f)",
 };
 
 const aiStudioBox: CSSProperties = {
-borderRadius: 26,
-padding: 12,
+borderRadius: 20,
+padding: 8,
 background:
 "linear-gradient(180deg,rgba(38,34,82,0.92),rgba(5,8,18,0.98))",
 border: "1px solid rgba(255,255,255,0.12)",
