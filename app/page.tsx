@@ -2926,9 +2926,9 @@ boxShadow: "0 0 18px rgba(rgba(220,235,255,0,22),0.65)",
 const premiumStudio: React.CSSProperties = {
 position: "relative",
 overflow: "hidden",
-borderRadius: 34,
+borderRadius: 24,
 padding: 14,
-marginTop: 10,
+marginTop: 5,
 background:
 "radial-gradient(circle at 85% 10%, rgba(130,120,255,0.34), transparent 34%), linear-gradient(160deg, rgba(12,16,34,0.98), rgba(2,4,12,0.98))",
 border: "1px solid rgba(220,235,255,0.22)",
@@ -2941,7 +2941,7 @@ const studioTopRow: React.CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
 alignItems: "center",
-marginBottom: 18,
+marginBottom: 10,
 };
 
 const studioPill: React.CSSProperties = {
@@ -2966,7 +2966,7 @@ fontWeight: 800,
 const studioHeroRow: React.CSSProperties = {
 display: "grid",
 gridTemplateColumns: "1.15fr 0.85fr",
-gap: 8,
+gap: 5,
 alignItems: "center",
 };
 
