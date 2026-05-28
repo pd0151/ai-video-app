@@ -889,12 +889,12 @@ style={premiumAdImage}
 <div style={studioHeroRow}>
 <div>
 <h2 style={studioTitle}>
-Create ads, videos & posts that{" "}
+Create premium ads {" "}
 <span style={studioAccent}>convert</span>
 </h2>
 
 <p style={studioText}>
-Generate premium content, upgrade real photos and promote your business in seconds.
+Write a prompt. generate an ad, then share it to your feed
 </p>
 </div>
 
@@ -3126,7 +3126,7 @@ boxShadow: "inset 0 0 30px rgba(255,255,255,0.035)",
 
 const studioCards: React.CSSProperties = {
 display: "block",
-marginTop: 18,
+marginTop: 16,
 };
 
 const toolCard: React.CSSProperties = {
@@ -3181,7 +3181,7 @@ gridColumn: "1 / span 2",
 position: "relative",
 overflow: "hidden",
 width: "100%",
-minHeight: 260,
+minHeight: 360,
 marginTop: 0,
 borderRadius: 28,
 border: "1px solid rgba(255,255,255,0.12)",
@@ -3209,6 +3209,7 @@ background:
 const studioHeroContent: React.CSSProperties = {
 position: "relative",
 zIndex: 2,
+gap: 10,
 padding: 24,
 };
 
