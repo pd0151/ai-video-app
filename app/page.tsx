@@ -359,7 +359,7 @@ video_url: isVideo ? publicUrl : null,
 business_name: "",
 location: "",
 });
-
+alert("Posted to feed");
 window.location.href = "/feed";
 }
 
