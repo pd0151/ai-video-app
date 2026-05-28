@@ -960,7 +960,23 @@ Generate premium AI ads & social content instantly.
 </span>
 </div>
 </button>
+{image && (
+<div style={{ marginTop: 24 }}>
+<img
+src={image}
+alt="Generated advert"
+style={{
+width: "100%",
+borderRadius: 24,
+border: "1px solid rgba(255,255,255,0.15)",
+}}
+/>
 
+<button onClick={useThisAd}>
+Use This Ad
+</button>
+</div>
+)}
 {/* UPGRADE PHOTO */}
 <button
 type="button"
