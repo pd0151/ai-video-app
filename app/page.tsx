@@ -983,10 +983,10 @@ style={studioHeroVideo}
 <div style={studioHeroShade} />
 
 <div style={studioHeroContent}>
-<span style={studioTag}>AI AD GENERATOR</span>
+<span style={studioTag}>GENERATE AD</span>
 
 <h2 style={studioHeroTitle}>
-Create ads
+Generate AI ads
 <br />
 that convert
 </h2>
@@ -3125,10 +3125,8 @@ boxShadow: "inset 0 0 30px rgba(255,255,255,0.035)",
 
 
 const studioCards: React.CSSProperties = {
-display: "grid",
-gridTemplateColumns: "repeat(2, 1fr)",
-gap: 10,
-marginTop: 12,
+display: "block",
+marginTop: 18,
 };
 
 const toolCard: React.CSSProperties = {
@@ -3182,8 +3180,10 @@ const studioHeroCard: React.CSSProperties = {
 gridColumn: "1 / span 2",
 position: "relative",
 overflow: "hidden",
+width: "100%",
 minHeight: 260,
-borderRadius: 30,
+marginTop: 0,
+borderRadius: 28,
 border: "1px solid rgba(255,255,255,0.12)",
 background: "#050713",
 padding: 0,
