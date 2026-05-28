@@ -953,8 +953,7 @@ style={studioMediaCard}
 <div
 style={{
 ...studioMediaImage,
-backgroundImage:
-"url(https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=1200&auto=format&fit=crop)",
+backgroundImage: "url('/images/upgrade-photo1.jpg')",
 }}
 />
 <div style={studioMediaBottom}>
@@ -975,8 +974,7 @@ style={studioMediaCard}
 <div
 style={{
 ...studioMediaImage,
-backgroundImage:
-"url(https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop)",
+backgroundImage: "url('/images/upgrade-photo2.jpg')",
 }}
 >
 <span style={playBubble}>▶</span>
