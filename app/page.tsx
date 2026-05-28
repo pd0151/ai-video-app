@@ -323,8 +323,9 @@ credits: newCredits,
 );
 }
 }
-} catch {
-alert("Generation failed");
+} catch (err) {
+console.error(err);
+alert(String(err));
 } finally {
 setLoadingImage(false);
 setGenerating(false);
