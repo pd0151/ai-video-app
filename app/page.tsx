@@ -51,6 +51,7 @@ const router = useRouter();
 
 const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
 const [chatLoading, setChatLoading] = useState(false);
+const [generating, setGenerating] = useState(false);
 const [chatInput, setChatInput] = useState("");
 const [prompt, setPrompt] = useState("");
 const [businessName, setBusinessName] = useState("");
@@ -263,6 +264,7 @@ alert("Could not start checkout. Please try again.");
 }
 }
 async function generateAd() {
+    setGenerating(true);
 if (!isPro && credits <= 0) {
 alert("No credits left");
 return;
@@ -323,6 +325,7 @@ credits: newCredits,
 alert("Generation failed");
 } finally {
 setLoadingImage(false);
+setGenerating(false);
 }
 }
 
@@ -915,7 +918,16 @@ style={studioInput}
 
 <div style={studioCards}>
 {/* BIG VIDEO HERO */}
-<button type="button" onClick={generateAd} style={studioHeroCard}>
+<button
+type="button"
+onClick={generateAd}
+disabled={generating}
+style={{
+...studioHeroCard,
+opacity: generating ? 0.7 : 1,
+pointerEvents: generating ? "none" : "auto",
+}}
+>
 <video
 src="/videos/ad-video.mp5"
 autoPlay
@@ -940,7 +952,9 @@ that convert
 Generate premium AI ads & social content instantly.
 </p>
 
-<span style={studioHeroBtn}>Generate Now →</span>
+<span style={studioHeroBtn}>
+{generating ? "Generating..." : "Generate Now →"}
+</span>
 </div>
 </button>
 
