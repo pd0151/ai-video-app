@@ -922,7 +922,7 @@ style={studioInput}
 {image && (
 <div
 style={{
-marginTop: 20,
+marginTop: 14,
 borderRadius: 26,
 overflow: "hidden",
 border: "1px solid rgba(255,255,255,0.08)",
@@ -934,6 +934,7 @@ src={image}
 alt="Generated advert"
 style={{
 width: "100%",
+height: 320,
 display: "block",
 objectFit: "cover",
 }}
