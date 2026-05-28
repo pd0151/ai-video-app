@@ -331,23 +331,7 @@ setLoadingImage(false);
 setGenerating(false);
 }
 }
-{image && (
-<div style={{ marginTop: 24 }}>
-<img
-src={image}
-alt="Generated advert"
-style={{
-width: "100%",
-borderRadius: 24,
-border: "1px solid rgba(255,255,255,0.15)",
-}}
-/>
 
-<button onClick={useThisAd}>
-Use This Ad
-</button>
-</div>
-)}
 async function uploadMedia(file: File) {
 const isVideo = file.type.startsWith("video");
 const fileName = `${Date.now()}-${file.name}`;
