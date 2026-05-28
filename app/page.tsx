@@ -2930,10 +2930,10 @@ borderRadius: 24,
 padding: 14,
 marginTop: 5,
 background:
-"radial-gradient(circle at 85% 10%, rgba(130,120,255,0.34), transparent 34%), linear-gradient(160deg, rgba(12,16,34,0.98), rgba(2,4,12,0.98))",
-border: "1px solid rgba(220,235,255,0.22)",
+"radial-gradient(circle at 85% 10%, rgba(34,255,127,0.12), transparent 40%), linear-gradient(180deg, #040b08 0%, #020403 100%)",
+border: "1px solid rgba(34,255,127,0.12)",
 boxShadow:
-"0 0 8px rgba(255,255,255,0.45), 0 0 38px rgba(130,120,255,0.22), inset 0 0 45px rgba(255,255,255,0.04)",
+"0 0 25px rgba(34,255,127,0.12)",
 
 };
 
