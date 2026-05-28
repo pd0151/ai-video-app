@@ -919,6 +919,45 @@ style={studioInput}
 <button style={enhanceBtn}>Enhance with AI</button>
 </div>
 
+{image && (
+<div
+style={{
+marginTop: 20,
+borderRadius: 26,
+overflow: "hidden",
+border: "1px solid rgba(255,255,255,0.08)",
+background: "#050712",
+}}
+>
+<img
+src={image}
+alt="Generated advert"
+style={{
+width: "100%",
+display: "block",
+objectFit: "cover",
+}}
+/>
+
+<button
+onClick={useThisAd}
+style={{
+width: "100%",
+padding: "16px",
+border: "none",
+background: "linear-gradient(135deg,#8b5cf6,#6d5dfc)",
+color: "#fff",
+fontWeight: 800,
+fontSize: 16,
+cursor: "pointer",
+}}
+>
+Share To Feed
+</button>
+</div>
+)}
+
+
 <div style={studioCards}>
 {/* BIG VIDEO HERO */}
 <button
@@ -960,60 +999,9 @@ Generate premium AI ads & social content instantly.
 </span>
 </div>
 </button>
-{image && (
-<div
-style={{
-marginTop: 20,
-borderRadius: 26,
-overflow: "hidden",
-border: "1px solid rgba(255,255,255,0.08)",
-background: "#050712",
-}}
->
-<img
-src={image}
-alt="Generated advert"
-style={{
-width: "100%",
-display: "block",
-objectFit: "cover",
-}}
-/>
 
-<button
-onClick={useThisAd}
-style={{
-width: "100%",
-padding: "16px",
-border: "none",
-background: "linear-gradient(135deg,#8b5cf6,#6d5dfc)",
-color: "#fff",
-fontWeight: 800,
-fontSize: 16,
-cursor: "pointer",
-}}
->
-Share To Feed
-</button>
-</div>
-)}
-{image && (
-<div style={{ marginTop: 24 }}>
-<img
-src={image}
-alt="Generated advert"
-style={{
-width: "100%",
-borderRadius: 24,
-border: "1px solid rgba(255,255,255,0.15)",
-}}
-/>
 
-<button onClick={useThisAd}>
-Use This Ad
-</button>
-</div>
-)}
+
 {/* UPGRADE PHOTO */}
 <button
 type="button"
