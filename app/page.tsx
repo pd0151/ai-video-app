@@ -914,219 +914,93 @@ style={studioInput}
 </div>
 
 <div style={studioCards}>
-
-{/* BIG HERO CARD */}
-<button
-onClick={generateAd}
-style={{
-gridColumn: "1 / span 2",
-border: "none",
-overflow: "hidden",
-position: "relative",
-borderRadius: 28,
-minHeight: 240,
-padding: 24,
-background:
-"linear-gradient(145deg, rgba(12,14,30,0.96), rgba(4,6,16,0.98))",
-boxShadow:
-"0 20px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06)",
-display: "flex",
-alignItems: "flex-end",
-textAlign: "left",
-}}
->
-
-<div
-style={{
-position: "absolute",
-inset: 0,
-backgroundImage:
-"url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop)",
-backgroundSize: "cover",
-backgroundPosition: "center",
-opacity: 0.45,
-}}
+{/* BIG VIDEO HERO */}
+<button type="button" onClick={generateAd} style={studioHeroCard}>
+<video
+src="/studio-hero.mp4"
+autoPlay
+muted
+loop
+playsInline
+style={studioHeroVideo}
 />
 
-<div
-style={{
-position: "absolute",
-inset: 0,
-background:
-"linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.2))",
-}}
-/>
+<div style={studioHeroShade} />
 
-<div style={{ position: "relative", zIndex: 2 }}>
-<div
-style={{
-fontSize: 12,
-letterSpacing: 3,
-marginBottom: 12,
-color: "#c7bfff",
-fontWeight: 700,
-}}
->
-AI AD GENERATOR
-</div>
+<div style={studioHeroContent}>
+<span style={studioTag}>AI AD GENERATOR</span>
 
-<h2
-style={{
-fontSize: 38,
-lineHeight: 1,
-marginBottom: 12,
-color: "white",
-fontWeight: 900,
-}}
->
+<h2 style={studioHeroTitle}>
 Create ads
 <br />
 that convert
 </h2>
 
-<p
-style={{
-color: "rgba(255,255,255,0.7)",
-fontSize: 15,
-maxWidth: 260,
-marginBottom: 18,
-}}
->
+<p style={studioHeroText}>
 Generate premium AI ads & social content instantly.
 </p>
 
-<div
-style={{
-display: "inline-flex",
-alignItems: "center",
-gap: 10,
-padding: "12px 18px",
-borderRadius: 999,
-background:
-"linear-gradient(135deg,#8b5cf6,#6d5cff)",
-color: "white",
-fontWeight: 700,
-fontSize: 14,
-}}
->
-Generate Now →
-</div>
+<span style={studioHeroBtn}>Generate Now →</span>
 </div>
 </button>
 
-
-{/* PHOTO CARD */}
+{/* UPGRADE PHOTO */}
 <button
+type="button"
 onClick={() => router.push("/upgrade-photo")}
-style={toolCard}
+style={studioMediaCard}
 >
 <div
 style={{
-width: "100%",
-height: 110,
-borderRadius: 18,
+...studioMediaImage,
 backgroundImage:
-"url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop)",
-backgroundSize: "cover",
-backgroundPosition: "center",
-marginBottom: 14,
+"url(https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=1200&auto=format&fit=crop)",
 }}
 />
-
-<b style={{ fontSize: 24 }}>Upgrade Photo</b>
-
-<small
-style={{
-color: "rgba(255,255,255,0.65)",
-marginTop: 6,
-}}
->
-Turn photos into premium AI ads
-</small>
+<div style={studioMediaBottom}>
+<div>
+<b style={studioMediaTitle}>Upgrade Photo</b>
+<small style={studioMediaText}>Turn photos into premium AI ads</small>
+</div>
+<span style={studioCircleArrow}>›</span>
+</div>
 </button>
 
-
-{/* VIDEO CARD */}
+{/* AI VIDEO */}
 <button
+type="button"
 onClick={() => router.push("/video")}
-style={toolCard}
+style={studioMediaCard}
 >
 <div
 style={{
-width: "100%",
-height: 110,
-borderRadius: 18,
+...studioMediaImage,
 backgroundImage:
-"url(https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200&auto=format&fit=crop)",
-backgroundSize: "cover",
-backgroundPosition: "center",
-marginBottom: 14,
-}}
-/>
-
-<b style={{ fontSize: 24 }}>AI Video</b>
-
-<small
-style={{
-color: "rgba(255,255,255,0.65)",
-marginTop: 6,
+"url(https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop)",
 }}
 >
-Create scroll stopping videos
-</small>
-</button>
+<span style={playBubble}>▶</span>
+</div>
 
+<div style={studioMediaBottom}>
+<div>
+<b style={studioMediaTitle}>AI Video</b>
+<small style={studioMediaText}>Create scroll stopping videos</small>
+</div>
+<span style={studioCircleArrow}>›</span>
+</div>
+</button>
 
 {/* UPLOAD STRIP */}
-<label
-style={{
-gridColumn: "1 / span 2",
-borderRadius: 24,
-padding: 18,
-background:
-"linear-gradient(145deg, rgba(16,18,35,0.96), rgba(4,6,15,0.98))",
-border: "1px solid rgba(255,255,255,0.06)",
-display: "flex",
-alignItems: "center",
-justifyContent: "space-between",
-gap: 14,
-}}
->
-
+<label style={studioUploadStrip}>
 <div>
-<div
-style={{
-color: "white",
-fontSize: 20,
-fontWeight: 800,
-marginBottom: 4,
-}}
->
-Upload Media
-</div>
-
-<div
-style={{
-color: "rgba(255,255,255,0.65)",
-fontSize: 14,
-}}
->
+<b style={studioUploadTitle}>Upload Media</b>
+<small style={studioUploadText}>
 Upload images & videos to generate content
-</div>
+</small>
 </div>
 
-<div
-style={{
-padding: "12px 18px",
-borderRadius: 999,
-background:
-"linear-gradient(135deg,#8b5cf6,#6d5cff)",
-color: "white",
-fontWeight: 700,
-}}
->
-Upload →
-</div>
+<span style={studioUploadBtn}>Upload →</span>
 
 <input
 type="file"
@@ -1138,7 +1012,6 @@ if (file) uploadMedia(file);
 style={{ display: "none" }}
 />
 </label>
-
 </div>
 </section>
 
@@ -3283,7 +3156,186 @@ fontSize: 24,
 
 
 
+const studioCardsNew: React.CSSProperties = {
+display: "grid",
+gridTemplateColumns: "repeat(2, 1fr)",
+gap: 14,
+marginTop: 18,
+};
 
+const studioHeroCard: React.CSSProperties = {
+gridColumn: "1 / span 2",
+position: "relative",
+overflow: "hidden",
+minHeight: 260,
+borderRadius: 30,
+border: "1px solid rgba(255,255,255,0.12)",
+background: "#050713",
+padding: 0,
+textAlign: "left",
+boxShadow: "0 24px 70px rgba(0,0,0,0.5)",
+};
+
+const studioHeroVideo: React.CSSProperties = {
+position: "absolute",
+inset: 0,
+width: "100%",
+height: "100%",
+objectFit: "cover",
+};
+
+const studioHeroShade: React.CSSProperties = {
+position: "absolute",
+inset: 0,
+background:
+"linear-gradient(90deg, rgba(0,0,0,0.92), rgba(0,0,0,0.48), rgba(0,0,0,0.18))",
+};
+
+const studioHeroContent: React.CSSProperties = {
+position: "relative",
+zIndex: 2,
+padding: 24,
+};
+
+const studioTag: React.CSSProperties = {
+color: "#c9b8ff",
+fontSize: 12,
+fontWeight: 900,
+letterSpacing: 4,
+};
+
+const studioHeroTitle: React.CSSProperties = {
+color: "white",
+fontSize: 42,
+lineHeight: 0.95,
+margin: "38px 0 14px",
+fontWeight: 950,
+letterSpacing: -2,
+};
+
+const studioHeroText: React.CSSProperties = {
+color: "rgba(255,255,255,0.72)",
+fontSize: 16,
+lineHeight: 1.35,
+maxWidth: 280,
+marginBottom: 22,
+};
+
+const studioHeroBtn: React.CSSProperties = {
+display: "inline-flex",
+padding: "13px 22px",
+borderRadius: 999,
+background: "linear-gradient(135deg,#8b5cf6,#6d5cff)",
+color: "white",
+fontSize: 15,
+fontWeight: 900,
+};
+
+const studioMediaCard: React.CSSProperties = {
+border: "1px solid rgba(255,255,255,0.12)",
+background: "rgba(5,7,18,0.94)",
+borderRadius: 26,
+padding: 10,
+color: "white",
+textAlign: "left",
+overflow: "hidden",
+boxShadow: "0 18px 42px rgba(0,0,0,0.38)",
+};
+
+const studioMediaImage: React.CSSProperties = {
+width: "100%",
+height: 120,
+borderRadius: 18,
+backgroundSize: "cover",
+backgroundPosition: "center",
+position: "relative",
+marginBottom: 14,
+};
+
+const studioMediaBottom: React.CSSProperties = {
+display: "flex",
+alignItems: "center",
+justifyContent: "space-between",
+gap: 10,
+padding: "0 2px 4px",
+};
+
+const studioMediaTitle: React.CSSProperties = {
+display: "block",
+fontSize: 24,
+fontWeight: 950,
+letterSpacing: -1,
+};
+
+const studioMediaText: React.CSSProperties = {
+display: "block",
+color: "rgba(255,255,255,0.62)",
+fontSize: 12,
+marginTop: 6,
+};
+
+const studioCircleArrow: React.CSSProperties = {
+width: 38,
+height: 38,
+borderRadius: 999,
+background: "rgba(255,255,255,0.08)",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+fontSize: 30,
+flexShrink: 0,
+};
+
+const playBubble: React.CSSProperties = {
+position: "absolute",
+inset: 0,
+margin: "auto",
+width: 54,
+height: 54,
+borderRadius: 999,
+background: "rgba(0,0,0,0.45)",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+color: "white",
+fontSize: 22,
+};
+
+const studioUploadStrip: React.CSSProperties = {
+gridColumn: "1 / span 2",
+borderRadius: 26,
+padding: 20,
+background:
+"linear-gradient(145deg, rgba(18,20,38,0.96), rgba(5,7,18,0.98))",
+border: "1px solid rgba(255,255,255,0.12)",
+display: "flex",
+alignItems: "center",
+justifyContent: "space-between",
+gap: 14,
+color: "white",
+};
+
+const studioUploadTitle: React.CSSProperties = {
+display: "block",
+fontSize: 26,
+fontWeight: 950,
+};
+
+const studioUploadText: React.CSSProperties = {
+display: "block",
+color: "rgba(255,255,255,0.62)",
+fontSize: 14,
+marginTop: 5,
+};
+
+const studioUploadBtn: React.CSSProperties = {
+padding: "13px 20px",
+borderRadius: 999,
+background: "linear-gradient(135deg,#8b5cf6,#6d5cff)",
+color: "white",
+fontWeight: 900,
+flexShrink: 0,
+};
 
 
 
