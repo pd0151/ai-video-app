@@ -917,7 +917,7 @@ style={studioInput}
 {/* BIG VIDEO HERO */}
 <button type="button" onClick={generateAd} style={studioHeroCard}>
 <video
-src="/studio-hero.mp4"
+src="/videos/ad-video.mp5"
 autoPlay
 muted
 loop
