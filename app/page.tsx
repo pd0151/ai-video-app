@@ -2472,15 +2472,16 @@ marginBottom: 14,
 
 
 const installBtn: React.CSSProperties = {
-height: 58,
+height: 35,
 width: "100%",
-borderRadius: 20,
+borderRadius: 15,
 border: "1px solid rgba(255,255,255,0.18)",
 background:
 "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(210,220,255,0.88))",
 color: "#05070d",
-fontSize: 20,
+fontSize: 15,
 fontWeight: 900,
+padding: "0 18px",
 cursor: "pointer",
 boxShadow:
 "0 0 10px rgba(255,255,255,0.6), 0 0 40px rgba(180,210,255,0.35)",
