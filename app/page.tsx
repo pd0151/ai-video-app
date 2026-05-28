@@ -267,11 +267,13 @@ async function generateAd() {
     setGenerating(true);
 if (!isPro && credits <= 0) {
 alert("No credits left");
+setGenerating(false);
 return;
 }
 
 if (!prompt.trim()) {
 alert("Enter prompt");
+setGenerating(false);
 return;
 }
 
