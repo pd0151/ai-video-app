@@ -1538,25 +1538,9 @@ fontWeight: 950,
 letterSpacing: -1,
 };
 
-const promptBox: CSSProperties = {
-marginTop: 14,
-borderRadius: 20,
-padding: 14,
-background: "rgba(0,0,0,0.42)",
-border: `1px solid ${LINE}`,
-};
 
-const promptInput: CSSProperties = {
-width: "100%",
-height: 86,
-background: "transparent",
-border: "none",
-outline: "none",
-color: WHITE,
-resize: "none",
-fontSize: 16,
-lineHeight: 1.45,
-};
+
+
 
 const toolRow: CSSProperties = {
 display: "flex",
@@ -2987,25 +2971,13 @@ gap: 8,
 alignItems: "center",
 };
 
-const studioTitle: React.CSSProperties = {
-margin: 0,
-fontSize: "clamp(26px, 7vw, 42px)",
-lineHeight: 0.88,
-letterSpacing: -2,
-fontWeight: 950,
-};
+
 
 const studioAccent: React.CSSProperties = {
 color: "#b8c7ff",
 textShadow: "0 0 22px rgba(180,200,255,0.55)",
 };
 
-const studioText: React.CSSProperties = {
-margin: "8px 0 0",
-color: "rgba(255,255,255,0.66)",
-fontSize: 12,
-lineHeight: 1.35,
-};
 
 const studioVisual: React.CSSProperties = {
 position: "relative",
@@ -3092,17 +3064,7 @@ outline: "none",
 boxShadow: "inset 0 0 30px rgba(255,255,255,0.035)",
 };
 
-const enhanceBtn: React.CSSProperties = {
-position: "absolute",
-right: 14,
-bottom: 14,
-borderRadius: 16,
-border: "1px solid rgba(220,235,255,0.26)",
-background: "rgba(255,255,255,0.06)",
-color: "white",
-padding: "10px 14px",
-fontWeight: 900,
-};
+
 
 const studioCards: React.CSSProperties = {
 display: "grid",
@@ -3156,12 +3118,7 @@ fontSize: 24,
 
 
 
-const studioCardsNew: React.CSSProperties = {
-display: "grid",
-gridTemplateColumns: "repeat(2, 1fr)",
-gap: 14,
-marginTop: 18,
-};
+
 
 const studioHeroCard: React.CSSProperties = {
 gridColumn: "1 / span 2",
@@ -3340,6 +3297,131 @@ flexShrink: 0,
 
 
 
+const studioSection: CSSProperties = {
+padding: "22px 14px 90px",
+background: "linear-gradient(180deg,#050814,#07040f)",
+};
 
+const aiStudioBox: CSSProperties = {
+borderRadius: 26,
+padding: 12,
+background:
+"linear-gradient(180deg,rgba(38,34,82,0.92),rgba(5,8,18,0.98))",
+border: "1px solid rgba(255,255,255,0.12)",
+boxShadow: "0 0 35px rgba(120,80,255,0.28)",
+};
+
+const studioTitle: CSSProperties = {
+fontSize: 34,
+lineHeight: "36px",
+fontWeight: 900,
+letterSpacing: "-1.5px",
+margin: "18px 0 10px",
+};
+
+const studioText: CSSProperties = {
+fontSize: 15,
+lineHeight: "20px",
+color: "rgba(255,255,255,0.68)",
+marginBottom: 16,
+};
+
+const promptBox: CSSProperties = {
+height: 70,
+borderRadius: 18,
+padding: "0 14px",
+display: "flex",
+alignItems: "center",
+justifyContent: "space-between",
+gap: 10,
+background: "rgba(2,6,16,0.82)",
+border: "1px solid rgba(255,255,255,0.12)",
+};
+
+const promptInput: CSSProperties = {
+flex: 1,
+background: "transparent",
+border: "none",
+outline: "none",
+color: "white",
+fontSize: 14,
+};
+
+const enhanceBtn: CSSProperties = {
+border: "1px solid rgba(255,255,255,0.18)",
+background: "rgba(255,255,255,0.08)",
+color: "white",
+borderRadius: 999,
+padding: "10px 13px",
+fontWeight: 800,
+fontSize: 12,
+whiteSpace: "nowrap",
+};
+
+const bigAdCard: CSSProperties = {
+marginTop: 14,
+height: 190,
+borderRadius: 22,
+overflow: "hidden",
+position: "relative",
+backgroundImage: "url('/studio-car.jpg')",
+backgroundSize: "cover",
+backgroundPosition: "center",
+border: "1px solid rgba(255,255,255,0.13)",
+};
+
+const bigAdOverlay: CSSProperties = {
+position: "absolute",
+inset: 0,
+padding: 22,
+background:
+"linear-gradient(90deg,rgba(0,0,0,0.72),rgba(0,0,0,0.2))",
+display: "flex",
+flexDirection: "column",
+justifyContent: "center",
+};
+
+const toolGrid: CSSProperties = {
+marginTop: 14,
+display: "grid",
+gridTemplateColumns: "1fr 1fr",
+gap: 12,
+};
+
+const smallToolCard: CSSProperties = {
+height: 150,
+borderRadius: 18,
+overflow: "hidden",
+background: "rgba(5,9,20,0.95)",
+border: "1px solid rgba(255,255,255,0.12)",
+};
+
+const smallToolImg: CSSProperties = {
+width: "100%",
+height: 85,
+objectFit: "cover",
+};
+
+const uploadMediaBox: CSSProperties = {
+marginTop: 14,
+minHeight: 92,
+borderRadius: 20,
+padding: 16,
+background: "rgba(6,10,22,0.94)",
+border: "1px solid rgba(255,255,255,0.12)",
+display: "flex",
+alignItems: "center",
+justifyContent: "space-between",
+};
+
+const purpleBtn: CSSProperties = {
+background: "linear-gradient(135deg,#8f46ff,#6f4cff)",
+color: "white",
+border: "none",
+borderRadius: 999,
+padding: "13px 20px",
+fontWeight: 900,
+fontSize: 15,
+};
 
 
