@@ -3329,13 +3329,13 @@ maxWidth: 420,
 };
 
 const promptBox: CSSProperties = {
-height: 48,
-borderRadius: 16,
-padding: "0 10px",
+height: 30,
+borderRadius: 10,
+padding: "0 8px",
 display: "flex",
 alignItems: "center",
 justifyContent: "space-between",
-gap: 10,
+gap: 8,
 background: "rgba(2,6,16,0.82)",
 border: "1px solid rgba(255,255,255,0.12)",
 };
