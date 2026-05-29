@@ -899,51 +899,8 @@ style={premiumAdImage}
 
 <div style={studioCards}>
 {/* BIG VIDEO HERO */}
-<div style={createPanel}>
-<div style={createHeader}>
-<div>
-<span style={studioTag}>CREATE AD</span>
-<h2 style={createTitle}>What are we making?</h2>
-</div>
-</div>
 
-<textarea
-value={prompt}
-onChange={(e) => setPrompt(e.target.value)}
-placeholder="Describe your offer, business or promotion..."
-style={studioInput}
-/>
 
-<div style={miniPreview}>
-{image ? (
-<img src={image} alt="Generated advert" style={miniPreviewMedia} />
-) : (
-<video
-src="/videos/ad-video.mp4"
-autoPlay
-muted
-loop
-playsInline
-style={miniPreviewMedia}
-/>
-)}
-</div>
-
-<button
-onClick={async () => {
-if (image) {
-await useThisAd();
-setImage(null);
-} else {
-generateAd();
-}
-}}
-disabled={generating}
-style={createBtn}
->
-{image ? "Share To Feed" : generating ? "Generating..." : "Generate Ad →"}
-</button>
-</div>
 
 <div style={fullHero}>
 {image ? (
