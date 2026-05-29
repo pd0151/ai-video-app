@@ -894,58 +894,98 @@ style={premiumAdImage}
 
 
 
+{image && (
+<div
+style={{
+marginTop: 14,
+borderRadius: 26,
+overflow: "hidden",
+border: "1px solid rgba(255,255,255,0.08)",
+background: "#050712",
+}}
+>
+<img
+src={image}
+alt="Generated advert"
+style={{
+width: "100%",
+height: 320,
+display: "block",
+objectFit: "contain",
+}}
+/>
 
+<button
+onClick={useThisAd}
+style={{
+width: "100%",
+padding: "16px",
+border: "none",
+background: "linear-gradient(135deg,#8b5cf6,#6d5dfc)",
+color: "#fff",
+fontWeight: 800,
+fontSize: 16,
+cursor: "pointer",
+}}
+>
+Share To Feed
+</button>
+</div>
+)}
 
 
 <div style={studioCards}>
 {/* BIG VIDEO HERO */}
-<button
-type="button"
-onClick={generateAd}
-disabled={generating}
-style={{
-...studioHeroCard,
-opacity: generating ? 0.7 : 1,
-pointerEvents: generating ? "none" : "auto",
-}}
->
+<div style={studioHeroCard}>
+{image ? (
+<img src={image} alt="Generated advert" style={studioHeroVideo} />
+) : (
 <video
-src="/videos/ad-video.mp5"
+src="/videos/ad-video.mp4"
 autoPlay
 muted
 loop
 playsInline
 style={studioHeroVideo}
 />
+)}
 
 <div style={studioHeroShade} />
 
 <div style={studioHeroContent}>
-<span style={studioTag}>GENERATE AD</span>
+<span style={studioTag}>
+{image ? "AI AD READY" : "GENERATE AD"}
+</span>
 
 <h2 style={studioHeroTitle}>
-Generate AI ads
-<br />
-that convert
+{image ? "Your generated advert" : <>Generate AI ads<br />that convert</>}
 </h2>
 
+{!image && (
 <p style={studioHeroText}>
 Generate premium AI ads & social content instantly.
 </p>
+)}
+</div>
 
 <span
+onClick={async () => {
+if (image) {
+await useThisAd();
+setImage(null);
+} else {
+generateAd();
+}
+}}
 style={{
 ...studioHeroBtn,
-position: "absolute",
-left: 24,
-top: 460,
-zIndex: 5,
+
+cursor: "pointer",
 }}
 >
-{generating ? "Generating..." : "Generate Now →"}
+{image ? "Share To Feed" : generating ? "Generating..." : "Generate Now →"}
 </span>
 </div>
-</button>
 <div style={studioInputWrap}>
 <textarea
 value={prompt}
@@ -3131,82 +3171,97 @@ fontSize: 24,
 
 
 
-
-
 const studioHeroCard: React.CSSProperties = {
-gridColumn: "1 / span 2",
 position: "relative",
 overflow: "hidden",
 width: "100%",
-minHeight: 540,
-marginTop: 0,
-borderRadius: 28,
-border: "1px solid rgba(255,255,255,0.12)",
-background: "#050713",
-padding: 0,
-textAlign: "left",
-boxShadow: "0 24px 70px rgba(0,0,0,0.5)",
+minHeight: 620,
+borderRadius: 32,
+border: "1px solid rgba(168,85,247,0.35)",
+background:
+"linear-gradient(180deg, rgba(20,20,30,0.95), rgba(10,10,18,0.98))",
+boxShadow:
+"0 0 0 1px rgba(168,85,247,0.08), 0 25px 80px rgba(0,0,0,0.55)",
 };
 
 const studioHeroVideo: React.CSSProperties = {
 position: "absolute",
-inset: 0,
-width: "100%",
-height: "100%",
+left: 22,
+right: 22,
+top: 90,
+width: "calc(100% - 44px)",
+height: 430,
 objectFit: "cover",
-opacity: 1,
-filter: "brightness(1.15)",
-zIndex: 0,
+borderRadius: 24,
+zIndex: 1,
 };
 
 const studioHeroShade: React.CSSProperties = {
 position: "absolute",
 inset: 0,
 background:
-"linear-gradient(90deg, rgba(0,0,0,0.15), rgba(0,0,0,0.05), transparent)",
+"linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.45))",
+zIndex: 2,
+pointerEvents: "none",
 };
 
 const studioHeroContent: React.CSSProperties = {
 position: "absolute",
 top: 28,
-left: 24,
-right: 24,
-zIndex: 3,
+left: 28,
+right: 28,
+zIndex: 4,
+};
+
+const studioHeroBtn: React.CSSProperties = {
+position: "absolute",
+left: 22,
+right: 22,
+bottom: 22,
+height: 58,
+borderRadius: 18,
+background: "linear-gradient(135deg,#8b5cf6,#c84ddf)",
+color: "#fff",
+fontWeight: 900,
+fontSize: 18,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+textAlign: "center",
+boxShadow: "0 10px 40px rgba(139,92,246,0.45)",
 };
 
 const studioTag: React.CSSProperties = {
-color: "#c9b8ff",
-fontSize: 12,
+color: "#b78cff",
+fontSize: 13,
 fontWeight: 900,
 letterSpacing: 4,
 };
 
 const studioHeroTitle: React.CSSProperties = {
-color: "white",
-fontSize: 32,
-lineHeight: 1.15,
-margin: 0,
-fontWeight: 950,
-letterSpacing: -2,
+margin: "8px 0 0",
+color: "#fff",
+fontSize: 30,
+lineHeight: 1,
+fontWeight: 900,
 };
-
 
 const studioHeroText: React.CSSProperties = {
+marginTop: 12,
 color: "rgba(255,255,255,0.72)",
-fontSize: "15px",
-lineHeight: 1.35,
-opacity: 0.85,
-marginTop: 14,
-maxWidth: 280,
-marginBottom: 22,
+fontSize: 18,
+maxWidth: 320,
 };
 
-const studioHeroBtn: CSSProperties = {
-padding: "10px 18px",
-fontSize: 14,
-borderRadius: 14,
-background: "linear-gradient(135deg,#8b5cf6,#6d5dfc)",
-};
+
+
+
+
+
+
+
+
+
 
 const studioMediaCard: React.CSSProperties = {
 border: "1px solid rgba(255,255,255,0.12)",
