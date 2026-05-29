@@ -924,11 +924,7 @@ style={studioHeroVideo}
 {image ? "Your generated advert" : <>Generate AI ads<br />that convert</>}
 </h2>
 
-{!image && (
-<p style={studioHeroText}>
-Generate premium AI ads & social content instantly.
-</p>
-)}
+
 </div>
 
 <span
@@ -3142,9 +3138,9 @@ const studioHeroVideo: React.CSSProperties = {
 position: "absolute",
 left: 22,
 right: 22,
-top: 130,
+top: 95,
 width: "calc(100% - 44px)",
-height: 430,
+height: 560,
 objectFit: "cover",
 borderRadius: 24,
 zIndex: 1,
