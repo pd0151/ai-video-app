@@ -3213,6 +3213,9 @@ letterSpacing: 4,
 };
 
 const studioHeroTitle: React.CSSProperties = {
+position: "absolute",
+top: 40,
+left: 24,
 color: "white",
 fontSize: 32,
 lineHeight: 1.15,
@@ -3222,13 +3225,14 @@ letterSpacing: -2,
 };
 
 const studioHeroText: React.CSSProperties = {
+position: "absolute",
+top: 120,
+left: 24,
 color: "rgba(255,255,255,0.72)",
 fontSize: "15px",
 lineHeight: 1.35,
 opacity: 0.85,
-marginTop: 0,
 maxWidth: 280,
-marginBottom: 22,
 };
 
 const studioHeroBtn: CSSProperties = {
