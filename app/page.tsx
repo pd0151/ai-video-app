@@ -560,16 +560,16 @@ PRO
 
 <section style={platformHero}>
 <div style={platformHeroCopy}>
-<span style={platformPill}>LIVE AD OF THE DAY</span>
+<span style={platformPill}>ADFORGE PLATFORM</span>
 
 <h1 style={platformHeroTitle}>
-Built to turn<br />
-scrolls into<br />
-customers.
+Create ads<br />
+Capture calls.<br />
+Grow faster.
 </h1>
 
 <p style={platformHeroText}>
-High converting adverts generated in seconds.
+AI advertising, AI video and AI receptionist tools built for local businesses.
 </p>
 
 <button onClick={() => router.push("/ai")} style={platformMainBtn}>
@@ -577,22 +577,7 @@ High converting adverts generated in seconds.
 </button>
 </div>
 
-<div style={platformHeroMediaWrap}>
-{recentPosts?.[0]?.video_url ? (
-<video
-src={recentPosts[0].video_url}
-autoPlay
-muted
-loop
-playsInline
-style={platformHeroMedia}
-/>
-) : recentPosts?.[0]?.image_url ? (
-<img src={recentPosts[0].image_url} style={platformHeroMedia} />
-) : (
-<img src="/images/upgrade-photo1.jpg" style={platformHeroMedia} />
-)}
-</div>
+
 </section>
 
 <section style={platformTools}>
@@ -3182,7 +3167,7 @@ borderRadius: 34,
 padding: 24,
 marginTop: 20,
 background:
-"linear-gradient(135deg, rgba(8,10,14,0.96), rgba(2,3,6,0.98))",
+"radial-gradient(circle at 80% 20%, rgba(220,235,255,0.18), transparent 34%), linear-gradient(135deg, rgba(8,10,14,0.98), rgba(2,3,6,0.98))",
 border: `1px solid ${LINE_STRONG}`,
 boxShadow:
 "0 0 22px rgba(220,235,255,0.26), 0 0 70px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.12)",
