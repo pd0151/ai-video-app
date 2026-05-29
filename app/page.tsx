@@ -3200,8 +3200,9 @@ zIndex: 2,
 display: "flex",
 flexDirection: "column",
 justifyContent: "space-between",
-padding: 24,
+padding: "20px 20px 20px 20px",
 gap: 10,
+paddingTop: 20,
 };
 
 const studioTag: React.CSSProperties = {
@@ -3213,30 +3214,32 @@ letterSpacing: 4,
 
 const studioHeroTitle: React.CSSProperties = {
 color: "white",
-fontSize: 42,
-lineHeight: 0.95,
-margin: "38px 0 14px",
+fontSize: 32,
+lineHeight: 1.15,
+margin: 0,
 fontWeight: 950,
 letterSpacing: -2,
 };
 
 const studioHeroText: React.CSSProperties = {
 color: "rgba(255,255,255,0.72)",
-fontSize: 16,
+fontSize: "15px",
 lineHeight: 1.35,
+opacity: 0.85,
+marginTop: 0,
 maxWidth: 280,
 marginBottom: 22,
 };
 
-const studioHeroBtn: React.CSSProperties = {
-display: "inline-flex",
-padding: "13px 22px",
-borderRadius: 999,
-background: "linear-gradient(135deg,#8b5cf6,#6d5cff)",
+const studioHeroBtn: CSSProperties = {
+alignSelf: "flex-start",
+padding: "10px 18px",
+fontSize: 14,
+borderRadius: 14,
+background: "linear-gradient(135deg,#8b5cf6,#6d5dfc)",
 color: "white",
-fontSize: 15,
 fontWeight: 900,
-};
+}
 
 const studioMediaCard: React.CSSProperties = {
 border: "1px solid rgba(255,255,255,0.12)",
