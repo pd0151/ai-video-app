@@ -3195,14 +3195,11 @@ background:
 };
 
 const studioHeroContent: React.CSSProperties = {
-position: "relative",
-zIndex: 2,
-display: "flex",
-flexDirection: "column",
-justifyContent: "space-between",
-padding: "20px 20px 20px 20px",
-gap: 10,
-paddingTop: 20,
+position: "absolute",
+top: 28,
+left: 24,
+right: 24,
+zIndex: 3,
 };
 
 const studioTag: React.CSSProperties = {
@@ -3213,9 +3210,6 @@ letterSpacing: 4,
 };
 
 const studioHeroTitle: React.CSSProperties = {
-position: "absolute",
-top: 40,
-left: 24,
 color: "white",
 fontSize: 32,
 lineHeight: 1.15,
@@ -3224,15 +3218,15 @@ fontWeight: 950,
 letterSpacing: -2,
 };
 
+
 const studioHeroText: React.CSSProperties = {
-position: "absolute",
-top: 120,
-left: 24,
 color: "rgba(255,255,255,0.72)",
 fontSize: "15px",
 lineHeight: 1.35,
 opacity: 0.85,
+marginTop: 14,
 maxWidth: 280,
+marginBottom: 22,
 };
 
 const studioHeroBtn: CSSProperties = {
