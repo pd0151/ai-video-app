@@ -785,7 +785,7 @@ AdForge AI handles calls, captures leads and helps you grow your business
 
 
 
-<section style={premiumStudio}>
+<section style={studioBundle}>
 <div style={studioTopRow}>
 
 
@@ -3481,4 +3481,14 @@ fontSize: 48,
 fontWeight: 300,
 margin: "18px auto 0",
 boxShadow: "0 0 35px rgba(34,255,127,0.35)",
+};
+
+const studioBundle: React.CSSProperties = {
+marginTop: 22,
+padding: 18,
+borderRadius: 34,
+background: "linear-gradient(180deg, rgba(8,12,22,0.96), rgba(2,4,8,0.98))",
+border: "1px solid rgba(255,255,255,0.10)",
+boxShadow: "0 0 0 1px rgba(255,255,255,0.03), 0 25px 90px rgba(0,0,0,0.65), 0 0 45px rgba(34,255,127,0.08)",
+overflow: "hidden",
 };
