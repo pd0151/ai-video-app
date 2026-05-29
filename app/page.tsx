@@ -779,9 +779,7 @@ AdForge AI handles calls, captures leads and helps you grow your business
 ⚡ Launch AI Receptionist
 </button>
 </section>
-<button onClick={installApp} style={installBtn}>
-⬇ Install AdForge App
-</button>
+
 <section style={liveAdsWrap}>
 <div style={sectionTop}>
 <span style={sectionPill}>AI CREATED ADS</span>
