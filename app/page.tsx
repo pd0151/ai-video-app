@@ -697,160 +697,62 @@ PRO
 GET STARTED
 </div>
 
-<div style={premiumHeroGrid}>
-<div>
-<h2 style={aiTitle}>
-Set up in minutes.
-<br />
-Never miss a business
-<br />
-<span style={{ color: "#cfdcff" }}>call again.</span>
-</h2>
+{/* PREMIUM ADFORGE HOME REDESIGN */}
 
-<p style={aiText}>
-AdForge AI handles calls, captures leads and helps you grow your business
-24/7.
+<section style={platformHero}>
+<div style={platformHeroCopy}>
+<span style={platformPill}>LIVE AD OF THE DAY</span>
+
+<h1 style={platformHeroTitle}>
+Built to turn<br />
+scrolls into<br />
+customers.
+</h1>
+
+<p style={platformHeroText}>
+High converting adverts generated in seconds.
 </p>
-</div>
 
-<div style={realPhone}>
-<div style={phoneGlassGlow} />
-<div style={phoneNotch} />
-
-<div style={phoneScreenInner}>
-<div style={phoneStatusRow}>
-<span style={phoneLiveText}>LIVE</span>
-<span style={phoneGreenDot} />
-</div>
-
-<div style={callerCircle}>
-<span>AI</span>
-</div>
-
-<div style={callTitle}>AdForge</div>
-<div style={callSub}>Answering customer call</div>
-
-<div style={realWaveWrap}>
-<span style={{ ...realWaveBar, height: 10, animationDelay: "0s" }} />
-<span style={{ ...realWaveBar, height: 22, animationDelay: "0.1s" }} />
-<span style={{ ...realWaveBar, height: 14, animationDelay: "0.2s" }} />
-<span style={{ ...realWaveBar, height: 30, animationDelay: "0.3s" }} />
-<span style={{ ...realWaveBar, height: 18, animationDelay: "0.4s" }} />
-<span style={{ ...realWaveBar, height: 24, animationDelay: "0.5s" }} />
-</div>
-
-<div style={callTimer}>00:18</div>
-
-<div style={miniLeadCard}>
-<b>Customer enquiry</b>
-<span>Tyre replacement</span>
-</div>
-
-<div style={miniLeadInfo}>
-<span>Lead captured</span>
-<span>Liverpool, UK</span>
-</div>
-
-<div style={callActions}>
-<div style={callButton}>×</div>
-<div style={callButtonGreen}>✓</div>
-</div>
-</div>
-</div>
-
-</div>
-
-<div style={premiumStats}>
-{[
-["128", "Calls Answered", "Today"],
-["42", "Leads Captured", "Today"],
-["19", "Jobs Booked", "Today"],
-["24/7", "AI Always On", "Never Miss a Call"],
-].map(([num, label, sub]) => (
-<div key={label} style={premiumStat}>
-<b>{num}</b>
-<span>{label}</span>
-<small>{sub}</small>
-</div>
-))}
-</div>
-
-<button style={aiCta}>
-⚡ Launch AI Receptionist
+<button onClick={() => router.push("/ai")} style={platformMainBtn}>
+✨ Generate AI Ad →
 </button>
+</div>
+
+<div style={platformHeroMediaWrap}>
+{recentPosts?.[0]?.video_url ? (
+<video
+src={recentPosts[0].video_url}
+autoPlay
+muted
+loop
+playsInline
+style={platformHeroMedia}
+/>
+) : recentPosts?.[0]?.image_url ? (
+<img src={recentPosts[0].image_url} style={platformHeroMedia} />
+) : (
+<img src="/images/upgrade-photo1.jpg" style={platformHeroMedia} />
+)}
+</div>
 </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* UPGRADE PHOTO */}
-<button
-type="button"
-onClick={() => router.push("/upgrade-photo")}
-style={studioMediaCard}
->
-<div
-style={{
-...studioMediaImage,
-backgroundImage: "url('/images/upgrade-photo1.jpg')",
-}}
-/>
-<div style={studioMediaBottom}>
-<div>
-<b style={studioMediaTitle}>Upgrade Photo</b>
-<small style={studioMediaText}>Turn photos into premium AI ads</small>
-</div>
-<span style={studioCircleArrow}>›</span>
-</div>
+<section style={platformTools}>
+<button style={platformToolCard} onClick={() => router.push("/upgrade-photo")}>
+<span style={platformToolIcon}>✦</span>
+<b>Photo Ads</b>
+<small>Turn photos into premium adverts</small>
 </button>
 
-{/* AI VIDEO */}
-<button
-type="button"
-onClick={() => router.push("/video")}
-style={studioMediaCard}
->
-<div
-style={{
-...studioMediaImage,
-backgroundImage: "url('/images/upgrade-photo2.jpg')",
-}}
->
-<span style={playBubble}>▶</span>
-</div>
-
-<div style={studioMediaBottom}>
-<div>
-<b style={studioMediaTitle}>AI Video</b>
-<small style={studioMediaText}>Create scroll stopping videos</small>
-</div>
-<span style={studioCircleArrow}>›</span>
-</div>
+<button style={platformToolCard} onClick={() => router.push("/video")}>
+<span style={platformToolIcon}>▶</span>
+<b>AI Video</b>
+<small>Create scroll stopping videos</small>
 </button>
 
-{/* UPLOAD STRIP */}
-<label style={studioUploadStrip}>
-<div>
-<b style={studioUploadTitle}>Upload Media</b>
-<small style={studioUploadText}>
-Upload images & videos to generate content
-</small>
-</div>
-
-<span style={studioUploadBtn}>Upload →</span>
+<label style={platformToolCard}>
+<span style={platformToolIcon}>⇧</span>
+<b>Upload</b>
+<small>Images, videos and assets</small>
 
 <input
 type="file"
@@ -862,8 +764,35 @@ if (file) uploadMedia(file);
 style={{ display: "none" }}
 />
 </label>
+</section>
 
+<section style={platformReceptionist}>
+<div>
+<span style={platformPill}>AI RECEPTIONIST</span>
 
+<h2 style={platformReceptionistTitle}>
+Never miss<br />
+another lead.
+</h2>
+
+<p style={platformHeroText}>
+Answers calls, captures leads and helps book jobs 24/7.
+</p>
+</div>
+
+<div style={platformReceptionistStats}>
+<div><b>128</b><span>Calls</span></div>
+<div><b>42</b><span>Leads</span></div>
+<div><b>19</b><span>Jobs</span></div>
+</div>
+
+<button
+onClick={() => router.push("/ai-receptionist")}
+style={platformMainBtn}
+>
+⚡ Launch AI Receptionist →
+</button>
+</section>
 
 <section style={premiumAdsSection}>
 <div style={studioTop}>
@@ -877,40 +806,9 @@ View all
 </button>
 </div>
 
-<div
-ref={(el) => {
-if (!el || (el as any).dataset.started === "true") return;
-
-(el as any).dataset.started = "true";
-
-let x = 0;
-
-const move = () => {
-x += 0.45;
-el.scrollLeft = x;
-
-if (x >= el.scrollWidth - el.clientWidth) {
-x = 0;
-el.scrollLeft = 0;
-}
-
-requestAnimationFrame(move);
-};
-
-requestAnimationFrame(move);
-}}
-style={premiumAdRail}
->
-{recentPosts.slice(0, 6).map((post, i) => (
-<div
-key={i}
-style={{
-...premiumAdCard,
-flex: "0 0 210px",
-minWidth: 210,
-maxWidth: 210,
-}}
->
+<div style={premiumAdRail}>
+{recentPosts.slice(0, 8).map((post, i) => (
+<div key={i} style={premiumAdCard}>
 {post.video_url ? (
 <video
 src={post.video_url}
@@ -921,25 +819,9 @@ loop
 playsInline
 />
 ) : post.image_url ? (
-<img
-src={post.image_url}
-style={premiumAdImage}
-/>
+<img src={post.image_url} style={premiumAdImage} />
 ) : (
-<div
-style={{
-...premiumAdImage,
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-background: "linear-gradient(135deg, #111827, #020617)",
-color: "#fff",
-fontWeight: 900,
-fontSize: 18,
-}}
->
-No Media
-</div>
+<div style={premiumAdImage} />
 )}
 
 <div style={premiumAdOverlay}>
@@ -3431,4 +3313,151 @@ background: "linear-gradient(180deg, rgba(8,12,22,0.96), rgba(2,4,8,0.98))",
 border: "1px solid rgba(255,255,255,0.10)",
 boxShadow: "0 0 0 1px rgba(255,255,255,0.03), 0 25px 90px rgba(0,0,0,0.65), 0 0 45px rgba(34,255,127,0.08)",
 overflow: "hidden",
+};
+
+const platformHero: React.CSSProperties = {
+position: "relative",
+overflow: "hidden",
+minHeight: 430,
+borderRadius: 34,
+padding: 24,
+marginTop: 20,
+background:
+"linear-gradient(135deg, rgba(8,10,14,0.96), rgba(2,3,6,0.98))",
+border: `1px solid ${LINE_STRONG}`,
+boxShadow:
+"0 0 22px rgba(220,235,255,0.26), 0 0 70px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.12)",
+};
+
+const platformHeroCopy: React.CSSProperties = {
+position: "relative",
+zIndex: 3,
+maxWidth: 290,
+};
+
+const platformPill: React.CSSProperties = {
+display: "inline-flex",
+padding: "9px 15px",
+borderRadius: 999,
+border: `1px solid ${LINE_STRONG}`,
+background: "rgba(255,255,255,0.06)",
+color: WHITE,
+fontSize: 12,
+fontWeight: 950,
+letterSpacing: 3,
+boxShadow: `0 0 24px ${GLOW_SOFT}`,
+};
+
+const platformHeroTitle: React.CSSProperties = {
+margin: "22px 0 12px",
+color: WHITE,
+fontSize: 42,
+lineHeight: 0.95,
+fontWeight: 950,
+letterSpacing: -2,
+textShadow: `0 0 28px ${GLOW_SOFT}`,
+};
+
+const platformHeroText: React.CSSProperties = {
+color: MUTED_WHITE,
+fontSize: 16,
+lineHeight: 1.45,
+margin: 0,
+};
+
+const platformMainBtn: React.CSSProperties = {
+marginTop: 22,
+width: "100%",
+border: `1px solid ${LINE_STRONG}`,
+borderRadius: 999,
+padding: "16px 18px",
+background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+color: "#05070b",
+fontSize: 16,
+fontWeight: 950,
+boxShadow:
+"0 0 20px rgba(220,235,255,0.35), 0 0 60px rgba(220,235,255,0.14)",
+};
+
+const platformHeroMediaWrap: React.CSSProperties = {
+position: "absolute",
+right: -35,
+bottom: -20,
+width: "64%",
+height: "86%",
+zIndex: 1,
+borderRadius: 30,
+overflow: "hidden",
+opacity: 0.75,
+};
+
+const platformHeroMedia: React.CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "cover",
+filter: "brightness(0.62) contrast(1.08)",
+};
+
+const platformTools: React.CSSProperties = {
+marginTop: 18,
+display: "grid",
+gridTemplateColumns: "1fr 1fr 1fr",
+gap: 10,
+};
+
+const platformToolCard: React.CSSProperties = {
+minHeight: 138,
+borderRadius: 24,
+padding: 14,
+background:
+"linear-gradient(145deg, rgba(15,18,25,0.92), rgba(3,5,10,0.96))",
+border: `1px solid ${LINE}`,
+color: WHITE,
+display: "flex",
+flexDirection: "column",
+gap: 7,
+textAlign: "left",
+boxShadow:
+"0 0 16px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08)",
+};
+
+const platformToolIcon: React.CSSProperties = {
+width: 42,
+height: 42,
+borderRadius: 15,
+display: "grid",
+placeItems: "center",
+background: "rgba(255,255,255,0.08)",
+border: `1px solid ${LINE_STRONG}`,
+color: WHITE,
+fontSize: 22,
+boxShadow: `0 0 22px ${GLOW_SOFT}`,
+};
+
+const platformReceptionist: React.CSSProperties = {
+marginTop: 22,
+padding: 24,
+borderRadius: 34,
+background:
+"radial-gradient(circle at 85% 20%, rgba(220,235,255,0.16), transparent 36%), linear-gradient(135deg, rgba(8,10,14,0.96), rgba(2,3,6,0.98))",
+border: `1px solid ${LINE_STRONG}`,
+boxShadow:
+"0 0 22px rgba(220,235,255,0.24), 0 0 70px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.12)",
+};
+
+const platformReceptionistTitle: React.CSSProperties = {
+color: WHITE,
+fontSize: 36,
+lineHeight: 1,
+fontWeight: 950,
+letterSpacing: -1.5,
+margin: "18px 0 12px",
+textShadow: `0 0 28px ${GLOW_SOFT}`,
+};
+
+const platformReceptionistStats: React.CSSProperties = {
+marginTop: 18,
+display: "grid",
+gridTemplateColumns: "repeat(3, 1fr)",
+gap: 10,
 };
