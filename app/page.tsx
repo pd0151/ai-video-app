@@ -3150,9 +3150,9 @@ const studioHeroVideo: React.CSSProperties = {
 position: "absolute",
 left: 22,
 right: 22,
-top: 70, // was 90
+top: 180,
 width: "calc(100% - 44px)",
-height: 560, // was 500
+height: 420,
 objectFit: "cover",
 borderRadius: 24,
 zIndex: 1,
@@ -3169,9 +3169,9 @@ pointerEvents: "none",
 
 const studioHeroContent: React.CSSProperties = {
 position: "absolute",
-top: 28,
-left: 28,
-right: 28,
+top: 20,
+left: 22,
+right: 22,
 zIndex: 4,
 };
 
