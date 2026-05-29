@@ -3298,9 +3298,6 @@ boxShadow: `0 0 22px ${GLOW_SOFT}`,
 const platformReceptionist: React.CSSProperties = {
 marginTop: 22,
 padding: 24,
-display: "flex",
-justifyContent: "space-between",
-gap: 24,
 borderRadius: 34,
 background:
 "radial-gradient(circle at 85% 20%, rgba(220,235,255,0.16), transparent 36%), linear-gradient(135deg, rgba(8,10,14,0.96), rgba(2,3,6,0.98))",
@@ -3321,7 +3318,7 @@ textShadow: `0 0 28px ${GLOW_SOFT}`,
 
 const platformReceptionistStats: React.CSSProperties = {
 marginTop: 18,
-display: "grid",
-gridTemplateColumns: "repeat(3, 1fr)",
-gap: 10,
+display: "flex",
+gridTemplateColumns: "space-between",
+gap: 24
 };
