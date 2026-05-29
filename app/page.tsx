@@ -921,7 +921,7 @@ style={studioHeroMedia}
 </span>
 
 <h2 style={studioHeroTitle}>
-{image ? "Your generated advert" : <>Generate AI ads<br />that convert</>}
+{image ? "Your generated advert" : <>NEW TEST DESINE<br />that convert</>}
 </h2>
 </div>
 
