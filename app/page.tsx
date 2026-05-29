@@ -899,9 +899,24 @@ style={premiumAdImage}
 
 <div style={studioCards}>
 {/* BIG VIDEO HERO */}
-<div style={studioHeroFull}>
+<div style={createPanel}>
+<div style={createHeader}>
+<div>
+<span style={studioTag}>CREATE AD</span>
+<h2 style={createTitle}>What are we making?</h2>
+</div>
+</div>
+
+<textarea
+value={prompt}
+onChange={(e) => setPrompt(e.target.value)}
+placeholder="Describe your offer, business or promotion..."
+style={studioInput}
+/>
+
+<div style={miniPreview}>
 {image ? (
-<img src={image} alt="Generated advert" style={studioHeroMedia} />
+<img src={image} alt="Generated advert" style={miniPreviewMedia} />
 ) : (
 <video
 src="/videos/ad-video.mp4"
@@ -909,20 +924,9 @@ autoPlay
 muted
 loop
 playsInline
-style={studioHeroMedia}
+style={miniPreviewMedia}
 />
 )}
-
-<div style={studioHeroOverlay} />
-
-<div style={studioHeroTopText}>
-<span style={studioTag}>
-{image ? "AI AD READY" : "GENERATE AD"}
-</span>
-
-<h2 style={studioHeroTitle}>
-{image ? "Your generated advert" : <>NEW TEST DESINE<br />that convert</>}
-</h2>
 </div>
 
 <button
@@ -935,9 +939,9 @@ generateAd();
 }
 }}
 disabled={generating}
-style={studioHeroFloatingBtn}
+style={createBtn}
 >
-{image ? "Share To Feed" : generating ? "Generating..." : "Generate Now →"}
+{image ? "Share To Feed" : generating ? "Generating..." : "Generate Ad →"}
 </button>
 </div>
 <div style={studioInputWrap}>
@@ -1564,17 +1568,6 @@ color: WHITE,
 fontWeight: 800,
 };
 
-const createBtn: CSSProperties = {
-flex: 1,
-minWidth: 135,
-height: 52,
-borderRadius: 999,
-border: "none",
-background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
-color: "#05070b",
-fontSize: 15,
-fontWeight: 950,
-};
 
 const showcase: CSSProperties = {
 position: "relative",
@@ -3520,4 +3513,52 @@ fontWeight: 950,
 fontSize: 17,
 zIndex: 4,
 boxShadow: "0 0 28px rgba(255,255,255,0.28)",
+};
+
+const createPanel: React.CSSProperties = {
+marginTop: 16,
+padding: 18,
+borderRadius: 28,
+background: "rgba(5,7,12,0.96)",
+border: "1px solid rgba(255,255,255,0.12)",
+boxShadow: "0 18px 60px rgba(0,0,0,0.6)",
+};
+
+const createHeader: React.CSSProperties = {
+marginBottom: 14,
+};
+
+const createTitle: React.CSSProperties = {
+margin: "8px 0 0",
+color: "#fff",
+fontSize: 30,
+lineHeight: 1,
+fontWeight: 950,
+};
+
+const miniPreview: React.CSSProperties = {
+marginTop: 14,
+borderRadius: 22,
+overflow: "hidden",
+height: 220,
+background: "#02040a",
+};
+
+const miniPreviewMedia: React.CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "cover",
+display: "block",
+};
+
+const createBtn: React.CSSProperties = {
+marginTop: 14,
+width: "100%",
+height: 54,
+borderRadius: 999,
+border: 0,
+background: "linear-gradient(180deg,#ffffff,#dfe4ec)",
+color: "#05070b",
+fontWeight: 950,
+fontSize: 16,
 };
