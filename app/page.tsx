@@ -977,7 +977,7 @@ style={{
 ...studioHeroBtn,
 position: "absolute",
 left: 24,
-top: 300,
+top: 350,
 zIndex: 5,
 }}
 >
