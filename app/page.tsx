@@ -461,180 +461,45 @@ return (
 
 
 
+
+
+
 <style jsx global>{`
 @keyframes floatUp {
 0%, 100% { transform: translateY(0px); }
 50% { transform: translateY(-10px); }
 }
-.ad-scroller::-webkit-scrollbar {
-display: none;
-}
-@keyframes autoAds {
-from {
-transform: translateX(0);
-}
+
 @keyframes borderGlow {
 0% { opacity: 0.35; transform: translateX(-30%); }
 50% { opacity: 1; }
 100% { opacity: 0.35; transform: translateX(30%); }
 }
-@keyframes floatUp {
-0% {
-transform: translateY(0px);
-}
-
-50% {
-transform: translateY(-6px);
-}
-
-100% {
-transform: translateY(0px);
-}
-}
-
-
-@keyframes pulseGlow {
-0%, 100% { box-shadow: 0 0 24px rgba(rgba(220,235,255,0,22),0.25); }
-50% { box-shadow: 0 0 48px rgba(rgba(220,235,255,0,22),0.55); }
-}
-
-
-@keyframes greenWave {
-0% { transform: translateX(-100%); opacity: 0.2; }
-50% { opacity: 1; }
-100% { transform: translateX(100%); opacity: 0.2; }
-}
-
-.float-card {
-animation: floatUp 4s ease-in-out infinite;
-}
-.hero-particles{
-position:absolute;
-inset:0;
-background-image:
-radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px);
-background-size:22px 22px;
-opacity:.18;
-animation:floatParticles 18s linear infinite;
-pointer-events:none;
-}
-
-.hero-beam{
-position:absolute;
-top:-120px;
-left:50%;
-transform:translateX(-50%);
-width:420px;
-height:420px;
-background:
-radial-gradient(circle,
-rgba(120,170,255,0.22) 0%,
-rgba(120,170,255,0.08) 42%,
-transparent 75%);
-filter:blur(60px);
-pointer-events:none;
-}
-
-.hero-wave{
-position:absolute;
-top:0;
-left:-40%;
-width:180%;
-height:2px;
-background:linear-gradient(90deg,
-transparent,
-rgba(255,255,255,0.9),
-transparent);
-animation:waveMove 4s linear infinite;
-opacity:.7;
-}
-
-@keyframes waveMove{
-0%{transform:translateX(-30%)}
-100%{transform:translateX(30%)}
-}
-
-@keyframes floatParticles{
-0%{transform:translateY(0)}
-100%{transform:translateY(-40px)}
-}
-
-.green-pulse {
-animation: pulseGlow 2.5s ease-in-out infinite;
-}
-
-
-.wave-line {
-animation: greenWave 3s ease-in-out infinite;
-}
-
-.auto-rail {
-display: flex !important;
-flex-direction: row !important;
-flex-wrap: nowrap !important;
-align-items: stretch;
-gap: 14px;
-width: max-content;
-animation: railMove 18s linear infinite;
-}
-
-.auto-rail > div {
-min-width: 210px;
-flex-shrink: 0;
-}
-
-@keyframes autoSlideAds {
-0% {
-transform: translateX(0);
-}
-
-100% {
-transform: translateX(-320px);
-}
-}
-
-
-@keyframes railMove {
-from {
-transform: translateX(0);
-}
-to {
-transform: translateX(-50%);
-}
-}
 
 @keyframes phoneFloat {
-0%, 100% {
-transform: rotate(7deg) translateY(0);
-}
-50% {
-transform: rotate(7deg) translateY(-10px);
-}
-}
-
-@keyframes waveMove {
-0%, 100% {
-transform: scaleY(0.45);
-opacity: 0.55;
-}
-50% {
-transform: scaleY(1.25);
-opacity: 1;
-}
+0%, 100% { transform: rotate(4deg) translateY(0px); }
+50% { transform: rotate(4deg) translateY(-6px); }
 }
 
 @keyframes pulseDot {
-0%, 100% {
-transform: scale(1);
-opacity: 1;
-}
-50% {
-transform: scale(1.5);
-opacity: 0.6;
-}
+0%, 100% { opacity: 0.45; }
+50% { opacity: 1; }
 }
 
+@keyframes waveMove {
+0%, 100% { transform: scaleY(0.55); }
+50% { transform: scaleY(1); }
+}
 
+@keyframes scrollAds {
+from { transform: translateX(0); }
+to { transform: translateX(-50%); }
+}
+
+body {
+margin: 0;
+background: #020305;
+}
 `}</style>
 
 <div style={bgGlow1} />
@@ -689,13 +554,7 @@ PRO
 
 
 
-<section style={aiHero} onClick={() => router.push("/ai-receptionist")}>
-<div style={heroPhoneGlow} />
 
-<div style={aiPill}>
-<span style={greenDot} />
-GET STARTED
-</div>
 
 {/* PREMIUM ADFORGE HOME REDESIGN */}
 
