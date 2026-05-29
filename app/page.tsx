@@ -3191,15 +3191,16 @@ inset: 0,
 width: "100%",
 height: "100%",
 objectFit: "cover",
-objectPosition: "center bottom",
-transform: "scale(0.9)",
+opacity: 1,
+filter: "brightness(1.15)",
+zIndex: 0,
 };
 
 const studioHeroShade: React.CSSProperties = {
 position: "absolute",
 inset: 0,
 background:
-"linear-gradient(90deg, rgba(0,0,0,0.92), rgba(0,0,0,0.48), rgba(0,0,0,0.18))",
+"linear-gradient(90deg, rgba(0,0,0,0.15), rgba(0,0,0,0.05), transparent)",
 };
 
 const studioHeroContent: React.CSSProperties = {
