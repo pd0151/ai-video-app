@@ -3194,7 +3194,7 @@ width: "100%",
 height: "100%",
 objectFit: "cover",
 objectPosition: "center bottom",
-transform: "scale(0.92)",
+transform: "scale(0.9)",
 };
 
 const studioHeroShade: React.CSSProperties = {
