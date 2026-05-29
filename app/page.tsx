@@ -785,76 +785,16 @@ AdForge AI handles calls, captures leads and helps you grow your business
 
 
 
-<section style={studioBundle}>
-<div style={studioTopRow}>
-
-
-<div style={studioVisual}>
-<div style={visualCard}>T</div>
-<div style={visualImageBox}>
-<div style={visualMountain} />
-<div style={visualSun} />
-</div>
-<div style={visualPlay}>▶</div>
-</div>
-</div>
 
 
 
 
 
 
-<div style={studioCards}>
-{/* BIG VIDEO HERO */}
 
 
 
-<div style={fullHero}>
-{image ? (
-<img src={image} alt="Generated advert" style={fullHeroMedia} />
-) : (
-<video
-src="/videos/ad-video.mp4"
-autoPlay
-muted
-loop
-playsInline
-style={fullHeroMedia}
-/>
-)}
 
-<div style={fullHeroOverlay}>
-<span style={studioTag}>CREATE AD</span>
-
-<h2 style={fullHeroTitle}>
-Create AI ads
-<br />
-that convert
-</h2>
-
-<textarea
-value={prompt}
-onChange={(e) => setPrompt(e.target.value)}
-placeholder="Describe your offer, business or promotion..."
-style={fullHeroInput}
-/>
-
-<button
-onClick={async () => {
-if (image) {
-await useThisAd();
-setImage(null);
-} else {
-generateAd();
-}
-}}
-disabled={generating}
-style={fullHeroButton}
->
-{image ? "Share To Feed" : generating ? "Generating..." : "+"}
-</button>
-</div>
-</div>
 
 {/* UPGRADE PHOTO */}
 <button
@@ -922,8 +862,8 @@ if (file) uploadMedia(file);
 style={{ display: "none" }}
 />
 </label>
-</div>
-</section>
+
+
 
 <section style={premiumAdsSection}>
 <div style={studioTop}>
