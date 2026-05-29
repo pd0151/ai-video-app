@@ -972,7 +972,15 @@ that convert
 Generate premium AI ads & social content instantly.
 </p>
 
-<span style={studioHeroBtn}>
+<span
+style={{
+...studioHeroBtn,
+position: "absolute",
+left: 24,
+bottom: 24,
+zIndex: 5,
+}}
+>
 {generating ? "Generating..." : "Generate Now →"}
 </span>
 </div>
@@ -3184,7 +3192,7 @@ position: "absolute",
 inset: 0,
 width: "100%",
 height: "100%",
-objectFit: "contain",
+objectFit: "fill",
 };
 
 const studioHeroShade: React.CSSProperties = {
