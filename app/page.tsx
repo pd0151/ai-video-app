@@ -1011,51 +1011,7 @@ No Media
 </div>
 </section>
 
-<section style={assistantPanel}>
-<div style={studioTop}>
-<div>
-<span style={studioPill}>AI ASSISTANT</span>
-<h3 style={studioTitle}>Improve your advert</h3>
-</div>
-</div>
 
-<div style={assistantMessages}>
-{chatMessages.length === 0 && (
-<div style={assistantBubble}>
-Tell me what you sell and I’ll sharpen your offer, wording and advert angle.
-</div>
-)}
-
-{chatMessages.map((msg, i) => (
-<div
-key={i}
-style={{
-...assistantBubble,
-alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
-opacity: msg.role === "user" ? 1 : 0.9,
-}}
->
-{msg.content}
-</div>
-))}
-</div>
-
-<div style={assistantInputRow}>
-<input
-value={chatInput}
-onChange={(e) => setChatInput(e.target.value)}
-placeholder="Ask AI to improve this..."
-style={assistantInput}
-onKeyDown={(e) => {
-if (e.key === "Enter") sendChatMessage();
-}}
-/>
-
-<button style={assistantSend} onClick={sendChatMessage}>
-→
-</button>
-</div>
-</section>
 
 
 <nav style={bottomNav}>
