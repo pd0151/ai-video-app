@@ -3134,18 +3134,7 @@ fontSize: 24,
 
 
 
-const studioHeroCard: React.CSSProperties = {
-position: "relative",
-overflow: "hidden",
-width: "100%",
-minHeight: 720,
-borderRadius: 32,
-border: "1px solid rgba(168,85,247,0.35)",
-background:
-"linear-gradient(180deg, rgba(20,20,30,0.95), rgba(10,10,18,0.98))",
-boxShadow:
-"0 0 0 1px rgba(168,85,247,0.08), 0 25px 80px rgba(0,0,0,0.55)",
-};
+
 const studioHeroVideo: React.CSSProperties = {
 position: "absolute",
 left: 22,
@@ -3158,11 +3147,51 @@ borderRadius: 24,
 zIndex: 1,
 };
 
+const studioHeroCard: React.CSSProperties = {
+position: "relative",
+overflow: "hidden",
+width: "100%",
+minHeight: 720,
+borderRadius: 32,
+border: "1px solid rgba(255,255,255,0.18)",
+background:
+"linear-gradient(180deg, rgba(255,255,255,0.08), rgba(8,10,18,0.96))",
+boxShadow:
+"0 0 40px rgba(255,255,255,0.12), 0 25px 80px rgba(0,0,0,0.65)",
+};
+
+const studioHeroBtn: React.CSSProperties = {
+position: "absolute",
+left: 22,
+right: 22,
+bottom: 22,
+height: 58,
+borderRadius: 18,
+background:
+"linear-gradient(135deg, #ffffff, #dfe8ff)",
+color: "#05070b",
+fontWeight: 900,
+fontSize: 18,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+textAlign: "center",
+boxShadow:
+"0 0 25px rgba(255,255,255,0.45), 0 0 70px rgba(120,180,255,0.22)",
+};
+
+const studioTag: React.CSSProperties = {
+color: "rgba(230,240,255,0.9)",
+fontSize: 13,
+fontWeight: 900,
+letterSpacing: 4,
+};
+
 const studioHeroShade: React.CSSProperties = {
 position: "absolute",
 inset: 0,
 background:
-"linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.45))",
+"linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.45))",
 zIndex: 2,
 pointerEvents: "none",
 };
@@ -3175,30 +3204,9 @@ right: 22,
 zIndex: 4,
 };
 
-const studioHeroBtn: React.CSSProperties = {
-position: "absolute",
-left: 22,
-right: 22,
-bottom: 22,
-height: 58,
-borderRadius: 18,
-background: "linear-gradient(135deg,#8b5cf6,#c84ddf)",
-color: "#fff",
-fontWeight: 900,
-fontSize: 18,
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-textAlign: "center",
-boxShadow: "0 10px 40px rgba(139,92,246,0.45)",
-};
 
-const studioTag: React.CSSProperties = {
-color: "#b78cff",
-fontSize: 13,
-fontWeight: 900,
-letterSpacing: 4,
-};
+
+
 
 const studioHeroTitle: React.CSSProperties = {
 margin: "8px 0 0",
