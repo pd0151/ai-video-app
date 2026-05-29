@@ -734,7 +734,7 @@ const BLACK = "#020305";
 
 const page: CSSProperties = {
 minHeight: "100vh",
-padding: "18px 16px 140px",
+padding: "18px 16px 180px",
 backgroundColor: "#020305",
 background:
 "linear-gradient(180deg, #05070b 0%, #020305 100%)",
@@ -3177,7 +3177,7 @@ overflow: "hidden",
 const platformHero: React.CSSProperties = {
 position: "relative",
 overflow: "hidden",
-minHeight: 430,
+minHeight: 500,
 borderRadius: 34,
 padding: 24,
 marginTop: 20,
@@ -3262,6 +3262,7 @@ marginTop: 18,
 display: "grid",
 gridTemplateColumns: "1fr 1fr 1fr",
 gap: 10,
+marginBottom: 24,
 };
 
 const platformToolCard: React.CSSProperties = {
