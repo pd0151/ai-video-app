@@ -3135,30 +3135,40 @@ fontSize: 24,
 
 
 
-const studioHeroVideo: React.CSSProperties = {
-position: "absolute",
-left: 22,
-right: 22,
-top: 180,
-width: "calc(100% - 44px)",
-height: 420,
-objectFit: "cover",
-borderRadius: 24,
-zIndex: 1,
-};
-
 const studioHeroCard: React.CSSProperties = {
 position: "relative",
 overflow: "hidden",
 width: "100%",
 minHeight: 720,
 borderRadius: 32,
-border: "1px solid rgba(255,255,255,0.18)",
-background:
-"linear-gradient(180deg, rgba(255,255,255,0.08), rgba(8,10,18,0.96))",
+border: "1px solid rgba(255,255,255,0.22)",
+background: "linear-gradient(180deg, #07090f, #02030a)",
 boxShadow:
-"0 0 40px rgba(255,255,255,0.12), 0 25px 80px rgba(0,0,0,0.65)",
+"0 0 0 1px rgba(255,255,255,0.08), 0 0 28px rgba(255,255,255,0.18), 0 0 80px rgba(255,255,255,0.08), 0 30px 90px rgba(0,0,0,0.75)",
 };
+
+const studioHeroShade: React.CSSProperties = {
+position: "absolute",
+inset: 0,
+background: "transparent",
+zIndex: 2,
+pointerEvents: "none",
+};
+
+const studioHeroVideo: React.CSSProperties = {
+position: "absolute",
+left: 22,
+right: 22,
+top: 140,
+width: "calc(100% - 44px)",
+height: 490,
+objectFit: "cover",
+borderRadius: 24,
+zIndex: 1,
+filter: "brightness(1.08) contrast(1.05)",
+};
+
+
 
 const studioHeroBtn: React.CSSProperties = {
 position: "absolute",
@@ -3187,14 +3197,7 @@ fontWeight: 900,
 letterSpacing: 4,
 };
 
-const studioHeroShade: React.CSSProperties = {
-position: "absolute",
-inset: 0,
-background:
-"linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.45))",
-zIndex: 2,
-pointerEvents: "none",
-};
+
 
 const studioHeroContent: React.CSSProperties = {
 position: "absolute",
