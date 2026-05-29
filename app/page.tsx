@@ -899,9 +899,9 @@ style={premiumAdImage}
 
 <div style={studioCards}>
 {/* BIG VIDEO HERO */}
-<div style={studioHeroCard}>
+<div style={studioHeroFull}>
 {image ? (
-<img src={image} alt="Generated advert" style={studioHeroVideo} />
+<img src={image} alt="Generated advert" style={studioHeroMedia} />
 ) : (
 <video
 src="/videos/ad-video.mp4"
@@ -909,13 +909,13 @@ autoPlay
 muted
 loop
 playsInline
-style={studioHeroVideo}
+style={studioHeroMedia}
 />
 )}
 
-<div style={studioHeroShade} />
+<div style={studioHeroOverlay} />
 
-<div style={studioHeroContent}>
+<div style={studioHeroTopText}>
 <span style={studioTag}>
 {image ? "AI AD READY" : "GENERATE AD"}
 </span>
@@ -923,11 +923,9 @@ style={studioHeroVideo}
 <h2 style={studioHeroTitle}>
 {image ? "Your generated advert" : <>Generate AI ads<br />that convert</>}
 </h2>
-
-
 </div>
 
-<span
+<button
 onClick={async () => {
 if (image) {
 await useThisAd();
@@ -936,14 +934,11 @@ setImage(null);
 generateAd();
 }
 }}
-style={{
-...studioHeroBtn,
-
-cursor: "pointer",
-}}
+disabled={generating}
+style={studioHeroFloatingBtn}
 >
 {image ? "Share To Feed" : generating ? "Generating..." : "Generate Now →"}
-</span>
+</button>
 </div>
 <div style={studioInputWrap}>
 <textarea
@@ -3473,3 +3468,56 @@ fontSize: 15,
 };
 
 
+const studioHeroFull: React.CSSProperties = {
+position: "relative",
+overflow: "hidden",
+width: "100%",
+height: 620,
+borderRadius: 34,
+background: "#02040a",
+border: "1px solid rgba(255,255,255,0.12)",
+boxShadow: "0 20px 70px rgba(0,0,0,0.7)",
+};
+
+const studioHeroMedia: React.CSSProperties = {
+position: "absolute",
+inset: 0,
+width: "100%",
+height: "100%",
+objectFit: "cover",
+zIndex: 1,
+filter: "brightness(0.9) contrast(1.05)",
+};
+
+const studioHeroOverlay: React.CSSProperties = {
+position: "absolute",
+inset: 0,
+zIndex: 2,
+background:
+"linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 42%, rgba(0,0,0,0.75) 100%)",
+pointerEvents: "none",
+};
+
+const studioHeroTopText: React.CSSProperties = {
+position: "absolute",
+top: 28,
+left: 26,
+right: 26,
+zIndex: 3,
+};
+
+const studioHeroFloatingBtn: React.CSSProperties = {
+position: "absolute",
+left: 26,
+right: 26,
+bottom: 26,
+height: 56,
+borderRadius: 999,
+border: "0",
+background: "linear-gradient(180deg,#ffffff,#dfe4ec)",
+color: "#05070b",
+fontWeight: 950,
+fontSize: 17,
+zIndex: 4,
+boxShadow: "0 0 28px rgba(255,255,255,0.28)",
+};
