@@ -2064,11 +2064,11 @@ scrollBehavior: "smooth",
 };
 
 const premiumAdCard: CSSProperties = {
-width: 210,
-flex: "0 0 210px",
-minWidth: 210,
-maxWidth: 210,
-height: 265,
+width: 260,
+flex: "0 0 260px",
+minWidth: 260,
+maxWidth: 260,
+height: 340,
 borderRadius: 26,
 overflow: "hidden",
 position: "relative",
@@ -3234,9 +3234,9 @@ background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
 color: "#05070b",
 fontSize: 16,
 fontWeight: 950,
-boxShadow:
-"0 0 20px rgba(220,235,255,0.35), 0 0 60px rgba(220,235,255,0.14)",
+boxShadow: "0 0 40px rgba(255,255,255,.18)",
 };
+
 
 const platformHeroMediaWrap: React.CSSProperties = {
 position: "absolute",
@@ -3253,8 +3253,9 @@ opacity: 0.75,
 const platformHeroMedia: React.CSSProperties = {
 width: "100%",
 height: "100%",
+opacity: 0.45,
 objectFit: "cover",
-filter: "brightness(0.62) contrast(1.08)",
+filter: "blur(1px",
 };
 
 const platformTools: React.CSSProperties = {
@@ -3297,6 +3298,9 @@ boxShadow: `0 0 22px ${GLOW_SOFT}`,
 const platformReceptionist: React.CSSProperties = {
 marginTop: 22,
 padding: 24,
+display: "flex",
+justifyContent: "space-between",
+gap: 24,
 borderRadius: 34,
 background:
 "radial-gradient(circle at 85% 20%, rgba(220,235,255,0.16), transparent 36%), linear-gradient(135deg, rgba(8,10,14,0.96), rgba(2,3,6,0.98))",
