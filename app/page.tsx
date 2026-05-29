@@ -944,17 +944,53 @@ style={createBtn}
 {image ? "Share To Feed" : generating ? "Generating..." : "Generate Ad →"}
 </button>
 </div>
-<div style={studioInputWrap}>
+
+<div style={fullHero}>
+{image ? (
+<img src={image} alt="Generated advert" style={fullHeroMedia} />
+) : (
+<video
+src="/videos/ad-video.mp4"
+autoPlay
+muted
+loop
+playsInline
+style={fullHeroMedia}
+/>
+)}
+
+<div style={fullHeroOverlay}>
+<span style={studioTag}>CREATE AD</span>
+
+<h2 style={fullHeroTitle}>
+Create AI ads
+<br />
+that convert
+</h2>
+
 <textarea
 value={prompt}
 onChange={(e) => setPrompt(e.target.value)}
 placeholder="Describe your offer, business or promotion..."
-style={studioInput}
+style={fullHeroInput}
 />
 
-<button style={enhanceBtn}>Enhance with AI</button>
+<button
+onClick={async () => {
+if (image) {
+await useThisAd();
+setImage(null);
+} else {
+generateAd();
+}
+}}
+disabled={generating}
+style={fullHeroButton}
+>
+{image ? "Share To Feed" : generating ? "Generating..." : "Create Now"}
+</button>
 </div>
-
+</div>
 
 {/* UPGRADE PHOTO */}
 <button
@@ -3561,4 +3597,66 @@ background: "linear-gradient(180deg,#ffffff,#dfe4ec)",
 color: "#05070b",
 fontWeight: 950,
 fontSize: 16,
+};
+
+
+const fullHero: React.CSSProperties = {
+position: "relative",
+width: "100%",
+height: 700,
+borderRadius: 34,
+overflow: "hidden",
+marginBottom: 30,
+};
+
+const fullHeroMedia: React.CSSProperties = {
+position: "absolute",
+inset: 0,
+width: "100%",
+height: "100%",
+objectFit: "cover",
+};
+
+const fullHeroOverlay: React.CSSProperties = {
+position: "absolute",
+inset: 0,
+display: "flex",
+flexDirection: "column",
+justifyContent: "space-between",
+padding: 28,
+background:
+"linear-gradient(to top, rgba(0,0,0,.82), rgba(0,0,0,.15), rgba(0,0,0,.55))",
+};
+
+const fullHeroTitle: React.CSSProperties = {
+color: "#fff",
+fontSize: 52,
+fontWeight: 900,
+lineHeight: 1,
+marginTop: 12,
+marginBottom: 20,
+};
+
+const fullHeroInput: React.CSSProperties = {
+width: "100%",
+minHeight: 120,
+borderRadius: 24,
+border: "1px solid rgba(255,255,255,.12)",
+background: "rgba(0,0,0,.55)",
+color: "#fff",
+padding: 20,
+fontSize: 18,
+backdropFilter: "blur(12px)",
+};
+
+const fullHeroButton: React.CSSProperties = {
+width: "100%",
+height: 72,
+borderRadius: 999,
+border: "none",
+background: "#fff",
+color: "#000",
+fontSize: 22,
+fontWeight: 900,
+cursor: "pointer",
 };
