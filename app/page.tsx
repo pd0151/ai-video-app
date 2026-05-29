@@ -3159,6 +3159,7 @@ const studioHeroCard: React.CSSProperties = {
 position: "relative",
 overflow: "hidden",
 width: "100%",
+marginTop: 24,
 minHeight: 660,
 borderRadius: 32,
 border: "1px solid rgba(255,255,255,0.14)",
