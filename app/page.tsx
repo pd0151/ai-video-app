@@ -3184,7 +3184,7 @@ position: "absolute",
 inset: 0,
 width: "100%",
 height: "100%",
-objectFit: "cover",
+objectFit: "contain",
 };
 
 const studioHeroShade: React.CSSProperties = {
@@ -3230,14 +3230,14 @@ marginBottom: 22,
 };
 
 const studioHeroBtn: CSSProperties = {
-alignSelf: "flex-start",
+position: "absolute",
+left: 24,
+bottom: 24,
 padding: "10px 18px",
 fontSize: 14,
 borderRadius: 14,
 background: "linear-gradient(135deg,#8b5cf6,#6d5dfc)",
-color: "white",
-fontWeight: 900,
-}
+};
 
 const studioMediaCard: React.CSSProperties = {
 border: "1px solid rgba(255,255,255,0.12)",
