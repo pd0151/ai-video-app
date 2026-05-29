@@ -977,7 +977,7 @@ style={{
 ...studioHeroBtn,
 position: "absolute",
 left: 24,
-bottom: 24,
+top: 300,
 zIndex: 5,
 }}
 >
@@ -3192,7 +3192,8 @@ position: "absolute",
 inset: 0,
 width: "100%",
 height: "100%",
-objectFit: "fill",
+objectFit: "cover",
+objectPosition: "center center"
 };
 
 const studioHeroShade: React.CSSProperties = {
@@ -3238,9 +3239,6 @@ marginBottom: 22,
 };
 
 const studioHeroBtn: CSSProperties = {
-position: "absolute",
-left: 24,
-bottom: 24,
 padding: "10px 18px",
 fontSize: 14,
 borderRadius: 14,
