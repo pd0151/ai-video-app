@@ -3183,14 +3183,13 @@ background:
 boxShadow:
 "0 0 0 1px rgba(168,85,247,0.08), 0 25px 80px rgba(0,0,0,0.55)",
 };
-
 const studioHeroVideo: React.CSSProperties = {
 position: "absolute",
 left: 22,
 right: 22,
-top: 90,
+top: 70, // was 90
 width: "calc(100% - 44px)",
-height: 500,
+height: 560, // was 500
 objectFit: "cover",
 borderRadius: 24,
 zIndex: 1,
