@@ -894,44 +894,7 @@ style={premiumAdImage}
 
 
 
-{image && (
-<div
-style={{
-marginTop: 14,
-borderRadius: 26,
-overflow: "hidden",
-border: "1px solid rgba(255,255,255,0.08)",
-background: "#050712",
-}}
->
-<img
-src={image}
-alt="Generated advert"
-style={{
-width: "100%",
-height: 320,
-display: "block",
-objectFit: "contain",
-}}
-/>
 
-<button
-onClick={useThisAd}
-style={{
-width: "100%",
-padding: "16px",
-border: "none",
-background: "linear-gradient(135deg,#8b5cf6,#6d5dfc)",
-color: "#fff",
-fontWeight: 800,
-fontSize: 16,
-cursor: "pointer",
-}}
->
-Share To Feed
-</button>
-</div>
-)}
 
 
 <div style={studioCards}>
