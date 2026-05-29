@@ -944,7 +944,7 @@ generateAd();
 disabled={generating}
 style={fullHeroButton}
 >
-{image ? "Share To Feed" : generating ? "Generating..." : "Create Now"}
+{image ? "Share To Feed" : generating ? "Generating..." : "+"}
 </button>
 </div>
 </div>
@@ -3587,7 +3587,7 @@ background:
 
 const fullHeroTitle: React.CSSProperties = {
 color: "#fff",
-fontSize: 52,
+fontSize: 32,
 fontWeight: 900,
 lineHeight: 1,
 marginTop: 12,
@@ -3596,24 +3596,26 @@ marginBottom: 20,
 
 const fullHeroInput: React.CSSProperties = {
 width: "100%",
-minHeight: 120,
-borderRadius: 24,
+minHeight: 0,
+height: 54,
+borderRadius: 999,
 border: "1px solid rgba(255,255,255,.12)",
 background: "rgba(0,0,0,.55)",
 color: "#fff",
 padding: 20,
-fontSize: 18,
+fontSize: 14,
 backdropFilter: "blur(12px)",
 };
 
 const fullHeroButton: React.CSSProperties = {
-width: "100%",
-height: 72,
-borderRadius: 999,
-border: "none",
-background: "#fff",
-color: "#000",
-fontSize: 22,
-fontWeight: 900,
-cursor: "pointer",
+width: 96,
+height: 96,
+borderRadius: "50%",
+border: "1px solid rgba(34,255,127,0.55)",
+background: "rgba(0,0,0,0.45)",
+color: "#fff",
+fontSize: 48,
+fontWeight: 300,
+margin: "18px auto 0",
+boxShadow: "0 0 35px rgba(34,255,127,0.35)",
 };
