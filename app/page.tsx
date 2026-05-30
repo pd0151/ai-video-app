@@ -3560,15 +3560,13 @@ fontWeight: 900,
 letterSpacing: 1,
 };
 
-
-
 const heroPhoneWrap: React.CSSProperties = {
 position: "absolute",
-right: 24,
-top: 130,
-width: 135,
-height: 270,
-borderRadius: 28,
+right: 22,
+top: 165,
+width: 105,
+height: 210,
+borderRadius: 24,
 overflow: "hidden",
 border: "1px solid rgba(255,255,255,0.16)",
 background: "#000",
