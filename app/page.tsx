@@ -628,7 +628,7 @@ Answers every call, captures lead details and delivers them instantly to your da
 </p>
 
 <div style={miniLeadBox}>
-<b>AI CAPTURED LEAD</b>
+<b>LIVE CUSTOMER ENQUIRY</b>
 <span><b>CUSTOMER</b> • Captured from call</span>
 <span><b>REQUEST</b> • Based on your services</span>
 <span><b>LOCATION</b> • Customer area captured</span>
