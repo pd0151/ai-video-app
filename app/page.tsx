@@ -633,19 +633,22 @@ The AI answers missed calls, takes customer details and sends the job straight t
 <span>Vehicle: BMW X5</span>
 <span>Tyre Size: 275/40/20</span>
 <span>Location: Liverpool</span>
-<small>✓ Lead captured 12 seconds ago</small>
+<div style={leadStatus}>
+LEAD CAPTURED • 12 SECONDS AGO
+</div>
 </div>
 
 <div style={aiStatsRow}>
-<div>
+<div style={aiStatCard}>
 <b>24/7</b>
 <span>Always On</span>
 </div>
-<div>
+<div style={aiStatCard}>
 <b>3x</b>
 <span>More Leads</span>
 </div>
-<div>
+
+<div style={aiStatCard}>
 <b>0</b>
 <span>Missed Calls</span>
 </div>
@@ -3447,4 +3450,27 @@ fontSize: 16,
 fontWeight: 950,
 boxShadow:
 "0 0 28px rgba(220,235,255,0.35), 0 0 70px rgba(220,235,255,0.14)",
+};
+
+
+const aiStatCard: React.CSSProperties = {
+textAlign: "center",
+display: "flex",
+flexDirection: "column",
+gap: 4,
+};
+
+
+const leadStatus: React.CSSProperties = {
+marginTop: 12,
+padding: "8px 12px",
+borderRadius: 999,
+display: "inline-flex",
+alignItems: "center",
+background: "rgba(220,235,255,0.08)",
+border: "1px solid rgba(220,235,255,0.16)",
+color: "#dcebff",
+fontSize: 11,
+fontWeight: 900,
+letterSpacing: 1.2,
 };
