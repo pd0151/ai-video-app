@@ -572,7 +572,7 @@ Grow faster.
 AI advertising, AI video and AI receptionist tools built for local businesses.
 </p>
 
-<button onClick={() => router.push("/ai")} style={platformMainBtn}>
+<button onClick={() => router.push("/create")} style={platformMainBtn}>
 ✨ Generate AI Ad →
 </button>
 <div style={heroPhoneWrap}>
