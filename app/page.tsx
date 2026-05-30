@@ -1633,7 +1633,7 @@ boxShadow: `0 0 12px ${GLOW}`,
 
 const refreshBtn: CSSProperties = {
 position: "fixed",
-top: "calc(78px + env(safe-area-inset-top))",
+top: "calc(140px + env(safe-area-inset-top))",
 right: 18,
 zIndex: 9999,
 width: 42,
