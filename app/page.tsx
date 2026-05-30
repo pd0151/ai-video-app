@@ -575,6 +575,16 @@ AI advertising, AI video and AI receptionist tools built for local businesses.
 <button onClick={() => router.push("/ai")} style={platformMainBtn}>
 ✨ Generate AI Ad →
 </button>
+<div style={heroPhoneWrap}>
+<video
+src="/videos/hero-demo.mp4"
+autoPlay
+muted
+loop
+playsInline
+style={heroPhoneVideo}
+/>
+</div>
 </div>
 
 <div style={heroMiniStats}>
@@ -3548,4 +3558,26 @@ gap: 10,
 fontSize: 12,
 fontWeight: 900,
 letterSpacing: 1,
+};
+
+
+
+const heroPhoneWrap: React.CSSProperties = {
+position: "absolute",
+right: 40,
+top: 120,
+width: 180,
+height: 360,
+borderRadius: 36,
+overflow: "hidden",
+border: "1px solid rgba(255,255,255,0.12)",
+background: "#000",
+boxShadow: "0 0 40px rgba(120,120,255,0.25)",
+};
+
+const heroPhoneVideo: React.CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "cover",
+display: "block",
 };
