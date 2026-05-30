@@ -556,7 +556,7 @@ const content: React.CSSProperties = {
 position: "absolute",
 left: 20,
 right: 96,
-bottom: 115,
+bottom: 165,
 zIndex: 5,
 };
 
