@@ -424,16 +424,11 @@ pointerEvents: "none",
 zIndex: 0,
 };
 
-const topHeader: React.CSSProperties = {
+const topHeader: CSSProperties = {
 position: "fixed",
-top: 6,
-left: 18,
-right: 18,
-zIndex: 30,
-display: "flex",
-justifyContent: "space-between",
-alignItems: "center",
-paddingBottom: 4,
+top: 10,
+left: 20,
+zIndex: 100,
 };
 
 const brandLabel: React.CSSProperties = {
@@ -450,15 +445,14 @@ fontWeight: 950,
 letterSpacing: -2,
 };
 
-const topTabs: React.CSSProperties = {
+const topTabs: CSSProperties = {
 position: "fixed",
-top: 80,
-left: 0,
-right: 0,
-zIndex: 25,
+top: 70,
+left: "50%",
+transform: "translateX(-50%)",
+zIndex: 100,
 display: "flex",
-justifyContent: "center",
-gap: 58,
+gap: 40,
 };
 
 const tab: React.CSSProperties = {
@@ -495,6 +489,10 @@ overflow: "hidden",
 borderRadius: 0,
 margin: 0,
 padding: 0,
+top: 0,
+left: 0,
+right: 0,
+bottom: 0,
 };
 
 const imageMedia: CSSProperties = {
