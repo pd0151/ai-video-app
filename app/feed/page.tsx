@@ -436,7 +436,7 @@ fontWeight: 900,
 
 const logo: React.CSSProperties = {
 margin: 0,
-fontSize: 32,
+fontSize: 28,
 fontWeight: 950,
 letterSpacing: -2,
 };
@@ -622,8 +622,8 @@ gap: 8,
 };
 
 const circleBtn: React.CSSProperties = {
-width: 58,
-height: 58,
+width: 48,
+height: 48,
 borderRadius: "50%",
 border: xeonBorder,
 background: glassBg,
