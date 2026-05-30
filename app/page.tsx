@@ -588,8 +588,15 @@ marginBottom: 14,
 outline: "none",
 }}
 />
-<button onClick={generateAd} style={platformMainBtn}>
-✨ Generate AI Ad →
+<button
+onClick={generateAd}
+disabled={generating}
+style={{
+...platformMainBtn,
+opacity: generating ? 0.65 : 1,
+}}
+>
+{generating ? "Generating AI Ad..." : "✨ Generate AI Ad →"}
 </button>
 <div style={heroPhoneWrap}>
 <video
