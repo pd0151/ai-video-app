@@ -622,8 +622,8 @@ gap: 8,
 };
 
 const circleBtn: React.CSSProperties = {
-width: 48,
-height: 48,
+width: 37,
+height: 37,
 borderRadius: "50%",
 border: xeonBorder,
 background: glassBg,
