@@ -628,11 +628,11 @@ The AI answers missed calls, takes customer details and sends the job straight t
 </p>
 
 <div style={miniLeadBox}>
-<b>NEW LEAD RECEIVED</b>
-<span>Customer: John Smith</span>
-<span>Vehicle: BMW X5</span>
-<span>Tyre Size: 275/40/20</span>
-<span>Location: Liverpool</span>
+<b>LEAD DETAILS</b>
+<span><b>CUSTOMER</b> • John Smith</span>
+<span><b>VEHICLE</b> • BMW X5</span>
+<span><b>TYRE SIZE</b> • 275/40/20</span>
+<span><b>LOCATION</b> • Liverpool</span>
 <div style={leadStatus}>
 LEAD CAPTURED • 12 SECONDS AGO
 </div>
