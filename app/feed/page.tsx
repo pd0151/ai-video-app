@@ -780,21 +780,20 @@ boxShadow: xeonGlow,
 
 const bottomNav: React.CSSProperties = {
 position: "fixed",
-bottom: 14,
+bottom: 8,
 left: 20,
 right: 20,
-height: 68,
+height: 58,
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
 background: "rgba(4,9,18,0.72)",
 border: xeonBorder,
-borderRadius: 24,
+borderRadius: 22,
 backdropFilter: "blur(16px)",
 boxShadow: xeonGlow,
 zIndex: 999,
 };
-
 const navBtn: React.CSSProperties = {
 border: "none",
 background: "transparent",
