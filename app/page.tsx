@@ -219,7 +219,7 @@ packageType,
 });
 
 const data = await res.json();
-
+console.log("AI IMAGE RESPONSE:", data);
 if (!res.ok || !data.url) {
 alert(data.error || "Checkout failed");
 return;
@@ -304,8 +304,13 @@ const data = await res.json();
 const imageUrl =
 data.image || data.url || data.image_url || data.output?.[0];
 
-if (imageUrl) setImage(imageUrl);
+if (!imageUrl) {
+console.log("No image URL returned:", data);
+alert("Image generated but no image URL returned");
 return;
+}
+
+setImage(imageUrl);
 if (!isPro) {
 const newCredits = Math.max(credits - 1, 0);
 setCredits(newCredits);
