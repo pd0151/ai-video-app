@@ -653,11 +653,11 @@ LIVE LEAD • SENT TO DASHBOARD
 <span>Alerts</span>
 </div>
 </div>
-<div style={leadStatus}>
-AI ONLINE • READY TO ANSWER
-</div>
+
 <button onClick={() => router.push("/ai-receptionist")} style={aiLaunchBtn}>
-⚡ Activate AI Receptionist →
+ ● AI ONLINE
+<br />
+Activate AI Receptionist →
 </button>
 </section>
 
