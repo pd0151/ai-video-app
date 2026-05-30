@@ -3202,7 +3202,7 @@ boxShadow:
 const platformHeroCopy: React.CSSProperties = {
 position: "relative",
 zIndex: 3,
-maxWidth: 290,
+maxWidth: 250,
 };
 
 const platformPill: React.CSSProperties = {
@@ -3564,15 +3564,16 @@ letterSpacing: 1,
 
 const heroPhoneWrap: React.CSSProperties = {
 position: "absolute",
-right: 40,
-top: 120,
-width: 180,
-height: 360,
-borderRadius: 36,
+right: 24,
+top: 130,
+width: 135,
+height: 270,
+borderRadius: 28,
 overflow: "hidden",
-border: "1px solid rgba(255,255,255,0.12)",
+border: "1px solid rgba(255,255,255,0.16)",
 background: "#000",
-boxShadow: "0 0 40px rgba(120,120,255,0.25)",
+zIndex: 2,
+boxShadow: "0 0 35px rgba(220,235,255,0.18)",
 };
 
 const heroPhoneVideo: React.CSSProperties = {
