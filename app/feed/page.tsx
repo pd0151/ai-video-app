@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
@@ -476,56 +476,40 @@ borderBottom: "3px solid #ffffff",
 paddingBottom: 10,
 };
 
-const slide: React.CSSProperties = {
-height: "100dvh",
-minHeight: "100dvh",
-scrollSnapAlign: "start",
-scrollSnapStop: "always",
+const slide: CSSProperties = {
+height: "100vh",
+width: "100vw",
 position: "relative",
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-padding: "240px 16px 230px",
-boxSizing: "border-box",
-};
-
-const postFrame: React.CSSProperties = {
-position: "relative",
-width: "100%",
-height: "74vh",
-maxHeight: 760,
-marginTop: 0,
-paddingTop: 0,
-paddingBottom: 0,
-maxWidth: 420,
-borderRadius: 34,
 overflow: "hidden",
-border: xeonBorder,
-background: "rgba(0,0,0,0.52)",
-boxShadow: xeonGlow,
-};
-
-const imageMedia: React.CSSProperties = {
-position: "absolute",
-inset: 0,
-width: "100%",
-height: "100%",
-objectFit: "fill",
-objectPosition: "cover",
-background: "#020617",
+scrollSnapAlign: "start",
+margin: 0,
 padding: 0,
-display: "block",
-zIndex: 1,
 };
 
-const media: React.CSSProperties = {
+
+const postFrame: CSSProperties = {
+height: "100%",
+width: "100%",
+position: "relative",
+overflow: "hidden",
+borderRadius: 0,
+margin: 0,
+padding: 0,
+};
+
+const imageMedia: CSSProperties = {
 width: "100%",
 height: "100%",
 objectFit: "cover",
-objectPosition: "center",
-background: "#020617",
 display: "block",
 };
+const media: CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "cover",
+display: "block",
+};
+
 
 const viewerBadge: React.CSSProperties = {
 position: "absolute",
