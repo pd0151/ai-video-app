@@ -629,10 +629,10 @@ The AI answers missed calls, takes customer details and sends the job straight t
 
 <div style={miniLeadBox}>
 <b>LEAD DETAILS</b>
-<span><b>CUSTOMER</b> • John Smith</span>
-<span><b>VEHICLE</b> • BMW X5</span>
-<span><b>TYRE SIZE</b> • 275/40/20</span>
-<span><b>LOCATION</b> • Liverpool</span>
+<span><b>CUSTOMER</b> • Captured from call</span>
+<span><b>REQUEST</b> • Based on your services</span>
+<span><b>LOCATION</b> • Customer area captured</span>
+<span><b>CONTACT</b> • Phone number saved</span>
 <div style={leadStatus}>
 LEAD CAPTURED • 12 SECONDS AGO
 </div>
