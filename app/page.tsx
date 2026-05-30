@@ -611,50 +611,49 @@ style={{ display: "none" }}
 </section>
 
 <section style={premiumAiReceptionist}>
-<div style={aiLeft}>
-<span style={aiMiniPill}>● AI RECEPTIONIST</span>
+<span style={aiMiniPill}>• LIVE AI CALL SYSTEM</span>
 
 <h2 style={aiBigTitle}>
-Your business
+Never miss
 <br />
-answers every call.
-<br />
-<span style={iceText}>24/7.</span>
+another job.
 </h2>
 
+<div style={liveLeadStatus}>
+AI answered call • Lead captured • SMS sent
+</div>
+
 <p style={aiDesc}>
-Our AI receptionist answers calls, captures leads and helps you book more jobs.
+The AI answers missed calls, takes customer details and sends the job straight to your dashboard.
 </p>
 
-<div style={aiChecklist}>
-<span>✓ Answers every call instantly</span>
-<span>✓ Captures customer details automatically</span>
-<span>✓ Sends leads to you in real time</span>
-<span>✓ Books more jobs while you focus</span>
+<div style={miniLeadBox}>
+<b>NEW LEAD RECEIVED</b>
+<span>Customer: John Smith</span>
+<span>Vehicle: BMW X5</span>
+<span>Tyre Size: 275/40/20</span>
+<span>Location: Liverpool</span>
+<small>✓ Lead captured 12 seconds ago</small>
+</div>
+
+<div style={aiStatsRow}>
+<div>
+<b>24/7</b>
+<span>Always On</span>
+</div>
+<div>
+<b>3x</b>
+<span>More Leads</span>
+</div>
+<div>
+<b>0</b>
+<span>Missed Calls</span>
+</div>
 </div>
 
 <button onClick={() => router.push("/ai-receptionist")} style={aiLaunchBtn}>
 ⚡ Activate AI Receptionist →
 </button>
-</div>
-
-<div style={aiRight}>
-<div style={phoneDemo}>
-<span style={phoneSmall}>Incoming Call</span>
-<b style={phoneNumber}>01234 567 890</b>
-<span style={phoneSmall}>AI Receptionist</span>
-<div style={robotCircle}>AI</div>
-</div>
-
-<div style={leadDemo}>
-<b>NEW LEAD RECEIVED</b>
-<span>Name: John Smith</span>
-<span>Vehicle: BMW X5</span>
-<span>Tyre Size: 275/40/20</span>
-<span>Location: Liverpool</span>
-<small>Received 12 seconds ago</small>
-</div>
-</div>
 </section>
 
 
@@ -3288,54 +3287,16 @@ gridTemplateColumns: "space-between",
 gap: 24
 };
 
-const premiumAiReceptionist: React.CSSProperties = {
-marginTop: 24,
-padding: 22,
-borderRadius: 34,
-background:
-"radial-gradient(circle at 75% 25%, rgba(220,235,255,0.16), transparent 35%), linear-gradient(180deg, rgba(13,18,28,0.96), rgba(3,5,10,0.98))",
-border: "1px solid rgba(220,235,255,0.18)",
-boxShadow:
-"0 0 22px rgba(220,235,255,0.24), 0 0 70px rgba(220,235,255,0.10)",
-display: "grid",
-gridTemplateColumns: "1fr",
-gap: 18,
-};
 
-const aiLeft: React.CSSProperties = {};
 
-const aiMiniPill: React.CSSProperties = {
-display: "inline-flex",
-padding: "9px 14px",
-borderRadius: 999,
-border: "1px solid rgba(220,235,255,0.26)",
-color: "#f8fbff",
-fontSize: 12,
-fontWeight: 950,
-letterSpacing: 2,
-boxShadow: "0 0 20px rgba(220,235,255,0.16)",
-};
 
-const aiBigTitle: React.CSSProperties = {
-margin: "22px 0 12px",
-color: "#f8fbff",
-fontSize: 38,
-lineHeight: 0.95,
-fontWeight: 950,
-letterSpacing: -2,
-};
 
 const iceText: React.CSSProperties = {
 color: "#dcebff",
 textShadow: "0 0 24px rgba(220,235,255,0.55)",
 };
 
-const aiDesc: React.CSSProperties = {
-color: "rgba(248,251,255,0.68)",
-fontSize: 16,
-lineHeight: 1.45,
-marginBottom: 18,
-};
+
 
 const aiChecklist: React.CSSProperties = {
 display: "flex",
@@ -3346,18 +3307,7 @@ fontSize: 14,
 marginBottom: 20,
 };
 
-const aiLaunchBtn: React.CSSProperties = {
-width: "100%",
-border: "1px solid rgba(220,235,255,0.34)",
-borderRadius: 999,
-padding: "16px 18px",
-background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
-color: "#05070b",
-fontSize: 16,
-fontWeight: 950,
-boxShadow:
-"0 0 28px rgba(220,235,255,0.35), 0 0 70px rgba(220,235,255,0.14)",
-};
+
 
 const aiRight: React.CSSProperties = {
 display: "grid",
@@ -3414,4 +3364,87 @@ display: "flex",
 flexDirection: "column",
 gap: 9,
 color: "#f8fbff",
+};
+
+const premiumAiReceptionist: React.CSSProperties = {
+marginTop: 24,
+padding: 22,
+borderRadius: 34,
+background:
+"radial-gradient(circle at 80% 20%, rgba(220,235,255,0.16), transparent 35%), linear-gradient(180deg, rgba(13,18,28,0.96), rgba(3,5,10,0.98))",
+border: "1px solid rgba(220,235,255,0.18)",
+boxShadow:
+"0 0 22px rgba(220,235,255,0.24), 0 0 70px rgba(220,235,255,0.10)",
+};
+
+const aiMiniPill: React.CSSProperties = {
+display: "inline-flex",
+padding: "9px 14px",
+borderRadius: 999,
+border: "1px solid rgba(220,235,255,0.26)",
+color: "#f8fbff",
+fontSize: 12,
+fontWeight: 950,
+letterSpacing: 2,
+};
+
+const aiBigTitle: React.CSSProperties = {
+margin: "22px 0 12px",
+color: "#f8fbff",
+fontSize: 42,
+lineHeight: 0.95,
+fontWeight: 950,
+letterSpacing: -2,
+};
+
+const liveLeadStatus: React.CSSProperties = {
+marginBottom: 14,
+padding: "12px 14px",
+borderRadius: 18,
+background: "rgba(255,255,255,0.07)",
+border: "1px solid rgba(220,235,255,0.16)",
+color: "#dcebff",
+fontWeight: 900,
+fontSize: 13,
+};
+
+const aiDesc: React.CSSProperties = {
+color: "rgba(248,251,255,0.68)",
+fontSize: 16,
+lineHeight: 1.45,
+marginBottom: 16,
+};
+
+const miniLeadBox: React.CSSProperties = {
+borderRadius: 24,
+padding: 18,
+background: "rgba(5,7,12,0.88)",
+border: "1px solid rgba(220,235,255,0.18)",
+boxShadow: "0 0 30px rgba(220,235,255,0.12)",
+display: "flex",
+flexDirection: "column",
+gap: 8,
+color: "#f8fbff",
+};
+
+const aiStatsRow: React.CSSProperties = {
+marginTop: 14,
+display: "grid",
+gridTemplateColumns: "1fr 1fr 1fr",
+gap: 10,
+color: "#f8fbff",
+};
+
+const aiLaunchBtn: React.CSSProperties = {
+marginTop: 16,
+width: "100%",
+border: "1px solid rgba(220,235,255,0.34)",
+borderRadius: 999,
+padding: "16px 18px",
+background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+color: "#05070b",
+fontSize: 16,
+fontWeight: 950,
+boxShadow:
+"0 0 28px rgba(220,235,255,0.35), 0 0 70px rgba(220,235,255,0.14)",
 };
