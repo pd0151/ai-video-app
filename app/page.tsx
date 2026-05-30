@@ -3572,7 +3572,8 @@ overflow: "hidden",
 border: "1px solid rgba(255,255,255,0.16)",
 background: "#000",
 zIndex: 2,
-boxShadow: "0 0 35px rgba(220,235,255,0.18)",
+boxShadow:
+"0 0 25px rgba(220,235,255,0.45), 0 0 70px rgba(220,235,255,0.28), 0 0 140px rgba(220,235,255,0.15)",
 };
 
 const heroPhoneVideo: React.CSSProperties = {
