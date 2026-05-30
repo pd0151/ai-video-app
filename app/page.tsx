@@ -624,7 +624,7 @@ AI answered call • Lead captured • SMS sent
 </div>
 
 <p style={aiDesc}>
-Never miss another customer enquiry. Your AI receptionist answers calls, captures leads and sends them directly to your dashboard 24/7.
+Answers every call, captures lead details and delivers them instantly to your dashboard.
 </p>
 
 <div style={miniLeadBox}>
