@@ -3458,6 +3458,11 @@ textAlign: "center",
 display: "flex",
 flexDirection: "column",
 gap: 4,
+padding: "12px 6px",
+borderRadius: 18,
+background: "rgba(255,255,255,0.06)",
+border: "1px solid rgba(220,235,255,0.14)",
+boxShadow: "0 0 18px rgba(220,235,255,0.10)",
 };
 
 
