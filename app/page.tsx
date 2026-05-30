@@ -3562,7 +3562,7 @@ letterSpacing: 1,
 
 const heroPhoneWrap: React.CSSProperties = {
 position: "absolute",
-right: 35,
+right: 10,
 top: 165,
 width: 86,
 height: 172,
