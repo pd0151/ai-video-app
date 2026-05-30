@@ -244,10 +244,7 @@ style={imageMedia}
 />
 )}
 
-<div style={viewerBadge}>
-<span style={liveDot}></span>
-{Math.floor(24 + Math.random() * 180)} watching
-</div>
+
 
 <div style={bottomFade} />
 
