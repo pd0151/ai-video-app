@@ -610,70 +610,50 @@ style={{ display: "none" }}
 </label>
 </section>
 
-<section style={platformReceptionist}>
-<div>
-<span style={platformPill}>AI RECEPTIONIST</span>
+<section style={premiumAiReceptionist}>
+<div style={aiLeft}>
+<span style={aiMiniPill}>● AI RECEPTIONIST</span>
 
-<h2 style={platformReceptionistTitle}>
-Never miss<br />
-another lead.
+<h2 style={aiBigTitle}>
+Your business
+<br />
+answers every call.
+<br />
+<span style={iceText}>24/7.</span>
 </h2>
 
-<p style={platformHeroText}>
-Answers calls, captures leads and helps book jobs 24/7.
+<p style={aiDesc}>
+Our AI receptionist answers calls, captures leads and helps you book more jobs.
 </p>
+
+<div style={aiChecklist}>
+<span>✓ Answers every call instantly</span>
+<span>✓ Captures customer details automatically</span>
+<span>✓ Sends leads to you in real time</span>
+<span>✓ Books more jobs while you focus</span>
 </div>
 
-<div style={platformReceptionistStats}>
-<div><b>128</b><span>Calls</span></div>
-<div><b>42</b><span>Leads</span></div>
-<div><b>19</b><span>Jobs</span></div>
-</div>
-
-<button
-onClick={() => router.push("/ai-receptionist")}
-style={platformMainBtn}
->
-⚡ Launch AI Receptionist →
-</button>
-</section>
-
-<section style={premiumAdsSection}>
-<div style={studioTop}>
-<div>
-<span style={studioPill}>LIVE FEED</span>
-<h3 style={studioTitle}>Recent AI Generated Ads</h3>
-</div>
-
-<button style={viewBtn} onClick={() => router.push("/feed")}>
-View all
+<button onClick={() => router.push("/ai-receptionist")} style={aiLaunchBtn}>
+⚡ Activate AI Receptionist →
 </button>
 </div>
 
-<div style={premiumAdRail}>
-{recentPosts.slice(0, 8).map((post, i) => (
-<div key={i} style={premiumAdCard}>
-{post.video_url ? (
-<video
-src={post.video_url}
-style={premiumAdImage}
-autoPlay
-muted
-loop
-playsInline
-/>
-) : post.image_url ? (
-<img src={post.image_url} style={premiumAdImage} />
-) : (
-<div style={premiumAdImage} />
-)}
+<div style={aiRight}>
+<div style={phoneDemo}>
+<span style={phoneSmall}>Incoming Call</span>
+<b style={phoneNumber}>01234 567 890</b>
+<span style={phoneSmall}>AI Receptionist</span>
+<div style={robotCircle}>AI</div>
+</div>
 
-<div style={premiumAdOverlay}>
-<b>{post.content || "AI Generated Ad"}</b>
-<span>Ready to post</span>
+<div style={leadDemo}>
+<b>NEW LEAD RECEIVED</b>
+<span>Name: John Smith</span>
+<span>Vehicle: BMW X5</span>
+<span>Tyre Size: 275/40/20</span>
+<span>Location: Liverpool</span>
+<small>Received 12 seconds ago</small>
 </div>
-</div>
-))}
 </div>
 </section>
 
@@ -3306,4 +3286,132 @@ marginTop: 18,
 display: "flex",
 gridTemplateColumns: "space-between",
 gap: 24
+};
+
+const premiumAiReceptionist: React.CSSProperties = {
+marginTop: 24,
+padding: 22,
+borderRadius: 34,
+background:
+"radial-gradient(circle at 75% 25%, rgba(220,235,255,0.16), transparent 35%), linear-gradient(180deg, rgba(13,18,28,0.96), rgba(3,5,10,0.98))",
+border: "1px solid rgba(220,235,255,0.18)",
+boxShadow:
+"0 0 22px rgba(220,235,255,0.24), 0 0 70px rgba(220,235,255,0.10)",
+display: "grid",
+gridTemplateColumns: "1fr",
+gap: 18,
+};
+
+const aiLeft: React.CSSProperties = {};
+
+const aiMiniPill: React.CSSProperties = {
+display: "inline-flex",
+padding: "9px 14px",
+borderRadius: 999,
+border: "1px solid rgba(220,235,255,0.26)",
+color: "#f8fbff",
+fontSize: 12,
+fontWeight: 950,
+letterSpacing: 2,
+boxShadow: "0 0 20px rgba(220,235,255,0.16)",
+};
+
+const aiBigTitle: React.CSSProperties = {
+margin: "22px 0 12px",
+color: "#f8fbff",
+fontSize: 38,
+lineHeight: 0.95,
+fontWeight: 950,
+letterSpacing: -2,
+};
+
+const iceText: React.CSSProperties = {
+color: "#dcebff",
+textShadow: "0 0 24px rgba(220,235,255,0.55)",
+};
+
+const aiDesc: React.CSSProperties = {
+color: "rgba(248,251,255,0.68)",
+fontSize: 16,
+lineHeight: 1.45,
+marginBottom: 18,
+};
+
+const aiChecklist: React.CSSProperties = {
+display: "flex",
+flexDirection: "column",
+gap: 9,
+color: "rgba(248,251,255,0.88)",
+fontSize: 14,
+marginBottom: 20,
+};
+
+const aiLaunchBtn: React.CSSProperties = {
+width: "100%",
+border: "1px solid rgba(220,235,255,0.34)",
+borderRadius: 999,
+padding: "16px 18px",
+background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+color: "#05070b",
+fontSize: 16,
+fontWeight: 950,
+boxShadow:
+"0 0 28px rgba(220,235,255,0.35), 0 0 70px rgba(220,235,255,0.14)",
+};
+
+const aiRight: React.CSSProperties = {
+display: "grid",
+gap: 14,
+};
+
+const phoneDemo: React.CSSProperties = {
+borderRadius: 30,
+padding: 20,
+minHeight: 230,
+background:
+"linear-gradient(180deg, rgba(8,12,22,0.96), rgba(2,3,6,0.98))",
+border: "1px solid rgba(220,235,255,0.18)",
+boxShadow: "0 0 35px rgba(220,235,255,0.14)",
+display: "flex",
+flexDirection: "column",
+alignItems: "center",
+justifyContent: "center",
+gap: 10,
+};
+
+const phoneSmall: React.CSSProperties = {
+color: "rgba(248,251,255,0.62)",
+fontSize: 13,
+};
+
+const phoneNumber: React.CSSProperties = {
+color: "#f8fbff",
+fontSize: 22,
+};
+
+const robotCircle: React.CSSProperties = {
+marginTop: 16,
+width: 88,
+height: 88,
+borderRadius: "50%",
+display: "grid",
+placeItems: "center",
+background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+color: "#05070b",
+fontWeight: 950,
+fontSize: 24,
+boxShadow:
+"0 0 24px rgba(220,235,255,0.5), 0 0 80px rgba(220,235,255,0.20)",
+};
+
+const leadDemo: React.CSSProperties = {
+borderRadius: 26,
+padding: 18,
+background: "rgba(5,7,12,0.88)",
+border: "1px solid rgba(220,235,255,0.18)",
+boxShadow: "0 0 30px rgba(220,235,255,0.12)",
+display: "flex",
+flexDirection: "column",
+gap: 9,
+color: "#f8fbff",
 };
