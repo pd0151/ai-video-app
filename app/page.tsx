@@ -624,17 +624,17 @@ AI answered call • Lead captured • SMS sent
 </div>
 
 <p style={aiDesc}>
-The AI answers missed calls, takes customer details and sends the job straight to your dashboard.
+Never miss another customer enquiry. Your AI receptionist answers calls, captures leads and sends them directly to your dashboard 24/7.
 </p>
 
 <div style={miniLeadBox}>
-<b>LEAD DETAILS</b>
+<b>AI CAPTURED LEAD</b>
 <span><b>CUSTOMER</b> • Captured from call</span>
 <span><b>REQUEST</b> • Based on your services</span>
 <span><b>LOCATION</b> • Customer area captured</span>
 <span><b>CONTACT</b> • Phone number saved</span>
 <div style={leadStatus}>
-LEAD CAPTURED • 12 SECONDS AGO
+LIVE LEAD • SENT TO DASHBOARD
 </div>
 </div>
 
@@ -653,7 +653,9 @@ LEAD CAPTURED • 12 SECONDS AGO
 <span>Missed Calls</span>
 </div>
 </div>
-
+<div style={leadStatus}>
+AI ONLINE • READY TO ANSWER
+</div>
 <button onClick={() => router.push("/ai-receptionist")} style={aiLaunchBtn}>
 ⚡ Activate AI Receptionist →
 </button>
