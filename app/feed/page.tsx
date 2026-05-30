@@ -206,10 +206,7 @@ return (
 </div>
 </header>
 
-<div style={topTabs}>
-<button style={activeTab}>For You</button>
-<button style={tab}>Following</button>
-</div>
+
 
 {posts.map((post) => {
 const phone = post.phone || post.whatsapp || "";
