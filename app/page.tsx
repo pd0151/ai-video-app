@@ -614,9 +614,9 @@ style={{ display: "none" }}
 <span style={aiMiniPill}>• LIVE AI CALL SYSTEM</span>
 
 <h2 style={aiBigTitle}>
-Never miss
+Never Miss
 <br />
-another job.
+A Lead.
 </h2>
 
 <div style={liveLeadStatus}>
