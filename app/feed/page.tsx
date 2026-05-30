@@ -449,7 +449,7 @@ letterSpacing: -2,
 
 const topTabs: CSSProperties = {
 position: "fixed",
-top: 110,
+top: 95,
 left: "50%",
 transform: "translateX(-50%)",
 zIndex: 100,
@@ -460,13 +460,16 @@ const tab: React.CSSProperties = {
 background: "transparent",
 border: "none",
 color: "rgba(255,255,255,0.48)",
-fontSize: 18,
+fontSize: 22,
+whiteSpace: "nowrap",
 fontWeight: 900,
 };
 
 const activeTab: React.CSSProperties = {
 ...tab,
 color: "white",
+whiteSpace: "nowrap",
+fontSize: 22,
 borderBottom: "3px solid #ffffff",
 paddingBottom: 10,
 };
