@@ -655,9 +655,25 @@ LIVE LEAD • SENT TO DASHBOARD
 </div>
 
 <button onClick={() => router.push("/ai-receptionist")} style={aiLaunchBtn}>
- ● AI ONLINE
-<br />
+<div
+style={{
+fontSize: 12,
+opacity: 0.7,
+letterSpacing: 2,
+marginBottom: 6,
+}}
+>
+● AI ONLINE
+</div>
+
+<div
+style={{
+fontSize: 22,
+fontWeight: 900,
+}}
+>
 Activate AI Receptionist →
+</div>
 </button>
 </section>
 
