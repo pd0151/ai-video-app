@@ -571,7 +571,23 @@ Grow faster.
 <p style={platformHeroText}>
 AI advertising, AI video and AI receptionist tools built for local businesses.
 </p>
-
+<textarea
+value={prompt}
+onChange={(e) => setPrompt(e.target.value)}
+placeholder="Example: mobile tyre fitting advert, 24/7 callout, premium black and green style"
+style={{
+width: "100%",
+minHeight: 90,
+borderRadius: 22,
+border: "1px solid rgba(255,255,255,0.18)",
+background: "rgba(255,255,255,0.08)",
+color: "white",
+padding: 16,
+fontSize: 16,
+marginBottom: 14,
+outline: "none",
+}}
+/>
 <button onClick={generateAd} style={platformMainBtn}>
 ✨ Generate AI Ad →
 </button>
