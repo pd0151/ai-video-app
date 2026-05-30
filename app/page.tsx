@@ -641,16 +641,16 @@ LIVE LEAD • SENT TO DASHBOARD
 <div style={aiStatsRow}>
 <div style={aiStatCard}>
 <b>24/7</b>
-<span>Always On</span>
+<span>Answering</span>
 </div>
 <div style={aiStatCard}>
-<b>3x</b>
-<span>More Leads</span>
+<b>Lead</b>
+<span>Capture</span>
 </div>
 
 <div style={aiStatCard}>
-<b>0</b>
-<span>Missed Calls</span>
+<b>SMS</b>
+<span>Alerts</span>
 </div>
 </div>
 <div style={leadStatus}>
