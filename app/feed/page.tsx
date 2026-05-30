@@ -426,9 +426,11 @@ zIndex: 0,
 
 const topHeader: CSSProperties = {
 position: "fixed",
-top: 10,
-left: 20,
+top: 18,
+left: 18,
 zIndex: 100,
+transform: "scale(0.8)",
+transformOrigin: "top left",
 };
 
 const brandLabel: React.CSSProperties = {
@@ -447,14 +449,13 @@ letterSpacing: -2,
 
 const topTabs: CSSProperties = {
 position: "fixed",
-top: 70,
+top: 110,
 left: "50%",
 transform: "translateX(-50%)",
 zIndex: 100,
 display: "flex",
-gap: 40,
+gap: 55,
 };
-
 const tab: React.CSSProperties = {
 background: "transparent",
 border: "none",
