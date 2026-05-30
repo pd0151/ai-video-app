@@ -577,6 +577,22 @@ AI advertising, AI video and AI receptionist tools built for local businesses.
 </button>
 </div>
 
+<div style={heroMiniStats}>
+<div style={heroMiniStat}>
+<b>AI Ads</b>
+<span>Generated in seconds</span>
+</div>
+
+<div style={heroMiniStat}>
+<b>AI Calls</b>
+<span>Leads captured 24/7</span>
+</div>
+</div>
+
+<div style={heroLiveStrip}>
+<span>● Live platform</span>
+<span>Ads • Video • Receptionist</span>
+</div>
 
 </section>
 
@@ -3496,4 +3512,40 @@ color: "#dcebff",
 fontSize: 11,
 fontWeight: 900,
 letterSpacing: 1.2,
+};
+
+
+
+const heroMiniStats: React.CSSProperties = {
+marginTop: 26,
+display: "grid",
+gridTemplateColumns: "1fr 1fr",
+gap: 12,
+};
+
+const heroMiniStat: React.CSSProperties = {
+padding: 14,
+borderRadius: 20,
+background: "rgba(255,255,255,0.06)",
+border: "1px solid rgba(220,235,255,0.16)",
+boxShadow: "0 0 22px rgba(220,235,255,0.10)",
+display: "flex",
+flexDirection: "column",
+gap: 5,
+color: "#f8fbff",
+};
+
+const heroLiveStrip: React.CSSProperties = {
+marginTop: 14,
+padding: "12px 14px",
+borderRadius: 999,
+background: "rgba(220,235,255,0.07)",
+border: "1px solid rgba(220,235,255,0.16)",
+color: "rgba(248,251,255,0.82)",
+display: "flex",
+justifyContent: "space-between",
+gap: 10,
+fontSize: 12,
+fontWeight: 900,
+letterSpacing: 1,
 };
