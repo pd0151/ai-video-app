@@ -585,14 +585,15 @@ onChange={(e) => setPrompt(e.target.value)}
 placeholder="Example: mobile tyre fitting advert, 24/7 callout, premium black and green style"
 style={{
 width: "100%",
-minHeight: 90,
+height: 58,
+minHeight: 58,
 borderRadius: 22,
 border: "1px solid rgba(255,255,255,0.18)",
 background: "rgba(255,255,255,0.08)",
 color: "white",
-padding: 16,
-fontSize: 16,
-marginBottom: 14,
+padding: 12,
+fontSize: 14,
+marginBottom: 10,
 outline: "none",
 }}
 />
@@ -613,6 +614,8 @@ style={{
 ...platformMainBtn,
 marginTop: 14,
 width: "100%",
+background: "linear-gradient(135deg,#22ff7f,#16d96a)",
+color: "#05070b",
 }}
 >
 Share to Feed
@@ -3294,14 +3297,14 @@ margin: 0,
 };
 
 const platformMainBtn: React.CSSProperties = {
-marginTop: 22,
+marginTop: 10,
 width: "100%",
 border: `1px solid ${LINE_STRONG}`,
 borderRadius: 999,
-padding: "16px 18px",
+padding: "10px 14px",
 background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
 color: "#05070b",
-fontSize: 16,
+fontSize: 14,
 fontWeight: 950,
 boxShadow: "0 0 40px rgba(255,255,255,.18)",
 };
