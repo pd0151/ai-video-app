@@ -488,7 +488,7 @@ borderRadius: 0,
 margin: 0,
 padding: 0,
 top: 0,
-left: 30,
+left: 0,
 right: 0,
 bottom: 0,
 }; 
