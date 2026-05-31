@@ -301,19 +301,18 @@ Professional branding.
 console.log("generate-image response", res.status);
 const data = await res.json();
 
-alert(JSON.stringify(data));
+
 
 const imageUrl =
 data.image || data.url || data.image_url || data.output?.[0];
 
-alert("IMAGE FOUND");
+
 
 if (!imageUrl) {
 console.log("No image URL returned:", data);
 alert("Image generated but no image URL returned");
 return;
 }
-
 setImage(imageUrl);
 if (!isPro) {
 const newCredits = Math.max(credits - 1, 0);
@@ -607,6 +606,20 @@ opacity: generating ? 0.65 : 1,
 >
 {generating ? "Generating AI Ad..." : "✨ Generate AI Ad →"}
 </button>
+
+{image && (
+<div style={{ marginTop: 18 }}>
+<img
+src={image}
+alt="Generated advert"
+style={{
+width: "100%",
+borderRadius: 22,
+display: "block",
+}}
+/>
+</div>
+)}
 <div style={heroPhoneWrap}>
 <video
 src="/videos/hero-demo.mp4"
