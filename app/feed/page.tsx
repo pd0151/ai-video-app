@@ -490,14 +490,14 @@ padding: 0,
 top: 0,
 left: 0,
 right: 0,
-bottom: 120,
+bottom: 90,
 };
 
 const imageMedia: CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "fill",
-objectPosition: " center center",
+objectFit: "cover",
+objectPosition: " center top",
 display: "block",
 };
 const media: CSSProperties = {
