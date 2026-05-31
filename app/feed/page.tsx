@@ -30,11 +30,16 @@ content: string;
 created_at: string | null;
 };
 
-const green = "#45ff8a";
-const purple = "#8b5cf6";
-const glassBg = "rgba(8,12,22,0.88)";
-const border = "1px solid rgba(255,255,255,0.12)";
-const glow = "0 18px 45px rgba(0,0,0,0.45)";
+/* XZEON WHITE THEME */
+const xeonWhite = "#f4f7ff";
+const xeonGreen = "#45ff8a";
+const cardBg = "rgba(7,11,20,0.86)";
+const darkBg = "#05070d";
+const xeonBorder = "1px solid rgba(235,242,255,0.28)";
+const xeonGlow =
+"0 0 4px rgba(255,255,255,0.75), 0 0 22px rgba(220,235,255,0.32), 0 0 65px rgba(140,170,255,0.18)";
+const softGlow =
+"0 0 3px rgba(255,255,255,0.65), 0 0 18px rgba(220,235,255,0.24)";
 
 export default function FeedPage() {
 const router = useRouter();
@@ -147,7 +152,6 @@ const observer = new IntersectionObserver(
 (entries) => {
 entries.forEach((entry) => {
 const video = entry.target as HTMLVideoElement;
-const id = video.dataset.id;
 
 if (entry.isIntersecting) {
 video.play().catch(() => {});
@@ -187,7 +191,7 @@ return (
 <main style={empty}>
 <h1 style={{ margin: 0 }}>No posts yet</h1>
 <p style={{ opacity: 0.7 }}>
-Create or upload an ad and share it to the feed.
+Create or upload an advert and it will appear here.
 </p>
 </main>
 );
@@ -230,7 +234,7 @@ if (post.user_id) router.push(`/profile/${post.user_id}`);
 <div>
 <div style={businessName}>
 {post.business_name || "AdForge Business"}{" "}
-<span style={{ color: purple }}>●</span>
+<span style={verifiedDot}>●</span>
 </div>
 <p style={small}>⌖ {post.location || "Local area"}</p>
 </div>
@@ -266,7 +270,7 @@ style={media}
 )}
 
 {post.video_url && !post.image_url && (
-<div style={videoBadge}>▶</div>
+<div style={playBadge}>▶</div>
 )}
 </div>
 
@@ -288,8 +292,8 @@ style={media}
 
 <div style={ctaRow}>
 {phone && (
-<a href={`tel:${phone}`} style={bookBtn}>
-Book Now →
+<a href={`tel:${phone}`} style={callBtn}>
+☎ Call Now
 </a>
 )}
 
@@ -400,11 +404,11 @@ const page: CSSProperties = {
 minHeight: "100dvh",
 overflowY: "auto",
 background:
-"radial-gradient(circle at 80% -10%, rgba(139,92,246,0.22), transparent 34%), radial-gradient(circle at 10% 20%, rgba(69,255,138,0.10), transparent 28%), #05070d",
-color: "white",
+"radial-gradient(circle at 78% -8%, rgba(220,235,255,0.12), transparent 34%), radial-gradient(circle at 15% 18%, rgba(120,160,255,0.10), transparent 28%), #05070d",
+color: xeonWhite,
 fontFamily: "Inter, Arial, sans-serif",
 position: "relative",
-padding: "98px 14px 105px",
+padding: "102px 14px 108px",
 };
 
 const topHeader: CSSProperties = {
@@ -413,210 +417,234 @@ top: 20,
 left: 22,
 right: 22,
 zIndex: 100,
-display: "flex",
-justifyContent: "space-between",
-alignItems: "center",
 pointerEvents: "none",
 };
 
 const brandLabel: CSSProperties = {
 fontSize: 10,
-letterSpacing: 3,
-color: "rgba(255,255,255,0.48)",
+letterSpacing: 4,
+color: "rgba(244,247,255,0.52)",
 fontWeight: 900,
 };
 
 const logo: CSSProperties = {
-margin: 0,
-fontSize: 34,
+margin: "4px 0 0",
+fontSize: 36,
 fontWeight: 950,
 letterSpacing: -2,
+color: xeonWhite,
+textShadow: "0 0 18px rgba(255,255,255,0.22)",
 };
 
 const tabs: CSSProperties = {
 position: "fixed",
-top: 72,
+top: 78,
 left: 14,
 right: 14,
 zIndex: 90,
 display: "flex",
-gap: 22,
-padding: "12px 2px 10px",
+gap: 28,
+padding: "12px 4px 12px",
 background:
-"linear-gradient(to bottom, rgba(5,7,13,0.96), rgba(5,7,13,0.72), transparent)",
+"linear-gradient(to bottom, rgba(5,7,13,0.96), rgba(5,7,13,0.70), transparent)",
 };
 
 const tab: CSSProperties = {
 border: "none",
 background: "transparent",
-color: "rgba(255,255,255,0.55)",
-fontSize: 15,
-fontWeight: 850,
+color: "rgba(244,247,255,0.48)",
+fontSize: 16,
+fontWeight: 900,
 };
 
 const activeTab: CSSProperties = {
 ...tab,
-color: "white",
-borderBottom: `3px solid ${purple}`,
+color: xeonWhite,
+borderBottom: `3px solid ${xeonWhite}`,
 paddingBottom: 8,
+textShadow: "0 0 14px rgba(255,255,255,0.7)",
 };
 
 const feedWrap: CSSProperties = {
 display: "flex",
 flexDirection: "column",
-gap: 16,
+gap: 18,
 };
 
 const postCard: CSSProperties = {
 width: "100%",
-borderRadius: 24,
+borderRadius: 26,
 overflow: "hidden",
-background: glassBg,
-border,
-boxShadow: glow,
-backdropFilter: "blur(16px)",
+background: cardBg,
+border: xeonBorder,
+boxShadow: xeonGlow,
+backdropFilter: "blur(18px)",
 };
 
 const cardTop: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
 alignItems: "center",
-padding: "14px 14px 10px",
+padding: "18px 18px 14px",
 };
 
 const businessRow: CSSProperties = {
 display: "flex",
 alignItems: "center",
-gap: 11,
+gap: 12,
 cursor: "pointer",
 };
 
 const avatar: CSSProperties = {
-width: 42,
-height: 42,
+width: 48,
+height: 48,
 borderRadius: "50%",
-background: "linear-gradient(135deg, rgba(139,92,246,0.45), rgba(5,7,13,0.9))",
-border,
+background: "rgba(5,7,13,0.82)",
+border: xeonBorder,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
 fontWeight: 950,
+color: xeonWhite,
+boxShadow: softGlow,
 };
 
 const businessName: CSSProperties = {
-fontSize: 16,
+fontSize: 18,
 fontWeight: 950,
+color: xeonWhite,
+};
+
+const verifiedDot: CSSProperties = {
+color: xeonGreen,
+textShadow: `0 0 12px ${xeonGreen}`,
 };
 
 const small: CSSProperties = {
 margin: "3px 0 0",
-color: "rgba(255,255,255,0.68)",
-fontSize: 13,
+color: "rgba(244,247,255,0.68)",
+fontSize: 14,
 };
 
 const menuBtn: CSSProperties = {
 border: "none",
 background: "transparent",
-color: "rgba(255,255,255,0.8)",
-fontSize: 20,
+color: xeonWhite,
+fontSize: 24,
 fontWeight: 900,
 };
 
 const mediaBox: CSSProperties = {
-width: "100%",
-height: 360,
-background: "#03050a",
+width: "calc(100% - 32px)",
+height: 355,
+margin: "0 16px",
+background: "#02040a",
 overflow: "hidden",
 position: "relative",
+borderRadius: 20,
+border: "1px solid rgba(244,247,255,0.16)",
+boxShadow: "inset 0 0 26px rgba(255,255,255,0.08)",
 };
 
 const media: CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "contain",
+objectFit: "cover",
 objectPosition: "center",
-background: "#03050a",
+background: "#02040a",
 display: "block",
 };
 
-const videoBadge: CSSProperties = {
+const playBadge: CSSProperties = {
 position: "absolute",
-right: 12,
-bottom: 12,
-padding: "7px 11px",
-borderRadius: 999,
-background: "rgba(0,0,0,0.65)",
-border,
-fontWeight: 900,
+right: 14,
+bottom: 14,
+width: 46,
+height: 46,
+borderRadius: "50%",
+background: "rgba(5,7,13,0.74)",
+border: xeonBorder,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+boxShadow: softGlow,
+fontWeight: 950,
 };
 
 const cardBody: CSSProperties = {
-padding: "14px 16px 12px",
+padding: "18px 18px 14px",
 };
 
 const title: CSSProperties = {
-margin: "0 0 6px",
-fontSize: 20,
+margin: "0 0 8px",
+fontSize: 22,
 lineHeight: 1.1,
 fontWeight: 950,
 letterSpacing: -0.4,
+color: xeonWhite,
 };
 
 const caption: CSSProperties = {
-margin: "0 0 12px",
-color: "rgba(255,255,255,0.78)",
-fontSize: 14,
+margin: "0 0 14px",
+color: "rgba(244,247,255,0.72)",
+fontSize: 15,
 lineHeight: 1.35,
 };
 
 const checks: CSSProperties = {
 display: "flex",
 flexWrap: "wrap",
-gap: 8,
-marginBottom: 14,
+gap: 13,
+marginBottom: 16,
+color: xeonWhite,
+fontSize: 14,
+fontWeight: 750,
 };
 
 const ctaRow: CSSProperties = {
 display: "flex",
-gap: 10,
+gap: 12,
 };
 
-const bookBtn: CSSProperties = {
+const callBtn: CSSProperties = {
 flex: 1,
 textAlign: "center",
-padding: "12px 16px",
-borderRadius: 14,
-background: `linear-gradient(135deg, ${purple}, #6d5dfc)`,
-color: "white",
+padding: "14px 16px",
+borderRadius: 18,
+background: "linear-gradient(180deg,#ffffff,#eaf0ff)",
+color: "#05070d",
 textDecoration: "none",
 fontWeight: 950,
+border: "1px solid rgba(255,255,255,0.8)",
+boxShadow: xeonGlow,
 };
 
 const whatsappBtn: CSSProperties = {
 flex: 1,
 textAlign: "center",
-padding: "12px 16px",
-borderRadius: 14,
-background: "rgba(69,255,138,0.12)",
-color: green,
-border: `1px solid rgba(69,255,138,0.35)`,
+padding: "14px 16px",
+borderRadius: 18,
+background: "rgba(5,7,13,0.72)",
+color: xeonGreen,
+border: `1px solid rgba(69,255,138,0.42)`,
 textDecoration: "none",
 fontWeight: 950,
+boxShadow: `0 0 22px rgba(69,255,138,0.22)`,
 };
 
 const actionRow: CSSProperties = {
 display: "flex",
 justifyContent: "space-between",
-borderTop: "1px solid rgba(255,255,255,0.08)",
-padding: "10px 14px 12px",
+borderTop: "1px solid rgba(244,247,255,0.12)",
+padding: "13px 18px 16px",
 };
 
 const actionBtn: CSSProperties = {
 border: "none",
 background: "transparent",
-color: "rgba(255,255,255,0.85)",
-fontSize: 13,
-fontWeight: 850,
+color: "rgba(244,247,255,0.88)",
+fontSize: 14,
+fontWeight: 900,
 };
 
 const empty: CSSProperties = {
@@ -625,8 +653,8 @@ display: "flex",
 flexDirection: "column",
 justifyContent: "center",
 alignItems: "center",
-color: "white",
-background: "#05070d",
+color: xeonWhite,
+background: darkBg,
 textAlign: "center",
 padding: 30,
 };
@@ -645,7 +673,7 @@ padding: 10,
 const mediaPopupImg: CSSProperties = {
 maxWidth: "100%",
 maxHeight: "100%",
-objectFit: "fill",
+objectFit: "contain",
 };
 
 const mediaCloseBtn: CSSProperties = {
@@ -656,11 +684,12 @@ zIndex: 1000000,
 width: 44,
 height: 44,
 borderRadius: "50%",
-border,
-background: glassBg,
-color: "white",
+border: xeonBorder,
+background: cardBg,
+color: xeonWhite,
 fontSize: 30,
 fontWeight: 900,
+boxShadow: softGlow,
 };
 
 const commentOverlay: CSSProperties = {
@@ -681,18 +710,20 @@ borderTopLeftRadius: 28,
 borderTopRightRadius: 28,
 background: "rgba(8,12,22,0.96)",
 padding: 22,
-color: "white",
-borderTop: border,
+color: xeonWhite,
+borderTop: xeonBorder,
+boxShadow: xeonGlow,
 };
 
 const closeBtn: CSSProperties = {
-background: glassBg,
-color: "white",
-border,
+background: cardBg,
+color: xeonWhite,
+border: xeonBorder,
 borderRadius: 999,
 width: 34,
 height: 34,
 fontSize: 24,
+boxShadow: softGlow,
 };
 
 const commentList: CSSProperties = {
@@ -705,9 +736,10 @@ paddingBottom: 100,
 const commentCard: CSSProperties = {
 padding: 14,
 borderRadius: 16,
-background: glassBg,
-border,
+background: cardBg,
+border: xeonBorder,
 marginBottom: 10,
+boxShadow: softGlow,
 };
 
 const commentInputRow: CSSProperties = {
@@ -721,19 +753,21 @@ background: "rgba(8,12,22,0.96)",
 const commentInput: CSSProperties = {
 flex: 1,
 borderRadius: 16,
-border,
-background: glassBg,
-color: "white",
+border: xeonBorder,
+background: cardBg,
+color: xeonWhite,
 padding: 14,
+boxShadow: softGlow,
 };
 
 const sendBtn: CSSProperties = {
 border: "none",
 borderRadius: 16,
-background: purple,
-color: "white",
+background: "linear-gradient(180deg,#ffffff,#eaf0ff)",
+color: "#05070d",
 padding: "0 18px",
 fontWeight: 950,
+boxShadow: xeonGlow,
 };
 
 const bottomNav: CSSProperties = {
@@ -741,42 +775,43 @@ position: "fixed",
 bottom: 10,
 left: 18,
 right: 18,
-height: 64,
+height: 66,
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
-background: "rgba(4,9,18,0.82)",
-border,
+background: "rgba(4,9,18,0.84)",
+border: `1px solid rgba(69,255,138,0.22)`,
 borderRadius: 24,
 backdropFilter: "blur(18px)",
-boxShadow: "0 0 26px rgba(139,92,246,0.28)",
+boxShadow: "0 0 18px rgba(255,255,255,0.18), 0 0 24px rgba(69,255,138,0.18)",
 zIndex: 999,
 };
 
 const navBtn: CSSProperties = {
 border: "none",
 background: "transparent",
-color: "rgba(255,255,255,0.62)",
+color: "rgba(244,247,255,0.62)",
 fontWeight: 850,
 fontSize: 12,
 };
 
 const navActive: CSSProperties = {
 ...navBtn,
-color: "white",
+color: xeonWhite,
+textShadow: "0 0 12px rgba(255,255,255,0.65)",
 };
 
 const plusBtn: CSSProperties = {
-width: 70,
-height: 70,
+width: 72,
+height: 72,
 borderRadius: "50%",
-border: "1px solid rgba(255,255,255,0.35)",
-background: `linear-gradient(135deg, ${purple}, #6d5dfc)`,
-color: "white",
+border: `2px solid ${xeonGreen}`,
+background: "linear-gradient(180deg,#ffffff,#eaf0ff)",
+color: "#05070d",
 fontSize: 42,
 fontWeight: 400,
 marginTop: -42,
-boxShadow: "0 0 30px rgba(139,92,246,0.75)",
+boxShadow: `0 0 6px rgba(255,255,255,0.9), 0 0 30px rgba(69,255,138,0.65)`,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
