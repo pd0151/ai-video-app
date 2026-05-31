@@ -509,7 +509,7 @@ position: "absolute",
 inset: 0,
 width: "100%",
 height: "100%",
-transform: "contain",
+transform: "cover",
 objectFit: "fill",
 objectPosition: "center",
 };
