@@ -243,6 +243,16 @@ alt="blur background"
 style={uploadedImageBlur}
 />
 
+<div
+style={{
+position: "absolute",
+inset: 0,
+background: "rgba(5,7,11,0.55)",
+zIndex: 1,
+}}
+/>
+
+
 <img
 src={post.image_url || ""}
 alt="post"
@@ -517,27 +527,7 @@ justifyContent: "center",
 };
 
 
-const uploadedImageWrap: CSSProperties = {
-width: "100%",
-height: "100%",
-position: "relative",
-overflow: "hidden",
-background: "#000",
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-};
 
-const uploadedImageBlur: CSSProperties = {
-position: "absolute",
-inset: 0,
-width: "100%",
-height: "100%",
-objectFit: "cover",
-filter: "blur(28px)",
-transform: "scale(1.12)",
-opacity: 0.55,
-};
 
 const uploadedImageMedia: CSSProperties = {
 position: "relative",
@@ -566,7 +556,25 @@ objectPosition: "center center",
 display: "block",
 };
 
+const uploadedImageBlur: CSSProperties = {
+position: "absolute",
+inset: 0,
+width: "100%",
+height: "100%",
+objectFit: "cover",
+filter: "blur(40px)",
+transform: "scale(1.3)",
+opacity: 0.35,
+};
 
+
+const uploadedImageWrap: CSSProperties = {
+width: "100%",
+height: "100%",
+position: "relative",
+overflow: "hidden",
+background: "#05070b",
+};
 
 const viewerBadge: React.CSSProperties = {
 position: "absolute",
