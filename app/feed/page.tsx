@@ -503,13 +503,12 @@ justifyContent: "center",
 
 
 
-
 const media: CSSProperties = {
 inset: 0,
 width: "100%",
 height: "100%",
-objectFit: "fill",
-objectPosition: "50% 50%",
+objectFit: "cover",
+objectPosition: "fill",
 };
 
 
