@@ -301,6 +301,8 @@ Professional branding.
 console.log("generate-image response", res.status);
 const data = await res.json();
 
+alert(JSON.stringify(data));
+
 const imageUrl =
 data.image || data.url || data.image_url || data.output?.[0];
 
