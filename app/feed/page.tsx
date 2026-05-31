@@ -490,7 +490,7 @@ padding: 0,
 top: 0,
 left: 0,
 right: 0,
-bottom: 150,
+bottom: 120,
 };
 
 const imageMedia: CSSProperties = {
@@ -503,7 +503,7 @@ display: "block",
 const media: CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "cover",
+objectFit: "fill",
 display: "block",
 };
 
