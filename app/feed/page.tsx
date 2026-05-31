@@ -556,7 +556,7 @@ zIndex: 2,
 width: "100%",
 height: "100%",
 objectFit: "contain",
-objectPosition: "center center",
+objectPosition: "center ",
 display: "block",
 };
 
