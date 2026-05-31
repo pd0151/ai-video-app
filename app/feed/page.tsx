@@ -495,7 +495,20 @@ top: 0,
 left: 0,
 right: 0,
 bottom: 0,
-}; 
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+};
+
+
+const uploadedImageMedia: CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "cover",
+objectPosition: "center center",
+display: "block",
+};
+
 
 const imageMedia: CSSProperties = {
 width: "100%",
@@ -505,15 +518,6 @@ objectPosition: "center top",
 display: "block",
 };
 
-
-const uploadedImageMedia: CSSProperties = {
-width: "100%",
-height: "100%",
-objectFit: "fill",
-objectPosition: "center center",
-display: "block",
-background: "#000",
-};
 const media: CSSProperties = {
 width: "100%",
 height: "100%",
