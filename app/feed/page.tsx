@@ -243,14 +243,7 @@ alt="blur background"
 style={uploadedImageBlur}
 />
 
-<div
-style={{
-position: "absolute",
-inset: 0,
-background: "rgba(5,7,11,0.55)",
-zIndex: 1,
-}}
-/>
+
 
 
 <img
@@ -529,14 +522,15 @@ justifyContent: "center",
 
 
 
-const uploadedImageMedia: CSSProperties = {
-position: "relative",
-zIndex: 2,
+const uploadedImageBlur: CSSProperties = {
+position: "absolute",
+inset: 0,
 width: "100%",
 height: "100%",
-objectFit: "contain",
-objectPosition: "center center",
-display: "block",
+objectFit: "cover",
+filter: "blur(40px)",
+transform: "scale(1.3)",
+opacity: 0.45,
 };
 
 
@@ -556,15 +550,14 @@ objectPosition: "center center",
 display: "block",
 };
 
-const uploadedImageBlur: CSSProperties = {
-position: "absolute",
-inset: 0,
+const uploadedImageMedia: CSSProperties = {
+position: "relative",
+zIndex: 2,
 width: "100%",
 height: "100%",
-objectFit: "cover",
-filter: "blur(40px)",
-transform: "scale(1.3)",
-opacity: 0.35,
+objectFit: "contain",
+objectPosition: "center center",
+display: "block",
 };
 
 
