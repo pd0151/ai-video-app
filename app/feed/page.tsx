@@ -469,7 +469,7 @@ paddingBottom: 10,
 };
 
 const slide: CSSProperties = {
-height: "100vh",
+height: "100dvh",
 width: "100vw",
 position: "relative",
 overflow: "hidden",
@@ -490,7 +490,7 @@ padding: 0,
 top: 0,
 left: 0,
 right: 0,
-bottom: 0,
+bottom: 120,
 };
 
 const imageMedia: CSSProperties = {
