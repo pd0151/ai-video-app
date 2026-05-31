@@ -585,13 +585,13 @@ onChange={(e) => setPrompt(e.target.value)}
 placeholder="Example: mobile tyre fitting advert, 24/7 callout, premium black and green style"
 style={{
 width: "100%",
-height: 48,
-minHeight: 48,
+height: 42,
+minHeight: 42,
 borderRadius: 22,
 border: "1px solid rgba(255,255,255,0.18)",
 background: "rgba(255,255,255,0.08)",
 color: "white",
-padding: 12,
+padding: 10,
 fontSize: 14,
 marginBottom: 10,
 outline: "none",
