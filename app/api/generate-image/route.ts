@@ -65,6 +65,13 @@ No amateur design.
 FINAL RESULT:
 Make this look like a top-tier paid advert from a luxury creative agency.
 The result should be premium enough that a real business would pay for it.
+
+Create a full vertical 9:16 mobile advert.
+Keep the main subject smaller and centered.
+Leave clear safe space at the top and bottom.
+Keep all text away from the edges.
+Do not crop the logo, headline, phone number, or call-to-action.
+
 `;
 
 
