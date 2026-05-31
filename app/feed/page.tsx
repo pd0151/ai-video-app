@@ -240,7 +240,11 @@ alt="post"
 onClick={() => post.image_url && setOpenMedia(post.image_url)}
 loading="eager"
 decoding="async"
-style={imageMedia}
+style={
+post.content === "Uploaded media"
+? uploadedImageMedia
+: imageMedia
+}
 />
 )}
 
@@ -499,6 +503,16 @@ height: "100%",
 objectFit: "fill",
 objectPosition: "center top",
 display: "block",
+};
+
+
+const uploadedImageMedia: CSSProperties = {
+width: "100%",
+height: "100%",
+objectFit: "contain",
+objectPosition: "center center",
+display: "block",
+background: "#000",
 };
 const media: CSSProperties = {
 width: "100%",
