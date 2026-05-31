@@ -536,7 +536,7 @@ fontWeight: 900,
 
 const mediaBox: CSSProperties = {
 width: "calc(100% - 32px)",
-height: 355,
+height: 520,
 margin: "0 16px",
 background: "#02040a",
 overflow: "hidden",
@@ -572,12 +572,12 @@ fontWeight: 950,
 };
 
 const cardBody: CSSProperties = {
-padding: "18px 18px 14px",
+padding: "12px 16px 10px",
 };
 
 const title: CSSProperties = {
 margin: "0 0 8px",
-fontSize: 22,
+fontSize: 17,
 lineHeight: 1.1,
 fontWeight: 950,
 letterSpacing: -0.4,
@@ -587,7 +587,7 @@ color: xeonWhite,
 const caption: CSSProperties = {
 margin: "0 0 14px",
 color: "rgba(244,247,255,0.72)",
-fontSize: 15,
+fontSize: 13,
 lineHeight: 1.35,
 };
 
@@ -597,7 +597,7 @@ flexWrap: "wrap",
 gap: 13,
 marginBottom: 16,
 color: xeonWhite,
-fontSize: 14,
+fontSize: 12,
 fontWeight: 750,
 };
 
