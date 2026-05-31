@@ -509,7 +509,7 @@ position: "absolute",
 inset: 0,
 width: "100%",
 height: "100%",
-transform: "scale",
+transform: "scale(1.1)",
 objectFit: "fill",
 objectPosition: "center",
 };
