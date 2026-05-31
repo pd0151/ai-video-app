@@ -233,6 +233,25 @@ if (url) setOpenMedia(url);
 }}
 style={media}
 />
+) : post.content === "Uploaded media" ? (
+
+
+<div style={uploadedImageWrap}>
+<img
+src={post.image_url || ""}
+alt="blur background"
+style={uploadedImageBlur}
+/>
+
+<img
+src={post.image_url || ""}
+alt="post"
+onClick={() => post.image_url && setOpenMedia(post.image_url)}
+loading="eager"
+decoding="async"
+style={uploadedImageMedia}
+/>
+</div>
 ) : (
 <img
 src={post.image_url || ""}
@@ -240,13 +259,10 @@ alt="post"
 onClick={() => post.image_url && setOpenMedia(post.image_url)}
 loading="eager"
 decoding="async"
-style={
-post.content === "Uploaded media"
-? uploadedImageMedia
-: imageMedia
-}
+style={imageMedia}
 />
 )}
+)
 
 
 
@@ -501,11 +517,35 @@ justifyContent: "center",
 };
 
 
-const uploadedImageMedia: CSSProperties = {
+const uploadedImageWrap: CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "fill",
-objectPosition: "center 20%",
+position: "relative",
+overflow: "hidden",
+background: "#000",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+};
+
+const uploadedImageBlur: CSSProperties = {
+position: "absolute",
+inset: 0,
+width: "100%",
+height: "100%",
+objectFit: "cover",
+filter: "blur(28px)",
+transform: "scale(1.12)",
+opacity: 0.55,
+};
+
+const uploadedImageMedia: CSSProperties = {
+position: "relative",
+zIndex: 2,
+width: "100%",
+height: "100%",
+objectFit: "contain",
+objectPosition: "center center",
 display: "block",
 };
 
