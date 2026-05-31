@@ -66,21 +66,16 @@ FINAL RESULT:
 Make this look like a top-tier paid advert from a luxury creative agency.
 The result should be premium enough that a real business would pay for it.
 
-Create a full vertical 9:16 mobile advert.
+NO text.
+NO letters.
+NO numbers.
+NO logos.
+NO typography.
 
-The main product must occupy no more than 35% of the advert.
+Create a realistic premium marketing photo only.
 
-Leave the top 20% of the advert mostly empty.
-
-Leave the bottom 25% of the advert mostly empty.
-
-Place all logos and headlines inside the centre area only.
-
-Never place text at the very top or very bottom.
-
-Assume social media UI overlays will cover the left, right and bottom edges.
-
-Keep all important text inside the middle 60% of the canvas.
+Leave the center area clean for app overlays.
+Create a full vertical 9:16 realistic marketing photograph.
 `;
 
 
