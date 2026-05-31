@@ -75,7 +75,7 @@ return NextResponse.json({ error: "No prompt provided" }, { status: 400 });
 const result = await openai.images.generate({
 model: "gpt-image-1",
 prompt: premiumPrompt,
-size: "1024x1536",
+size: "1536x1024",
 });
 
 const base64 = result.data?.[0]?.b64_json;
