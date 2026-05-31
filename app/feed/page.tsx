@@ -412,7 +412,7 @@ padding: "78px 14px 108px",
 };
 
 const topHeader: CSSProperties = {
-position: "fixed",
+position: "absolute",
 top: 4,
 left: 22,
 right: 22,
@@ -437,7 +437,7 @@ textShadow: "0 0 18px rgba(255,255,255,0.22)",
 };
 
 const tabs: CSSProperties = {
-position: "fixed",
+position: "absolute",
 top: 56,
 left: 14,
 right: 14,
