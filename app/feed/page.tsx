@@ -496,8 +496,8 @@ bottom: 90,
 const imageMedia: CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "fill",
-objectPosition: " ",
+objectFit: "cover",
+objectPosition: " 0",
 display: "block",
 };
 const media: CSSProperties = {
