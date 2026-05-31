@@ -503,7 +503,7 @@ display: "block",
 const media: CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "fill",
+objectFit: "contain",
 display: "block",
 };
 
