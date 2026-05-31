@@ -498,7 +498,7 @@ width: "100%",
 height: "100%",
 objectFit: "fill",
 objectPosition: " cover center",
-display: "cover",
+display: "contain",
 };
 const media: CSSProperties = {
 width: "100%",
