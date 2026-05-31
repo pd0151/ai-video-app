@@ -67,14 +67,20 @@ Make this look like a top-tier paid advert from a luxury creative agency.
 The result should be premium enough that a real business would pay for it.
 
 Create a full vertical 9:16 mobile advert.
-Keep the main subject smaller and centered.
-Leave clear safe space at the top and bottom.
-Keep all text away from the edges.
-Do not crop the logo, headline, phone number, or call-to-action.
 
-The tyre should occupy no more than 45% of the advert height.
-The entire advert must fit comfortably inside a mobile phone screen.
-All important text must remain fully visible.
+The main product must occupy no more than 35% of the advert.
+
+Leave the top 20% of the advert mostly empty.
+
+Leave the bottom 25% of the advert mostly empty.
+
+Place all logos and headlines inside the centre area only.
+
+Never place text at the very top or very bottom.
+
+Assume social media UI overlays will cover the left, right and bottom edges.
+
+Keep all important text inside the middle 60% of the canvas.
 `;
 
 
