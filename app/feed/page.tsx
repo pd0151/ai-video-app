@@ -497,13 +497,13 @@ const imageMedia: CSSProperties = {
 width: "100%",
 height: "100%",
 objectFit: "fill",
-objectPosition: " contain center",
+objectPosition: "center",
 display: "block",
 };
 const media: CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "cover",
+objectFit: "fill",
 display: "block",
 };
 
