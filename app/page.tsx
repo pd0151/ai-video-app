@@ -618,6 +618,17 @@ borderRadius: 22,
 display: "block",
 }}
 />
+
+<button
+onClick={useThisAd}
+style={{
+...platformMainBtn,
+marginTop: 14,
+width: "100%",
+}}
+>
+Share to Feed
+</button>
 </div>
 )}
 <div style={heroPhoneWrap}>
