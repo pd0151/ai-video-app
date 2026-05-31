@@ -233,28 +233,6 @@ if (url) setOpenMedia(url);
 }}
 style={media}
 />
-) : post.content === "Uploaded media" ? (
-
-
-<div style={uploadedImageWrap}>
-<img
-src={post.image_url || ""}
-alt="blur background"
-style={uploadedImageBlur}
-/>
-
-
-
-
-<img
-src={post.image_url || ""}
-alt="post"
-onClick={() => post.image_url && setOpenMedia(post.image_url)}
-loading="eager"
-decoding="async"
-style={uploadedImageMedia}
-/>
-</div>
 ) : (
 <img
 src={post.image_url || ""}
@@ -262,7 +240,7 @@ alt="post"
 onClick={() => post.image_url && setOpenMedia(post.image_url)}
 loading="eager"
 decoding="async"
-style={imageMedia}
+style={media}
 />
 )}
 )
@@ -522,52 +500,21 @@ justifyContent: "center",
 
 
 
-const uploadedImageBlur: CSSProperties = {
+
+
+
+
+const media: CSSProperties = {
 position: "absolute",
 inset: 0,
 width: "100%",
 height: "100%",
 objectFit: "cover",
-filter: "blur(40px)",
-transform: "scale(1.3)",
-opacity: 0.45,
+objectPosition: "center",
 };
 
 
-const imageMedia: CSSProperties = {
-width: "100%",
-height: "100%",
-objectFit: "fill",
-objectPosition: "center center",
-display: "block",
-};
 
-const media: CSSProperties = {
-width: "100%",
-height: "100%",
-objectFit: "contain",
-objectPosition: "center center",
-display: "block",
-};
-
-const uploadedImageMedia: CSSProperties = {
-position: "relative",
-zIndex: 2,
-width: "100%",
-height: "100%",
-objectFit: "cover",
-objectPosition: "center ",
-display: "block",
-};
-
-
-const uploadedImageWrap: CSSProperties = {
-width: "100%",
-height: "100%",
-position: "relative",
-overflow: "hidden",
-background: "#05070b",
-};
 
 const viewerBadge: React.CSSProperties = {
 position: "absolute",
