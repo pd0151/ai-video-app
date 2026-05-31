@@ -493,8 +493,8 @@ left: 0,
 right: 0,
 bottom: 0,
 display: "flex",
-alignItems:  "flex",
-justifyContent: "flex",
+alignItems:  "center",
+justifyContent: "center",
 };
 
 
@@ -510,7 +510,7 @@ inset: 0,
 width: "100%",
 height: "100%",
 objectFit: "contain",
-objectPosition: "center",
+objectPosition: "50% 50%",
 };
 
 
