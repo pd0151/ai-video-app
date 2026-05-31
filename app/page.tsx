@@ -607,6 +607,17 @@ opacity: generating ? 0.65 : 1,
 {generating ? "Generating AI Ad..." : "✨ Generate AI Ad →"}
 </button>
 
+<button
+onClick={useThisAd}
+style={{
+...platformMainBtn,
+marginTop: 14,
+width: "100%",
+}}
+>
+Share to Feed
+</button>
+
 {image && (
 <div style={{ marginTop: 18 }}>
 <img
@@ -619,16 +630,7 @@ display: "block",
 }}
 />
 
-<button
-onClick={useThisAd}
-style={{
-...platformMainBtn,
-marginTop: 14,
-width: "100%",
-}}
->
-Share to Feed
-</button>
+
 </div>
 )}
 <div style={heroPhoneWrap}>
