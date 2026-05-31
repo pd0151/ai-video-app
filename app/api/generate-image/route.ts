@@ -73,7 +73,8 @@ Leave the top 20% empty.
 Leave the bottom 30% empty.
 
 Place all advertising text between 25% and 65% of the image height.
-
+dont over strech the image keep all text in side feed and dont add random phone numbers.
+make all images premium top quality with no limits.
 Do not allow any text to touch the edges of the canvas.
 
 Use smaller professional typography that fits comfortably within the frame.
