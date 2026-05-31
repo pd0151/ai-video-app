@@ -508,7 +508,8 @@ display: "block",
 
 const uploadedImageMedia: CSSProperties = {
 width: "100%",
-height: "100%",
+height: "auto",
+maxHeight: "100%",
 objectFit: "contain",
 objectPosition: "center center",
 display: "block",
