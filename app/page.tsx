@@ -608,11 +608,15 @@ opacity: generating ? 0.65 : 1,
 {generating ? "Generating AI Ad..." : "✨ Generate AI Ad →"}
 </button>
 
+
+
+{image && (
+<div style={{ marginTop: 18 }}>
 <button
 onClick={useThisAd}
 style={{
 ...platformMainBtn,
-marginTop: 8,
+marginBottom: 8,
 width: "100%",
 background: "linear-gradient(135deg,#22ff7f,#16d96a)",
 color: "#05070b",
@@ -621,8 +625,6 @@ color: "#05070b",
 Share to Feed
 </button>
 
-{image && (
-<div style={{ marginTop: 18 }}>
 <img
 src={image}
 alt="Generated advert"
@@ -632,10 +634,10 @@ borderRadius: 22,
 display: "block",
 }}
 />
-
-
 </div>
 )}
+
+
 <div style={heroPhoneWrap}>
 <video
 src="/videos/hero-demo.mp4"
