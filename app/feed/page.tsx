@@ -30,10 +30,10 @@ content: string;
 created_at: string | null;
 };
 
-const xeonBorder = "1px solid rgba(220,235,255,0.28)";
-const xeonGlow =
-"0 0 3px rgba(255,255,255,0.55), 0 0 22px rgba(220,235,255,0.28), 0 0 60px rgba(120,160,255,0.16)";
-const glassBg = "rgba(8,12,22,0.78)";
+const green = "#45ff8a";
+const glass = "rgba(4,8,14,0.72)";
+const border = "1px solid rgba(255,255,255,0.16)";
+const glow = "0 0 24px rgba(69,255,138,0.28)";
 
 export default function FeedPage() {
 const router = useRouter();
@@ -50,7 +50,6 @@ return [];
 
 const [fetched, setFetched] = useState(false);
 const [liked, setLiked] = useState<Record<string, boolean>>({});
-const [activeVideo, setActiveVideo] = useState<string | null>(null);
 const [openMedia, setOpenMedia] = useState<string | null>(null);
 const [commentPost, setCommentPost] = useState<Post | null>(null);
 const [comments, setComments] = useState<Comment[]>([]);
@@ -150,7 +149,6 @@ const video = entry.target as HTMLVideoElement;
 const id = video.dataset.id;
 
 if (entry.isIntersecting) {
-setActiveVideo(id || null);
 video.play().catch(() => {});
 } else {
 video.pause();
@@ -186,31 +184,23 @@ alert("Link copied");
 if (!loading && posts.length === 0 && fetched) {
 return (
 <main style={empty}>
-<div>
 <h1 style={{ margin: 0 }}>No posts yet</h1>
 <p style={{ opacity: 0.7 }}>Create or upload an ad and share it to the feed.</p>
-</div>
 </main>
 );
 }
 
 return (
 <main style={page}>
-<div style={bgGlow1} />
-<div style={bgGlow2} />
-
 <header style={topHeader}>
-<div>
 <div style={brandLabel}>AI ADVERTISING PLATFORM</div>
 <h1 style={logo}>AdForge</h1>
-</div>
 </header>
-
-
 
 {posts.map((post) => {
 const phone = post.phone || post.whatsapp || "";
 const whatsapp = phone.replace("+", "").replace(/\s/g, "");
+const mediaUrl = post.video_url || post.image_url || "";
 
 return (
 <section key={post.id} style={slide}>
@@ -222,15 +212,11 @@ videoRefs.current[post.id] = el;
 }}
 src={post.video_url}
 autoPlay
-muted={openMedia ? false : true}
+muted
 loop
 playsInline
-webKit-playsinline="true"
 preload="auto"
-onClick={() => {
-const url = post.video_url || post.image_url;
-if (url) setOpenMedia(url);
-}}
+onClick={() => mediaUrl && setOpenMedia(mediaUrl)}
 style={media}
 />
 ) : (
@@ -243,33 +229,30 @@ decoding="async"
 style={media}
 />
 )}
-)
 
-
-
+<div style={darkOverlay} />
 <div style={bottomFade} />
 
-<div style={content}>
-<div style={checks}>
-<p>✓ Fast Service</p>
-<p>✓ Expert Fitters</p>
-<p>✓ Best Prices</p>
-</div>
-
-<div
-style={{ ...businessRow, cursor: "pointer" }}
-onClick={() => {
-if (post.user_id) router.push(`/profile/${post.user_id}`);
-}}
->
-<div style={avatar}>
+<div style={advertContent}>
+<div style={businessMini}>
+<div style={miniAvatar}>
 {(post.business_name || "A").charAt(0).toUpperCase()}
 </div>
-
 <div>
 <b>{post.business_name || "AdForge Business"}</b>
 <p style={small}>{post.location || "Local area"}</p>
 </div>
+</div>
+
+<h2 style={headline}>
+MOBILE TYRE FITTING
+<span> AT YOUR DOORSTEP</span>
+</h2>
+
+<div style={checks}>
+<p>✓ Fast Service</p>
+<p>✓ Expert Fitters</p>
+<p>✓ Best Prices</p>
 </div>
 
 <p style={caption}>{post.content || "Uploaded media"}</p>
@@ -281,22 +264,26 @@ Book Now
 )}
 </div>
 
+<div
+style={{ ...businessTap, cursor: "pointer" }}
+onClick={() => {
+if (post.user_id) router.push(`/profile/${post.user_id}`);
+}}
+/>
+
 <div style={rightActions}>
 <button
 onClick={() =>
 setLiked((prev) => ({ ...prev, [post.id]: !prev[post.id] }))
 }
-style={{
-...circleBtn,
-color: liked[post.id] ? "#ffffff" : "white",
-}}
+style={circleBtn}
 >
 ♥
 </button>
 <span style={count}>{liked[post.id] ? "1.3K" : "1.2K"}</span>
 
 <button onClick={() => openComments(post)} style={circleBtn}>
-💬
+●●●
 </button>
 <span style={count}>Comments</span>
 
@@ -327,7 +314,6 @@ style={mediaCloseBtn}
 >
 ×
 </button>
-
 <img src={openMedia} style={mediaPopupImg} />
 </div>
 )}
@@ -380,93 +366,38 @@ Send
 );
 }
 
-const page: React.CSSProperties = {
+const page: CSSProperties = {
 height: "100dvh",
 overflowY: "scroll",
 scrollSnapType: "y mandatory",
 scrollBehavior: "smooth",
 WebkitOverflowScrolling: "touch",
-background:
-"radial-gradient(circle at 72% 0%, rgba(220,235,255,0.10), transparent 34%), radial-gradient(circle at 28% 35%, rgba(120,160,255,0.10), transparent 32%), #05070d",
+background: "#05070d",
 color: "white",
 fontFamily: "Inter, Arial, sans-serif",
 position: "relative",
 };
 
-const bgGlow1: React.CSSProperties = {
-position: "fixed",
-width: 340,
-height: 340,
-borderRadius: "50%",
-background: "rgba(220,235,255,0.10)",
-top: -120,
-right: -120,
-filter: "blur(95px)",
-pointerEvents: "none",
-zIndex: 0,
-};
-
-const bgGlow2: React.CSSProperties = {
-position: "fixed",
-width: 280,
-height: 280,
-borderRadius: "50%",
-background: "rgba(120,160,255,0.08)",
-bottom: 110,
-left: -110,
-filter: "blur(95px)",
-pointerEvents: "none",
-zIndex: 0,
-};
-
 const topHeader: CSSProperties = {
 position: "fixed",
-top: 18,
-left: 18,
+top: 26,
+left: 28,
 zIndex: 100,
-transform: "scale(0.8)",
-transformOrigin: "top left",
+pointerEvents: "none",
 };
 
-const brandLabel: React.CSSProperties = {
+const brandLabel: CSSProperties = {
 fontSize: 10,
-letterSpacing: 3,
-color: "rgba(255,255,255,0.45)",
+letterSpacing: 3.5,
+color: "rgba(255,255,255,0.50)",
 fontWeight: 900,
 };
 
-const logo: React.CSSProperties = {
-margin: 0,
-fontSize: 28,
+const logo: CSSProperties = {
+margin: "4px 0 0",
+fontSize: 30,
 fontWeight: 950,
 letterSpacing: -2,
-};
-
-const topTabs: CSSProperties = {
-position: "fixed",
-top: 95,
-left: "50%",
-transform: "translateX(-50%)",
-zIndex: 100,
-display: "flex",
-gap: 55,
-};
-const tab: React.CSSProperties = {
-background: "transparent",
-border: "none",
-color: "rgba(255,255,255,0.48)",
-fontSize: 22,
-whiteSpace: "nowrap",
-fontWeight: 900,
-};
-
-const activeTab: React.CSSProperties = {
-...tab,
-color: "white",
-whiteSpace: "nowrap",
-fontSize: 22,
-borderBottom: "3px solid #ffffff",
-paddingBottom: 10,
 };
 
 const slide: CSSProperties = {
@@ -479,181 +410,173 @@ margin: 0,
 padding: 0,
 };
 
-
 const postFrame: CSSProperties = {
+position: "absolute",
+inset: 0,
 height: "100%",
 width: "100%",
-position: "relative",
 overflow: "hidden",
-borderRadius: 0,
-margin: 0,
-padding: 0,
-top: 0,
-left: 0,
-right: 0,
-bottom: 0,
-
+background: "#05070d",
 };
 
-
-
-
-
-
-
 const media: CSSProperties = {
+position: "absolute",
 inset: 0,
 width: "100%",
 height: "100%",
-objectFit: "fill",
+objectFit: "cover",
 objectPosition: "center",
+zIndex: 1,
 };
 
-
-
-
-const viewerBadge: React.CSSProperties = {
+const darkOverlay: CSSProperties = {
 position: "absolute",
-top: 18,
-left: 18,
-zIndex: 20,
-display: "flex",
-alignItems: "center",
-gap: 8,
-padding: "9px 13px",
-borderRadius: 999,
-background: "rgba(255,255,255,0.14)",
-border: xeonBorder,
-color: "white",
-fontSize: 13,
-fontWeight: 800,
-backdropFilter: "blur(14px)",
-boxShadow: xeonGlow,
+inset: 0,
+background:
+"linear-gradient(90deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 48%, rgba(0,0,0,0.45) 100%)",
+zIndex: 2,
+pointerEvents: "none",
 };
 
-const liveDot: React.CSSProperties = {
-width: 8,
-height: 8,
-borderRadius: 999,
-background: "#ffffff",
-boxShadow: "0 0 14px rgba(220,235,255,0.9)",
-};
-
-const bottomFade: React.CSSProperties = {
+const bottomFade: CSSProperties = {
 position: "absolute",
 left: 0,
 right: 0,
 bottom: 0,
-height: "22%",
+height: "48%",
 background:
-"linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.45), transparent)",
+"linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 36%, rgba(0,0,0,0.18) 72%, transparent 100%)",
 zIndex: 3,
 pointerEvents: "none",
 };
 
-const content: React.CSSProperties = {
+const advertContent: CSSProperties = {
 position: "absolute",
-left: 20,
-right: 96,
-bottom: 165,
-zIndex: 5,
+left: 24,
+right: 92,
+bottom: 118,
+zIndex: 8,
 };
 
-const checks: React.CSSProperties = {
-fontSize: 16,
-lineHeight: 1.25,
-color: "white",
-marginBottom: 16,
-};
-
-const businessRow: React.CSSProperties = {
+const businessMini: CSSProperties = {
 display: "flex",
 alignItems: "center",
-gap: 12,
+gap: 10,
+marginBottom: 12,
 };
 
-const avatar: React.CSSProperties = {
-width: 46,
-height: 46,
+const miniAvatar: CSSProperties = {
+width: 34,
+height: 34,
 borderRadius: "50%",
-background: glassBg,
-border: xeonBorder,
+background: "linear-gradient(135deg,#162033,#05070d)",
+border,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
 fontWeight: 950,
-color: "#ffffff",
-boxShadow: xeonGlow,
+boxShadow: glow,
 };
 
-const small: React.CSSProperties = {
-margin: "3px 0 0",
+const small: CSSProperties = {
+margin: "2px 0 0",
 color: "rgba(255,255,255,0.72)",
-fontSize: 14,
+fontSize: 13,
 };
 
-const caption: React.CSSProperties = {
-fontSize: 15,
+const headline: CSSProperties = {
+margin: "0 0 12px",
+fontSize: 26,
+lineHeight: 1.02,
+fontWeight: 1000,
+letterSpacing: -0.8,
+textTransform: "uppercase",
+textShadow: "0 3px 18px rgba(0,0,0,0.7)",
+};
+
+const checks: CSSProperties = {
+display: "grid",
+gap: 7,
+marginBottom: 12,
+fontSize: 14,
+fontWeight: 750,
+};
+
+const caption: CSSProperties = {
+fontSize: 14,
 lineHeight: 1.35,
-maxWidth: 270,
+maxWidth: 280,
+margin: "0 0 12px",
+color: "rgba(255,255,255,0.92)",
 display: "-webkit-box",
 WebkitLineClamp: 2,
 WebkitBoxOrient: "vertical",
 overflow: "hidden",
 };
 
-const bookBtn: React.CSSProperties = {
+const bookBtn: CSSProperties = {
 display: "inline-block",
-marginTop: 8,
-padding: "12px 24px",
-borderRadius: 999,
-background: "linear-gradient(180deg,#ffffff,#eaf0ff)",
-color: "#05070d",
+padding: "11px 26px",
+borderRadius: 12,
+background: `linear-gradient(135deg, ${green}, #9bffbf)`,
+color: "#031006",
 textDecoration: "none",
 fontWeight: 950,
-border: "1px solid rgba(255,255,255,0.78)",
-boxShadow: xeonGlow,
+border: "1px solid rgba(255,255,255,0.55)",
+boxShadow: glow,
 };
 
-const rightActions: React.CSSProperties = {
+const businessTap: CSSProperties = {
 position: "absolute",
-right: 16,
-bottom: 195,
-zIndex: 7,
+left: 20,
+bottom: 118,
+width: 260,
+height: 190,
+zIndex: 9,
+background: "transparent",
+};
+
+const rightActions: CSSProperties = {
+position: "absolute",
+right: 17,
+bottom: 160,
+zIndex: 12,
 display: "flex",
 flexDirection: "column",
 alignItems: "center",
-gap: 8,
+gap: 7,
 };
 
-const circleBtn: React.CSSProperties = {
-width: 37,
-height: 37,
+const circleBtn: CSSProperties = {
+width: 48,
+height: 48,
 borderRadius: "50%",
-border: xeonBorder,
-background: glassBg,
+border,
+background: glass,
 color: "white",
-fontSize: 28,
-backdropFilter: "blur(12px)",
-boxShadow: xeonGlow,
+fontSize: 23,
+fontWeight: 950,
+backdropFilter: "blur(14px)",
+boxShadow: "0 8px 24px rgba(0,0,0,0.45)",
 };
 
-const musicBtn: React.CSSProperties = {
+const musicBtn: CSSProperties = {
 ...circleBtn,
 marginTop: 8,
-color: "#ffffff",
+color: "white",
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
 textDecoration: "none",
 };
 
-const count: React.CSSProperties = {
+const count: CSSProperties = {
 fontSize: 12,
 fontWeight: 900,
+textShadow: "0 2px 8px rgba(0,0,0,0.7)",
 };
 
-const empty: React.CSSProperties = {
+const empty: CSSProperties = {
 height: "100vh",
 display: "flex",
 flexDirection: "column",
@@ -665,7 +588,7 @@ textAlign: "center",
 padding: 30,
 };
 
-const mediaPopup: React.CSSProperties = {
+const mediaPopup: CSSProperties = {
 position: "fixed",
 inset: 0,
 zIndex: 999999,
@@ -676,13 +599,13 @@ justifyContent: "center",
 padding: 10,
 };
 
-const mediaPopupImg: React.CSSProperties = {
+const mediaPopupImg: CSSProperties = {
 maxWidth: "100%",
 maxHeight: "100%",
 objectFit: "contain",
 };
 
-const mediaCloseBtn: React.CSSProperties = {
+const mediaCloseBtn: CSSProperties = {
 position: "absolute",
 top: 28,
 right: 22,
@@ -690,15 +613,14 @@ zIndex: 1000000,
 width: 44,
 height: 44,
 borderRadius: "50%",
-border: xeonBorder,
-background: glassBg,
+border,
+background: glass,
 color: "white",
 fontSize: 30,
 fontWeight: 900,
-boxShadow: xeonGlow,
 };
 
-const commentOverlay: React.CSSProperties = {
+const commentOverlay: CSSProperties = {
 position: "fixed",
 inset: 0,
 zIndex: 99999,
@@ -707,7 +629,7 @@ display: "flex",
 alignItems: "flex-end",
 };
 
-const commentBox: React.CSSProperties = {
+const commentBox: CSSProperties = {
 width: "100%",
 height: "58vh",
 display: "flex",
@@ -717,39 +639,35 @@ borderTopRightRadius: 28,
 background: "rgba(8,12,22,0.96)",
 padding: 22,
 color: "white",
-borderTop: xeonBorder,
-boxShadow: xeonGlow,
+borderTop: border,
 };
 
-const closeBtn: React.CSSProperties = {
-float: "right",
-background: glassBg,
+const closeBtn: CSSProperties = {
+background: glass,
 color: "white",
-border: xeonBorder,
+border,
 borderRadius: 999,
 width: 34,
 height: 34,
 fontSize: 24,
-boxShadow: xeonGlow,
 };
 
-const commentList: React.CSSProperties = {
+const commentList: CSSProperties = {
 flex: 1,
 overflowY: "auto",
 marginTop: 14,
 paddingBottom: 100,
 };
 
-const commentCard: React.CSSProperties = {
+const commentCard: CSSProperties = {
 padding: 14,
 borderRadius: 16,
-background: glassBg,
-border: xeonBorder,
+background: glass,
+border,
 marginBottom: 10,
-boxShadow: xeonGlow,
 };
 
-const commentInputRow: React.CSSProperties = {
+const commentInputRow: CSSProperties = {
 display: "flex",
 gap: 10,
 marginTop: "auto",
@@ -757,66 +675,65 @@ paddingTop: 10,
 background: "rgba(8,12,22,0.96)",
 };
 
-const commentInput: React.CSSProperties = {
+const commentInput: CSSProperties = {
 flex: 1,
 borderRadius: 16,
-border: xeonBorder,
-background: glassBg,
+border,
+background: glass,
 color: "white",
 padding: 14,
-boxShadow: xeonGlow,
 };
 
-const sendBtn: React.CSSProperties = {
-border: "1px solid rgba(255,255,255,0.78)",
+const sendBtn: CSSProperties = {
+border: "none",
 borderRadius: 16,
-background: "linear-gradient(180deg,#ffffff,#eaf0ff)",
-color: "#05070d",
+background: green,
+color: "#031006",
 padding: "0 18px",
 fontWeight: 950,
-boxShadow: xeonGlow,
 };
 
-const bottomNav: React.CSSProperties = {
+const bottomNav: CSSProperties = {
 position: "fixed",
-bottom: 8,
-left: 20,
-right: 20,
-height: 58,
+bottom: 10,
+left: 22,
+right: 22,
+height: 64,
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
-background: "rgba(4,9,18,0.72)",
-border: xeonBorder,
-borderRadius: 22,
-backdropFilter: "blur(16px)",
-boxShadow: xeonGlow,
+background: "rgba(4,9,18,0.80)",
+border: "1px solid rgba(69,255,138,0.22)",
+borderRadius: 26,
+backdropFilter: "blur(18px)",
+boxShadow: "0 0 26px rgba(69,255,138,0.18)",
 zIndex: 999,
 };
-const navBtn: React.CSSProperties = {
+
+const navBtn: CSSProperties = {
 border: "none",
 background: "transparent",
 color: "rgba(255,255,255,0.62)",
 fontWeight: 850,
+fontSize: 12,
 };
 
-const navActive: React.CSSProperties = {
+const navActive: CSSProperties = {
 ...navBtn,
-color: "#ffffff",
+color: "white",
 };
 
-const plusBtn: React.CSSProperties = {
+const plusBtn: CSSProperties = {
 width: 72,
 height: 72,
 borderRadius: "50%",
-border: "1px solid rgba(255,255,255,0.82)",
+border: `2px solid ${green}`,
 background: "linear-gradient(180deg,#ffffff,#eaf0ff)",
 color: "#05070d",
 fontSize: 42,
 fontWeight: 400,
 marginTop: -42,
-boxShadow:
-"0 0 6px rgba(255,255,255,0.9), 0 0 28px rgba(220,235,255,0.55), 0 0 70px rgba(120,160,255,0.20)",
+boxShadow: `0 0 30px rgba(69,255,138,0.65)`,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
