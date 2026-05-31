@@ -66,16 +66,17 @@ FINAL RESULT:
 Make this look like a top-tier paid advert from a luxury creative agency.
 The result should be premium enough that a real business would pay for it.
 
-NO text.
-NO letters.
-NO numbers.
-NO logos.
-NO typography.
+All text must fit completely inside the image.
 
-Create a realistic premium marketing photo only.
+Leave the top 20% empty.
 
-Leave the center area clean for app overlays.
-Create a full vertical 9:16 realistic marketing photograph.
+Leave the bottom 30% empty.
+
+Place all advertising text between 25% and 65% of the image height.
+
+Do not allow any text to touch the edges of the canvas.
+
+Use smaller professional typography that fits comfortably within the frame.
 `;
 
 
