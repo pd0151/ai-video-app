@@ -306,6 +306,8 @@ alert(JSON.stringify(data));
 const imageUrl =
 data.image || data.url || data.image_url || data.output?.[0];
 
+alert("IMAGE FOUND");
+
 if (!imageUrl) {
 console.log("No image URL returned:", data);
 alert("Image generated but no image URL returned");
