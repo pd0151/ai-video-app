@@ -408,16 +408,11 @@ background:
 color: xeonWhite,
 fontFamily: "Inter, Arial, sans-serif",
 position: "relative",
-padding: "78px 14px 108px",
+padding: "26px 14px 108px",
 };
 
 const topHeader: CSSProperties = {
-position: "absolute",
-top: 4,
-left: 22,
-right: 22,
-zIndex: 100,
-pointerEvents: "none",
+marginBottom: 18,
 };
 
 const brandLabel: CSSProperties = {
@@ -437,14 +432,10 @@ textShadow: "0 0 18px rgba(255,255,255,0.22)",
 };
 
 const tabs: CSSProperties = {
-position: "absolute",
 top: 56,
-left: 14,
-right: 14,
-zIndex: 90,
 display: "flex",
 gap: 28,
-padding: "12px 4px 12px",
+padding: "0 4px 10px",
 background:
 "linear-gradient(to bottom, rgba(5,7,13,0.96), rgba(5,7,13,0.70), transparent)",
 };
