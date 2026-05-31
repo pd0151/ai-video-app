@@ -408,12 +408,12 @@ background:
 color: xeonWhite,
 fontFamily: "Inter, Arial, sans-serif",
 position: "relative",
-padding: "102px 14px 108px",
+padding: "78px 14px 108px",
 };
 
 const topHeader: CSSProperties = {
 position: "fixed",
-top: 20,
+top: 4,
 left: 22,
 right: 22,
 zIndex: 100,
@@ -438,7 +438,7 @@ textShadow: "0 0 18px rgba(255,255,255,0.22)",
 
 const tabs: CSSProperties = {
 position: "fixed",
-top: 78,
+top: 56,
 left: 14,
 right: 14,
 zIndex: 90,
