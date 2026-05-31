@@ -72,6 +72,9 @@ Leave clear safe space at the top and bottom.
 Keep all text away from the edges.
 Do not crop the logo, headline, phone number, or call-to-action.
 
+The tyre should occupy no more than 45% of the advert height.
+The entire advert must fit comfortably inside a mobile phone screen.
+All important text must remain fully visible.
 `;
 
 
