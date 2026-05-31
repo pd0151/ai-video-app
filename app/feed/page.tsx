@@ -494,10 +494,10 @@ bottom: 90,
 };
 
 const imageMedia: CSSProperties = {
-width: "80%",
-height: "80%",
+width: "100%",
+height: "100%",
 objectFit: "contain",
-objectPosition: " fill",
+objectPosition: " cover center",
 display: "block",
 };
 const media: CSSProperties = {
