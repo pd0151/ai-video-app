@@ -490,20 +490,20 @@ padding: 0,
 top: 0,
 left: 0,
 right: 0,
-bottom: 90,
-};
+bottom: 0,
+}; 
 
 const imageMedia: CSSProperties = {
 width: "100%",
 height: "100%",
 objectFit: "fill",
-objectPosition: "center",
+objectPosition: "center top",
 display: "block",
 };
 const media: CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "contain",
+objectFit: "cover",
 display: "block",
 };
 
