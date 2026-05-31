@@ -505,7 +505,7 @@ const uploadedImageMedia: CSSProperties = {
 width: "100%",
 height: "100%",
 objectFit: "fill",
-objectPosition: "center",
+objectPosition: "100%",
 display: "block",
 };
 
@@ -514,7 +514,7 @@ const imageMedia: CSSProperties = {
 width: "100%",
 height: "100%",
 objectFit: "fill",
-objectPosition: "center",
+objectPosition: "100%",
 display: "block",
 };
 
