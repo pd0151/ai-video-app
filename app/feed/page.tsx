@@ -658,8 +658,9 @@ cursor: "pointer",
 };
 
 const avatar: CSSProperties = {
-width: 48,
-height: 48,
+width: 58,
+height: 58,
+overflow: "hidden",
 borderRadius: "50%",
 background: "rgba(5,7,13,0.82)",
 border: xeonBorder,
