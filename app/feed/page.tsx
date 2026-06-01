@@ -721,7 +721,7 @@ border: "1px solid rgba(244,247,255,0.14)",
 const media: CSSProperties = {
 width: "100%",
 height: "100%",
-objectFit: "contain",
+objectFit: "cover",
 objectPosition: "center",
 background: "#02040a",
 display: "block",
