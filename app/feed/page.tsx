@@ -91,11 +91,11 @@ const userIds = freshPosts
 
 const { data: businesses } = await supabase
 .from("businesses")
-.select("id,business_name,location,whatsapp,phone,notification_phone")
-.in("id", userIds);
+.select("id,user_id,business_name,location,whatsapp,phone,notification_phone")
+.in("user_id", userIds);
 
 const postsWithBusiness = freshPosts.map((post) => {
-const business = businesses?.find((b) => b.id === post.user_id);
+const business = businesses?.find((b) => b.user_id === post.user_id);
 
 return {
 ...post,
