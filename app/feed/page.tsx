@@ -98,7 +98,7 @@ const userIds = freshPosts
 
 const { data: businesses } = await supabase
 .from("businesses")
-.select("id,name,location,whatsapp,phone,notification_phone,profile_image")
+.select("id,name,location,whatsapp,phone,notification_phone")
 .in("id", userIds);
 
 console.log("BUSINESSES:", businesses);
