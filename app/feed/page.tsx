@@ -98,7 +98,7 @@ const userIds = freshPosts
 
 const { data: businesses } = await supabase
 .from("businesses")
-.select("id,name,location,whatsapp,phone,notification_phone")
+.select("id,name,location,whatsapp,phone,notification_phone,profile_image_url")
 .in("id", userIds);
 
 console.log("BUSINESSES:", businesses);
@@ -335,9 +335,9 @@ if (post.user_id) router.push(`/profile/${post.user_id}`);
 }}
 >
 <div style={avatar}>
-{business?.profile_image ? (
+{business?.profile_image_url || post.profile_image ? (
 <img
-src={business.profile_image}
+src={business.profile_image_url || post.profile_image || ""}
 alt={displayName}
 style={{
 width: "100%",
