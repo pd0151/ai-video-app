@@ -665,16 +665,16 @@ boxShadow: "0 0 18px rgba(69,255,138,0.15)",
 };
 
 const greenDot: React.CSSProperties = {
-width: 8,
-height: 8,
+width: 10,
+height: 10,
 borderRadius: "50%",
 background: "#45ff8a",
-boxShadow: "0 0 14px rgba(220,235,255,0.9)",
+boxShadow: "0 0 16px rgba(69,255,138,0.9)",
 };
 
 const bigGreenDot: React.CSSProperties = {
-width: 17,
-height: 17,
+width: 12,
+height: 12,
 borderRadius: "50%",
 background: whiteBtn,
 boxShadow: "0 0 18px rgba(220,235,255,0.85)",
@@ -718,7 +718,7 @@ border: xeonBorder,
 fontWeight: 900,
 fontSize: 13,
 maxWidth: 270,
-boxShadow: xeonGlow,
+boxShadow: "0 0 18px rgba(69,255,138,0.35)",
 };
 
 const tickBox: React.CSSProperties = {
