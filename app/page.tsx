@@ -3548,15 +3548,15 @@ const aiLaunchBtn: React.CSSProperties = {
 marginTop: 16,
 width: "100%",
 border: "1px solid rgba(220,235,255,0.34)",
-height: 68,
+height: 58,
 borderRadius: 999,
-padding: "10px 18px",
+padding: "8px 18px",
 background: "linear-gradient(135deg,#45ff8a,#2de06f)",
 color: "#05070b",
-fontSize: 15,
+fontSize: 14,
 fontWeight: 950,
 boxShadow:
-"0 0 18px rgba(69,255,138,0.35), 0 0 45px rgba(69,255,138,0.15)",
+"0 0 12px rgba(69,255,138,0.28), 0 0 30px rgba(69,255,138,0.12)",
 };
 
 
