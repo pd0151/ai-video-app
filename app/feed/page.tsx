@@ -94,6 +94,8 @@ const { data: businesses } = await supabase
 .select("id,user_id,business_name,location,whatsapp,phone,notification_phone")
 .in("user_id", userIds);
 
+console.log("BUSINESSES:", businesses);
+console.log("USER IDS:", userIds);
 const postsWithBusiness = freshPosts.map((post) => {
 const business = businesses?.find((b) => b.user_id === post.user_id);
 
