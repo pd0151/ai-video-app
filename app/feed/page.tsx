@@ -560,14 +560,13 @@ fontWeight: 900,
 
 const mediaBox: CSSProperties = {
 width: "calc(100% - 32px)",
-height: 520,
+height: 285,
 margin: "0 16px",
 background: "#02040a",
 overflow: "hidden",
 position: "relative",
-borderRadius: 20,
-border: "1px solid rgba(244,247,255,0.16)",
-boxShadow: "inset 0 0 26px rgba(255,255,255,0.08)",
+borderRadius: 18,
+border: "1px solid rgba(244,247,255,0.14)",
 };
 
 const media: CSSProperties = {
@@ -577,6 +576,7 @@ objectFit: "cover",
 objectPosition: "center",
 background: "#02040a",
 display: "block",
+filter: "brightness(0.78)",
 };
 
 const playBadge: CSSProperties = {
