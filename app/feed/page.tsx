@@ -278,7 +278,17 @@ return (
 <header style={topHeader}>
 <div>
 <div style={brandLabel}>AI ADVERTISING PLATFORM</div>
-<h1 style={logo}>AdForge</h1>
+<h1 style={logo}>
+<span>Ad</span>
+<span
+style={{
+color: "#45ff8a",
+textShadow: "0 0 18px rgba(69,255,138,0.45)",
+}}
+>
+Forge
+</span>
+</h1>
 </div>
 </header>
 
