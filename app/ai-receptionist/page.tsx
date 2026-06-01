@@ -457,8 +457,10 @@ onClick={manageBilling}
 style={{
 ...upgradeBtn,
 marginTop: 12,
-background: "rgba(rgba(220,235,255,0,22),0.12)",
-color: "#fff",
+background: "linear-gradient(135deg,#45ff8a,#2de06f)",
+color: "#05070b",
+border: "1px solid rgba(69,255,138,0.35)",
+boxShadow: "0 0 16px rgba(69,255,138,0.25)",
 cursor: "pointer",
 }}
 >
