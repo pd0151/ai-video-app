@@ -251,7 +251,7 @@ business?.name ||
 const displayLocation =
 post.location ||
 business?.location ||
-"Local area";
+"Liverpool, UK";
 
 console.log("POST LOCATION:", post.location);
 console.log("BUSINESS LOCATION:", business?.location);
