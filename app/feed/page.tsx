@@ -348,13 +348,15 @@ if (post.user_id) router.push(`/profile/${post.user_id}`);
 </div>
 
 <button
-onClick={() => {
+type="button"
+onClick={(e) => {
+e.stopPropagation();
 setSelectedPost(post);
 setShowPostMenu(true);
 }}
 style={menuBtn}
 >
-⋯
+•••
 </button>
 </div>
 
