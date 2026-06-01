@@ -39,7 +39,7 @@ return NextResponse.json(
 
 const session = await stripe.billingPortal.sessions.create({
 customer: customerId,
-return_url: "https://ai-video-app-live.vercel.app/profile",
+return_url: "https://ai-video-app-live.vercel.app/ai-receptionist",
 });
 
 return NextResponse.json({ url: session.url });
