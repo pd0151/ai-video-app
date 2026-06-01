@@ -467,6 +467,42 @@ style={mediaCloseBtn}
 </div>
 )}
 
+{showPostMenu && selectedPost && (
+<div style={postMenuOverlay} onClick={() => setShowPostMenu(false)}>
+<div style={postMenuBox} onClick={(e) => e.stopPropagation()}>
+<button
+style={postMenuItem}
+onClick={() => {
+setEditingPost(selectedPost);
+setEditText(selectedPost.content || "");
+setShowPostMenu(false);
+}}
+>
+Edit Post
+</button>
+
+<button
+style={postMenuDelete}
+onClick={() => {
+deletePost(selectedPost.id);
+setShowPostMenu(false);
+}}
+>
+Delete Post
+</button>
+
+<button
+style={postMenuCancel}
+onClick={() => setShowPostMenu(false)}
+>
+Cancel
+</button>
+</div>
+</div>
+)}
+
+
+
 {commentPost && (
 <div style={commentOverlay}>
 <div style={commentBox}>
@@ -931,3 +967,56 @@ display: "flex",
 alignItems: "center",
 justifyContent: "center",
 };
+
+
+const postMenuOverlay: CSSProperties = {
+position: "fixed",
+inset: 0,
+background: "rgba(0,0,0,0.6)",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+zIndex: 9999,
+};
+
+const postMenuBox: CSSProperties = {
+width: 320,
+borderRadius: 24,
+background: "#050712",
+padding: 16,
+display: "flex",
+flexDirection: "column",
+gap: 10,
+};
+
+const postMenuItem: CSSProperties = {
+border: 0,
+borderRadius: 16,
+padding: 16,
+fontWeight: 800,
+fontSize: 16,
+cursor: "pointer",
+};
+
+const postMenuDelete: CSSProperties = {
+border: 0,
+borderRadius: 16,
+padding: 16,
+fontWeight: 800,
+fontSize: 16,
+background: "#dc2626",
+color: "#fff",
+cursor: "pointer",
+};
+
+const postMenuCancel: CSSProperties = {
+border: 0,
+borderRadius: 16,
+padding: 16,
+fontWeight: 800,
+fontSize: 16,
+background: "#111827",
+color: "#fff",
+cursor: "pointer",
+};
+
