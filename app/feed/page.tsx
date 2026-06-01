@@ -944,19 +944,21 @@ boxShadow: xeonGlow,
 
 const bottomNav: CSSProperties = {
 position: "fixed",
-bottom: 10,
-left: 18,
-right: 18,
-height: 66,
-display: "flex",
-justifyContent: "space-around",
-alignItems: "center",
-background: "rgba(4,9,18,0.84)",
-border: `1px solid rgba(69,255,138,0.22)`,
-borderRadius: 24,
+left: 22,
+right: 22,
+bottom: "calc(env(safe-area-inset-bottom) + 18px)",
+height: 78,
+borderRadius: 32,
+background: "rgba(5, 7, 13, 0.92)",
+border: "1px solid rgba(235,242,255,0.22)",
+boxShadow:
+"0 0 30px rgba(255,255,255,0.16), 0 0 34px rgba(69,255,138,0.20)",
 backdropFilter: "blur(18px)",
-boxShadow: "0 0 18px rgba(255,255,255,0.18), 0 0 24px rgba(69,255,138,0.18)",
-zIndex: 999,
+WebkitBackdropFilter: "blur(18px)",
+display: "flex",
+alignItems: "center",
+justifyContent: "space-around",
+zIndex: 9999,
 };
 
 const navBtn: CSSProperties = {
