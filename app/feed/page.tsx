@@ -407,7 +407,11 @@ alt="post"
 onClick={() => post.image_url && setOpenMedia(post.image_url)}
 loading="eager"
 decoding="async"
-style={media}
+style={
+post.content?.toLowerCase().includes("ai generated")
+? aiMedia
+: media
+}
 />
 )}
 
@@ -727,6 +731,13 @@ background: "#02040a",
 display: "block",
 filter: "brightness(0.78)",
 };
+
+const aiMedia: CSSProperties = {
+...media,
+objectFit: "contain",
+};
+
+
 
 const playBadge: CSSProperties = {
 position: "absolute",
