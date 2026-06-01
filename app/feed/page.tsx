@@ -734,7 +734,7 @@ filter: "brightness(0.78)",
 
 const aiMedia: CSSProperties = {
 ...media,
-objectFit: "cover",
+objectFit: "contain",
 };
 
 
