@@ -332,7 +332,7 @@ style={media}
 <h2 style={title}>
 {post.content && post.content !== "Uploaded media"
 ? post.content.split(".")[0]
-: "Premium Local Service"}
+: `${displayName} Service`}
 </h2>
 
 <p style={caption}>
