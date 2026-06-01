@@ -941,7 +941,7 @@ letterSpacing: -2,
 const topRight: CSSProperties = {
 display: "flex",
 alignItems: "center",
-gap: 8,
+gap: 4,
 flexWrap: "wrap",
 justifyContent: "flex-start",
 maxWidth: "100%",
@@ -958,7 +958,7 @@ background:
 border: "1px solid rgba(220,235,255,0.26)",
 backdropFilter: "blur(18px)",
 boxShadow:
-"0 0 18px rgba(220,235,255,0.22), 0 0 55px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.14)",
+"0 0 18px rgba(220,2i35,255,0.22), 0 0 55px rgba(220,235,255,0.10), inset 0 1px 0 rgba(255,255,255,0.14)",
 height: 42,
 minWidth: 92,
 };
