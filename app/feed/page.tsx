@@ -12,6 +12,7 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 type Post = {
 id: string;
 business?: any;
+profile_image?: string | null;
 user_id?: string | null;
 content: string | null;
 image_url: string | null;
@@ -97,7 +98,7 @@ const userIds = freshPosts
 
 const { data: businesses } = await supabase
 .from("businesses")
-.select("id,name,location,whatsapp,phone,notification_phone")
+.select("id,name,location,whatsapp,phone,notification_phone,profile_image")
 .in("id", userIds);
 
 console.log("BUSINESSES:", businesses);
@@ -333,7 +334,20 @@ if (post.user_id) router.push(`/profile/${post.user_id}`);
 }}
 >
 <div style={avatar}>
-{displayName.charAt(0).toUpperCase()}
+{business?.profile_image ? (
+<img
+src={business.profile_image}
+alt={displayName}
+style={{
+width: "100%",
+height: "100%",
+objectFit: "cover",
+borderRadius: "50%",
+}}
+/>
+) : (
+displayName.charAt(0).toUpperCase()
+)}
 </div>
 
 <div>
