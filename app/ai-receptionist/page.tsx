@@ -194,7 +194,11 @@ if (data.url) window.location.href = data.url;
 else alert(data.error || "Checkout failed");
 }
 async function manageBilling() {
-const email = localStorage.getItem("user");
+const {
+data: { user },
+} = await supabase.auth.getUser();
+
+const email = user?.email;
 
 if (!email) {
 alert("Please log in first");
