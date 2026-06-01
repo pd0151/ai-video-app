@@ -313,12 +313,15 @@ style={media}
 
 <div style={cardBody}>
 <h2 style={title}>
-{post.content?.split(".")[0] || "24 Hour Mobile Tyre Fitting"}
+{post.content && post.content !== "Uploaded media"
+? post.content.split(".")[0]
+: "Premium Local Service"}
 </h2>
 
 <p style={caption}>
-{post.content ||
-"We come to you. Day or night. Fast service, expert fitters, best prices."}
+{post.content && post.content !== "Uploaded media"
+? post.content
+: "Fast, reliable service from a trusted local business."}
 </p>
 
 <div style={checks}>
