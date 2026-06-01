@@ -520,7 +520,15 @@ background: #020305;
 <div>
 <div style={brandLabel}>AI ADVERTISING PLATFORM</div>
 <h1 style={logo}>
-Ad<span style={{ color: "#FFFFFF" }}>Forge</span>
+Ad
+<span
+style={{
+color: "#45ff8a",
+textShadow: "0 0 18px rgba(69,255,138,0.45)",
+}}
+>
+Forge
+</span>
 </h1>
 </div>
 
