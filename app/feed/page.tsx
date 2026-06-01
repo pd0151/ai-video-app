@@ -65,6 +65,10 @@ const [loadingPosts, setLoadingPosts] = useState(true);
 const [loading, setLoading] = useState(true);
 const [editingPost, setEditingPost] = useState<Post | null>(null);
 const [editText, setEditText] = useState("");
+const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+const [showPostMenu, setShowPostMenu] = useState(false);
+
+
 
 async function loadPosts() {
 try {
@@ -344,10 +348,13 @@ if (post.user_id) router.push(`/profile/${post.user_id}`);
 </div>
 
 <button
-onClick={() => deletePost(post.id)}
+onClick={() => {
+setSelectedPost(post);
+setShowPostMenu(true);
+}}
 style={menuBtn}
 >
-🗑
+⋯
 </button>
 </div>
 
