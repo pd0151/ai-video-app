@@ -240,8 +240,7 @@ return (
 {posts.map((post) => {
 const business = post.business;
 
-console.log("POST USER ID:", post.user_id);
-console.log("BUSINESS FOUND:", business);
+
 
 const displayName =
 business?.name ||
@@ -269,8 +268,6 @@ post.whatsapp ||
 .replace("+", "")
 .replace(/\s/g, "");
 
-console.log("POST LOCATION:", post.location);
-console.log("BUSINESS LOCATION:", business?.location);
 
 
 
