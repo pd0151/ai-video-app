@@ -985,16 +985,16 @@ opacity: 0.65,
 const greenBtn: CSSProperties = {
 background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
 color: "#05070b",
-borderRadius: 18,
+borderRadius: 16,
 boxShadow:
 "0 0 18px rgba(220,235,255,0.28), 0 0 60px rgba(220,235,255,0.10)",
 border: `1px solid ${LINE_STRONG}`,
 transition: "all 0.25s ease",
-padding: "8px 12px",
+padding: "6px 10px",
 fontWeight: 900,
-fontSize: 13,
-minWidth: 88,
-height: 46,
+fontSize: 12,
+minWidth: 78,
+height: 40,
 cursor: "pointer",
 };
 
