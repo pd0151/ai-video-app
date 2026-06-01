@@ -9,86 +9,114 @@ export async function POST(req: Request) {
 try {
 const { prompt } = await req.json();
 
+if (!prompt) {
+return NextResponse.json({ error: "No prompt provided" }, { status: 400 });
+}
+
 const premiumPrompt = `
-Create a world-class premium vertical mobile advert for: ${prompt}.
+Create an elite, ultra-premium vertical mobile advertisement for this business request:
 
-QUALITY LEVEL:
-Ultra realistic 3D commercial render.
-Luxury product advertising.
-High-end agency campaign quality.
-Premium cinematic photography.
-8K / 16K detail look.
-Sharp professional focus.
-Studio-grade lighting.
-Realistic reflections.
-Glossy materials.
-Deep shadows.
-High dynamic range.
-Expensive brand aesthetic.
+${prompt}
 
-COMPOSITION:
-Vertical mobile-first advert.
-Main product perfectly centred.
-Strong depth and dimension.
-Premium spacing.
-Clean luxury layout.
-No clutter.
+CREATIVE DIRECTION:
+Randomly choose ONE premium advertising style for this generation:
+
+1. Luxury brand campaign
+2. Cinematic night photography
+3. Apple-style minimalist advert
+4. Nike-style action campaign
+5. High-end magazine cover
+6. Hollywood movie poster style
+7. Premium 3D product showcase
+8. Hyper-real urban advertising
+9. Luxury automotive campaign
+10. Modern social media viral advert
+11. Luxury neon night campaign
+12. Premium billboard campaign
+13. High-end fashion advert style
+14. Dark cinematic product reveal
+15. Ultra-clean tech startup campaign
+
+Every generation must look different.
+Use a different composition, camera angle, lighting setup, background, colour palette, subject position and typography style every time.
+Do not repeat the same advert layout.
+Do not always centre the subject.
+Do not always use green.
+Do not make it look like a generic Canva template.
+
+STYLE:
+World-class commercial advertising campaign.
+Luxury agency-level creative direction.
+Ultra-realistic premium 3D / photorealistic render.
+Cinematic lighting.
+High-end product photography.
+Deep contrast.
+Sharp focus.
+Expensive materials.
+Glossy reflections.
+Realistic shadows.
+Premium night-time or studio lighting where suitable.
+Strong 3D depth and dimension.
+Looks like a £100,000 advertising campaign.
+
+QUALITY:
+Highest quality.
+Clean professional finish.
 No cheap template look.
 No cartoon style.
-No low-quality graphics.
+No amateur graphics.
+No clutter.
+No blur.
+No messy AI artefacts.
+No distorted vehicles, tools, tyres, hands, faces, food, products or logos.
 
-TEXT RULES:
-Keep ALL text fully visible.
-Keep logos, headlines, phone numbers and offers inside safe margins.
-Do not crop any letters.
-Do not place wording near the image edges.
-Use bold readable premium typography.
-Make the advert look finished and ready to post.
+COMPOSITION:
+Vertical 9:16 mobile-first advert.
+Use the full canvas properly.
+Keep the main subject clear, premium and powerful.
+Use strong foreground, midground and background depth.
+Create a finished advert layout, not just a plain image.
+Keep enough breathing space so it works inside a mobile feed card.
 
-COLOUR RULES:
-Choose colours that match the business.
-Do not always use green.
-Use premium colour grading.
-Use realistic lighting and brand-matching accents.
+TEXT:
+Only use text that the user provided or text clearly implied by the business request.
+Do not invent random phone numbers.
+Do not invent random addresses.
+Keep all text fully readable.
+Keep all text inside a safe 12% margin from every edge.
+Do not crop letters.
+Do not let text touch the canvas edge.
+Use bold premium typography.
+Use fewer words, bigger impact.
+Make it look ready to post on a premium social feed.
 
 NEGATIVE RULES:
 No blurry text.
 No warped text.
 No misspelled words.
+No fake unreadable small print.
 No cropped logos.
 No duplicated products.
-No distorted tyres, faces, hands, tools or vehicles.
-No messy layout.
-No fake unreadable small print.
-No amateur design.
+No stretched vehicles.
+No deformed hands or faces.
+No cheap flyer design.
+No low-resolution look.
+No random phone numbers.
+No random website URLs.
+No messy background.
+No boring repeated layout.
 
 FINAL RESULT:
-Make this look like a top-tier paid advert from a luxury creative agency.
-The result should be premium enough that a real business would pay for it.
-
-All text must fit completely inside the image.
-
-Leave the top 20% empty.
-
-Leave the bottom 30% empty.
-
-Place all advertising text between 25% and 65% of the image height.
-dont over strech the image keep all text in side feed and dont add random phone numbers.
-make all images premium top quality with no limits.
-Do not allow any text to touch the edges of the canvas.
-
-Use smaller professional typography that fits comfortably within the frame.
+One finished high-end advert image.
+Premium, realistic, sharp, expensive, clean and professional.
+The advert should look like it came from a top creative agency, not an AI template.
 `;
-
-
-if (!prompt) {
-return NextResponse.json({ error: "No prompt provided" }, { status: 400 });
-}
 
 const result = await openai.images.generate({
 model: "gpt-image-1",
 prompt: premiumPrompt,
-size: "1536x1024",
+size: "1024x1536",
+quality: "high",
 });
 
 const base64 = result.data?.[0]?.b64_json;
