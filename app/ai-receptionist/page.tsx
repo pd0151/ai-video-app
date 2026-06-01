@@ -1191,13 +1191,13 @@ boxShadow: xeonGlow,
 const waBtn: React.CSSProperties = {
 padding: 14,
 borderRadius: 16,
-background: glassBg,
-color: "white",
+background: "#05070b",
+color: "#45ff8a",
 textDecoration: "none",
 textAlign: "center",
 fontWeight: 900,
-border: xeonBorder,
-boxShadow: xeonGlow,
+border: "1px solid rgba(69,255,138,0.35)",
+boxShadow: "0 0 18px rgba(69,255,138,0.18)",
 };
 
 const statusRow: React.CSSProperties = {
