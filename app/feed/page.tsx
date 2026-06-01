@@ -328,13 +328,10 @@ style={media}
 </div>
 
 <div style={ctaRow}>
-{phone && (
 <a href={`tel:${phone}`} style={callBtn}>
 ☎ Call Now
 </a>
-)}
 
-{whatsapp && (
 <a
 href={`https://wa.me/${whatsapp}`}
 target="_blank"
@@ -342,7 +339,6 @@ style={whatsappBtn}
 >
 WhatsApp
 </a>
-)}
 </div>
 </div>
 
