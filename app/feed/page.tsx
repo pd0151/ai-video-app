@@ -245,7 +245,7 @@ console.log("BUSINESS FOUND:", business);
 
 const displayName =
 post.business_name ||
-business?.business_name ||
+business?.name ||
 "AdForge Business";
 
 const displayLocation =
