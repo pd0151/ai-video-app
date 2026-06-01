@@ -197,6 +197,23 @@ observer.observe(video);
 return () => observer.disconnect();
 }, [posts]);
 
+
+async function deletePost(postId: string) {
+if (!confirm("Delete this post?")) return;
+
+const { error } = await supabase
+.from("posts")
+.delete()
+.eq("id", postId);
+
+if (error) {
+alert("Delete failed: " + error.message);
+return;
+}
+
+setPosts((prev) => prev.filter((p) => p.id !== postId));
+}
+
 function sharePost(post: Post) {
 if (navigator.share) {
 navigator.share({
@@ -291,11 +308,18 @@ if (post.user_id) router.push(`/profile/${post.user_id}`);
 {displayName}{" "}
 <span style={verifiedDot}>●</span>
 </div>
+
+
 <p style={small}>⌖ {displayLocation}</p>
 </div>
 </div>
 
-<button style={menuBtn}>•••</button>
+<button
+onClick={() => deletePost(post.id)}
+style={menuBtn}
+>
+🗑
+</button>
 </div>
 
 <div style={mediaBox}>
