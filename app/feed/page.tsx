@@ -628,32 +628,41 @@ fontWeight: 750,
 const ctaRow: CSSProperties = {
 display: "flex",
 gap: 12,
+marginTop: 12,
+marginBottom: 4,
 };
 
 const callBtn: CSSProperties = {
 flex: 1,
-textAlign: "center",
-padding: "14px 16px",
-borderRadius: 18,
-background: "linear-gradient(180deg,#ffffff,#eaf0ff)",
-color: "#05070d",
+height: 46,
+borderRadius: 16,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
 textDecoration: "none",
-fontWeight: 950,
-border: "1px solid rgba(255,255,255,0.8)",
-boxShadow: xeonGlow,
+fontWeight: 900,
+fontSize: 16,
+color: "#f4f7ff",
+background: "rgba(8,12,22,0.82)",
+border: "1px solid rgba(244,247,255,0.32)",
+boxShadow:
+"0 0 4px rgba(255,255,255,0.55), 0 0 18px rgba(220,235,255,0.20)",
 };
 
 const whatsappBtn: CSSProperties = {
 flex: 1,
-textAlign: "center",
-padding: "14px 16px",
-borderRadius: 18,
-background: "rgba(5,7,13,0.72)",
-color: xeonGreen,
-border: `1px solid rgba(69,255,138,0.42)`,
+height: 46,
+borderRadius: 16,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
 textDecoration: "none",
-fontWeight: 950,
-boxShadow: `0 0 22px rgba(69,255,138,0.22)`,
+fontWeight: 900,
+fontSize: 16,
+color: xeonGreen,
+background: "rgba(8,12,22,0.82)",
+border: "1px solid rgba(69,255,138,0.42)",
+boxShadow: "0 0 18px rgba(69,255,138,0.22)",
 };
 
 const actionRow: CSSProperties = {
