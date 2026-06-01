@@ -1576,25 +1576,16 @@ left: 18,
 right: 18,
 height: 84,
 bottom: "calc(16px + env(safe-area-inset-bottom))",
-
 background:
 "linear-gradient(180deg, rgba(10,12,18,0.96), rgba(2,3,6,0.98))",
-
-border: "1px solid rgba(255,255,255,0.14)",
-
+border: "1px solid rgba(69,255,138,0.18)",
 borderRadius: 34,
-
 display: "flex",
 justifyContent: "space-around",
 alignItems: "center",
-
 zIndex: 9999,
-
 backdropFilter: "blur(28px)",
-
-
-boxShadow:
-"0 0 45px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08)",
+boxShadow: "0 0 30px rgba(69,255,138,0.12)"
 };
 
 const navBtn: CSSProperties = {
@@ -2693,9 +2684,9 @@ marginTop: 0,
 };
 
 const toolCard: React.CSSProperties = {
-minHeight: 52,
-borderRadius: 22,
-padding: 6,
+minHeight: 42,
+borderRadius: 18,
+padding: 5,
 background:
 "linear-gradient(145deg, rgba(255,255,255,0.08), rgba(4,7,18,0.96))",
 border: "1px solid rgba(220,235,255,0.20)",
@@ -2704,7 +2695,7 @@ display: "flex",
 flexDirection: "column",
 alignItems: "center",
 justifyContent: "center",
-gap: 6,
+gap: 4,
 textAlign: "center",
 boxShadow:
 "inset 0 1px 0 rgba(255,255,255,0.18), 0 10px 28px rgba(0,0,0,0.45)",
