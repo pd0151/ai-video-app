@@ -334,11 +334,9 @@ style={media}
 ? post.content.split(".")[0]
 : `${displayName} Service`}
 </h2>
-
 <p style={caption}>
-{post.content && post.content !== "Uploaded media"
-? post.content
-: "Fast, reliable service from a trusted local business."}
+{post.content ||
+"24 Hour Mobile Tyre Fitting • Emergency Callouts • Fast Response"}
 </p>
 
 <div style={checks}>
