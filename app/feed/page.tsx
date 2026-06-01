@@ -63,6 +63,8 @@ const [comments, setComments] = useState<Comment[]>([]);
 const [commentText, setCommentText] = useState("");
 const [loadingPosts, setLoadingPosts] = useState(true);
 const [loading, setLoading] = useState(true);
+const [editingPost, setEditingPost] = useState<Post | null>(null);
+const [editText, setEditText] = useState("");
 
 async function loadPosts() {
 try {
@@ -210,6 +212,33 @@ if (error) {
 alert("Delete failed: " + error.message);
 return;
 }
+
+async function savePostEdit() {
+if (!editingPost) return;
+
+const { error } = await supabase
+.from("posts")
+.update({ content: editText })
+.eq("id", editingPost.id);
+
+if (error) {
+alert(error.message);
+return;
+}
+
+setPosts((prev) =>
+prev.map((p) =>
+p.id === editingPost.id
+? { ...p, content: editText }
+: p
+)
+);
+
+setEditingPost(null);
+setEditText("");
+}
+
+
 
 setPosts((prev) => prev.filter((p) => p.id !== postId));
 }
