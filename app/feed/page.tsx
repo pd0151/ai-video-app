@@ -236,6 +236,9 @@ return (
 {posts.map((post) => {
 const business = post.business;
 
+console.log("POST USER ID:", post.user_id);
+console.log("BUSINESS FOUND:", business);
+
 const displayName =
 post.business_name ||
 business?.business_name ||
