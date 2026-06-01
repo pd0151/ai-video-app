@@ -585,14 +585,17 @@ textShadow: "0 0 18px rgba(255,255,255,0.22)",
 };
 
 const tabs: CSSProperties = {
-top: 56,
 display: "flex",
+alignItems: "center",
 gap: 28,
 padding: "0 4px 10px",
-background:
-"linear-gradient(to bottom, rgba(5,7,13,0.96), rgba(5,7,13,0.70), transparent)",
+margin: "0 22px 16px",
+background: "transparent",
+boxShadow: "none",
+border: "none",
+position: "relative",
+zIndex: 2,
 };
-
 const tab: CSSProperties = {
 border: "none",
 background: "transparent",
