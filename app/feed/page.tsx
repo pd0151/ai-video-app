@@ -236,6 +236,16 @@ return (
 {posts.map((post) => {
 const business = post.business;
 
+const displayName =
+post.business_name ||
+business?.business_name ||
+"AdForge Business";
+
+const displayLocation =
+post.location ||
+business?.location ||
+"Local area";
+
 const phone =
 post.phone ||
 post.whatsapp ||
@@ -265,15 +275,15 @@ if (post.user_id) router.push(`/profile/${post.user_id}`);
 }}
 >
 <div style={avatar}>
-{(post.business_name || "A").charAt(0).toUpperCase()}
+{displayName.charAt(0).toUpperCase()}
 </div>
 
 <div>
 <div style={businessName}>
-{post.business_name || "AdForge Business"}{" "}
+{displayName}{" "}
 <span style={verifiedDot}>●</span>
 </div>
-<p style={small}>⌖ {post.location || "Local area"}</p>
+<p style={small}>⌖ {displayLocation}</p>
 </div>
 </div>
 
