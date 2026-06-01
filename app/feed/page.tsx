@@ -11,6 +11,7 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 
 type Post = {
 id: string;
+business?: any;
 user_id?: string | null;
 content: string | null;
 image_url: string | null;
@@ -83,7 +84,26 @@ return;
 }
 
 const freshPosts = (data || []).filter((p) => p.image_url || p.video_url);
-setPosts(freshPosts);
+
+const userIds = freshPosts
+.map((p) => p.user_id)
+.filter(Boolean) as string[];
+
+const { data: businesses } = await supabase
+.from("businesses")
+.select("id,business_name,location,whatsapp,phone,notification_phone")
+.in("id", userIds);
+
+const postsWithBusiness = freshPosts.map((post) => {
+const business = businesses?.find((b) => b.id === post.user_id);
+
+return {
+...post,
+business,
+};
+});
+
+setPosts(postsWithBusiness);
 setLoadingPosts(false);
 
 try {
@@ -214,8 +234,25 @@ return (
 
 <div style={feedWrap}>
 {posts.map((post) => {
-const phone = post.phone || post.whatsapp || "";
-const whatsapp = phone.replace("+", "").replace(/\s/g, "");
+const business = post.business;
+
+const phone =
+post.phone ||
+post.whatsapp ||
+business?.phone ||
+business?.notification_phone ||
+business?.whatsapp ||
+"";
+
+const whatsapp = String(
+post.whatsapp ||
+business?.whatsapp ||
+business?.phone ||
+business?.notification_phone ||
+""
+)
+.replace("+", "")
+.replace(/\s/g, "");
 const mediaUrl = post.video_url || post.image_url || "";
 
 return (
