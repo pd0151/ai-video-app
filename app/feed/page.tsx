@@ -253,6 +253,9 @@ post.location ||
 business?.location ||
 "Local area";
 
+console.log("POST LOCATION:", post.location);
+console.log("BUSINESS LOCATION:", business?.location);
+
 const phone =
 post.phone ||
 post.whatsapp ||
