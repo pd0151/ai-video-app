@@ -656,19 +656,19 @@ alignItems: "center",
 gap: 8,
 padding: "8px 12px",
 borderRadius: 999,
-background: glassBg,
-border: xeonBorder,
+background: "rgba(69,255,138,0.12)",
+border: "1px solid rgba(69,255,138,0.25)",
 fontSize: 12,
 fontWeight: 950,
 whiteSpace: "nowrap",
-boxShadow: xeonGlow,
+boxShadow: "0 0 18px rgba(69,255,138,0.15)",
 };
 
 const greenDot: React.CSSProperties = {
 width: 8,
 height: 8,
 borderRadius: "50%",
-background: "#ffffff",
+background: "#45ff8a",
 boxShadow: "0 0 14px rgba(220,235,255,0.9)",
 };
 
