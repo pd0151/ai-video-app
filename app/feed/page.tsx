@@ -709,7 +709,7 @@ fontWeight: 900,
 
 const mediaBox: CSSProperties = {
 width: "calc(100% - 32px)",
-height: 285,
+height: 450,
 margin: "0 16px",
 background: "#02040a",
 overflow: "hidden",
