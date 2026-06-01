@@ -244,35 +244,36 @@ console.log("POST USER ID:", post.user_id);
 console.log("BUSINESS FOUND:", business);
 
 const displayName =
-post.business_name ||
 business?.name ||
-"AdForge Business";
+post.business_name ||
+"Business";
 
 const displayLocation =
-post.location ||
 business?.location ||
-"Liverpool, UK";
-
-console.log("POST LOCATION:", post.location);
-console.log("BUSINESS LOCATION:", business?.location);
+post.location ||
+"Location not set";
 
 const phone =
-post.phone ||
-post.whatsapp ||
 business?.phone ||
 business?.notification_phone ||
-business?.whatsapp ||
+post.phone ||
 "";
 
 const whatsapp = String(
-post.whatsapp ||
 business?.whatsapp ||
 business?.phone ||
 business?.notification_phone ||
+post.whatsapp ||
 ""
 )
 .replace("+", "")
 .replace(/\s/g, "");
+
+console.log("POST LOCATION:", post.location);
+console.log("BUSINESS LOCATION:", business?.location);
+
+
+
 const mediaUrl = post.video_url || post.image_url || "";
 
 return (
