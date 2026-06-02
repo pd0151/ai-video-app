@@ -3240,7 +3240,7 @@ maxWidth: 420,
 
 const promptBox: CSSProperties = {
 height: 30,
-borderRadius: 10,
+borderRadius: 20,
 padding: "0 8px",
 display: "flex",
 alignItems: "center",
