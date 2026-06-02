@@ -60,6 +60,15 @@ const [image, setImage] = useState<string | null>(null);
 const [loadingImage, setLoadingImage] = useState(false);
 const [isPro, setIsPro] = useState(false);
 const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+const [showPostEverywhere, setShowPostEverywhere] = useState(false);
+const [postCaption, setPostCaption] = useState(
+"Fresh AI advert created with AdForge. Message us today to book or enquire."
+);
+const [postTargets, setPostTargets] = useState({
+facebook: true,
+instagram: true,
+google: true,
+});
 
 useEffect(() => {
 const handler = (e: any) => {
@@ -632,6 +641,24 @@ color: "#05070b",
 >
 Share to Feed
 </button>
+
+<button
+onClick={() => setShowPostEverywhere(true)}
+style={{
+marginTop: 10,
+width: "100%",
+padding: "14px 18px",
+borderRadius: 999,
+border: "1px solid rgba(255,255,255,0.15)",
+background: "#0b1020",
+color: "white",
+fontWeight: 900,
+fontSize: 16,
+}}
+>
+Post Everywhere
+</button>
+
 
 <img
 src={image}
