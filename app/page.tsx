@@ -3599,7 +3599,7 @@ filter: "blur(1px",
 };
 
 const platformTools: React.CSSProperties = {
-marginTop: 10,
+marginTop: 50,
 display: "grid",
 width: "fit-content",
 margin: "0 auto",
