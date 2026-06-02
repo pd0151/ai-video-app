@@ -602,15 +602,15 @@ onChange={(e) => setPrompt(e.target.value)}
 placeholder="Example: mobile tyre fitting advert, 24/7 callout, premium black and green style"
 style={{
 width: "100%",
-height: 42,
-minHeight: 42,
+height: 70,
+minHeight: 70,
 borderRadius: 22,
 border: "1px solid rgba(255,255,255,0.18)",
 background: "rgba(255,255,255,0.08)",
 color: "white",
-padding: 10,
+padding: 16,
 fontSize: 14,
-marginBottom: 10,
+marginBottom: 25,
 outline: "none",
 }}
 />
@@ -3565,7 +3565,7 @@ margin: 0,
 };
 
 const platformMainBtn: React.CSSProperties = {
-marginTop: 10,
+marginTop: 30,
 width: "100%",
 border: `1px solid ${LINE_STRONG}`,
 borderRadius: 999,
