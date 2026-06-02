@@ -608,9 +608,9 @@ borderRadius: 22,
 border: "1px solid rgba(255,255,255,0.18)",
 background: "rgba(255,255,255,0.08)",
 color: "white",
-padding: 16,
+padding: 20,
 fontSize: 14,
-marginBottom: 35,
+marginBottom: 25,
 outline: "none",
 }}
 />
