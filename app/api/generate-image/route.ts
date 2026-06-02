@@ -110,12 +110,54 @@ FINAL RESULT:
 One finished high-end advert image.
 Premium, realistic, sharp, expensive, clean and professional.
 The advert should look like it came from a top creative agency, not an AI template.
+
+CREATIVE FREEDOM:
+
+Every advert must be completely different.
+
+Use different:
+- camera angles
+- layouts
+- colours
+- typography
+- lighting
+- compositions
+- backgrounds
+- perspectives
+- styles
+
+Some adverts should be:
+
+- luxury
+- cinematic
+- modern
+- futuristic
+- corporate
+- minimal
+- bold
+- magazine style
+- billboard style
+- social media style
+- technology style
+- sports style
+- dramatic night photography
+- studio photography
+- urban photography
+
+Never reuse the same layout twice.
+
+Never always place the product in the centre.
+
+Every generation should feel unique and original.
+
+
+
 `;
 
 const result = await openai.images.generate({
 model: "gpt-image-1",
 prompt: premiumPrompt,
-size: "1024x1536",
+size: "1536x1024",
 quality: "high",
 });
 
