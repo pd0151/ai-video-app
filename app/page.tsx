@@ -3303,11 +3303,11 @@ width: "100%",
 border: `1px solid ${LINE_STRONG}`,
 borderRadius: 999,
 padding: "8px 12px",
-background: "linear-gradient(135deg,#ffffff,#d9e3f3)",
+background: "linear-gradient(135deg,#2BFF73,#42FF8A)",
 color: "#05070b",
 fontSize: 12,
 fontWeight: 950,
-boxShadow: "0 0 40px rgba(255,255,255,.18)",
+boxShadow: "0 0 40px rgba(43,255,115,.35)",
 };
 
 
