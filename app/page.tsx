@@ -3605,7 +3605,7 @@ marginBottom: 24,
 };
 
 const platformToolCard: React.CSSProperties = {
-minHeight: 90,
+minHeight: 50,
 borderRadius: 24,
 padding: 14,
 background:
