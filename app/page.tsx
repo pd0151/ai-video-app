@@ -3610,7 +3610,7 @@ marginBottom: 10,
 };
 
 const platformToolCard: React.CSSProperties = {
-minHeight: 76,
+minHeight: 70,
 borderRadius: 20,
 padding: 10,
 background:
