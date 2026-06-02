@@ -677,40 +677,6 @@ Post Everywhere
 )}
 
 
-
-
-
-<div style={heroPhoneWrap}>
-<video
-src="/videos/hero-demo.mp4"
-autoPlay
-muted
-loop
-playsInline
-style={heroPhoneVideo}
-/>
-</div>
-</div>
-
-<div style={heroMiniStats}>
-<div style={heroMiniStat}>
-<b>AI Ads</b>
-<span>Generated in seconds</span>
-</div>
-
-<div style={heroMiniStat}>
-<b>AI Calls</b>
-<span>Leads captured 24/7</span>
-</div>
-</div>
-
-<div style={heroLiveStrip}>
-<span>● Live platform</span>
-<span>Ads • Video • Receptionist</span>
-</div>
-
-</section>
-
 <section style={platformTools}>
 <button style={platformToolCard} onClick={() => router.push("/upgrade-photo")}>
 <span style={platformToolIcon}>✦</span>
@@ -740,6 +706,26 @@ style={{ display: "none" }}
 />
 </label>
 </section>
+
+
+<div style={heroPhoneWrap}>
+<video
+src="/videos/hero-demo.mp4"
+autoPlay
+muted
+loop
+playsInline
+style={heroPhoneVideo}
+/>
+</div>
+</div>
+
+
+
+
+</section>
+
+
 
 <section style={premiumAiReceptionist}>
 <span style={aiMiniPill}>• LIVE AI CALL SYSTEM</span>
