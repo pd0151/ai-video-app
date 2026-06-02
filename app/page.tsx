@@ -658,14 +658,16 @@ display: "block",
 onClick={() => setShowPostEverywhere(true)}
 style={{
 marginTop: 10,
-width: "100%",
-padding: "14px 18px",
+width: "220",
+padding: "12px 16px",
+margin: "12px auto 0",
+display: "block",
 borderRadius: 999,
 border: "1px solid rgba(255,255,255,0.15)",
 background: "#0b1020",
 color: "white",
 fontWeight: 900,
-fontSize: 16,
+fontSize: 14,
 }}
 >
 Post Everywhere
