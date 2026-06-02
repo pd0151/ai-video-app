@@ -1011,20 +1011,13 @@ textAlign: "left",
 ))}
 </div>
 
-<textarea
-value={postCaption}
-onChange={(e) => setPostCaption(e.target.value)}
+<img
+src={image || ""}
+alt="Advert"
 style={{
 width: "100%",
-minHeight: 120,
-borderRadius: 20,
-padding: 14,
-background: "rgba(255,255,255,0.96)",
-color: "#05070b",
-fontSize: 15,
-fontWeight: 600,
-border: "1px solid rgba(220,235,255,0.3)",
-outline: "none",
+borderRadius: 22,
+display: "block",
 }}
 />
 
