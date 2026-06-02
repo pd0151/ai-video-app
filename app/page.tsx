@@ -3599,7 +3599,7 @@ filter: "blur(1px",
 };
 
 const platformTools: React.CSSProperties = {
-marginTop: 18,
+marginTop: 28,
 display: "grid",
 width: "fit-content",
 margin: "0 auto",
@@ -3610,7 +3610,7 @@ marginBottom: 10,
 };
 
 const platformToolCard: React.CSSProperties = {
-minHeight: 70,
+minHeight: 76,
 borderRadius: 20,
 padding: 10,
 background:
