@@ -915,9 +915,9 @@ inset: 0,
 background: "rgba(0,0,0,0.78)",
 zIndex: 9999,
 display: "flex",
-alignItems: "center",
+alignItems: "flex-start",
 justifyContent: "center",
-padding: 20,
+padding: "30px 20px 20px",
 backdropFilter: "blur(10px)",
 }}
 >
@@ -926,7 +926,8 @@ style={{
 position: "relative",
 width: "100%",
 maxWidth: 420,
-background: "linear-gradient(180deg,#111827,#05070b)",
+background: "rgba(8,12,24,0.96)",
+backdropFilter: "blur(24px)",
 border: "1px solid rgba(220,235,255,0.18)",
 boxShadow:
 "0 0 40px rgba(220,235,255,0.14), 0 0 60px rgba(43,255,115,0.12)",
