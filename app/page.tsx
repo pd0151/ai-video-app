@@ -922,6 +922,7 @@ padding: 20,
 >
 <div
 style={{
+position: "relative",
 width: "100%",
 maxWidth: 420,
 background: "#0b1020",
