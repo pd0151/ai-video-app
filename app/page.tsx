@@ -907,6 +907,79 @@ color: "white",
 </div>
 </section>
 
+{showPostEverywhere && (
+<div
+style={{
+position: "fixed",
+inset: 0,
+background: "rgba(0,0,0,0.8)",
+zIndex: 9999,
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+padding: 20,
+}}
+>
+<div
+style={{
+width: "100%",
+maxWidth: 420,
+background: "#0b1020",
+borderRadius: 24,
+padding: 24,
+}}
+>
+<h2>Post Everywhere</h2>
+
+<p>Choose platforms:</p>
+
+<label>
+<input type="checkbox" defaultChecked />
+Facebook
+</label>
+
+<br />
+
+<label>
+<input type="checkbox" defaultChecked />
+Instagram
+</label>
+
+<br />
+
+<label>
+<input type="checkbox" defaultChecked />
+Google Business
+</label>
+
+<br />
+<br />
+
+<textarea
+value={postCaption}
+onChange={(e) => setPostCaption(e.target.value)}
+style={{
+width: "100%",
+minHeight: 120,
+borderRadius: 16,
+padding: 12,
+}}
+/>
+
+<br />
+<br />
+
+<button
+onClick={() => setShowPostEverywhere(false)}
+style={platformMainBtn}
+>
+Post Now
+</button>
+</div>
+</div>
+)}
+
+
 
 <nav style={bottomNav}>
 <button style={navActive} onClick={() => router.push("/")}>
