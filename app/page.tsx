@@ -929,6 +929,22 @@ borderRadius: 24,
 padding: 24,
 }}
 >
+
+<button
+onClick={() => setShowPostEverywhere(false)}
+style={{
+position: "absolute",
+top: 14,
+right: 14,
+background: "transparent",
+border: 0,
+color: "white",
+fontSize: 28,
+}}
+>
+×
+</button>
+
 <h2>Post Everywhere</h2>
 
 <p>Choose platforms:</p>
