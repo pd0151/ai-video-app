@@ -3605,7 +3605,7 @@ marginBottom: 24,
 };
 
 const platformToolCard: React.CSSProperties = {
-minHeight: 138,
+minHeight: 90,
 borderRadius: 24,
 padding: 14,
 background:
@@ -3615,7 +3615,9 @@ color: WHITE,
 display: "flex",
 flexDirection: "column",
 gap: 7,
-textAlign: "left",
+justifyContent: "center",
+alignItems: "center",
+textAlign: "center",
 boxShadow:
 "0 0 16px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08)",
 };
