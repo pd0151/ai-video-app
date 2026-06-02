@@ -774,7 +774,111 @@ Activate AI Receptionist →
 </button>
 </section>
 
+<section style={{ marginTop: 28 }}>
+<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+<div>
+<div style={{
+display: "inline-block",
+padding: "8px 18px",
+borderRadius: 999,
+border: "1px solid rgba(255,255,255,0.22)",
+color: "white",
+letterSpacing: 5,
+fontSize: 12,
+fontWeight: 900,
+marginBottom: 12,
+}}>
+LIVE FEED
+</div>
 
+<h2 style={{ color: "white", fontSize: 30, margin: 0 }}>
+Recent AI Generated Ads
+</h2>
+</div>
+
+<button onClick={refreshPage} style={{
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(255,255,255,0.18)",
+color: "white",
+borderRadius: 999,
+width: 52,
+height: 52,
+fontSize: 24,
+fontWeight: 900,
+}}>
+↻
+</button>
+</div>
+
+<div
+ref={adScrollerRef}
+style={{
+display: "flex",
+gap: 18,
+overflowX: "hidden",
+paddingBottom: 8,
+width: "100%",
+}}
+>
+{[...recentPosts, ...recentPosts].map((post, index) => {
+const img = post.image_url || post.video_url;
+
+return (
+<div
+key={`${post.id}-${index}`}
+style={{
+minWidth: 230,
+height: 290,
+borderRadius: 26,
+overflow: "hidden",
+position: "relative",
+background: "#050712",
+border: "1px solid rgba(220,235,255,0.22)",
+boxShadow: "0 0 28px rgba(220,235,255,0.12)",
+}}
+>
+{post.video_url ? (
+<video
+src={post.video_url}
+autoPlay
+muted
+loop
+playsInline
+style={{
+width: "100%",
+height: "100%",
+objectFit: "cover",
+}}
+/>
+) : (
+<img
+src={img}
+alt="Recent advert"
+style={{
+width: "100%",
+height: "100%",
+objectFit: "cover",
+}}
+/>
+)}
+
+<div style={{
+position: "absolute",
+left: 0,
+right: 0,
+bottom: 0,
+padding: 16,
+background: "linear-gradient(transparent, rgba(0,0,0,0.82))",
+color: "white",
+}}>
+<b>{post.image_url ? "AI generated advert" : "Uploaded media"}</b>
+<div style={{ opacity: 0.85, marginTop: 4 }}>Ready to post</div>
+</div>
+</div>
+);
+})}
+</div>
+</section>
 
 
 <nav style={bottomNav}>
