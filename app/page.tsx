@@ -680,20 +680,22 @@ Post Everywhere
 <section style={platformTools}>
 <button style={platformToolCard} onClick={() => router.push("/upgrade-photo")}>
 <span style={platformToolIcon}>✦</span>
-<b>Photo Ads</b>
-<small>Turn photos into premium adverts</small>
+<b style={{ fontSize: 12, lineHeight: 1.1 }}>Photo Ads</b>
+<small style={{ fontSize: 9, lineHeight: 1.1 }}>Photo ads</small>
 </button>
 
 <button style={platformToolCard} onClick={() => router.push("/video")}>
 <span style={platformToolIcon}>▶</span>
-<b>AI Video</b>
-<small>Create scroll stopping videos</small>
+<b style={{ fontSize: 12, lineHeight: 1.1 }}>Photo Ads</b>
+<small style={{ fontSize: 9, lineHeight: 1.1 }}>Photo ads</small>
+
 </button>
 
 <label style={platformToolCard}>
 <span style={platformToolIcon}>⇧</span>
-<b>Upload</b>
-<small>Images, videos and assets</small>
+<b style={{ fontSize: 12, lineHeight: 1.1 }}>Photo Ads</b>
+<small style={{ fontSize: 9, lineHeight: 1.1 }}>Photo ads</small>
+
 
 <input
 type="file"
@@ -3607,14 +3609,14 @@ marginBottom: 24,
 const platformToolCard: React.CSSProperties = {
 minHeight: 50,
 borderRadius: 24,
-padding: 14,
+padding: 6,
 background:
 "linear-gradient(145deg, rgba(15,18,25,0.92), rgba(3,5,10,0.96))",
 border: `1px solid ${LINE}`,
 color: WHITE,
 display: "flex",
 flexDirection: "column",
-gap: 7,
+gap: 3,
 justifyContent: "center",
 alignItems: "center",
 textAlign: "center",
@@ -3623,15 +3625,15 @@ boxShadow:
 };
 
 const platformToolIcon: React.CSSProperties = {
-width: 42,
-height: 42,
+width: 26,
+height: 26,
 borderRadius: 15,
 display: "grid",
 placeItems: "center",
 background: "rgba(255,255,255,0.08)",
 border: `1px solid ${LINE_STRONG}`,
 color: WHITE,
-fontSize: 22,
+fontSize: 14,
 boxShadow: `0 0 22px ${GLOW_SOFT}`,
 };
 
