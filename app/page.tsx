@@ -912,12 +912,13 @@ color: "white",
 style={{
 position: "fixed",
 inset: 0,
-background: "rgba(0,0,0,0.8)",
+background: "rgba(0,0,0,0.78)",
 zIndex: 9999,
 display: "flex",
 alignItems: "center",
 justifyContent: "center",
 padding: 20,
+backdropFilter: "blur(10px)",
 }}
 >
 <div
@@ -925,52 +926,90 @@ style={{
 position: "relative",
 width: "100%",
 maxWidth: 420,
-background: "#0b1020",
-borderRadius: 24,
+background: "linear-gradient(180deg,#111827,#05070b)",
+border: "1px solid rgba(220,235,255,0.18)",
+boxShadow:
+"0 0 40px rgba(220,235,255,0.14), 0 0 60px rgba(43,255,115,0.12)",
+borderRadius: 28,
 padding: 24,
+color: "white",
 }}
 >
-
 <button
 onClick={() => setShowPostEverywhere(false)}
 style={{
 position: "absolute",
 top: 14,
-right: 14,
-background: "transparent",
-border: 0,
+right: 16,
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(255,255,255,0.16)",
 color: "white",
-fontSize: 28,
+width: 36,
+height: 36,
+borderRadius: "50%",
+fontSize: 24,
+fontWeight: 900,
 }}
 >
 ×
 </button>
 
-<h2>Post Everywhere</h2>
+<div
+style={{
+display: "inline-flex",
+padding: "8px 14px",
+borderRadius: 999,
+border: "1px solid rgba(220,235,255,0.22)",
+letterSpacing: 4,
+fontSize: 11,
+fontWeight: 900,
+marginBottom: 14,
+}}
+>
+POST EVERYWHERE
+</div>
 
-<p>Choose platforms:</p>
+<h2 style={{ fontSize: 32, margin: "0 0 8px" }}>
+Publish your advert
+</h2>
 
-<label>
-<input type="checkbox" defaultChecked />
-Facebook
-</label>
+<p style={{ color: "rgba(255,255,255,0.68)", marginBottom: 18 }}>
+Choose where AdForge should post this advert.
+</p>
 
-<br />
-
-<label>
-<input type="checkbox" defaultChecked />
-Instagram
-</label>
-
-<br />
-
-<label>
-<input type="checkbox" defaultChecked />
-Google Business
-</label>
-
-<br />
-<br />
+<div style={{ display: "grid", gap: 10, marginBottom: 18 }}>
+{["facebook", "instagram", "google"].map((key) => (
+<button
+key={key}
+onClick={() =>
+setPostTargets((prev) => ({
+...prev,
+[key]: !prev[key as keyof typeof prev],
+}))
+}
+style={{
+padding: "14px 16px",
+borderRadius: 18,
+border: postTargets[key as keyof typeof postTargets]
+? "1px solid rgba(43,255,115,0.65)"
+: "1px solid rgba(255,255,255,0.14)",
+background: postTargets[key as keyof typeof postTargets]
+? "rgba(43,255,115,0.14)"
+: "rgba(255,255,255,0.06)",
+color: "white",
+fontWeight: 900,
+textAlign: "left",
+}}
+>
+{postTargets[key as keyof typeof postTargets] ? "✓ " : ""}
+{key === "facebook"
+? "Facebook"
+: key === "instagram"
+? "Instagram"
+: "Google Business"}
+</button>
+))}
+</div>
 
 <textarea
 value={postCaption}
@@ -978,19 +1017,33 @@ onChange={(e) => setPostCaption(e.target.value)}
 style={{
 width: "100%",
 minHeight: 120,
-borderRadius: 16,
-padding: 12,
+borderRadius: 20,
+padding: 14,
+background: "rgba(255,255,255,0.96)",
+color: "#05070b",
+fontSize: 15,
+fontWeight: 600,
+border: "1px solid rgba(220,235,255,0.3)",
+outline: "none",
 }}
 />
 
-<br />
-<br />
-
 <button
 onClick={() => setShowPostEverywhere(false)}
-style={platformMainBtn}
+style={{
+marginTop: 18,
+width: "100%",
+padding: "16px 18px",
+borderRadius: 999,
+border: "1px solid rgba(43,255,115,0.45)",
+background: "linear-gradient(135deg,#2BFF73,#42FF8A)",
+color: "#05070b",
+fontWeight: 950,
+fontSize: 17,
+boxShadow: "0 0 35px rgba(43,255,115,0.35)",
+}}
 >
-Post Now
+Publish Everywhere →
 </button>
 </div>
 </div>
