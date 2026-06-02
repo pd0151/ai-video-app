@@ -926,11 +926,10 @@ style={{
 position: "relative",
 width: "100%",
 maxWidth: 420,
-background: "rgba(8,12,24,0.96)",
+background: "#05070b",
 backdropFilter: "blur(24px)",
 border: "1px solid rgba(220,235,255,0.18)",
-boxShadow:
-"0 0 40px rgba(220,235,255,0.14), 0 0 60px rgba(43,255,115,0.12)",
+boxShadow: "none",
 borderRadius: 28,
 padding: 24,
 color: "white",
