@@ -642,6 +642,21 @@ color: "#05070b",
 Share to Feed
 </button>
 
+
+
+
+<img
+src={image}
+alt="Generated advert"
+style={{
+width: "100%",
+borderRadius: 22,
+display: "block",
+}}
+/>
+</div>
+)}
+
 <button
 onClick={() => setShowPostEverywhere(true)}
 style={{
@@ -659,18 +674,6 @@ fontSize: 16,
 Post Everywhere
 </button>
 
-
-<img
-src={image}
-alt="Generated advert"
-style={{
-width: "100%",
-borderRadius: 22,
-display: "block",
-}}
-/>
-</div>
-)}
 
 
 <div style={heroPhoneWrap}>
