@@ -1017,6 +1017,8 @@ src={image || ""}
 alt="Advert"
 style={{
 width: "100%",
+maxHeight: 240,
+objectFit: "cover",
 marginTop:10,
 marginBottom: 10,
 borderRadius: 26,
