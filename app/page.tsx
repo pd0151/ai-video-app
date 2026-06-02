@@ -993,9 +993,10 @@ borderRadius: 18,
 border: postTargets[key as keyof typeof postTargets]
 ? "1px solid rgba(43,255,115,0.65)"
 : "1px solid rgba(255,255,255,0.14)",
+
 background: postTargets[key as keyof typeof postTargets]
 ? "rgba(43,255,115,0.14)"
-: "rgba(255,255,255,0.06)",
+: "rgba(255,255,255,0.03)",
 color: "white",
 fontWeight: 900,
 textAlign: "left",
@@ -1016,7 +1017,9 @@ src={image || ""}
 alt="Advert"
 style={{
 width: "100%",
-borderRadius: 22,
+marginTop:10,
+marginBottom: 10,
+borderRadius: 26,
 display: "block",
 }}
 />
