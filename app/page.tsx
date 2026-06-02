@@ -3599,12 +3599,11 @@ filter: "blur(1px",
 };
 
 const platformTools: React.CSSProperties = {
-marginTop: 40,
+marginTop: 10,
 display: "grid",
-paddingLeft: 20,
 width: "fit-content",
 margin: "0 auto",
-gridTemplateColumns: "90px 90px 90px",
+gridTemplateColumns: "110px 110px 110px",
 justifyContent: "center",
 gap: 12,
 marginBottom: 10,
