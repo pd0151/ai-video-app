@@ -3599,8 +3599,9 @@ filter: "blur(1px",
 };
 
 const platformTools: React.CSSProperties = {
-marginTop: 28,
+marginTop: 40,
 display: "grid",
+paddingLeft: 20,
 width: "fit-content",
 margin: "0 auto",
 gridTemplateColumns: "90px 90px 90px",
