@@ -442,7 +442,7 @@ post.content?.toLowerCase().includes("ai generated")
 
 <div style={ctaRow}>
 <a href={`tel:${phone}`} style={callBtn}>
-☎ Call Now
+ Call Now
 </a>
 
 <a
