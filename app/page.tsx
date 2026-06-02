@@ -686,15 +686,15 @@ Post Everywhere
 
 <button style={platformToolCard} onClick={() => router.push("/video")}>
 <span style={platformToolIcon}>▶</span>
-<b style={{ fontSize: 12, lineHeight: 1.1 }}>Photo Ads</b>
-<small style={{ fontSize: 9, lineHeight: 1.1 }}>Photo ads</small>
+<b style={{ fontSize: 14 }}>AI Video</b>
+<small style={{ fontSize: 10 }}>Create videos</small>
 
 </button>
 
 <label style={platformToolCard}>
 <span style={platformToolIcon}>⇧</span>
-<b style={{ fontSize: 12, lineHeight: 1.1 }}>Photo Ads</b>
-<small style={{ fontSize: 9, lineHeight: 1.1 }}>Photo ads</small>
+<b style={{ fontSize: 14 }}>Upload</b>
+<small style={{ fontSize: 10 }}>Images & videos</small>
 
 
 <input
