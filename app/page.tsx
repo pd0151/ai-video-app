@@ -3602,7 +3602,7 @@ const platformTools: React.CSSProperties = {
 marginTop: 50,
 display: "grid",
 width: "fit-content",
-margin: "0 auto",
+margin: "28px auto 0",
 gridTemplateColumns: "110px 110px 110px",
 justifyContent: "center",
 gap: 12,
