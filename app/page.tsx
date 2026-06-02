@@ -642,7 +642,22 @@ color: "#05070b",
 Share to Feed
 </button>
 
-
+<button
+onClick={() => setShowPostEverywhere(true)}
+style={{
+marginTop: 10,
+width: "100%",
+padding: "14px 18px",
+borderRadius: 999,
+border: "1px solid rgba(255,255,255,0.15)",
+background: "#0b1020",
+color: "white",
+fontWeight: 900,
+fontSize: 16,
+}}
+>
+Post Everywhere
+</button>
 
 
 <img
