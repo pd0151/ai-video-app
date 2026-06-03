@@ -3752,8 +3752,9 @@ marginTop: 24,
 padding: 22,
 borderRadius: 34,
 background: "#05070b",
-border: "1px solid rgba(255,255,255,0.12)",
-boxShadow: "0 0 12px rgba(255,255,255,0.08)",
+border: "1px solid rgba(255,255,255,0.14)",
+boxShadow:
+"0 0 28px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.06)",
 };
 
 const aiMiniPill: React.CSSProperties = {
@@ -3780,10 +3781,10 @@ const liveLeadStatus: React.CSSProperties = {
 marginBottom: 14,
 padding: "12px 14px",
 borderRadius: 18,
-background: "rgba(69,255,138,0.08)",
-border: "1px solid rgba(69,255,138,0.18)",
-boxShadow: "0 0 12px rgba(69,255,138,0.08)",
-color: "#dcebff",
+background: "rgba(255,255,255,0.04)",
+border: "1px solid rgba(255,255,255,0.18)",
+boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
+color: "white",
 fontWeight: 900,
 fontSize: 13,
 };
