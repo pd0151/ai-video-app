@@ -3646,10 +3646,10 @@ marginTop: 22,
 padding: 24,
 borderRadius: 34,
 background:
-"radial-gradient(circle at 85% 20%, rgba(220,235,255,0.16), transparent 36%), linear-gradient(135deg, rgba(8,10,14,0.96), rgba(2,3,6,0.98))",
+"linear-gradient(145deg, rgba(5,7,11,0.98), rgba(0,0,0,0.98))",
 border: `1px solid ${LINE_STRONG}`,
 boxShadow:
-"0 0 22px rgba(220,235,255,0.24), 0 0 70px rgba(220,235,255,0.12), inset 0 1px 0 rgba(255,255,255,0.12)",
+"rgba(255,255,255,0.08),)",
 };
 
 const platformReceptionistTitle: React.CSSProperties = {
