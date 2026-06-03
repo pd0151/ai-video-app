@@ -3649,7 +3649,7 @@ background:
 "linear-gradient(145deg, rgba(5,7,11,0.98), rgba(0,0,0,0.98))",
 border: `1px solid ${LINE_STRONG}`,
 boxShadow:
-"rgba(255,255,255,0.08),)",
+"0 0 12px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.06)",
 };
 
 const platformReceptionistTitle: React.CSSProperties = {
@@ -3659,7 +3659,8 @@ lineHeight: 1,
 fontWeight: 950,
 letterSpacing: -1.5,
 margin: "18px 0 12px",
-textShadow: `0 0 28px ${GLOW_SOFT}`,
+boxShadow:
+"0 0 12px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.06)",
 };
 
 const platformReceptionistStats: React.CSSProperties = {
