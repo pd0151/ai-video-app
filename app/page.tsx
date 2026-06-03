@@ -3539,15 +3539,14 @@ const platformPill: React.CSSProperties = {
 display: "inline-flex",
 padding: "9px 15px",
 borderRadius: 999,
-border: `1px solid ${LINE_STRONG}`,
-background: "rgba(255,255,255,0.06)",
-color: WHITE,
+background: "linear-gradient(135deg,#2BFF73,#42FF8A)",
+border: "0",
+color: "#05070b",
 fontSize: 12,
 fontWeight: 950,
 letterSpacing: 3,
-boxShadow: `0 0 24px ${GLOW_SOFT}`,
+boxShadow: "0 0 30px rgba(43,255,115,0.35)",
 };
-
 const platformHeroTitle: React.CSSProperties = {
 margin: "22px 0 12px",
 color: WHITE,
