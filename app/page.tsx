@@ -3747,16 +3747,13 @@ flexDirection: "column",
 gap: 9,
 color: "#f8fbff",
 };
-
 const premiumAiReceptionist: React.CSSProperties = {
 marginTop: 24,
 padding: 22,
 borderRadius: 34,
-background:
-"radial-gradient(circle at 80% 20%, rgba(220,235,255,0.16), transparent 35%), linear-gradient(180deg, rgba(13,18,28,0.96), rgba(3,5,10,0.98))",
-border: "1px solid rgba(220,235,255,0.18)",
-boxShadow:
-"0 0 22px rgba(220,235,255,0.24), 0 0 70px rgba(220,235,255,0.10)",
+background: "#05070b",
+border: "1px solid rgba(255,255,255,0.12)",
+boxShadow: "0 0 12px rgba(255,255,255,0.08)",
 };
 
 const aiMiniPill: React.CSSProperties = {
