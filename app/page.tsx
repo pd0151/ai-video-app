@@ -3566,7 +3566,7 @@ margin: 0,
 };
 
 const platformMainBtn: React.CSSProperties = {
-marginTop: 30,
+marginTop: -20,
 width: "100%",
 border: `1px solid ${LINE_STRONG}`,
 borderRadius: 999,
@@ -3600,7 +3600,7 @@ filter: "blur(1px",
 };
 
 const platformTools: React.CSSProperties = {
-marginTop: 50,
+marginTop: 60,
 display: "grid",
 width: "fit-content",
 margin: "28px auto 0",
