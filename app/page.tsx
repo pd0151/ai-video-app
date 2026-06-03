@@ -3761,9 +3761,11 @@ const aiMiniPill: React.CSSProperties = {
 display: "inline-flex",
 padding: "9px 14px",
 borderRadius: 999,
-border: "1px solid rgba(220,235,255,0.26)",
-color: "#f8fbff",
+border: "0",
+color: "#05070b",
 fontSize: 12,
+boxShadow: "0 0 30px rgba(43,255,115,0.35)",
+background: "linear-gradient(135deg,#2BFF73,#42FF8A)",
 fontWeight: 950,
 letterSpacing: 2,
 };
