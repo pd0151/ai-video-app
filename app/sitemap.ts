@@ -5,7 +5,7 @@ process.env.NEXT_PUBLIC_SUPABASE_URL as string,
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 );
 
-const SITE_URL = "https://ai-video-app-live.https://adforge.uk";
+const SITE_URL = "https://adforge.uk";
 
 function slugify(value: string) {
 return value
@@ -37,6 +37,10 @@ lastModified: new Date(),
 })) || [];
 
 return [
+{
+url: `${SITE_URL}`,
+lastModified: new Date(),
+},
 {
 url: `${SITE_URL}/businesses`,
 lastModified: new Date(),
