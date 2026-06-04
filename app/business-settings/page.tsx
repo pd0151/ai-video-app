@@ -28,11 +28,11 @@ const [notificationPhone, setNotificationPhone] = useState("");
 const [serviceArea, setServiceArea] = useState("");
 const [openingHours, setOpeningHours] = useState("");
 const [aiGreeting, setAiGreeting] = useState("");
-
+const [businessId, setBusinessId] = useState("");
 
 useEffect(() => {
-checkPaidAccess();
 loadBusiness();
+setCheckingPayment(false);
 }, []);
 
 async function checkPaidAccess() {
@@ -74,6 +74,7 @@ const { data } = await supabase
 .maybeSingle();
 
 if (!data) return;
+setBusinessId(data.id);
 setBusinessName(data.name || "");
 setBusinessPhone(data.phone || "");
 setNotificationPhone(data.notification_phone || "");
@@ -238,12 +239,23 @@ onChange={(e) => setBusinessPhone(e.target.value)}
 style={input}
 />
 
-<input
-placeholder="What type of business are you?"
+<select
 value={businessType}
 onChange={(e) => setBusinessType(e.target.value)}
 style={input}
-/>
+>
+<option value="">Select business category</option>
+<option value="Mobile Tyre Fitting">Mobile Tyre Fitting</option>
+<option value="Recovery">Recovery</option>
+<option value="Barber">Barber</option>
+<option value="Gym">Gym</option>
+<option value="Electrician">Electrician</option>
+<option value="Plumber">Plumber</option>
+<option value="Builder">Builder</option>
+<option value="Restaurant">Restaurant</option>
+<option value="Mechanic">Mechanic</option>
+<option value="Car Dealer">Car Dealer</option>
+</select>
 
 <textarea
 placeholder="What services do you offer?"
@@ -270,6 +282,36 @@ style={textarea}
 {loading ? "Saving..." : "Save & Activate"}
 </button>
 </div>
+
+<div
+style={{
+marginTop: 24,
+padding: 20,
+borderRadius: 24,
+border: xeonBorder,
+background: "rgba(255,255,255,0.04)",
+}}
+>
+<h3 style={{ marginTop: 0 }}>Booking Widget</h3>
+
+<input
+readOnly
+value={`${window.location.origin}/book/${businessId}`}
+style={input}
+/>
+
+<button
+style={{ ...btn, marginTop: 12 }}
+onClick={() =>
+navigator.clipboard.writeText(
+`${window.location.origin}/book/${businessId}`
+)
+}
+>
+Copy Booking Link
+</button>
+</div>
+
 
 <div style={steps}>
 <div style={step}>◉ Business details saved</div>

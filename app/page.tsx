@@ -624,7 +624,26 @@ opacity: generating ? 0.65 : 1,
 }}
 >
 {generating ? "Generating AI Ad..." : "✨ Generate AI Ad →"}
+
 </button>
+
+<a
+href="/businesses"
+style={{
+padding: "14px 22px",
+borderRadius: 999,
+background: "white",
+color: "#05070d",
+fontWeight: 900,
+textDecoration: "none",
+display: "inline-block",
+marginTop: 10,
+}}
+>
+Find Local Businesses
+</a>
+
+
 
 
 

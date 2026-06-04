@@ -54,8 +54,8 @@ business_id: business?.id || "",
 email,
 },
 success_url:
-"https://ai-video-app-live.vercel.app/business-settings?paid=true",
-cancel_url: "https://ai-video-app-live.vercel.app/ai-receptionist",
+"https://ai-video-app-live.https://adforge.uk/business-settings?paid=true",
+cancel_url: "https://ai-video-app-live.https://adforge.uk/ai-receptionist",
 });
 
 return NextResponse.json({ url: session.url });

@@ -5,7 +5,7 @@ appId: 'com.peterdillon.adforge',
 appName: 'AdForge',
 webDir: 'out',
 server: {
-url: 'https://ai-video-app-live.vercel.app',
+url: 'https://ai-video-app-live.https://adforge.uk',
 cleartext: true
 }
 };

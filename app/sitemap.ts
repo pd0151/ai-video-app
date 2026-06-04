@@ -1,0 +1,47 @@
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
+);
+
+const SITE_URL = "https://ai-video-app-live.https://adforge.uk";
+
+function slugify(value: string) {
+return value
+.toLowerCase()
+.trim()
+.replace(/[^a-z0-9]+/g, "-")
+.replace(/^-+|-+$/g, "");
+}
+
+export default async function sitemap() {
+const { data: businesses } = await supabase
+.from("businesses")
+.select("slug,business_type,location");
+
+const businessPages =
+businesses
+?.filter((b) => b.slug)
+.map((b) => ({
+url: `${SITE_URL}/business/${b.slug}`,
+lastModified: new Date(),
+})) || [];
+
+const categoryLocationPages =
+businesses
+?.filter((b) => b.business_type && b.location)
+.map((b) => ({
+url: `${SITE_URL}/${slugify(b.business_type)}/${slugify(b.location)}`,
+lastModified: new Date(),
+})) || [];
+
+return [
+{
+url: `${SITE_URL}/businesses`,
+lastModified: new Date(),
+},
+...businessPages,
+...categoryLocationPages,
+];
+}
