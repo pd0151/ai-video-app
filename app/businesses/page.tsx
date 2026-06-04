@@ -306,6 +306,7 @@ const businessList: CSSProperties = {
 display: "flex",
 flexDirection: "column",
 gap: 13,
+paddingBottom: 160,
 };
 
 const businessCard: CSSProperties = {
