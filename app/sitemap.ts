@@ -18,7 +18,8 @@ return value
 export default async function sitemap() {
 const { data: businesses } = await supabase
 .from("businesses")
-.select("slug,business_type,location");
+.select("slug,business_type,location")
+.order("created_at", { ascending: false })
 
 const businessPages =
 businesses
