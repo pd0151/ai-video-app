@@ -258,7 +258,22 @@ style={input}
 <option value="Restaurant">Restaurant</option>
 <option value="Mechanic">Mechanic</option>
 <option value="Car Dealer">Car Dealer</option>
+<option value="Other">Other</option>
 </select>
+
+{businessType === "Other" && (
+<input
+placeholder="Enter your business type"
+value={businessType === "Other" ? "" : businessType}
+onChange={(e) => {
+setBusinessType(e.target.value);
+autoSaveSettings("business_type", e.target.value);
+}}
+style={input}
+/>
+)}
+
+
 
 <textarea
 placeholder="What services do you offer?"
