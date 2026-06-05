@@ -267,8 +267,11 @@ style={input}
 placeholder="Enter your business type"
 value={customBusinessType}
 onChange={(e) => {
-setCustomBusinessType(e.target.value);
+setBusinessType(e.target.value);
+
+if (e.target.value !== "Other") {
 autoSaveSettings("business_type", e.target.value);
+}
 }}
 style={input}
 />
