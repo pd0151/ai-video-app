@@ -31,6 +31,20 @@ const [aiGreeting, setAiGreeting] = useState("");
 const [businessId, setBusinessId] = useState("");
 const [customBusinessType, setCustomBusinessType] = useState("");
 
+const businessCategories = [
+"Mobile Tyre Fitting",
+"Recovery",
+"Barber",
+"Gym",
+"Electrician",
+"Plumber",
+"Builder",
+"Restaurant",
+"Mechanic",
+"Car Dealer",
+];
+
+
 
 useEffect(() => {
 loadBusiness();
@@ -80,7 +94,18 @@ setBusinessId(data.id);
 setBusinessName(data.name || "");
 setBusinessPhone(data.phone || "");
 setNotificationPhone(data.notification_phone || "");
-setBusinessType(data.business_type || "");
+const savedType = data.business_type || "";
+
+if (businessCategories.includes(savedType)) {
+setBusinessType(savedType);
+setCustomBusinessType("");
+} else if (savedType) {
+setBusinessType("Other");
+setCustomBusinessType(savedType);
+} else {
+setBusinessType("");
+setCustomBusinessType("");
+}
 setServicesOffered(data.services_offered || "");
 setDetailsToCollect(data.details_to_collect || "");
 setSpecialInstructions(data.special_instructions || "");
@@ -114,7 +139,7 @@ notification_phone: notificationPhone,
 service_area: serviceArea,
 opening_hours: openingHours,
 ai_greeting: aiGreeting,
-business_type: businessType,
+business_type: businessType === "Other" ? customBusinessType : businessType,
 services_offered: servicesOffered,
 details_to_collect: detailsToCollect,
 special_instructions: specialInstructions,
@@ -244,8 +269,14 @@ style={input}
 <select
 value={businessType}
 onChange={(e) => {
-setBusinessType(e.target.value);
-autoSaveSettings("business_type", e.target.value);
+const value = e.target.value;
+
+setBusinessType(value);
+
+if (value !== "Other") {
+setCustomBusinessType("");
+autoSaveSettings("business_type", value);
+}
 }}
 style={input}
 >
