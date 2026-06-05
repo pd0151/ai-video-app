@@ -241,7 +241,10 @@ style={input}
 
 <select
 value={businessType}
-onChange={(e) => setBusinessType(e.target.value)}
+onChange={(e) => {
+setBusinessType(e.target.value);
+autoSaveSettings("business_type", e.target.value);
+}}
 style={input}
 >
 <option value="">Select business category</option>
