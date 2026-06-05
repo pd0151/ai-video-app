@@ -120,7 +120,9 @@ setLoading(false);
 return (
 <main style={page}>
 <form onSubmit={handleSubmit} style={card}>
-<div style={badge}>AI ADVERTISING PLATFORM</div>
+<div style={badge}>
+AI <span style={{ color: "#32ff7e" }}>ADVERTISING</span> PLATFORM
+</div>
 
 <h1 style={title}>
 Ad<span style={{ color: "#34f57d" }}>Forge</span> Login
