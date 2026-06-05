@@ -123,7 +123,7 @@ return (
 <div style={badge}>AI ADVERTISING PLATFORM</div>
 
 <h1 style={title}>
-Ad<span style={{ color: "#FFFFFF" }}>Forge</span> Login
+Ad<span style={{ color: "#34f57d" }}>Forge</span> Login
 </h1>
 
 <p style={subtitle}>Login or create your business account</p>
