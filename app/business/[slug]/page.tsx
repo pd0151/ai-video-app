@@ -22,7 +22,7 @@ const type = business?.business_type || "Local Business";
 const location = business?.location || "Your Area";
 
 return {
-title: `${name} | ${type} in ${location} | AdForge`,
+title: `${type} ${location} - ${name} | AdForge`,
 description: `${name} is a ${type} in ${location}. Contact them directly through AdForge.`,
 };
 }
