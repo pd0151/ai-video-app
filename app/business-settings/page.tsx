@@ -29,6 +29,7 @@ const [serviceArea, setServiceArea] = useState("");
 const [openingHours, setOpeningHours] = useState("");
 const [aiGreeting, setAiGreeting] = useState("");
 const [businessId, setBusinessId] = useState("");
+const [customBusinessType, setCustomBusinessType] = useState("");
 
 useEffect(() => {
 loadBusiness();
@@ -264,9 +265,9 @@ style={input}
 {businessType === "Other" && (
 <input
 placeholder="Enter your business type"
-value={businessType === "Other" ? "" : businessType}
+value={customBusinessType}
 onChange={(e) => {
-setBusinessType(e.target.value);
+setCustomBusinessType(e.target.value);
 autoSaveSettings("business_type", e.target.value);
 }}
 style={input}
