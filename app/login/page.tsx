@@ -32,7 +32,7 @@ return;
 }
 
 const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
-redirectTo: "https://ai-video-app-live.https://adforge.uk/reset-password",
+redirectTo: "https://adforge.uk/reset-password"
 });
 
 if (error) {
