@@ -31,6 +31,7 @@ const [aiGreeting, setAiGreeting] = useState("");
 const [businessId, setBusinessId] = useState("");
 const [customBusinessType, setCustomBusinessType] = useState("");
 
+
 useEffect(() => {
 loadBusiness();
 setCheckingPayment(false);
@@ -270,6 +271,7 @@ onChange={(e) => {
 setBusinessType(e.target.value);
 
 if (e.target.value !== "Other") {
+setCustomBusinessType("");
 autoSaveSettings("business_type", e.target.value);
 }
 }}
