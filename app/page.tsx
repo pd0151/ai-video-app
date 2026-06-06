@@ -603,10 +603,10 @@ Never miss another customer enquiry. AI answers calls 24/7, captures lead detail
 
 <div style={miniLeadBox}>
 <b>LIVE CUSTOMER ENQUIRY</b>
-<span><b>Name</b> • John Smith</span>
-<span><b>Service</b> • Mobile Tyre Fitting</span>
-<span><b>Location</b> • Liverpool</span>
-<span><b>Phone</b> • 07*********</span>
+<span><b>Name</b> • Customer Captured</span>
+<span><b>Service</b> • Based On Your Business</span>
+<span><b>Location</b> • Customer Area Captured</span>
+<span><b>Phone</b> • Number Saved Automatically</span>
 <div style={leadStatus}>
 LIVE LEAD • SENT TO DASHBOARD
 </div>
@@ -631,10 +631,10 @@ LIVE LEAD • SENT TO DASHBOARD
 <button onClick={() => router.push("/ai-receptionist")} style={aiLaunchBtn}>
 <div
 style={{
-fontSize: 12,
-opacity: 0.7,
-letterSpacing: 2,
-marginBottom: 6,
+fontSize: 13,
+fontWeight: 700,
+letterSpacing: 3,
+marginBottom: 8,
 }}
 >
 ● AI ONLINE
@@ -642,11 +642,12 @@ marginBottom: 6,
 
 <div
 style={{
-fontSize: 22,
+fontSize: 28,
 fontWeight: 900,
+lineHeight: 1,
 }}
 >
-START FREE TRIAL →
+NEVER MISS A CALL AGAIN →
 </div>
 </button>
 
