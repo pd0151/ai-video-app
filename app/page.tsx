@@ -626,7 +626,7 @@ AI LISTENING
 
 <div style={callLine}></div>
 
-<div style={iphoneStatus}>AI Answering Live...</div>
+
 </div>
 </div>
 
