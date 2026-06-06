@@ -593,11 +593,7 @@ Never Miss
 A Lead.
 </h2>
 
-<h2 style={aiBigTitle}>
-Never Miss
-<br />
-A Lead.
-</h2>
+
 
 <div style={iphoneMockup}>
 <div style={iphoneIsland} />
