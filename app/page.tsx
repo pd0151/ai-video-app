@@ -730,25 +730,6 @@ style={{ display: "none" }}
 </section>
 
 
-<div style={heroPhoneWrap}>
-<video
-src="/videos/hero-demo.mp4"
-autoPlay
-muted
-loop
-playsInline
-style={heroPhoneVideo}
-/>
-</div>
-</div>
-
-
-
-
-</section>
-
-
-
 <section style={premiumAiReceptionist}>
 <span style={aiMiniPill}>• LIVE AI CALL SYSTEM</span>
 
@@ -815,6 +796,29 @@ Activate AI Receptionist →
 </div>
 </button>
 </section>
+
+
+
+
+<div style={heroPhoneWrap}>
+<video
+src="/videos/hero-demo.mp4"
+autoPlay
+muted
+loop
+playsInline
+style={heroPhoneVideo}
+/>
+</div>
+</div>
+
+
+
+
+</section>
+
+
+
 
 <section style={{ marginTop: 28 }}>
 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
