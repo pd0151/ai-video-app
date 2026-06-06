@@ -642,7 +642,7 @@ marginBottom: 8,
 
 <div
 style={{
-fontSize: 218,
+fontSize: 18,
 fontWeight: 900,
 lineHeight: 1,
 }}
