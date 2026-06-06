@@ -485,6 +485,12 @@ return (
 50% { transform: translateY(-10px); }
 }
 
+@keyframes pulseRing {
+0% { transform: scale(0.92); opacity: 0.75; }
+50% { transform: scale(1.08); opacity: 1; }
+100% { transform: scale(0.92); opacity: 0.75; }
+}
+
 @keyframes borderGlow {
 0% { opacity: 0.35; transform: translateX(-30%); }
 50% { opacity: 1; }
@@ -612,9 +618,11 @@ A Lead.
 <span></span>
 </div>
 
-<div style={iphoneStatus}>AI Answering...</div>
-<div style={iphoneDone}>Lead Captured ✓</div>
-<div style={iphoneDone}>SMS Sent ✓</div>
+<div style={ringCircle}>
+<div style={phoneIcon}>☎</div>
+</div>
+
+<div style={iphoneStatus}>AI Answering Live...</div>
 </div>
 </div>
 
@@ -3991,15 +3999,11 @@ const iphoneMockup: React.CSSProperties = {
 position: "absolute",
 top: 45,
 right: 22,
-
 width: 68,
 height: 145,
-
 borderRadius: 24,
 padding: 4,
-
 transform: "rotate(12deg)",
-
 background: "linear-gradient(180deg,#1a1a1a,#050505)",
 boxShadow:
 "0 0 30px rgba(50,255,120,0.18), 0 12px 40px rgba(0,0,0,0.6)",
@@ -4072,4 +4076,25 @@ borderRadius: 999,
 background: "rgba(255,255,255,0.08)",
 border: "1px solid rgba(255,255,255,0.14)",
 marginTop: 3,
+};
+
+
+
+const ringCircle: React.CSSProperties = {
+width: 46,
+height: 46,
+borderRadius: "50%",
+margin: "10px auto 8px",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+background: "rgba(49,255,126,0.12)",
+border: "1px solid rgba(49,255,126,0.45)",
+boxShadow: "0 0 22px rgba(49,255,126,0.35)",
+animation: "pulseRing 1.4s infinite",
+};
+
+const phoneIcon: React.CSSProperties = {
+fontSize: 20,
+color: "#31ff7e",
 };
