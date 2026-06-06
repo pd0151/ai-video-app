@@ -3991,8 +3991,8 @@ const iphoneMockup: React.CSSProperties = {
 position: "absolute",
 top: 10,
 right: 34,
-width: 82,
-height: 172,
+width: 70,
+height: 150,
 borderRadius: 26,
 background:
 "linear-gradient(145deg, #1b1f28, #05070d 55%, #11151f)",
@@ -4021,7 +4021,7 @@ height: "100%",
 borderRadius: 22,
 background:
 "radial-gradient(circle at top, rgba(49,255,126,0.16), transparent 36%), #05070d",
-padding: "30px 8px 8px",
+padding: "26px 7px 7px",
 color: "white",
 textAlign: "center",
 overflow: "hidden",
@@ -4057,17 +4057,17 @@ margin: "12px 0",
 };
 
 const iphoneStatus: React.CSSProperties = {
-fontSize: 7,
+fontSize: 6,
 fontWeight: 900,
 color: "#31ff7e",
-marginBottom: 6,
+marginBottom: 4,
 };
 
 const iphoneDone: React.CSSProperties = {
-fontSize: 6,
-padding: "4px 5px",
+fontSize: 5,
+padding: "3px 5px",
 borderRadius: 999,
 background: "rgba(255,255,255,0.08)",
 border: "1px solid rgba(255,255,255,0.14)",
-marginTop: 5,
+marginTop: 3,
 };
