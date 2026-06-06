@@ -618,7 +618,7 @@ A Lead.
 </div>
 </div>
 
-<div style={liveLeadStatus}></div>
+
 
 
 
@@ -3989,19 +3989,21 @@ display: "block",
 
 const iphoneMockup: React.CSSProperties = {
 position: "absolute",
-top: 10,
-right: 34,
-width: 70,
-height: 150,
-borderRadius: 26,
-background:
-"linear-gradient(145deg, #1b1f28, #05070d 55%, #11151f)",
-border: "1px solid rgba(255,255,255,0.22)",
+top: 45,
+right: 22,
+
+width: 68,
+height: 145,
+
+borderRadius: 24,
+padding: 4,
+
+transform: "rotate(12deg)",
+
+background: "linear-gradient(180deg,#1a1a1a,#050505)",
 boxShadow:
-"0 0 35px rgba(255,255,255,0.16), 0 0 75px rgba(49,255,126,0.18)",
-transform: "rotate(9deg)",
-padding: 8,
-zIndex: 2,
+"0 0 30px rgba(50,255,120,0.18), 0 12px 40px rgba(0,0,0,0.6)",
+zIndex: 5,
 };
 
 const iphoneIsland: React.CSSProperties = {
