@@ -472,9 +472,7 @@ setChatLoading(false);
 
 return (
 <>
-<button onClick={refreshPage} style={refreshBtn}>
-↻
-</button>
+
 
 
 
@@ -596,19 +594,19 @@ A Lead.
 </h2>
 
 <div style={liveLeadStatus}>
-AI answered call • Lead captured • SMS sent
+24/7 Answering • Lead Capture • SMS Alerts
 </div>
 
 <p style={aiDesc}>
-Answers every call, captures lead details and delivers them instantly to your dashboard.
+Never miss another customer enquiry. AI answers calls 24/7, captures lead details and sends them instantly by SMS.
 </p>
 
 <div style={miniLeadBox}>
 <b>LIVE CUSTOMER ENQUIRY</b>
-<span><b>CUSTOMER</b> • Captured from call</span>
-<span><b>REQUEST</b> • Based on your services</span>
-<span><b>LOCATION</b> • Customer area captured</span>
-<span><b>CONTACT</b> • Phone number saved</span>
+<span><b>Name</b> • John Smith</span>
+<span><b>Service</b> • Mobile Tyre Fitting</span>
+<span><b>Location</b> • Liverpool</span>
+<span><b>Phone</b> • 07*********</span>
 <div style={leadStatus}>
 LIVE LEAD • SENT TO DASHBOARD
 </div>
@@ -648,9 +646,21 @@ fontSize: 22,
 fontWeight: 900,
 }}
 >
-Activate AI Receptionist →
+START FREE TRIAL →
 </div>
 </button>
+
+<div
+style={{
+textAlign: "center",
+color: "rgba(255,255,255,0.75)",
+fontSize: 14,
+marginTop: 10,
+}}
+>
+Only £99/month • Setup in 24 hours
+</div>
+
 </section>
 
 <section style={platformHero}>
