@@ -618,16 +618,17 @@ A Lead.
 <span></span>
 </div>
 
-<div style={ringCircle}>
-<div style={phoneIcon}>☎</div>
+<div style={callLine}></div>
+
+<div style={callStatus}>
+AI LISTENING
 </div>
+
+<div style={callLine}></div>
 
 <div style={iphoneStatus}>AI Answering Live...</div>
 </div>
 </div>
-
-
-
 
 
 <div style={liveLeadStatus}>
@@ -4097,4 +4098,23 @@ animation: "pulseRing 1.4s infinite",
 const phoneIcon: React.CSSProperties = {
 fontSize: 20,
 color: "#31ff7e",
+};
+
+
+const callLine: React.CSSProperties = {
+width: "100%",
+height: 2,
+borderRadius: 999,
+margin: "10px 0",
+background:
+"linear-gradient(90deg,transparent,#31ff7e,transparent)",
+boxShadow: "0 0 12px rgba(49,255,126,0.5)",
+};
+
+const callStatus: React.CSSProperties = {
+textAlign: "center",
+fontSize: 7,
+fontWeight: 900,
+color: "#31ff7e",
+letterSpacing: 1,
 };
