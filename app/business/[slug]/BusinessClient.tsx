@@ -121,7 +121,16 @@ WhatsApp
 )}
 
 {website && (
-<a href={website} target="_blank" style={darkButton}>
+<a
+href={
+website.startsWith("http")
+? website
+: `https://${website}`
+}
+target="_blank"
+rel="noopener noreferrer"
+style={darkButton}
+>
 Website
 </a>
 )}
