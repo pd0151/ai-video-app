@@ -3989,7 +3989,7 @@ display: "block",
 
 const iphoneMockup: React.CSSProperties = {
 position: "absolute",
-top: 62,
+top: 85,
 right: 34,
 width: 82,
 height: 172,
@@ -4000,7 +4000,7 @@ border: "1px solid rgba(255,255,255,0.22)",
 boxShadow:
 "0 0 35px rgba(255,255,255,0.16), 0 0 75px rgba(49,255,126,0.18)",
 transform: "rotate(9deg)",
-padding: 5,
+padding: 8,
 zIndex: 2,
 };
 
