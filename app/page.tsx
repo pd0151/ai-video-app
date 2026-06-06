@@ -3989,7 +3989,7 @@ display: "block",
 
 const iphoneMockup: React.CSSProperties = {
 position: "absolute",
-top: 45,
+top: 10,
 right: 34,
 width: 82,
 height: 172,
