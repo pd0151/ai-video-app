@@ -3989,28 +3989,28 @@ display: "block",
 
 const iphoneMockup: React.CSSProperties = {
 position: "absolute",
-top: 38,
-right: 28,
-width: 118,
-height: 238,
-borderRadius: 34,
+top: 62,
+right: 34,
+width: 82,
+height: 172,
+borderRadius: 26,
 background:
 "linear-gradient(145deg, #1b1f28, #05070d 55%, #11151f)",
 border: "1px solid rgba(255,255,255,0.22)",
 boxShadow:
 "0 0 35px rgba(255,255,255,0.16), 0 0 75px rgba(49,255,126,0.18)",
-transform: "rotate(10deg)",
-padding: 7,
+transform: "rotate(9deg)",
+padding: 5,
 zIndex: 2,
 };
 
 const iphoneIsland: React.CSSProperties = {
 position: "absolute",
-top: 12,
+top: 9,
 left: "50%",
 transform: "translateX(-50%)",
-width: 48,
-height: 15,
+width: 38,
+height: 12,
 borderRadius: 999,
 background: "#000",
 zIndex: 4,
@@ -4018,10 +4018,10 @@ zIndex: 4,
 
 const iphoneScreen: React.CSSProperties = {
 height: "100%",
-borderRadius: 28,
+borderRadius: 22,
 background:
 "radial-gradient(circle at top, rgba(49,255,126,0.16), transparent 36%), #05070d",
-padding: "34px 10px 10px",
+padding: "30px 8px 8px",
 color: "white",
 textAlign: "center",
 overflow: "hidden",
@@ -4036,15 +4036,15 @@ fontWeight: 800,
 };
 
 const iphoneCaller: React.CSSProperties = {
-fontSize: 15,
+fontSize: 12,
 fontWeight: 900,
 lineHeight: 1.05,
 };
 
 const iphoneSub: React.CSSProperties = {
-fontSize: 9,
+fontSize: 7,
 opacity: 0.65,
-marginTop: 4,
+marginTop: 3,
 };
 
 const iphoneWave: React.CSSProperties = {
@@ -4057,17 +4057,17 @@ margin: "12px 0",
 };
 
 const iphoneStatus: React.CSSProperties = {
-fontSize: 9,
+fontSize: 7,
 fontWeight: 900,
 color: "#31ff7e",
-marginBottom: 8,
+marginBottom: 6,
 };
 
 const iphoneDone: React.CSSProperties = {
-fontSize: 8,
-padding: "6px 7px",
+fontSize: 6,
+padding: "4px 5px",
 borderRadius: 999,
 background: "rgba(255,255,255,0.08)",
 border: "1px solid rgba(255,255,255,0.14)",
-marginTop: 6,
+marginTop: 5,
 };
