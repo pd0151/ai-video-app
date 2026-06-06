@@ -593,6 +593,39 @@ Never Miss
 A Lead.
 </h2>
 
+<h2 style={aiBigTitle}>
+Never Miss
+<br />
+A Lead.
+</h2>
+
+<div style={iphoneMockup}>
+<div style={iphoneIsland} />
+
+<div style={iphoneScreen}>
+<div style={iphoneTopText}>INCOMING CALL</div>
+
+<div style={iphoneCaller}>John Smith</div>
+<div style={iphoneSub}>Liverpool L1</div>
+
+<div style={iphoneWave}>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+<div style={iphoneStatus}>AI Answering...</div>
+<div style={iphoneDone}>Lead Captured ✓</div>
+<div style={iphoneDone}>SMS Sent ✓</div>
+</div>
+</div>
+
+<div style={liveLeadStatus}></div>
+
+
+
 <div style={liveLeadStatus}>
 24/7 Answering • Lead Capture • SMS Alerts
 </div>
@@ -3785,6 +3818,8 @@ color: "#f8fbff",
 const premiumAiReceptionist: React.CSSProperties = {
 marginTop: 24,
 padding: 22,
+position: "relative",
+overflow: "hidden",
 borderRadius: 34,
 background: "#05070b",
 border: "1px solid rgba(255,255,255,0.14)",
@@ -3816,14 +3851,14 @@ letterSpacing: -2,
 
 const liveLeadStatus: React.CSSProperties = {
 marginBottom: 14,
-padding: "12px 14px",
-borderRadius: 18,
+padding: "10px 14px",
+borderRadius: 16,
 background: "rgba(255,255,255,0.04)",
 border: "1px solid rgba(255,255,255,0.18)",
 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
 color: "white",
 fontWeight: 900,
-fontSize: 13,
+fontSize: 12,
 };
 
 const aiDesc: React.CSSProperties = {
@@ -3953,4 +3988,90 @@ width: "100%",
 height: "100%",
 objectFit: "cover",
 display: "block",
+};
+
+
+const iphoneMockup: React.CSSProperties = {
+position: "absolute",
+top: 38,
+right: 28,
+width: 118,
+height: 238,
+borderRadius: 34,
+background:
+"linear-gradient(145deg, #1b1f28, #05070d 55%, #11151f)",
+border: "1px solid rgba(255,255,255,0.22)",
+boxShadow:
+"0 0 35px rgba(255,255,255,0.16), 0 0 75px rgba(49,255,126,0.18)",
+transform: "rotate(10deg)",
+padding: 7,
+zIndex: 2,
+};
+
+const iphoneIsland: React.CSSProperties = {
+position: "absolute",
+top: 12,
+left: "50%",
+transform: "translateX(-50%)",
+width: 48,
+height: 15,
+borderRadius: 999,
+background: "#000",
+zIndex: 4,
+};
+
+const iphoneScreen: React.CSSProperties = {
+height: "100%",
+borderRadius: 28,
+background:
+"radial-gradient(circle at top, rgba(49,255,126,0.16), transparent 36%), #05070d",
+padding: "34px 10px 10px",
+color: "white",
+textAlign: "center",
+overflow: "hidden",
+};
+
+const iphoneTopText: React.CSSProperties = {
+fontSize: 7,
+letterSpacing: 1.4,
+opacity: 0.6,
+marginBottom: 10,
+fontWeight: 800,
+};
+
+const iphoneCaller: React.CSSProperties = {
+fontSize: 15,
+fontWeight: 900,
+lineHeight: 1.05,
+};
+
+const iphoneSub: React.CSSProperties = {
+fontSize: 9,
+opacity: 0.65,
+marginTop: 4,
+};
+
+const iphoneWave: React.CSSProperties = {
+display: "flex",
+justifyContent: "center",
+alignItems: "center",
+gap: 3,
+height: 32,
+margin: "12px 0",
+};
+
+const iphoneStatus: React.CSSProperties = {
+fontSize: 9,
+fontWeight: 900,
+color: "#31ff7e",
+marginBottom: 8,
+};
+
+const iphoneDone: React.CSSProperties = {
+fontSize: 8,
+padding: "6px 7px",
+borderRadius: 999,
+background: "rgba(255,255,255,0.08)",
+border: "1px solid rgba(255,255,255,0.14)",
+marginTop: 6,
 };
