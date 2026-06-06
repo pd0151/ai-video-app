@@ -3998,7 +3998,7 @@ display: "block",
 
 const iphoneMockup: React.CSSProperties = {
 position: "absolute",
-top: 45,
+top: 32,
 right: 22,
 width: 68,
 height: 145,
@@ -4113,8 +4113,9 @@ boxShadow: "0 0 12px rgba(49,255,126,0.5)",
 
 const callStatus: React.CSSProperties = {
 textAlign: "center",
-fontSize: 7,
+fontSize: 5,
 fontWeight: 900,
 color: "#31ff7e",
 letterSpacing: 1,
+marginTop: -2,
 };
