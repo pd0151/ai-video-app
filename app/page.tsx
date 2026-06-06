@@ -4058,9 +4058,9 @@ const iphoneWave: React.CSSProperties = {
 display: "flex",
 justifyContent: "center",
 alignItems: "center",
-gap: 3,
-height: 32,
-margin: "12px 0",
+gap: 2,
+height: 18,
+margin: "6px 0",
 };
 
 const iphoneStatus: React.CSSProperties = {
