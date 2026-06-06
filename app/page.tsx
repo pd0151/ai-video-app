@@ -583,6 +583,76 @@ PRO
 
 {/* PREMIUM ADFORGE HOME REDESIGN */}
 
+
+
+
+<section style={premiumAiReceptionist}>
+<span style={aiMiniPill}>• LIVE AI CALL SYSTEM</span>
+
+<h2 style={aiBigTitle}>
+Never Miss
+<br />
+A Lead.
+</h2>
+
+<div style={liveLeadStatus}>
+AI answered call • Lead captured • SMS sent
+</div>
+
+<p style={aiDesc}>
+Answers every call, captures lead details and delivers them instantly to your dashboard.
+</p>
+
+<div style={miniLeadBox}>
+<b>LIVE CUSTOMER ENQUIRY</b>
+<span><b>CUSTOMER</b> • Captured from call</span>
+<span><b>REQUEST</b> • Based on your services</span>
+<span><b>LOCATION</b> • Customer area captured</span>
+<span><b>CONTACT</b> • Phone number saved</span>
+<div style={leadStatus}>
+LIVE LEAD • SENT TO DASHBOARD
+</div>
+</div>
+
+<div style={aiStatsRow}>
+<div style={aiStatCard}>
+<b>24/7</b>
+<span>Answering</span>
+</div>
+<div style={aiStatCard}>
+<b>Lead</b>
+<span>Capture</span>
+</div>
+
+<div style={aiStatCard}>
+<b>SMS</b>
+<span>Alerts</span>
+</div>
+</div>
+
+<button onClick={() => router.push("/ai-receptionist")} style={aiLaunchBtn}>
+<div
+style={{
+fontSize: 12,
+opacity: 0.7,
+letterSpacing: 2,
+marginBottom: 6,
+}}
+>
+● AI ONLINE
+</div>
+
+<div
+style={{
+fontSize: 22,
+fontWeight: 900,
+}}
+>
+Activate AI Receptionist →
+</div>
+</button>
+</section>
+
 <section style={platformHero}>
 <div style={platformHeroCopy}>
 <span style={platformPill}>ADFORGE PLATFORM</span>
@@ -751,72 +821,6 @@ style={heroPhoneVideo}
 </section>
 
 
-<section style={premiumAiReceptionist}>
-<span style={aiMiniPill}>• LIVE AI CALL SYSTEM</span>
-
-<h2 style={aiBigTitle}>
-Never Miss
-<br />
-A Lead.
-</h2>
-
-<div style={liveLeadStatus}>
-AI answered call • Lead captured • SMS sent
-</div>
-
-<p style={aiDesc}>
-Answers every call, captures lead details and delivers them instantly to your dashboard.
-</p>
-
-<div style={miniLeadBox}>
-<b>LIVE CUSTOMER ENQUIRY</b>
-<span><b>CUSTOMER</b> • Captured from call</span>
-<span><b>REQUEST</b> • Based on your services</span>
-<span><b>LOCATION</b> • Customer area captured</span>
-<span><b>CONTACT</b> • Phone number saved</span>
-<div style={leadStatus}>
-LIVE LEAD • SENT TO DASHBOARD
-</div>
-</div>
-
-<div style={aiStatsRow}>
-<div style={aiStatCard}>
-<b>24/7</b>
-<span>Answering</span>
-</div>
-<div style={aiStatCard}>
-<b>Lead</b>
-<span>Capture</span>
-</div>
-
-<div style={aiStatCard}>
-<b>SMS</b>
-<span>Alerts</span>
-</div>
-</div>
-
-<button onClick={() => router.push("/ai-receptionist")} style={aiLaunchBtn}>
-<div
-style={{
-fontSize: 12,
-opacity: 0.7,
-letterSpacing: 2,
-marginBottom: 6,
-}}
->
-● AI ONLINE
-</div>
-
-<div
-style={{
-fontSize: 22,
-fontWeight: 900,
-}}
->
-Activate AI Receptionist →
-</div>
-</button>
-</section>
 
 <section style={{ marginTop: 28 }}>
 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
