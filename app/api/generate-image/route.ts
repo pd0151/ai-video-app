@@ -94,14 +94,36 @@ Premium composition.
 Social-media ready.
 
 TEXT:
+
 Use only the important words from the user prompt.
-Keep text readable.
-Use fewer words.
-Use bold premium typography.
-Keep all text away from edges.
+
+Maximum 3-6 words total on the advert.
+
+Use large but safe typography.
+
+ALL text must fit fully inside the image.
+
+Leave at least 15% empty space around every edge.
+
+Never place text against the left edge.
+
+Never place text against the right edge.
+
+Never place text against the top edge.
+
+Never place text against the bottom edge.
+
+Keep all text inside the centre safe area.
+
 Do not crop text.
-Do not misspell text.
-Do not add random extra text.
+
+Do not cut off letters.
+
+Do not allow text to touch the edge of the image.
+
+Use premium commercial advertising layouts similar to Apple, Nike and Adidas campaigns.
+
+Text must remain readable when viewed inside a mobile social media feed.
 
 COLOURS:
 Use colours requested by the user.
@@ -111,10 +133,17 @@ Do not always use black and gold.
 Make the colour scheme match the industry.
 
 FEED SAFE:
-Make the advert fit well inside a mobile feed card.
-Keep the subject and text inside the centre safe area.
-Do not place important text at the very top or very bottom.
-Leave breathing room around the edges.
+
+Design specifically for a mobile feed.
+
+Leave a large safe margin around all sides.
+
+Keep the entire subject and all text inside the middle 70% of the image.
+
+Nothing important should touch any edge.
+
+The advert must display perfectly inside a social media card without cropping.
+
 
 NEGATIVE:
 No blurry text.
