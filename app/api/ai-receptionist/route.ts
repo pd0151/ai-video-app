@@ -381,6 +381,24 @@ from: process.env.TWILIO_FROM!,
 to: process.env.NOTIFY_PHONE!,
 });
 
+const isDemoCall = incomingTwilioNumber?.includes("447576590378");
+
+if (isDemoCall && customerPhone) {
+await client.messages.create({
+body: `Thanks for testing AdForge AI.
+
+Your details were captured successfully.
+
+Name: ${name}
+Phone: ${customerPhone}
+
+This is how your business leads can be captured 24/7.`,
+from: process.env.TWILIO_FROM!,
+to: customerPhone,
+});
+}
+
+
 return NextResponse.json({ ok: true });
 } catch (err: any) {
 console.error("❌ API ERROR:", err?.message || err);
