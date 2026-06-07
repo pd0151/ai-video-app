@@ -391,12 +391,11 @@ if (issue === "AI Receptionist Demo" && customerTo.length > 8) {
 await client.messages.create({
 body: `Thanks for testing AdForge AI.
 
-Your details were captured successfully.
+Your enquiry was captured successfully.
 
 Name: ${name}
 Business: ${vehicle}
-Phone: ${customerPhone}
-Area: ${postcode}
+Location: ${postcode}
 
 This is how your business leads can be captured 24/7.`,
 from: process.env.TWILIO_FROM!,
