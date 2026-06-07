@@ -13,6 +13,7 @@ return (
 <div style={topRow}>
 <div>
 <div style={brandSmall}>ADFORGE AI</div>
+
 <h1 style={title}>
 Never Miss
 <br />A Lead.
@@ -50,6 +51,25 @@ WATCH DEMO
 </div>
 </section>
 
+<section style={leadCard}>
+<div style={leadTitle}>LIVE DEMO LEAD</div>
+
+<div style={leadRow}>
+<b>Name</b>
+<span>Customer Captured</span>
+</div>
+
+<div style={leadRow}>
+<b>Business</b>
+<span>Captured Automatically</span>
+</div>
+
+<div style={leadRow}>
+<b>SMS</b>
+<span>Sent Instantly</span>
+</div>
+</section>
+
 <section style={proof}>
 <div style={proofItem}>
 <b>24/7 Answering</b>
@@ -68,10 +88,8 @@ WATCH DEMO
 </section>
 
 <section style={priceCard}>
-<div>
 <div style={price}>£99/month</div>
 <p style={priceText}>AI Receptionist • Lead Capture • SMS Alerts</p>
-</div>
 
 <Link href="/login" style={whiteBtn}>
 GET STARTED →
@@ -84,7 +102,7 @@ GET STARTED →
 const page: CSSProperties = {
 minHeight: "100vh",
 background:
-"radial-gradient(circle at top right, rgba(49,255,126,0.16), transparent 34%), #020305",
+"radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 32%), #020305",
 color: "white",
 padding: "22px 16px 110px",
 fontFamily: "Arial, sans-serif",
@@ -94,9 +112,10 @@ const hero: CSSProperties = {
 borderRadius: 34,
 padding: 22,
 background:
-"linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03))",
-border: "1px solid rgba(255,255,255,0.14)",
-boxShadow: "0 0 50px rgba(49,255,126,0.08)",
+"linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025))",
+border: "1px solid rgba(255,255,255,0.16)",
+boxShadow:
+"0 0 34px rgba(255,255,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08)",
 overflow: "hidden",
 };
 
@@ -108,10 +127,10 @@ gap: 12,
 };
 
 const brandSmall: CSSProperties = {
-color: "#31ff7e",
+color: "rgba(255,255,255,0.72)",
 fontSize: 12,
 fontWeight: 950,
-letterSpacing: 2,
+letterSpacing: 3,
 marginBottom: 14,
 };
 
@@ -127,20 +146,21 @@ const sub: CSSProperties = {
 margin: "18px 0 0",
 fontSize: 16,
 lineHeight: 1.45,
-color: "rgba(255,255,255,0.72)",
+color: "rgba(255,255,255,0.7)",
 };
 
 const phone: CSSProperties = {
 position: "relative",
-flex: "0 0 118px",
-height: 220,
+flex: "0 0 104px",
+height: 194,
 borderRadius: 30,
-padding: "48px 12px 12px",
+padding: "44px 10px 12px",
 background:
-"radial-gradient(circle at top, rgba(49,255,126,0.18), transparent 44%), #05070d",
+"radial-gradient(circle at top, rgba(49,255,126,0.14), transparent 42%), #05070d",
 border: "1px solid rgba(255,255,255,0.18)",
-boxShadow: "0 0 34px rgba(49,255,126,0.18)",
-transform: "rotate(7deg)",
+boxShadow:
+"0 0 26px rgba(255,255,255,0.12), 0 0 28px rgba(49,255,126,0.12)",
+transform: "rotate(7deg) translateY(-4px)",
 textAlign: "center",
 };
 
@@ -149,22 +169,22 @@ position: "absolute",
 top: 14,
 left: "50%",
 transform: "translateX(-50%)",
-width: 58,
-height: 17,
+width: 54,
+height: 16,
 borderRadius: 999,
 background: "#000",
 };
 
 const phoneText: CSSProperties = {
-fontSize: 8,
+fontSize: 7,
 letterSpacing: 2,
 opacity: 0.65,
 fontWeight: 900,
 };
 
 const caller: CSSProperties = {
-marginTop: 16,
-fontSize: 18,
+marginTop: 14,
+fontSize: 17,
 fontWeight: 950,
 };
 
@@ -178,9 +198,9 @@ fontWeight: 900,
 const pulseLine: CSSProperties = {
 height: 3,
 borderRadius: 999,
-marginTop: 28,
+marginTop: 24,
 background: "linear-gradient(90deg,transparent,#31ff7e,transparent)",
-boxShadow: "0 0 16px rgba(49,255,126,0.7)",
+boxShadow: "0 0 14px rgba(49,255,126,0.55)",
 };
 
 const buttons: CSSProperties = {
@@ -196,11 +216,11 @@ textAlign: "center",
 textDecoration: "none",
 padding: "15px 12px",
 borderRadius: 999,
-background: "linear-gradient(135deg,#31ff7e,#16c957)",
+background: "linear-gradient(135deg,#7CFF9B,#31ff7e)",
 color: "#041006",
 fontWeight: 950,
 fontSize: 13,
-boxShadow: "0 0 30px rgba(49,255,126,0.28)",
+boxShadow: "0 0 28px rgba(49,255,126,0.3)",
 };
 
 const darkBtn: CSSProperties = {
@@ -209,11 +229,12 @@ textAlign: "center",
 textDecoration: "none",
 padding: "15px 12px",
 borderRadius: 999,
-background: "rgba(255,255,255,0.08)",
-border: "1px solid rgba(255,255,255,0.15)",
+background: "rgba(255,255,255,0.055)",
+border: "1px solid rgba(255,255,255,0.18)",
 color: "white",
 fontWeight: 900,
 fontSize: 13,
+boxShadow: "0 0 18px rgba(255,255,255,0.08)",
 };
 
 const miniFlow: CSSProperties = {
@@ -221,6 +242,37 @@ display: "grid",
 gridTemplateColumns: "1fr 1fr 1fr",
 gap: 8,
 marginTop: 18,
+color: "rgba(255,255,255,0.82)",
+};
+
+const leadCard: CSSProperties = {
+display: "grid",
+gap: 10,
+marginTop: 14,
+padding: 18,
+borderRadius: 28,
+background: "rgba(255,255,255,0.045)",
+border: "1px solid rgba(255,255,255,0.14)",
+boxShadow:
+"0 0 26px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.06)",
+};
+
+const leadTitle: CSSProperties = {
+fontSize: 14,
+fontWeight: 950,
+letterSpacing: 1,
+marginBottom: 2,
+};
+
+const leadRow: CSSProperties = {
+display: "flex",
+justifyContent: "space-between",
+gap: 10,
+padding: "11px 12px",
+borderRadius: 18,
+background: "rgba(255,255,255,0.05)",
+border: "1px solid rgba(255,255,255,0.09)",
+color: "rgba(255,255,255,0.7)",
 };
 
 const proof: CSSProperties = {
@@ -234,19 +286,21 @@ display: "grid",
 gap: 5,
 padding: 16,
 borderRadius: 24,
-background: "rgba(255,255,255,0.06)",
-border: "1px solid rgba(255,255,255,0.12)",
+background: "rgba(255,255,255,0.045)",
+border: "1px solid rgba(255,255,255,0.13)",
 color: "rgba(255,255,255,0.68)",
+boxShadow: "0 0 20px rgba(255,255,255,0.06)",
 };
 
 const priceCard: CSSProperties = {
 marginTop: 14,
 padding: 20,
 borderRadius: 28,
-background:
-"linear-gradient(145deg, rgba(49,255,126,0.13), rgba(255,255,255,0.05))",
-border: "1px solid rgba(49,255,126,0.25)",
+background: "rgba(255,255,255,0.045)",
+border: "1px solid rgba(255,255,255,0.14)",
 textAlign: "center",
+boxShadow:
+"0 0 28px rgba(255,255,255,0.09), inset 0 1px 0 rgba(255,255,255,0.06)",
 };
 
 const price: CSSProperties = {
@@ -265,8 +319,9 @@ textAlign: "center",
 textDecoration: "none",
 padding: "16px 18px",
 borderRadius: 999,
-background: "white",
+background: "linear-gradient(180deg,#ffffff,#e9edf5)",
 color: "#05070d",
 fontWeight: 950,
 fontSize: 15,
+boxShadow: "0 0 26px rgba(255,255,255,0.28)",
 };
