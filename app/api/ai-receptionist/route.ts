@@ -397,7 +397,7 @@ Name: ${name}
 Business: ${vehicle}
 Location: ${postcode}
 
-This is how your business leads can be captured 24/7.`,
+This is how your business leads can be captured 24/7. AI can take any details you require`,
 from: process.env.TWILIO_FROM!,
 to: customerTo,
 });
