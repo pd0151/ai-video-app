@@ -381,6 +381,29 @@ from: process.env.TWILIO_FROM!,
 to: process.env.NOTIFY_PHONE!,
 });
 
+const customerTo = String(customerPhone || "").replace(/\s/g, "").startsWith("+")
+? String(customerPhone).replace(/\s/g, "")
+: String(customerPhone || "").replace(/\D/g, "").startsWith("0")
+? `+44${String(customerPhone).replace(/\D/g, "").slice(1)}`
+: `+${String(customerPhone || "").replace(/\D/g, "")}`;
+
+if (issue === "AI Receptionist Demo" && customerTo.length > 8) {
+await client.messages.create({
+body: `Thanks for testing AdForge AI.
+
+Your details were captured successfully.
+
+Name: ${name}
+Business: ${vehicle}
+Phone: ${customerPhone}
+Area: ${postcode}
+
+This is how your business leads can be captured 24/7.`,
+from: process.env.TWILIO_FROM!,
+to: customerTo,
+});
+}
+
 const isDemoCall = String(incomingTwilioNumber || "").replace(/\D/g, "").includes("447576590378");
 
 if (isDemoCall && customerPhone) {
