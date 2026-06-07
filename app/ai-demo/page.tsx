@@ -4,8 +4,8 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 
 export default function AiDemoPage() {
-const demoNumber = "tel:+447576580334"; // change to your AI demo number
-const demoVideo = "https://www.tiktok.com/@yourname/video/123"; // change to your video link
+const demoNumber = "tel:+447576590378"; // change to your AI demo number
+const demoVideo = "https://vm.tiktok.com/ZNRvmTSS8/"; // change to your video link
 
 return (
 <main style={page}>
