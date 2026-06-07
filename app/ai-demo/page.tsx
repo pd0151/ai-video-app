@@ -91,7 +91,7 @@ START FREE SETUP →
 <div style={price}>£99/month</div>
 <p style={priceText}>AI Receptionist • Lead Capture • SMS Alerts</p>
 
-<Link href="/signup" style={greenBtn}>
+<Link href="/login" style={greenBtn}>
 GET STARTED →
 </Link>
 </section>
