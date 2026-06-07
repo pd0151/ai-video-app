@@ -381,9 +381,14 @@ from: process.env.TWILIO_FROM!,
 to: process.env.NOTIFY_PHONE!,
 });
 
-const isDemoCall = incomingTwilioNumber?.includes("447576590378");
+const isDemoCall = String(incomingTwilioNumber || "").replace(/\D/g, "").includes("447576590378");
 
 if (isDemoCall && customerPhone) {
+const customerTo = String(customerPhone).startsWith("+")
+? String(customerPhone)
+: String(customerPhone).startsWith("0")
+? `+44${String(customerPhone).slice(1)}`
+: `+${String(customerPhone).replace(/\D/g, "")}`;
 await client.messages.create({
 body: `Thanks for testing AdForge AI.
 
@@ -394,7 +399,7 @@ Phone: ${customerPhone}
 
 This is how your business leads can be captured 24/7.`,
 from: process.env.TWILIO_FROM!,
-to: customerPhone,
+to: customerTo,
 });
 }
 
