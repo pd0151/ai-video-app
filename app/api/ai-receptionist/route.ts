@@ -193,6 +193,9 @@ transcript.match(/i'm\s+([a-z]+)/i);
 return found?.[1] || "Not given";
 }
 
+
+
+
 export async function POST(req: NextRequest) {
 try {
 const body = await req.json();
@@ -274,9 +277,9 @@ const cleanVehicle = String(vehicle || "")
 
 
 const tyreSize =
+extractTyreSize(transcript) ||
 args.tyre_size ||
 args.tyreSize ||
-extractTyreSize(transcript) ||
 "Not given";
 
 const postcode =
