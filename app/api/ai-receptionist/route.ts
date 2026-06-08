@@ -277,9 +277,9 @@ const cleanVehicle = String(vehicle || "")
 
 
 const tyreSize =
-extractTyreSize(transcript) ||
 args.tyre_size ||
 args.tyreSize ||
+extractTyreSize(transcript) ||
 "Not given";
 
 const postcode =
