@@ -293,23 +293,11 @@ const cleanPostcode = String(postcode || "")
 .replace(/city centre/gi, "L1");
 
 const customerPhone =
-extractPhone(transcript) ||
 args.customer_phone ||
 args.phone ||
-body.customer_phone ||
-body.phone ||
+args.caller ||
+extractPhone(transcript) ||
 "Not given";
-
-
-const phoneDigits = String(customerPhone || "").replace(/\D/g, "");
-
-const phoneLooksValid =
-phoneDigits.length >= 10 && phoneDigits.length <= 12;
-
-if (!phoneLooksValid) {
-console.log("PHONE NEEDS CONFIRMING:", customerPhone);
-}
-
 
 
 const incomingBusinessId =
