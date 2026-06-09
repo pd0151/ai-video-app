@@ -199,6 +199,7 @@ return found?.[1] || "Not given";
 export async function POST(req: NextRequest) {
 try {
 const body = await req.json();
+console.log("VAPI BODY:", JSON.stringify(body, null, 2));
 const message = body?.message || body;
 
 const eventType = message?.type || "";
