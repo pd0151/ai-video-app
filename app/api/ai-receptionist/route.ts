@@ -292,7 +292,16 @@ const cleanPostcode = String(postcode || "")
 .replace(/liverpool city centre/gi, "L1")
 .replace(/city centre/gi, "L1");
 
+const callerId =
+body?.message?.call?.customer?.number ||
+body?.message?.customer?.number ||
+body?.call?.customer?.number ||
+body?.customer?.number ||
+body?.from ||
+"";
+
 const customerPhone =
+callerId ||
 args.customer_phone ||
 args.phone ||
 args.caller ||
