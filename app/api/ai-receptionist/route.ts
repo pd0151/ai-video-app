@@ -371,15 +371,15 @@ process.env.TWILIO_AUTH_TOKEN!
 }
 
 await client.messages.create({
-body: `🔥 NEW TYRE JOB
+body: ` NEW TYRE JOB
 
 📞 Customer phone: ${customerPhone}
 
-🛞 Issue: ${issue}
-🚗 Vehicle: ${vehicle}
-📏 Tyre size: ${tyreSize}
-📍 Postcode: ${postcode}
-👤 Name: ${name}`,
+ Issue: ${issue}
+ Vehicle: ${vehicle}
+ Tyre size: ${tyreSize}
+Postcode: ${postcode}
+ Name: ${name}`,
 from: process.env.TWILIO_FROM!,
 to: process.env.NOTIFY_PHONE!,
 });
