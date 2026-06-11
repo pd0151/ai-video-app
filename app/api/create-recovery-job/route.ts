@@ -47,12 +47,7 @@ console.error("Recovery job insert error:", error);
 return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
 }
 
-if (error) {
-console.error("Recovery job insert error:", error);
-return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
-}
 
-return NextResponse.json({ ok: true, job: data });
 
 
 return NextResponse.json({ ok: true, job: data });
