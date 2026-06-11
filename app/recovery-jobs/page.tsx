@@ -88,6 +88,40 @@ fontWeight: 900,
 fontSize: 16,
 }}
 >
+    <a
+href={`tel:${job.customer_phone}`}
+style={{
+display: "block",
+marginTop: 12,
+padding: "14px",
+textAlign: "center",
+borderRadius: 999,
+background: "#ffffff",
+color: "#05070d",
+fontWeight: 900,
+textDecoration: "none",
+}}
+>
+Call Customer
+</a>
+
+<a
+href={`https://wa.me/44${job.customer_phone.replace(/^0/, "")}`}
+target="_blank"
+style={{
+display: "block",
+marginTop: 12,
+padding: "14px",
+textAlign: "center",
+borderRadius: 999,
+background: "#25D366",
+color: "#fff",
+fontWeight: 900,
+textDecoration: "none",
+}}
+>
+WhatsApp Customer
+</a>
 Accept Job
 </button>
 </div>
