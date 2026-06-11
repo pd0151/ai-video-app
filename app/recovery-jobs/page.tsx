@@ -24,9 +24,27 @@ const { data, error } = await supabase
 
 
 
-
 setJobs(data || []);
 }
+
+async function acceptJob(id: string) {
+const { error } = await supabase
+.from("recovery_jobs")
+.update({
+status: "accepted",
+accepted_by: "Total Recovery",
+})
+.eq("id", id)
+.eq("status", "open");
+
+if (error) {
+alert(error.message);
+return;
+}
+
+loadJobs();
+}
+
 
 return (
 <div
@@ -56,6 +74,22 @@ border: "1px solid rgba(255,255,255,0.1)",
 <p>{job.issue}</p>
 
 <p>{job.customer_phone}</p>
+<button
+onClick={() => acceptJob(job.id)}
+style={{
+marginTop: 18,
+width: "100%",
+padding: "14px 18px",
+borderRadius: 999,
+border: "0",
+background: "#ffffff",
+color: "#05070d",
+fontWeight: 900,
+fontSize: 16,
+}}
+>
+Accept Job
+</button>
 </div>
 ))}
 </div>

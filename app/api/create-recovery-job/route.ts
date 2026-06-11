@@ -13,14 +13,20 @@ const body = await req.json();
 const customer_name = body.customer_name || body.name || "Not given";
 const customer_phone = body.customer_phone || body.phone || "Not given";
 const vehicle = body.vehicle || "Not given";
+const cleanVehicle = vehicle
+.replace(/\bx five\b/gi, "X5")
+.replace(/\bx three\b/gi, "X3")
+.replace(/\bx one\b/gi, "X1");
 const location =
 body.location ||
 body.postcode ||
 "Location not given";
 
 const cleanLocation = location
-.replace(/m sixty two/gi, "M62")
-.replace(/junction four/gi, "Junction 4");
+.replace(/junction six/gi, "Junction 6")
+.replace(/junction five/gi, "Junction 5")
+.replace(/junction four/gi, "Junction 4")
+
 const issue = body.issue || "Recovery needed";
 
 const { data, error } = await supabase
@@ -28,7 +34,7 @@ const { data, error } = await supabase
 .insert({
 customer_name,
 customer_phone,
-vehicle,
+vehicle: cleanVehicle,
 location: cleanLocation,
 issue,
 status: "open",
