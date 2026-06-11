@@ -22,13 +22,11 @@ const { data, error } = await supabase
 .eq("status", "open")
 .order("created_at", { ascending: false });
 
-console.log("DATA:", data);
-console.log("ERROR:", error);
+
 
 
 setJobs(data || []);
-alert(JSON.stringify(data));
-}
+
 
 return (
 <div
