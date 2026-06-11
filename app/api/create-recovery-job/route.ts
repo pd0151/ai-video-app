@@ -47,6 +47,26 @@ console.error("Recovery job insert error:", error);
 return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
 }
 
+const twilioClient = twilio(
+process.env.TWILIO_ACCOUNT_SID!,
+process.env.TWILIO_AUTH_TOKEN!
+);
+
+const smsBody = `NEW RECOVERY JOB
+
+Vehicle: ${cleanVehicle}
+Location: ${cleanLocation}
+Issue: ${issue}
+Phone: ${customer_phone}
+
+View Job:
+https://adforge.uk/recovery-jobs`;
+
+await twilioClient.messages.create({
+body: smsBody,
+from: process.env.TWILIO_FROM!,
+to: process.env.NOTIFY_PHONE!,
+});
 
 
 
