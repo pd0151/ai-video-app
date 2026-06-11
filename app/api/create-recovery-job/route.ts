@@ -62,11 +62,20 @@ Phone: ${customer_phone}
 View Job:
 https://adforge.uk/recovery-jobs`;
 
+const { data: companies } = await supabase
+.from("recovery_companies")
+.select("phone")
+.eq("active", true);
+
+if (companies) {
+for (const company of companies) {
 await twilioClient.messages.create({
 body: smsBody,
 from: process.env.TWILIO_FROM!,
-to: process.env.NOTIFY_PHONE!,
+to: company.phone,
 });
+}
+}
 
 
 
