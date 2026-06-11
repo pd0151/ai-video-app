@@ -26,7 +26,7 @@ const { data, error } = await supabase
 
 
 setJobs(data || []);
-
+}
 
 return (
 <div
