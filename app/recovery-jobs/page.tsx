@@ -16,13 +16,18 @@ loadJobs();
 }, []);
 
 async function loadJobs() {
-const { data } = await supabase
+const { data, error } = await supabase
 .from("recovery_jobs")
 .select("*")
 .eq("status", "open")
 .order("created_at", { ascending: false });
 
+console.log("DATA:", data);
+console.log("ERROR:", error);
+
+
 setJobs(data || []);
+alert(JSON.stringify(data));
 }
 
 return (
