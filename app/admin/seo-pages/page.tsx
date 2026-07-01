@@ -86,6 +86,14 @@ loadPages();
 }
 
 async function generateRecoveryPages() {
+await generateBulkPages("recovery");
+}
+
+async function generateMobileTyrePages() {
+await generateBulkPages("tyres");
+}
+
+async function generateBulkPages(type: "recovery" | "tyres") {
 const locations = bulkLocations
 .split("\n")
 .map((x) => x.trim())
@@ -96,7 +104,9 @@ alert("Add locations first");
 return;
 }
 
-const newPages = locations.map((location) => ({
+const newPages = locations.map((location) => {
+if (type === "recovery") {
+return {
 slug: `24-hour-recovery-service-${makeSlug(location)}`,
 headline: `24 Hour Recovery Service ${location}`,
 title_tag: `24 Hour Recovery Service ${location} | AdForge`,
@@ -107,7 +117,22 @@ Whether your vehicle has broken down, been involved in an accident, will not sta
 
 Our service covers local roads, nearby motorways and surrounding towns, helping drivers get recovered quickly and professionally.`,
 active: true,
-}));
+};
+}
+
+return {
+slug: `mobile-tyre-fitting-${makeSlug(location)}`,
+headline: `Mobile Tyre Fitting ${location}`,
+title_tag: `Mobile Tyre Fitting ${location} | AdForge`,
+meta_description: `Need mobile tyre fitting in ${location}? Fast mobile tyre replacement, puncture repair and emergency tyre fitting at home, work or roadside.`,
+content: `Need mobile tyre fitting in ${location}? Our mobile tyre fitting network helps drivers arrange fast tyre replacement, puncture repair and emergency tyre support across ${location} and surrounding areas.
+
+Whether you are at home, at work, stuck on the roadside or dealing with a flat tyre, mobile tyre fitting can save time by bringing tyre help directly to you.
+
+Services can include tyre replacement, puncture repair, valve replacement, wheel balancing and emergency roadside tyre assistance depending on availability in your area.`,
+active: true,
+};
+});
 
 const { error } = await supabase.from("landing_pages").insert(newPages);
 
@@ -154,19 +179,13 @@ onClick={() => {
 resetForm();
 setShowForm(true);
 }}
-style={{
-marginTop: 20,
-padding: "14px 20px",
-borderRadius: 999,
-border: 0,
-fontWeight: 900,
-}}
+style={{ marginTop: 20, padding: "14px 20px", borderRadius: 999, border: 0, fontWeight: 900 }}
 >
 + Create New Page
 </button>
 
 <div style={{ marginTop: 24, padding: 18, borderRadius: 22, background: "rgba(255,255,255,0.08)" }}>
-<h2>Bulk Generate Recovery Pages</h2>
+<h2>Bulk Generate SEO Pages</h2>
 
 <textarea
 style={{ ...inputStyle, minHeight: 140 }}
@@ -177,15 +196,16 @@ onChange={(e) => setBulkLocations(e.target.value)}
 
 <button
 onClick={generateRecoveryPages}
-style={{
-marginTop: 14,
-padding: "14px 20px",
-borderRadius: 999,
-border: 0,
-fontWeight: 900,
-}}
+style={{ marginTop: 14, padding: "14px 20px", borderRadius: 999, border: 0, fontWeight: 900 }}
 >
 Generate Recovery Pages
+</button>
+
+<button
+onClick={generateMobileTyrePages}
+style={{ marginTop: 14, marginLeft: 10, padding: "14px 20px", borderRadius: 999, border: 0, fontWeight: 900 }}
+>
+Generate Mobile Tyre Pages
 </button>
 </div>
 
@@ -193,13 +213,7 @@ Generate Recovery Pages
 <div style={{ marginTop: 24, padding: 18, borderRadius: 22, background: "rgba(255,255,255,0.08)" }}>
 <h2>{editingId ? "Edit Page" : "Create Page"}</h2>
 
-<input
-style={inputStyle}
-placeholder="URL slug e.g. 24-hour-recovery-service-liverpool"
-value={slug}
-onChange={(e) => setSlug(makeSlug(e.target.value))}
-/>
-
+<input style={inputStyle} placeholder="URL slug" value={slug} onChange={(e) => setSlug(makeSlug(e.target.value))} />
 <input style={inputStyle} placeholder="Headline" value={headline} onChange={(e) => setHeadline(e.target.value)} />
 <input style={inputStyle} placeholder="SEO title tag" value={titleTag} onChange={(e) => setTitleTag(e.target.value)} />
 <textarea style={inputStyle} placeholder="Meta description" value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} />

@@ -40,6 +40,9 @@ const { data: relatedPages } = await supabase
 if (!page) notFound();
 
 const title = page.headline;
+const heroImageSrc = page.slug.includes("mobile-tyre-fitting")
+? "/images/mobile-tyre-fitting.jpg"
+: "/images/recovery-truck.jpg";
 const description =
 page.meta_description ||
 "Fast 24 hour breakdown recovery, accident recovery and vehicle transport available day and night.";
@@ -57,7 +60,16 @@ const areas = [
 "M62",
 ];
 
-const services = [
+const isTyrePage = page.slug.includes("mobile-tyre-fitting");
+
+const services = isTyrePage
+? [
+"Mobile Tyre Fitting",
+"Emergency Tyre Fitting",
+"Puncture Repair",
+"Tyre Replacement",
+]
+: [
 "Breakdown Recovery",
 "Accident Recovery",
 "Vehicle Transport",
@@ -68,7 +80,9 @@ return (
 <main style={main}>
 <section style={hero}>
 <div style={wrap}>
-<p style={badge}>24 Hour Emergency Recovery</p>
+<p style={badge}>
+{isTyrePage ? "24 Hour Mobile Tyre Fitting" : "24 Hour Emergency Recovery"}
+</p>
 
 <h1 style={h1}>{title}</h1>
 
@@ -126,7 +140,7 @@ AdForge
 </div>
 
 <img
-src="/images/recovery-truck.jpg"
+src={heroImageSrc}
 alt={title}
 style={heroImage}
 />
@@ -320,13 +334,12 @@ fontSize: 14,
 
 const heroImage: React.CSSProperties = {
 width: "100%",
-height: 380,
+height: 360,
 objectFit: "cover",
 objectPosition: "center",
-borderRadius: 30,
-marginTop: 38,
-border: "1px solid rgba(255,255,255,0.14)",
-boxShadow: "0 30px 90px rgba(0,0,0,0.6)",
+borderRadius: 28,
+border: "1px solid rgba(255,255,255,.12)",
+marginTop: 34,
 display: "block",
 };
 
