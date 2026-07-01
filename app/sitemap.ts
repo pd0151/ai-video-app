@@ -19,7 +19,12 @@ export default async function sitemap() {
 const { data: businesses } = await supabase
 .from("businesses")
 .select("slug,business_type,location")
-.order("created_at", { ascending: false })
+.order("created_at", { ascending: false });
+
+const { data: landingPages } = await supabase
+.from("landing_pages")
+.select("slug")
+.eq("active", true);
 
 const businessPages =
 businesses
@@ -37,6 +42,14 @@ url: `${SITE_URL}/${slugify(b.business_type)}/${slugify(b.location)}`,
 lastModified: new Date(),
 })) || [];
 
+const seoLandingPages =
+landingPages
+?.filter((p) => p.slug)
+.map((p) => ({
+url: `${SITE_URL}/seo/${p.slug}`,
+lastModified: new Date(),
+})) || [];
+
 return [
 {
 url: `${SITE_URL}`,
@@ -48,5 +61,6 @@ lastModified: new Date(),
 },
 ...businessPages,
 ...categoryLocationPages,
+...seoLandingPages,
 ];
 }
