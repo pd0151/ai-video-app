@@ -18,6 +18,7 @@ const [headline, setHeadline] = useState("");
 const [titleTag, setTitleTag] = useState("");
 const [metaDescription, setMetaDescription] = useState("");
 const [content, setContent] = useState("");
+const [bulkLocations, setBulkLocations] = useState("");
 
 useEffect(() => {
 loadPages();
@@ -30,6 +31,14 @@ const { data } = await supabase
 .order("created_at", { ascending: false });
 
 setPages(data || []);
+}
+
+function makeSlug(value: string) {
+return value
+.toLowerCase()
+.trim()
+.replace(/[^a-z0-9]+/g, "-")
+.replace(/^-+|-+$/g, "");
 }
 
 function resetForm() {
@@ -55,7 +64,7 @@ window.scrollTo({ top: 0, behavior: "smooth" });
 
 async function savePage() {
 const payload = {
-slug,
+slug: makeSlug(slug),
 headline,
 title_tag: titleTag,
 meta_description: metaDescription,
@@ -74,6 +83,42 @@ return;
 
 resetForm();
 loadPages();
+}
+
+async function generateRecoveryPages() {
+const locations = bulkLocations
+.split("\n")
+.map((x) => x.trim())
+.filter(Boolean);
+
+if (locations.length === 0) {
+alert("Add locations first");
+return;
+}
+
+const newPages = locations.map((location) => ({
+slug: `24-hour-recovery-service-${makeSlug(location)}`,
+headline: `24 Hour Recovery Service ${location}`,
+title_tag: `24 Hour Recovery Service ${location} | AdForge`,
+meta_description: `Fast 24 hour breakdown recovery, accident recovery and vehicle transport in ${location}. Available 24/7 with rapid response.`,
+content: `Need emergency recovery in ${location}? We provide 24 hour breakdown recovery, roadside assistance, accident recovery and vehicle transport throughout ${location} and surrounding areas.
+
+Whether your vehicle has broken down, been involved in an accident, will not start, or needs transporting safely, our recovery network can help arrange fast assistance day or night.
+
+Our service covers local roads, nearby motorways and surrounding towns, helping drivers get recovered quickly and professionally.`,
+active: true,
+}));
+
+const { error } = await supabase.from("landing_pages").insert(newPages);
+
+if (error) {
+alert(error.message);
+return;
+}
+
+setBulkLocations("");
+loadPages();
+alert("SEO pages created");
 }
 
 async function deletePage(id: string) {
@@ -120,22 +165,39 @@ fontWeight: 900,
 + Create New Page
 </button>
 
+<div style={{ marginTop: 24, padding: 18, borderRadius: 22, background: "rgba(255,255,255,0.08)" }}>
+<h2>Bulk Generate Recovery Pages</h2>
+
+<textarea
+style={{ ...inputStyle, minHeight: 140 }}
+placeholder={"Liverpool\nSouthport\nRuncorn\nWidnes\nSt Helens"}
+value={bulkLocations}
+onChange={(e) => setBulkLocations(e.target.value)}
+/>
+
+<button
+onClick={generateRecoveryPages}
+style={{
+marginTop: 14,
+padding: "14px 20px",
+borderRadius: 999,
+border: 0,
+fontWeight: 900,
+}}
+>
+Generate Recovery Pages
+</button>
+</div>
+
 {showForm && (
 <div style={{ marginTop: 24, padding: 18, borderRadius: 22, background: "rgba(255,255,255,0.08)" }}>
 <h2>{editingId ? "Edit Page" : "Create Page"}</h2>
 
 <input
 style={inputStyle}
-placeholder="URL slug e.g. recovery-liverpool"
+placeholder="URL slug e.g. 24-hour-recovery-service-liverpool"
 value={slug}
-onChange={(e) =>
-setSlug(
-e.target.value
-.toLowerCase()
-.trim()
-.replace(/\s+/g, "-")
-)
-}
+onChange={(e) => setSlug(makeSlug(e.target.value))}
 />
 
 <input style={inputStyle} placeholder="Headline" value={headline} onChange={(e) => setHeadline(e.target.value)} />
@@ -158,11 +220,7 @@ Cancel
 <div key={page.id} style={{ padding: 18, borderRadius: 22, background: "rgba(255,255,255,0.08)" }}>
 <h2>{page.headline || page.slug}</h2>
 
-<a
-href={`/seo/${page.slug}`}
-target="_blank"
-style={{ opacity: 0.9, color: "white", textDecoration: "underline", display: "inline-block", marginTop: 8 }}
->
+<a href={`/seo/${page.slug}`} target="_blank" style={{ opacity: 0.9, color: "white", textDecoration: "underline", display: "inline-block", marginTop: 8 }}>
 Open /seo/{page.slug}
 </a>
 

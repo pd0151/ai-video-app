@@ -30,10 +30,16 @@ const { data: page } = await supabase
 .eq("slug", params.slug)
 .eq("active", true)
 .single();
+const { data: relatedPages } = await supabase
+.from("landing_pages")
+.select("slug, headline")
+.neq("slug", params.slug)
+.eq("active", true)
+.limit(30);
 
 if (!page) notFound();
 
-const title = page.title_tag || page.headline;
+const title = page.headline;
 const description =
 page.meta_description ||
 "Fast 24 hour breakdown recovery, accident recovery and vehicle transport available day and night.";
@@ -77,6 +83,40 @@ Call Now
 View Services
 </a>
 </div>
+
+<div
+style={{
+display: "inline-flex",
+alignItems: "center",
+gap: 10,
+padding: "8px 18px",
+borderRadius: 999,
+background: "rgba(50,255,115,.12)",
+border: "1px solid rgba(50,255,115,.35)",
+color: "#fff",
+fontWeight: 700,
+marginTop: 22,
+marginBottom: 22,
+}}
+>
+<span style={{ color: "#32ff73", fontWeight: 900 }}>
+●
+</span>
+
+<span>Powered by</span>
+
+<span
+style={{
+color: "#32ff73",
+fontWeight: 900,
+fontSize: 16,
+}}
+>
+AdForge
+</span>
+</div>
+
+
 
 <div style={trustRow}>
 <span style={trustPill}>5.0 Rated</span>
@@ -149,6 +189,40 @@ Call Now
 </a>
 </div>
 </section>
+
+<section style={section}>
+<div style={wrap}>
+<h2 style={h2}>Nearby Recovery Areas</h2>
+
+<div
+style={{
+display: "grid",
+gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
+gap: 14,
+marginTop: 24,
+}}
+>
+{relatedPages?.map((p) => (
+<a
+key={p.slug}
+href={`/seo/${p.slug}`}
+style={{
+padding: "16px 18px",
+borderRadius: 18,
+background: "rgba(255,255,255,.05)",
+border: "1px solid rgba(50,255,115,.2)",
+color: "#32ff73",
+textDecoration: "none",
+fontWeight: 700,
+}}
+>
+{p.headline}
+</a>
+))}
+</div>
+</div>
+</section>
+
 
 <a href={`tel:${phone}`} style={stickyBtn}>
 Call 24 Hour Recovery
