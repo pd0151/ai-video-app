@@ -363,12 +363,11 @@ fontSize: 14,
 
 const heroImage: React.CSSProperties = {
 width: "100%",
-height: 360,
+height: 300,
 objectFit: "cover",
 objectPosition: "center",
 borderRadius: 28,
 border: "1px solid rgba(255,255,255,.12)",
-marginTop: 34,
 display: "block",
 };
 
@@ -380,7 +379,7 @@ const grid: React.CSSProperties = {
 maxWidth: 1100,
 margin: "0 auto",
 display: "grid",
-gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
 gap: 16,
 };
 
@@ -508,7 +507,7 @@ const heroGrid: React.CSSProperties = {
 maxWidth: 1100,
 margin: "0 auto",
 display: "grid",
-gridTemplateColumns: "1fr 1fr",
+gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
 gap: 28,
 alignItems: "center",
 };
