@@ -108,8 +108,7 @@ const areas = [
 return (
 <main style={main}>
 <section style={hero}>
-<div style={heroGrid}>
-<div>
+<div style={heroTop}>
 <p style={badge}>
 {isTyrePage ? "24 Hour Mobile Tyre Fitting" : "24 Hour Emergency Recovery"}
 </p>
@@ -124,22 +123,26 @@ return (
 </div>
 
 <div style={trustRow}>
+<span style={trustPill}>24/7 Available</span>
 <span style={trustPill}>Fast Response</span>
-<span style={trustPill}>Available 24/7</span>
 <span style={trustPill}>Local Service</span>
+<span style={trustPill}>Fully Insured</span>
 </div>
 </div>
 
-<div style={heroImagePanel}>
+<div style={heroPhotoWrap}>
 <img src={heroImageSrc} alt={title} style={heroImage} />
 
-<div style={floatingHelp}>
-<strong>Need help now?</strong>
-<span>Call and get connected quickly.</span>
-</div>
+<div style={heroCallCard}>
+<p style={callCardSmall}>Need help now?</p>
+<strong style={callCardTitle}>
+{isTyrePage ? "Mobile tyre help" : "Recovery available"}
+</strong>
+<a href={`tel:${phone}`} style={callCardBtn}>Call Now</a>
 </div>
 </div>
 </section>
+
 
 <section id="services" style={section}>
 <div style={grid}>
@@ -531,4 +534,67 @@ border: "1px solid rgba(255,255,255,.16)",
 backdropFilter: "blur(16px)",
 display: "grid",
 gap: 4,
+};
+
+
+
+
+
+
+
+
+
+
+const heroTop: React.CSSProperties = {
+maxWidth: 900,
+margin: "0 auto",
+textAlign: "left",
+};
+
+const heroPhotoWrap: React.CSSProperties = {
+maxWidth: 1100,
+margin: "34px auto 0",
+position: "relative",
+borderRadius: 34,
+overflow: "hidden",
+border: "1px solid rgba(255,255,255,.14)",
+boxShadow: "0 30px 90px rgba(0,0,0,.5)",
+};
+
+
+
+const heroCallCard: React.CSSProperties = {
+position: "absolute",
+left: 18,
+bottom: 18,
+right: 18,
+padding: 20,
+borderRadius: 26,
+background: "rgba(5,7,13,.78)",
+border: "1px solid rgba(255,255,255,.16)",
+backdropFilter: "blur(18px)",
+display: "flex",
+alignItems: "center",
+justifyContent: "space-between",
+gap: 14,
+flexWrap: "wrap",
+};
+
+const callCardSmall: React.CSSProperties = {
+margin: 0,
+opacity: 0.72,
+fontWeight: 800,
+};
+
+const callCardTitle: React.CSSProperties = {
+fontSize: 22,
+};
+
+const callCardBtn: React.CSSProperties = {
+padding: "13px 18px",
+borderRadius: 999,
+background: "#32ff73",
+color: "#05070d",
+fontWeight: 950,
+textDecoration: "none",
 };
