@@ -18,20 +18,23 @@ return value
 export default async function sitemap() {
 const { data: businesses } = await supabase
 .from("businesses")
-.select("slug,business_type,location")
-.order("created_at", { ascending: false });
+.select("slug,business_type,location,created_at")
+.order("created_at", { ascending: false })
+.range(0, 4999);
 
 const { data: landingPages } = await supabase
 .from("landing_pages")
-.select("slug")
-.eq("active", true);
+.select("slug,created_at")
+.eq("active", true)
+.order("created_at", { ascending: false })
+.range(0, 4999);
 
 const businessPages =
 businesses
 ?.filter((b) => b.slug)
 .map((b) => ({
 url: `${SITE_URL}/business/${b.slug}`,
-lastModified: new Date(),
+lastModified: b.created_at ? new Date(b.created_at) : new Date(),
 })) || [];
 
 const categoryLocationPages =
@@ -39,7 +42,7 @@ businesses
 ?.filter((b) => b.business_type && b.location)
 .map((b) => ({
 url: `${SITE_URL}/${slugify(b.business_type)}/${slugify(b.location)}`,
-lastModified: new Date(),
+lastModified: b.created_at ? new Date(b.created_at) : new Date(),
 })) || [];
 
 const seoLandingPages =
@@ -47,12 +50,12 @@ landingPages
 ?.filter((p) => p.slug)
 .map((p) => ({
 url: `${SITE_URL}/seo/${p.slug}`,
-lastModified: new Date(),
+lastModified: p.created_at ? new Date(p.created_at) : new Date(),
 })) || [];
 
 return [
 {
-url: `${SITE_URL}`,
+url: SITE_URL,
 lastModified: new Date(),
 },
 {
