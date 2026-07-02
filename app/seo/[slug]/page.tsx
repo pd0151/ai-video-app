@@ -259,16 +259,15 @@ enquiries and professional service.
 
 const main: React.CSSProperties = {
 minHeight: "100vh",
-background: "#05070d",
+background: "radial-gradient(circle at top,#101827 0%,#05070d 45%,#030407 100%)",
 color: "white",
-paddingBottom: 110,
+paddingBottom: 120,
 };
 
 const hero: React.CSSProperties = {
-padding: "76px 20px 42px",
+padding: "58px 18px 34px",
 background:
-"radial-gradient(circle at top right, rgba(50,255,115,0.14), transparent 32%), linear-gradient(180deg,#0b0f18,#05070d)",
-borderBottom: "1px solid rgba(255,255,255,0.1)",
+"radial-gradient(circle at 80% 0%, rgba(50,255,115,.22), transparent 32%), linear-gradient(180deg,#101827,#05070d)",
 };
 
 const wrap: React.CSSProperties = {
@@ -287,11 +286,11 @@ fontWeight: 850,
 };
 
 const h1: React.CSSProperties = {
-fontSize: 58,
-lineHeight: 0.95,
+fontSize: "clamp(46px, 12vw, 82px)",
+lineHeight: 0.88,
 fontWeight: 950,
-margin: "18px 0",
-letterSpacing: -2,
+margin: "20px 0",
+letterSpacing: -3,
 };
 
 const intro: React.CSSProperties = {
@@ -308,15 +307,7 @@ flexWrap: "wrap",
 marginTop: 26,
 };
 
-const primaryBtn: React.CSSProperties = {
-display: "inline-block",
-padding: "16px 24px",
-borderRadius: 999,
-background: "white",
-color: "#05070d",
-fontWeight: 950,
-textDecoration: "none",
-};
+
 
 const secondaryBtn: React.CSSProperties = {
 display: "inline-block",
@@ -364,15 +355,7 @@ fontWeight: 800,
 fontSize: 14,
 };
 
-const heroImage: React.CSSProperties = {
-width: "100%",
-height: 300,
-objectFit: "cover",
-objectPosition: "center",
-borderRadius: 28,
-border: "1px solid rgba(255,255,255,.12)",
-display: "block",
-};
+
 
 const section: React.CSSProperties = {
 padding: "34px 20px",
@@ -386,15 +369,7 @@ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
 gap: 16,
 };
 
-const card: React.CSSProperties = {
-display: "block",
-padding: 28,
-borderRadius: 28,
-background: "rgba(255,255,255,0.07)",
-border: "1px solid rgba(255,255,255,0.12)",
-textDecoration: "none",
-color: "white",
-};
+
 
 const cardTitle: React.CSSProperties = {
 fontSize: 22,
@@ -420,13 +395,6 @@ opacity: 0.84,
 whiteSpace: "pre-line",
 };
 
-const ctaBox: React.CSSProperties = {
-padding: 30,
-borderRadius: 32,
-background:
-"linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05))",
-border: "1px solid rgba(255,255,255,0.14)",
-};
 
 const featureGrid: React.CSSProperties = {
 display: "grid",
@@ -538,6 +506,46 @@ gap: 4,
 
 
 
+
+const heroImage: React.CSSProperties = {
+width: "100%",
+height: 330,
+objectFit: "cover",
+objectPosition: "center",
+display: "block",
+};
+
+const card: React.CSSProperties = {
+display: "block",
+padding: 30,
+borderRadius: 32,
+background:
+"linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.045))",
+border: "1px solid rgba(255,255,255,.16)",
+textDecoration: "none",
+color: "white",
+boxShadow: "0 24px 70px rgba(0,0,0,.35)",
+};
+
+const primaryBtn: React.CSSProperties = {
+display: "inline-block",
+padding: "17px 26px",
+borderRadius: 999,
+background: "#32ff73",
+color: "#05070d",
+fontWeight: 950,
+textDecoration: "none",
+boxShadow: "0 0 38px rgba(50,255,115,.35)",
+};
+
+const ctaBox: React.CSSProperties = {
+padding: 34,
+borderRadius: 38,
+background:
+"radial-gradient(circle at top right, rgba(50,255,115,.2), transparent 34%), linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.045))",
+border: "1px solid rgba(255,255,255,.16)",
+boxShadow: "0 30px 90px rgba(0,0,0,.45)",
+};
 
 
 
