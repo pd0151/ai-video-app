@@ -233,10 +233,9 @@ overflow: hidden;
 .heroImg {
 position: absolute;
 inset: 0;
-transform: scale(0.8);
 width: 100%;
 height: 100%;
-object-fit: cover;
+object-fit: contain;
 object-position: 76% center;
 opacity: 1;
 }
