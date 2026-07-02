@@ -52,27 +52,13 @@ const heroImageSrc = isTyrePage
 ? "/images/mobile-tyre-fitting.jpg"
 : "/images/recovery-truck.jpg";
 
-const stickyText = isTyrePage
-? "Call Mobile Tyre Fitting"
-: "Call 24 Hour Recovery";
-
 const nearbyTitle = isTyrePage
 ? "Nearby Mobile Tyre Areas"
 : "Nearby Recovery Areas";
 
 const serviceCards = isTyrePage
-? [
-"Mobile Tyre Fitting",
-"Emergency Tyre Fitting",
-"Puncture Repair",
-"Tyre Replacement",
-]
-: [
-"Breakdown Recovery",
-"Accident Recovery",
-"Vehicle Transport",
-"Roadside Assistance",
-];
+? ["Mobile Tyre Fitting", "Emergency Tyre Fitting", "Puncture Repair", "Tyre Replacement"]
+: ["Breakdown Recovery", "Accident Recovery", "Vehicle Transport", "Roadside Assistance"];
 
 const { data: relatedPages } = await supabase
 .from("landing_pages")
@@ -82,19 +68,7 @@ const { data: relatedPages } = await supabase
 .ilike("slug", isTyrePage ? "%tyre%" : "%recovery%")
 .limit(30);
 
-const areas = [
-"Liverpool",
-"Bootle",
-"Huyton",
-"Kirkby",
-"Speke",
-"Widnes",
-"St Helens",
-"Wirral",
-"M57",
-"M58",
-"M62",
-];
+const areas = ["Liverpool", "Bootle", "Huyton", "Kirkby", "Speke", "Widnes", "St Helens", "Wirral", "M57", "M58", "M62"];
 
 return (
 <main className="page">
@@ -109,9 +83,7 @@ return (
 <p>LOCAL EMERGENCY SERVICE</p>
 </div>
 
-<a href={`tel:${phone}`} className="topCall">
-Call Now
-</a>
+<a href={`tel:${phone}`} className="topCall">Call Now</a>
 </div>
 
 <div className="heroText">
@@ -124,13 +96,8 @@ Call Now
 <p className="intro">{description}</p>
 
 <div className="heroButtons">
-<a href={`tel:${phone}`} className="whiteBtn">
-Call Now
-</a>
-
-<a href="#services" className="glassBtn">
-View Services
-</a>
+<a href={`tel:${phone}`} className="whiteBtn">Call Now</a>
+<a href="#services" className="glassBtn">View Services</a>
 </div>
 
 <div className="trustGrid">
@@ -146,7 +113,6 @@ View Services
 <section className="liveSection">
 <div className="liveCard">
 <p className="liveLabel"><span /> LIVE LOCAL RESPONSE</p>
-
 <h2>{isTyrePage ? "Tyre help ready" : "Recovery ready"}</h2>
 
 <div className="liveGrid">
@@ -156,9 +122,7 @@ View Services
 <p><b>Status</b><br />Available now</p>
 </div>
 
-<a href={`tel:${phone}`} className="greenBtn">
-Call For Help
-</a>
+<a href={`tel:${phone}`} className="greenBtn">Call For Help</a>
 </div>
 </div>
 </section>
@@ -175,9 +139,7 @@ href={`/seo/${service.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
 className="serviceCard"
 >
 <h3>{service}</h3>
-<p>
-Fast local support available across the area with simple contact options and rapid response.
-</p>
+<p>Fast local support available across the area with simple contact options and rapid response.</p>
 </a>
 ))}
 </div>
@@ -186,20 +148,12 @@ Fast local support available across the area with simple contact options and rap
 <section className="section">
 <div className="cta">
 <div>
-<p className="label">
-{isTyrePage ? "NEED TYRE HELP?" : "NEED RECOVERY NOW?"}
-</p>
-
+<p className="label">{isTyrePage ? "NEED TYRE HELP?" : "NEED RECOVERY NOW?"}</p>
 <h2>Get help arranged quickly</h2>
-
-<p>
-Call now and speak to a local provider. This page is built to help customers find fast assistance without searching through multiple websites.
-</p>
+<p>Call now and speak to a local provider. This page is built to help customers find fast assistance without searching through multiple websites.</p>
 </div>
 
-<a href={`tel:${phone}`} className="whiteBtn">
-Call Now
-</a>
+<a href={`tel:${phone}`} className="whiteBtn">Call Now</a>
 </div>
 </section>
 
@@ -219,9 +173,7 @@ Call Now
 <h2>Areas covered</h2>
 
 <div className="areas">
-{areas.map((area) => (
-<span key={area}>{area}</span>
-))}
+{areas.map((area) => <span key={area}>{area}</span>)}
 </div>
 </section>
 
@@ -261,26 +213,20 @@ Call Now
 </div>
 </section>
 
-<a href={`tel:${phone}`} className="sticky">
-{stickyText}
-</a>
-
 <style>{`
-* {
-box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 .page {
 min-height: 100vh;
 background: #05070d;
 color: white;
-padding-bottom: 120px;
+padding-bottom: 130px;
 font-family: Inter, Arial, sans-serif;
 }
 
 .hero {
 position: relative;
-min-height: 760px;
+min-height: 700px;
 overflow: hidden;
 }
 
@@ -290,7 +236,7 @@ inset: 0;
 width: 100%;
 height: 100%;
 object-fit: cover;
-object-position: 72% center;
+object-position: 76% center;
 opacity: 1;
 }
 
@@ -298,8 +244,9 @@ opacity: 1;
 position: absolute;
 inset: 0;
 background:
-linear-gradient(90deg, rgba(5,7,13,.78), rgba(5,7,13,.28), rgba(5,7,13,.22)),
-linear-gradient(180deg, rgba(5,7,13,.12), rgba(5,7,13,.35), #05070d 96%);
+radial-gradient(circle at 78% 18%, rgba(50,255,115,.13), transparent 28%),
+linear-gradient(90deg, rgba(5,7,13,.74), rgba(5,7,13,.20), rgba(5,7,13,.08)),
+linear-gradient(180deg, rgba(5,7,13,.02), rgba(5,7,13,.22), #05070d 98%);
 }
 
 .heroInner {
@@ -307,7 +254,7 @@ position: relative;
 z-index: 2;
 max-width: 1180px;
 margin: 0 auto;
-padding: 28px 22px 60px;
+padding: 28px 22px 54px;
 }
 
 .topBar {
@@ -315,7 +262,7 @@ display: flex;
 justify-content: space-between;
 align-items: flex-start;
 gap: 18px;
-margin-bottom: 54px;
+margin-bottom: 48px;
 }
 
 .brand {
@@ -335,7 +282,7 @@ margin: 8px 0 0;
 font-size: 12px;
 letter-spacing: 3px;
 font-weight: 900;
-color: rgba(255,255,255,.78);
+color: rgba(255,255,255,.8);
 }
 
 .topCall,
@@ -354,13 +301,12 @@ white-space: nowrap;
 }
 
 .heroText {
-max-width: 570px;
+max-width: 560px;
 }
 
 .greenPill {
 display: inline-flex;
-align-items: center;
-padding: 12px 19px;
+padding: 11px 18px;
 border-radius: 999px;
 background: #32ff73;
 color: #05070d;
@@ -371,18 +317,18 @@ box-shadow: 0 0 34px rgba(50,255,115,.5);
 }
 
 h1 {
-font-size: clamp(46px, 6vw, 78px);
+font-size: clamp(46px, 6vw, 76px);
 line-height: .94;
 letter-spacing: -3px;
-margin: 26px 0 18px;
+margin: 24px 0 16px;
 font-weight: 1000;
-max-width: 620px;
+max-width: 600px;
 }
 
 .intro {
-font-size: 19px;
+font-size: 18px;
 line-height: 1.55;
-max-width: 510px;
+max-width: 500px;
 color: rgba(255,255,255,.9);
 margin: 0;
 }
@@ -391,7 +337,7 @@ margin: 0;
 display: flex;
 gap: 14px;
 flex-wrap: wrap;
-margin-top: 26px;
+margin-top: 24px;
 }
 
 .glassBtn {
@@ -418,11 +364,10 @@ width: calc(100vw - 44px);
 }
 
 .trustGrid div {
-padding: 18px 22px;
+padding: 16px 20px;
 border-radius: 22px;
-background: rgba(10,14,22,.72);
+background: rgba(5,7,13,.68);
 border: 1px solid rgba(255,255,255,.15);
-box-shadow: 0 0 30px rgba(50,255,115,.08);
 font-size: 18px;
 font-weight: 1000;
 backdrop-filter: blur(18px);
@@ -431,7 +376,7 @@ backdrop-filter: blur(18px);
 .trustGrid span {
 display: block;
 font-size: 15px;
-color: rgba(255,255,255,.8);
+color: rgba(255,255,255,.82);
 margin-top: 4px;
 font-weight: 800;
 }
@@ -440,18 +385,18 @@ font-weight: 800;
 .section {
 max-width: 1180px;
 margin: 0 auto;
-padding: 28px 22px;
+padding: 26px 22px;
 }
 
 .liveCard {
-margin-top: -72px;
+margin-top: -58px;
 position: relative;
 z-index: 4;
-padding: 28px;
+padding: 26px;
 border-radius: 30px;
-background: rgba(8,12,18,.86);
-border: 1px solid rgba(255,255,255,.18);
-box-shadow: 0 30px 100px rgba(0,0,0,.45), 0 0 45px rgba(50,255,115,.12);
+background: rgba(8,12,18,.84);
+border: 1px solid rgba(50,255,115,.28);
+box-shadow: 0 30px 100px rgba(0,0,0,.45), 0 0 45px rgba(50,255,115,.14);
 backdrop-filter: blur(22px);
 }
 
@@ -504,15 +449,11 @@ line-height: 1.35;
 color: rgba(255,255,255,.86);
 }
 
-.liveDetails b {
-color: white;
-}
-
 .greenBtn {
 display: inline-flex;
 align-items: center;
 justify-content: center;
-min-height: 66px;
+min-height: 62px;
 border-radius: 999px;
 background: linear-gradient(135deg, #32ff73, #18d85b);
 color: #05070d;
@@ -547,17 +488,17 @@ box-shadow: 0 20px 70px rgba(0,0,0,.25);
 }
 
 .serviceCard {
-min-height: 205px;
-padding: 24px;
+min-height: 190px;
+padding: 22px;
 border-radius: 24px;
 color: white;
 text-decoration: none;
 }
 
 .serviceCard h3 {
-font-size: 24px;
+font-size: 23px;
 line-height: 1.1;
-margin: 0 0 18px;
+margin: 0 0 16px;
 letter-spacing: -.7px;
 }
 
@@ -572,7 +513,7 @@ font-size: 16px;
 }
 
 .cta {
-padding: 30px 34px;
+padding: 28px 32px;
 border-radius: 28px;
 display: flex;
 align-items: center;
@@ -590,7 +531,7 @@ gap: 14px;
 }
 
 .steps div {
-padding: 24px;
+padding: 22px;
 border-radius: 24px;
 }
 
@@ -653,43 +594,28 @@ text-decoration: none;
 font-weight: 900;
 }
 
-.sticky {
-position: fixed;
-left: 20px;
-right: 20px;
-bottom: 18px;
-z-index: 80;
-padding: 16px 20px;
-border-radius: 999px;
-background: #32ff73;
-color: #05070d;
-text-align: center;
-text-decoration: none;
-font-weight: 1000;
-box-shadow: 0 0 40px rgba(50,255,115,.55);
-}
-
 @media (max-width: 760px) {
 .hero {
-min-height: 690px;
+min-height: 660px;
 }
 
 .heroImg {
-object-position: 68% center;
+object-position: 73% center;
 }
 
 .heroOverlay {
 background:
-linear-gradient(90deg, rgba(5,7,13,.76), rgba(5,7,13,.22), rgba(5,7,13,.18)),
-linear-gradient(180deg, rgba(5,7,13,.12), rgba(5,7,13,.35), #05070d 96%);
+radial-gradient(circle at 72% 16%, rgba(50,255,115,.14), transparent 26%),
+linear-gradient(90deg, rgba(5,7,13,.68), rgba(5,7,13,.16), rgba(5,7,13,.02)),
+linear-gradient(180deg, rgba(5,7,13,.02), rgba(5,7,13,.22), #05070d 98%);
 }
 
 .heroInner {
-padding: 24px 20px 44px;
+padding: 24px 20px 38px;
 }
 
 .topBar {
-margin-bottom: 48px;
+margin-bottom: 42px;
 }
 
 .brand {
@@ -698,7 +624,7 @@ font-size: 38px;
 
 .topBar p {
 font-size: 10px;
-letter-spacing: 2.5px;
+letter-spacing: 2.4px;
 }
 
 .topCall {
@@ -713,25 +639,27 @@ letter-spacing: 1px;
 }
 
 h1 {
-font-size: 43px;
-line-height: .96;
+font-size: 40px;
+line-height: .98;
 letter-spacing: -2px;
-max-width: 330px;
-margin: 22px 0 16px;
+max-width: 320px;
+margin: 22px 0 14px;
 }
 
 .intro {
-font-size: 16px;
-max-width: 320px;
+font-size: 15.5px;
+line-height: 1.55;
+max-width: 310px;
 }
 
 .heroButtons {
-margin-top: 22px;
+margin-top: 21px;
+gap: 10px;
 }
 
 .whiteBtn,
 .glassBtn {
-padding: 13px 18px;
+padding: 12px 17px;
 font-size: 15px;
 }
 
@@ -739,11 +667,11 @@ font-size: 15px;
 grid-template-columns: repeat(2, 1fr);
 width: 100%;
 gap: 10px;
-margin-top: 28px;
+margin-top: 26px;
 }
 
 .trustGrid div {
-padding: 14px 16px;
+padding: 13px 15px;
 font-size: 16px;
 border-radius: 18px;
 }
@@ -754,31 +682,35 @@ font-size: 13px;
 
 .liveSection,
 .section {
-padding: 24px 20px;
+padding: 22px 20px;
 }
 
 .liveCard {
-margin-top: -42px;
-padding: 22px;
-border-radius: 26px;
+margin-top: -36px;
+padding: 20px;
+border-radius: 25px;
 }
 
 .liveCard h2,
 .section h2 {
-font-size: 30px;
+font-size: 29px;
 }
 
 .liveGrid {
 grid-template-columns: 1fr;
-gap: 18px;
+gap: 16px;
+}
+
+.liveDetails {
+gap: 14px;
 }
 
 .liveDetails p {
-font-size: 16px;
+font-size: 15.5px;
 }
 
 .greenBtn {
-min-height: 54px;
+min-height: 52px;
 font-size: 16px;
 }
 
@@ -788,20 +720,14 @@ grid-template-columns: 1fr;
 }
 
 .serviceCard {
-min-height: 160px;
+min-height: 145px;
 border-radius: 22px;
 }
 
 .cta {
-padding: 24px;
+padding: 23px;
 border-radius: 24px;
 align-items: flex-start;
-}
-
-.sticky {
-left: 20px;
-right: 20px;
-bottom: 18px;
 }
 }
 `}</style>
