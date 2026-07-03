@@ -116,7 +116,9 @@ return (
 </div>
 
 <div className="heroText">
-<div className="greenPill">{greenHeading}</div>
+<h2 className="greenPill">
+{greenHeading}
+</h2>
 <h1>{title}</h1>
 <p className="intro">{description}</p>
 
