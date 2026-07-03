@@ -137,7 +137,7 @@ return (
 </div>
 </section>
 
-<section id="services" className="section">
+<section id="services" className="section"> 
 <p className="label">OUR SERVICES</p>
 <h2>Choose what you need</h2>
 
@@ -158,55 +158,181 @@ return (
 </details>
 
 <details>
-<summary>Why customers choose this service</summary>
+<summary>Popular searches for this service</summary>
+<div className="keywordGrid">
+{(isTyrePage
+? [
+`24 hour mobile tyre fitting`,
+`mobile tyre fitting near me`,
+`emergency mobile tyre fitting`,
+`mobile tyre replacement`,
+`roadside tyre fitting`,
+`same day tyre fitting`,
+`mobile puncture repair`,
+`flat tyre repair`,
+`emergency tyre replacement`,
+`home tyre fitting`,
+`workplace tyre fitting`,
+`run flat tyre replacement`,
+`locking wheel nut removal`,
+`mobile tyre fitter open now`,
+`cheap mobile tyre fitting`,
+`local mobile tyre company`,
+]
+: [
+`24 hour recovery`,
+`vehicle recovery near me`,
+`breakdown recovery`,
+`car recovery`,
+`van recovery`,
+`roadside recovery`,
+`accident recovery`,
+`emergency vehicle recovery`,
+`car towing service`,
+`tow truck near me`,
+`vehicle transport`,
+`motorway recovery`,
+`flat battery recovery`,
+`jump start service`,
+`non runner recovery`,
+`breakdown service open now`,
+]
+).map((keyword) => (
+<span key={keyword}>{keyword}</span>
+))}
+</div>
+
 <p>
-When customers search for {serviceName} near them, they usually need help quickly. This page is designed to give clear local information, simple call options and fast access to support across Liverpool, Wirral, Sefton, Knowsley and surrounding areas.
+Customers search in lots of different ways when they need urgent help.
+Some people search by the exact service, some search by town, and others
+search for terms like “near me”, “open now”, “24 hour”, “emergency” or
+“same day”. This page is written to cover those different search terms
+naturally while still giving useful information to drivers.
+</p>
+</details>
+
+<details>
+<summary>Why choose local help?</summary>
+<p>
+Choosing a local {serviceName} service can make a big difference when you
+need help quickly. Local providers understand the roads, nearby towns,
+traffic routes, retail parks, business estates, car parks and motorway
+links around the area.
 {"\n\n"}
-Local service matters because response times can depend on traffic, road access, nearby providers and the exact location of the customer. Whether the problem happens at home, work, roadside, a car park, retail park, business estate or motorway, having a clear page for the local area helps customers act quickly.
+Whether you are at home, at work, roadside, outside a shop, stuck in a car
+park or waiting near a motorway junction, a local service page helps you
+find the right support faster.
 {"\n\n"}
-AdForge pages are built to help people find the right local service without scrolling through outdated listings or ringing multiple companies. Each page focuses on the service, the location, nearby towns, common problems and the main reasons customers need urgent help.
+This page is designed for customers looking for fast local help, emergency
+call-outs, same-day support, roadside assistance, local coverage and simple
+contact options.
 </p>
 </details>
 
 <details>
 <summary>Areas and nearby towns covered</summary>
 <p>
-This page can help customers across {areas.join(", ")} and nearby local areas. Coverage may also include homes, workplaces, garages, retail parks, industrial estates, car parks, roadside locations and motorway routes.
+This page can help customers across {areas.join(", ")} and surrounding
+areas. Coverage may also include local roads, housing estates, industrial
+estates, business parks, retail parks, supermarkets, garages, workplaces,
+homes, car parks and roadside locations.
 {"\n\n"}
-Customers often search using nearby towns and districts rather than one main city name. That is why these pages include surrounding areas, road names and local search terms to make it easier for Google and customers to understand where the service is available.
+Many people do not search only for the main town. They also search for
+nearby villages, districts, suburbs and motorway routes. Including these
+areas helps Google understand the full local coverage of the page.
 </p>
 </details>
 
 <details>
 <summary>Roads and motorway coverage</summary>
 <p>
-Local emergency services are often needed on busy roads and motorway routes such as {roads.join(", ")}. Customers may need help after a breakdown, tyre problem, accident, vehicle fault or roadside issue.
+Emergency local services are often needed on busy roads and motorway
+routes such as {roads.join(", ")}. Customers may need help after a
+breakdown, tyre problem, accident, warning light, flat battery, puncture,
+blowout or roadside issue.
 {"\n\n"}
-If a vehicle is unsafe to drive, it is important to stop in a safe place where possible, keep passengers away from traffic and call for help. These pages are written to support urgent local searches where customers need a fast and simple way to arrange assistance.
+If your vehicle is unsafe to drive, stop somewhere safe where possible,
+switch on hazard lights and keep passengers away from traffic. On fast
+roads or motorways, wait behind the barrier where safe and call for help.
 </p>
 </details>
 
 <details>
-<summary>Common reasons customers call</summary>
+<summary>Common problems customers need help with</summary>
 <div className="keywordGrid">
-{commonProblems.map((item) => <span key={item}>{item}</span>)}
+{commonProblems.map((item) => (
+<span key={item}>{item}</span>
+))}
 </div>
+
 <p>
-These problems can happen without warning. A vehicle may fail to start, a tyre may go flat, a warning light may appear, or a driver may need urgent help moving a vehicle safely. The aim of this page is to give customers clear local information and a direct way to call.
+These problems can happen without warning. A tyre can fail, a vehicle can
+refuse to start, a battery can go flat, a warning light can appear, or a
+driver may need urgent help moving a vehicle safely.
+{"\n\n"}
+This page helps customers find clear local information and a fast way to
+call for help without searching through lots of different websites.
 </p>
+</details>
+
+<details>
+<summary>
+{isTyrePage ? "Mobile tyre fitting information" : "Vehicle recovery information"}
+</summary>
+
+{isTyrePage ? (
+<p>
+Mobile tyre fitting is useful when you need tyres fitted at home, work
+or roadside. It can help with flat tyres, punctures, damaged sidewalls,
+blown tyres, low tread, valve issues, run flat tyres, locking wheel nut
+problems and emergency tyre replacement.
+{"\n\n"}
+Customers often search for mobile tyre fitting near me, tyre fitter open
+now, 24 hour tyre fitting, emergency tyre fitting, roadside tyre
+replacement, mobile puncture repair, same day tyres and mobile tyre
+service.
+{"\n\n"}
+A mobile tyre fitter may be able to attend your location, check the tyre,
+replace it where needed and help get the vehicle moving again without
+you needing to drive to a garage.
+</p>
+) : (
+<p>
+Vehicle recovery can help when a car, van or light commercial vehicle
+cannot be driven safely. This may include breakdown recovery, accident
+recovery, car towing, van recovery, vehicle transport, motorway recovery,
+non-runner recovery, flat battery help and roadside assistance.
+{"\n\n"}
+Customers often search for recovery truck near me, 24 hour breakdown
+recovery, car recovery, vehicle recovery, towing service, roadside
+recovery, accident recovery and emergency recovery open now.
+{"\n\n"}
+If your vehicle is damaged, unsafe, stuck, broken down or unable to
+start, recovery support may be needed to move it safely.
+</p>
+)}
 </details>
 
 <details>
 <summary>Emergency advice</summary>
 <p>
-If you have broken down or suffered a tyre problem, avoid driving if the vehicle feels unsafe. Pull over where it is safe, switch on hazard lights and keep passengers away from moving traffic.
+If you have broken down or suffered a tyre problem, avoid driving if the
+vehicle feels unsafe. Pull over where it is safe, switch on hazard lights
+and keep passengers away from moving traffic.
 {"\n\n"}
-On motorways or fast roads, leave the vehicle from the passenger side if safe and wait behind the barrier. Do not attempt a repair in a dangerous location. Call for professional help and explain your location clearly, including road name, direction of travel, junction number or nearby landmark.
+On motorways or fast roads, leave the vehicle from the passenger side if
+safe and wait behind the barrier. Do not attempt a repair in a dangerous
+location.
+{"\n\n"}
+When calling, give your location clearly. Mention the road name, direction
+of travel, junction number, nearby landmark, postcode or any nearby shops,
+garages or buildings.
 </p>
 </details>
 
 <details>
 <summary>Frequently asked questions</summary>
+
 <h3>Is this service available 24/7?</h3>
 <p>Emergency help may be available day and night depending on local provider availability.</p>
 
@@ -230,6 +356,18 @@ On motorways or fast roads, leave the vehicle from the passenger side if safe an
 
 <h3>Is same-day help available?</h3>
 <p>Same-day assistance may be available depending on local demand and provider availability.</p>
+
+<h3>Can I get help at home?</h3>
+<p>Yes, many services can attend home addresses depending on availability.</p>
+
+<h3>Can I get help in a car park?</h3>
+<p>Yes, help may be available at supermarkets, retail parks, public car parks and private car parks.</p>
+
+<h3>What information should I give when calling?</h3>
+<p>Give your location, vehicle details, the problem, and whether the vehicle is in a safe place.</p>
+
+<h3>Do you cover evenings and weekends?</h3>
+<p>Out-of-hours help may be available depending on the local provider.</p>
 </details>
 </section>
 
