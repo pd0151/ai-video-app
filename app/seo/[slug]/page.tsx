@@ -159,6 +159,33 @@ isPartOf: {
 publisher: {
 "@id": `${SITE_URL}/#organization`,
 },
+breadcrumb: {
+"@id": `${pageUrl}#breadcrumb`,
+},
+},
+{
+"@type": "BreadcrumbList",
+"@id": `${pageUrl}#breadcrumb`,
+itemListElement: [
+{
+"@type": "ListItem",
+position: 1,
+name: "AdForge",
+item: SITE_URL,
+},
+{
+"@type": "ListItem",
+position: 2,
+name: isTyrePage ? "Mobile Tyre Services" : "Recovery Services",
+item: `${SITE_URL}/seo`,
+},
+{
+"@type": "ListItem",
+position: 3,
+name: title,
+item: pageUrl,
+},
+],
 },
 {
 "@type": "Service",
