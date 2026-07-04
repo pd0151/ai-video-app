@@ -13,7 +13,12 @@ const pathname = usePathname();
 const router = useRouter();
 const [ready, setReady] = useState(false);
 
-const openPages = ["/login", "/signup", "/ai-receptionist-signup"];
+const openPages = [
+"/login",
+"/signup",
+"/ai-receptionist-signup",
+"/seo",
+];
 
 useEffect(() => {
     router.prefetch("/feed");
@@ -21,9 +26,13 @@ router.prefetch("/profile");
 router.prefetch("/ai-receptionist");
 const user = localStorage.getItem("user");
 
-if (!user && !openPages.includes(pathname)) {
+if (
+!user &&
+!openPages.some((page) => pathname.startsWith(page))
+) {
 router.push("/login");
 }
+
 
 setReady(true);
 }, [pathname, router]);
