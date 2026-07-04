@@ -1,6 +1,7 @@
 import React from "react";
 import { createClient } from "@supabase/supabase-js";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -202,9 +203,14 @@ url: pageUrl,
 
 return (
 <main className="page">
-<script
+
+<Script
+id="seo-schema"
 type="application/ld+json"
-dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+strategy="beforeInteractive"
+dangerouslySetInnerHTML={{
+__html: JSON.stringify(schema),
+}}
 />
 
 <section className="hero">
