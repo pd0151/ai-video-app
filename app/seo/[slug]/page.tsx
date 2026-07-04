@@ -8,6 +8,7 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
 const phone = "+447576579923";
+const SITE_URL = "https://adforge.uk";
 
 export async function generateMetadata({ params }: any) {
 const { data } = await supabase
@@ -17,9 +18,28 @@ const { data } = await supabase
 .eq("active", true)
 .single();
 
+const title = data?.title_tag || data?.headline || "AdForge";
+const description = data?.meta_description || "";
+const url = `${SITE_URL}/seo/${params.slug}`;
+
 return {
-title: data?.title_tag || data?.headline || "AdForge",
-description: data?.meta_description || "",
+title,
+description,
+alternates: {
+canonical: url,
+},
+openGraph: {
+title,
+description,
+url,
+siteName: "AdForge",
+images: ["/icon.png"],
+},
+twitter: {
+card: "summary_large_image",
+title,
+description,
+},
 };
 }
 
@@ -76,6 +96,10 @@ const greenHeading = isTyrePage
 ? "24 HOUR EMERGENCY RECOVERY"
 : "LOCAL EMERGENCY SERVICE";
 
+const searchTags = isTyrePage
+? ["24 Hour Tyre Fitting", "Puncture Repair", "Mobile Tyre Fitter Near Me", "Roadside Tyre Replacement"]
+: ["24 Hour Vehicle Recovery", "Breakdown Recovery", "Car Towing", "Roadside Assistance", "Recovery Near Me"];
+
 const serviceCards = isTyrePage
 ? ["Mobile Tyre Fitting", "Emergency Tyre Fitting", "Puncture Repair", "Tyre Replacement"]
 : ["Breakdown Recovery", "Accident Recovery", "Vehicle Transport", "Roadside Assistance"];
@@ -100,8 +124,62 @@ const { data: relatedPages } = await supabase
 .ilike("slug", isTyrePage ? "%tyre%" : "%recovery%")
 .limit(30);
 
+const pageUrl = `${SITE_URL}/seo/${slug}`;
+
+const schema = {
+"@context": "https://schema.org",
+"@graph": [
+{
+"@type": "Organization",
+"@id": `${SITE_URL}/#organization`,
+name: "AdForge",
+url: SITE_URL,
+logo: `${SITE_URL}/icon.png`,
+},
+{
+"@type": "WebSite",
+"@id": `${SITE_URL}/#website`,
+url: SITE_URL,
+name: "AdForge",
+alternateName: "AdForge Local Business Directory",
+publisher: {
+"@id": `${SITE_URL}/#organization`,
+},
+},
+{
+"@type": "WebPage",
+"@id": `${pageUrl}#webpage`,
+url: pageUrl,
+name: title,
+headline: title,
+description,
+isPartOf: {
+"@id": `${SITE_URL}/#website`,
+},
+publisher: {
+"@id": `${SITE_URL}/#organization`,
+},
+},
+{
+"@type": "Service",
+name: title,
+description,
+areaServed: areas,
+provider: {
+"@id": `${SITE_URL}/#organization`,
+},
+url: pageUrl,
+},
+],
+};
+
 return (
 <main className="page">
+<script
+type="application/ld+json"
+dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+/>
+
 <section className="hero">
 <img src={heroImageSrc} alt={title} className="heroImg" />
 <div className="heroOverlay" />
@@ -116,11 +194,18 @@ return (
 </div>
 
 <div className="heroText">
-<h2 className="greenPill">
-{greenHeading}
-</h2>
+<h2 className="greenPill">{greenHeading}</h2>
 <h1>{title}</h1>
 <p className="intro">{description}</p>
+
+<p className="searchTags">
+{searchTags.map((tag, index) => (
+<React.Fragment key={tag}>
+<a href={`/seo/${tag.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>{tag}</a>
+{index < searchTags.length - 1 && <span> • </span>}
+</React.Fragment>
+))}
+</p>
 
 <div className="heroButtons">
 <a href={`tel:${phone}`} className="whiteBtn">Call Now</a>
@@ -137,7 +222,7 @@ return (
 </div>
 </section>
 
-<section id="services" className="section"> 
+<section id="services" className="section">
 <p className="label">OUR SERVICES</p>
 <h2>Choose what you need</h2>
 
@@ -154,48 +239,82 @@ return (
 <section className="section">
 <details>
 <summary>Read more about this service</summary>
+
 <p>{page.content}</p>
+
+<p>
+AdForge helps customers find fast local help for {serviceName} when they need a clear,
+simple way to contact a local provider. This page is built for people searching for
+{` ${serviceName} near me`}, emergency help, same day support, out of hours service,
+roadside assistance and local call-outs.
+{"\n\n"}
+Whether you are at home, at work, stuck on a roadside, waiting in a supermarket car park,
+broken down near a motorway junction or trying to arrange urgent help for a customer,
+AdForge is designed to make local services easier to find.
+{"\n\n"}
+Many customers do not search using one exact phrase. They may search for “open now”,
+“near me”, “24 hour”, “emergency”, “same day”, “local company”, “fast response”,
+“roadside help” or “urgent call-out”. This page includes those search terms naturally
+so Google can understand the full meaning of the service.
+</p>
 </details>
 
 <details>
 <summary>Popular searches for this service</summary>
+
 <div className="keywordGrid">
 {(isTyrePage
 ? [
-`24 hour mobile tyre fitting`,
-`mobile tyre fitting near me`,
-`emergency mobile tyre fitting`,
-`mobile tyre replacement`,
-`roadside tyre fitting`,
-`same day tyre fitting`,
-`mobile puncture repair`,
-`flat tyre repair`,
-`emergency tyre replacement`,
-`home tyre fitting`,
-`workplace tyre fitting`,
-`run flat tyre replacement`,
-`locking wheel nut removal`,
-`mobile tyre fitter open now`,
-`cheap mobile tyre fitting`,
-`local mobile tyre company`,
+"24 hour mobile tyre fitting",
+"mobile tyre fitting near me",
+"emergency mobile tyre fitting",
+"mobile tyre replacement",
+"roadside tyre fitting",
+"same day tyre fitting",
+"mobile puncture repair",
+"flat tyre repair",
+"emergency tyre replacement",
+"home tyre fitting",
+"workplace tyre fitting",
+"run flat tyre replacement",
+"locking wheel nut removal",
+"mobile tyre fitter open now",
+"cheap mobile tyre fitting",
+"local mobile tyre company",
+"mobile tyre service near me",
+"out of hours tyre fitting",
+"weekend mobile tyre fitting",
+"blown tyre replacement",
+"van tyre fitting",
+"commercial tyre fitting",
+"tyre change at home",
+"tyre change at work",
 ]
 : [
-`24 hour recovery`,
-`vehicle recovery near me`,
-`breakdown recovery`,
-`car recovery`,
-`van recovery`,
-`roadside recovery`,
-`accident recovery`,
-`emergency vehicle recovery`,
-`car towing service`,
-`tow truck near me`,
-`vehicle transport`,
-`motorway recovery`,
-`flat battery recovery`,
-`jump start service`,
-`non runner recovery`,
-`breakdown service open now`,
+"24 hour recovery",
+"vehicle recovery near me",
+"breakdown recovery",
+"car recovery",
+"van recovery",
+"roadside recovery",
+"accident recovery",
+"emergency vehicle recovery",
+"car towing service",
+"tow truck near me",
+"vehicle transport",
+"motorway recovery",
+"flat battery recovery",
+"jump start service",
+"non runner recovery",
+"breakdown service open now",
+"local recovery company",
+"recovery truck near me",
+"car breakdown service",
+"van breakdown recovery",
+"roadside assistance near me",
+"emergency towing service",
+"vehicle breakdown help",
+"24 hour towing",
 ]
 ).map((keyword) => (
 <span key={keyword}>{keyword}</span>
@@ -203,62 +322,70 @@ return (
 </div>
 
 <p>
-Customers search in lots of different ways when they need urgent help.
-Some people search by the exact service, some search by town, and others
-search for terms like “near me”, “open now”, “24 hour”, “emergency” or
-“same day”. This page is written to cover those different search terms
-naturally while still giving useful information to drivers.
+AdForge pages are written to match the different ways real customers search online.
+Some people search by service, some search by location, some search by road name and
+others search by urgency. That is why this page includes a wide mix of natural search
+phrases connected to {serviceName}.
+{"\n\n"}
+For example, a customer may search for a fast local provider, an emergency call-out,
+a same-day service, a company open now, a provider near their postcode, or help on a
+main road or motorway. AdForge uses this type of local content to help each page become
+more useful for both customers and search engines.
 </p>
 </details>
 
 <details>
 <summary>Why choose local help?</summary>
+
 <p>
-Choosing a local {serviceName} service can make a big difference when you
-need help quickly. Local providers understand the roads, nearby towns,
-traffic routes, retail parks, business estates, car parks and motorway
-links around the area.
+Choosing local help matters because response time is often the biggest problem when
+someone needs {serviceName}. A local provider may already know the surrounding roads,
+nearby estates, car parks, business parks, retail parks, industrial areas and motorway
+routes.
 {"\n\n"}
-Whether you are at home, at work, roadside, outside a shop, stuck in a car
-park or waiting near a motorway junction, a local service page helps you
-find the right support faster.
+AdForge is built to make that local connection easier. Instead of customers searching
+through lots of websites, old listings or companies that may not cover the area, this
+page gives them a clear local service page with a direct call option.
 {"\n\n"}
-This page is designed for customers looking for fast local help, emergency
-call-outs, same-day support, roadside assistance, local coverage and simple
-contact options.
+Local pages also help Google understand the service area better. By mentioning nearby
+towns, roads, common problems and customer search phrases, each AdForge page becomes
+more relevant for local searches.
 </p>
 </details>
 
 <details>
 <summary>Areas and nearby towns covered</summary>
+
 <p>
-This page can help customers across {areas.join(", ")} and surrounding
-areas. Coverage may also include local roads, housing estates, industrial
-estates, business parks, retail parks, supermarkets, garages, workplaces,
-homes, car parks and roadside locations.
+This AdForge page can help customers across {areas.join(", ")} and surrounding local
+areas. Coverage may include homes, workplaces, business parks, industrial estates,
+supermarkets, retail parks, garages, car parks, roadside locations and nearby motorway
+routes.
 {"\n\n"}
-Many people do not search only for the main town. They also search for
-nearby villages, districts, suburbs and motorway routes. Including these
-areas helps Google understand the full local coverage of the page.
+A customer looking for {serviceName} may also search for help near Liverpool, Wirral,
+Wallasey, Sefton, Knowsley, Bootle, Huyton, Kirkby, Prescot, St Helens, Widnes,
+Southport, Crosby, Maghull, Aintree, Birkenhead, Warrington or nearby motorway routes.
 </p>
 </details>
 
 <details>
 <summary>Roads and motorway coverage</summary>
+
 <p>
-Emergency local services are often needed on busy roads and motorway
-routes such as {roads.join(", ")}. Customers may need help after a
-breakdown, tyre problem, accident, warning light, flat battery, puncture,
-blowout or roadside issue.
+Emergency services are often needed on busy roads and motorway routes such as
+{` ${roads.join(", ")}`}. Customers may need help after a breakdown, accident,
+flat battery, puncture, tyre blowout, warning light, engine fault, overheating,
+clutch problem, gearbox fault or vehicle transport issue.
 {"\n\n"}
-If your vehicle is unsafe to drive, stop somewhere safe where possible,
-switch on hazard lights and keep passengers away from traffic. On fast
-roads or motorways, wait behind the barrier where safe and call for help.
+AdForge pages include road and motorway terms because many urgent searches happen when
+someone is already stranded. People may search for “recovery near M62”, “breakdown help
+on M57”, “tyre fitter near M58”, “tow truck near me” or “roadside assistance open now”.
 </p>
 </details>
 
 <details>
 <summary>Common problems customers need help with</summary>
+
 <div className="keywordGrid">
 {commonProblems.map((item) => (
 <span key={item}>{item}</span>
@@ -266,67 +393,71 @@ roads or motorways, wait behind the barrier where safe and call for help.
 </div>
 
 <p>
-These problems can happen without warning. A tyre can fail, a vehicle can
-refuse to start, a battery can go flat, a warning light can appear, or a
-driver may need urgent help moving a vehicle safely.
+Customers usually search for {serviceName} because something has gone wrong quickly.
+A vehicle may not start, a tyre may be flat, a battery may be dead, a warning light may
+appear, a vehicle may be damaged after an accident, or the driver may not feel safe
+continuing the journey.
 {"\n\n"}
-This page helps customers find clear local information and a fast way to
-call for help without searching through lots of different websites.
+AdForge pages are designed to explain these problems clearly so customers can recognise
+their situation and call for help. This helps the page cover more search intent than a
+basic directory listing.
 </p>
 </details>
 
 <details>
-<summary>
-{isTyrePage ? "Mobile tyre fitting information" : "Vehicle recovery information"}
-</summary>
+<summary>{isTyrePage ? "Mobile tyre fitting information" : "Vehicle recovery information"}</summary>
 
 {isTyrePage ? (
 <p>
-Mobile tyre fitting is useful when you need tyres fitted at home, work
-or roadside. It can help with flat tyres, punctures, damaged sidewalls,
-blown tyres, low tread, valve issues, run flat tyres, locking wheel nut
-problems and emergency tyre replacement.
+Mobile tyre fitting is useful when you need tyres fitted at home, work or roadside.
+Customers may need help with a flat tyre, puncture, tyre blowout, damaged sidewall,
+slow puncture, low tread, valve issue, run flat tyre, locking wheel nut problem,
+damaged alloy, tyre pressure warning or emergency tyre replacement.
 {"\n\n"}
-Customers often search for mobile tyre fitting near me, tyre fitter open
-now, 24 hour tyre fitting, emergency tyre fitting, roadside tyre
-replacement, mobile puncture repair, same day tyres and mobile tyre
-service.
-{"\n\n"}
-A mobile tyre fitter may be able to attend your location, check the tyre,
-replace it where needed and help get the vehicle moving again without
-you needing to drive to a garage.
+AdForge includes mobile tyre fitting content because customers search in many different
+ways. Some search for “mobile tyre fitting near me”, others search for “emergency tyre
+replacement”, “puncture repair near me”, “roadside tyre fitting”, “same day tyres”,
+“mobile tyre fitter open now”, “home tyre fitting” or “workplace tyre fitting”.
 </p>
 ) : (
 <p>
-Vehicle recovery can help when a car, van or light commercial vehicle
-cannot be driven safely. This may include breakdown recovery, accident
-recovery, car towing, van recovery, vehicle transport, motorway recovery,
-non-runner recovery, flat battery help and roadside assistance.
+Vehicle recovery helps when a car, van, SUV, 4x4 or light commercial vehicle cannot be
+driven safely. This may include breakdown recovery, accident recovery, car towing, van
+recovery, vehicle transport, motorway recovery, non-runner recovery, flat battery help,
+jump starts and roadside assistance.
 {"\n\n"}
-Customers often search for recovery truck near me, 24 hour breakdown
-recovery, car recovery, vehicle recovery, towing service, roadside
-recovery, accident recovery and emergency recovery open now.
-{"\n\n"}
-If your vehicle is damaged, unsafe, stuck, broken down or unable to
-start, recovery support may be needed to move it safely.
+AdForge includes recovery keywords because customers search for help in different ways.
+Some search for “24 hour recovery”, others search for “tow truck near me”, “vehicle
+recovery near me”, “breakdown recovery”, “car recovery”, “van recovery”, “roadside
+recovery”, “accident recovery”, “motorway recovery” or “breakdown service open now”.
 </p>
 )}
 </details>
 
 <details>
-<summary>Emergency advice</summary>
+<summary>How the service works</summary>
+
 <p>
-If you have broken down or suffered a tyre problem, avoid driving if the
-vehicle feels unsafe. Pull over where it is safe, switch on hazard lights
-and keep passengers away from moving traffic.
+The process is simple. A customer finds the AdForge page, checks the service and location,
+then uses the call button to request help. The customer should explain what has happened,
+where the vehicle is, whether it is safe, and what type of vehicle needs assistance.
 {"\n\n"}
-On motorways or fast roads, leave the vehicle from the passenger side if
-safe and wait behind the barrier. Do not attempt a repair in a dangerous
-location.
+AdForge pages are made to reduce confusion by giving customers a simple page, clear call
+buttons, service details and local information all in one place.
+</p>
+</details>
+
+<details>
+<summary>Emergency advice</summary>
+
+<p>
+If you have broken down or suffered a tyre problem, avoid driving if the vehicle feels
+unsafe. Pull over where it is safe, switch on hazard lights and keep passengers away from
+moving traffic.
 {"\n\n"}
-When calling, give your location clearly. Mention the road name, direction
-of travel, junction number, nearby landmark, postcode or any nearby shops,
-garages or buildings.
+When calling for help through an AdForge local service page, give your location clearly.
+Mention the road name, direction of travel, junction number, nearest exit, postcode,
+what3words if available, nearby landmark or any shops, garages or buildings nearby.
 </p>
 </details>
 
@@ -337,13 +468,13 @@ garages or buildings.
 <p>Emergency help may be available day and night depending on local provider availability.</p>
 
 <h3>How quickly can someone arrive?</h3>
-<p>Response times depend on location, traffic, weather and provider availability.</p>
+<p>Response times depend on location, traffic, weather, demand and provider availability.</p>
 
 <h3>Do you cover nearby towns?</h3>
-<p>Yes, nearby areas and surrounding towns may be covered depending on the service.</p>
+<p>Yes, nearby areas and surrounding towns may be covered depending on the local provider.</p>
 
 <h3>Can I call now?</h3>
-<p>Yes. Use the call button to arrange help quickly.</p>
+<p>Yes. Use the call button on this AdForge page to arrange help quickly.</p>
 
 <h3>Can help come to my workplace?</h3>
 <p>Many services can attend homes, workplaces, yards, car parks and roadside locations.</p>
@@ -354,20 +485,11 @@ garages or buildings.
 <h3>Can vans be helped?</h3>
 <p>Cars, vans, SUVs, 4x4s and light commercial vehicles may be supported.</p>
 
-<h3>Is same-day help available?</h3>
-<p>Same-day assistance may be available depending on local demand and provider availability.</p>
+<h3>Why is AdForge showing this page?</h3>
+<p>AdForge creates local service pages to help customers find trusted local help faster.</p>
 
-<h3>Can I get help at home?</h3>
-<p>Yes, many services can attend home addresses depending on availability.</p>
-
-<h3>Can I get help in a car park?</h3>
-<p>Yes, help may be available at supermarkets, retail parks, public car parks and private car parks.</p>
-
-<h3>What information should I give when calling?</h3>
-<p>Give your location, vehicle details, the problem, and whether the vehicle is in a safe place.</p>
-
-<h3>Do you cover evenings and weekends?</h3>
-<p>Out-of-hours help may be available depending on the local provider.</p>
+<h3>Can businesses advertise on AdForge?</h3>
+<p>Yes. Local businesses can use AdForge to advertise services, create pages and attract customers.</p>
 </details>
 </section>
 
@@ -496,6 +618,22 @@ max-width: 560px;
 color: rgba(255,255,255,.9);
 }
 
+.searchTags {
+margin: 14px 0 0;
+font-size: 15px;
+line-height: 1.5;
+font-weight: 900;
+}
+
+.searchTags a {
+color: #dfffe8;
+text-decoration: none;
+}
+
+.searchTags span {
+color: rgba(255,255,255,.45);
+}
+
 .heroButtons {
 display: flex;
 gap: 14px;
@@ -621,6 +759,7 @@ font-weight: 900;
 .brand { font-size: 38px; }
 h1 { font-size: 40px; max-width: 330px; }
 .intro { font-size: 15.5px; max-width: 310px; }
+.searchTags { font-size: 13px; }
 .trustGrid { grid-template-columns: repeat(2, 1fr); }
 .services { grid-template-columns: 1fr; }
 }
