@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import type { MetadataRoute } from "next";
 
 const supabase = createClient(
 process.env.NEXT_PUBLIC_SUPABASE_URL as string,
@@ -8,50 +9,80 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 const SITE_URL = "https://adforge.uk";
 
 function slugify(value: string) {
-return value
+return String(value || "")
 .toLowerCase()
 .trim()
 .replace(/[^a-z0-9]+/g, "-")
 .replace(/^-+|-+$/g, "");
 }
 
-export default async function sitemap() {
-const { data: businesses } = await supabase
-.from("businesses")
-.select("slug,business_type,location,created_at")
-.order("created_at", { ascending: false })
-.range(0, 4999);
+async function fetchAll(table: string, select: string, activeOnly = false) {
+let allRows: any[] = [];
+let from = 0;
+const step = 1000;
 
-const { data: landingPages } = await supabase
-.from("landing_pages")
-.select("slug,created_at")
-.eq("active", true)
+while (true) {
+let query = supabase
+.from(table)
+.select(select)
 .order("created_at", { ascending: false })
-.range(0, 4999);
+.range(from, from + step - 1);
 
-const businessPages =
-businesses
-?.filter((b) => b.slug)
+if (activeOnly) {
+query = query.eq("active", true);
+}
+
+const { data, error } = await query;
+
+if (error) {
+console.error(error.message);
+break;
+}
+
+if (!data || data.length === 0) break;
+
+allRows.push(...data);
+
+if (data.length < step) break;
+
+from += step;
+}
+
+return allRows;
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+const businesses = await fetchAll(
+"businesses",
+"slug,business_type,location,created_at"
+);
+
+const landingPages = await fetchAll(
+"landing_pages",
+"slug,created_at,active",
+true
+);
+
+const businessPages = businesses
+.filter((b) => b.slug)
 .map((b) => ({
 url: `${SITE_URL}/business/${b.slug}`,
 lastModified: b.created_at ? new Date(b.created_at) : new Date(),
-})) || [];
+}));
 
-const categoryLocationPages =
-businesses
-?.filter((b) => b.business_type && b.location)
+const categoryLocationPages = businesses
+.filter((b) => b.business_type && b.location)
 .map((b) => ({
 url: `${SITE_URL}/${slugify(b.business_type)}/${slugify(b.location)}`,
 lastModified: b.created_at ? new Date(b.created_at) : new Date(),
-})) || [];
+}));
 
-const seoLandingPages =
-landingPages
-?.filter((p) => p.slug)
+const seoLandingPages = landingPages
+.filter((p) => p.slug)
 .map((p) => ({
 url: `${SITE_URL}/seo/${p.slug}`,
 lastModified: p.created_at ? new Date(p.created_at) : new Date(),
-})) || [];
+}));
 
 return [
 {
