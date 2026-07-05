@@ -15,6 +15,8 @@ export async function generateMetadata({ params }: any) {
 const { data } = await supabase
 .from("landing_pages")
 .select("*")
+.order("created_at", { ascending: false })
+.range(0, 4999)
 .eq("slug", params.slug)
 .eq("active", true)
 .single();

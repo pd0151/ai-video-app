@@ -52,6 +52,37 @@ return String(value || "")
 .trim();
 }
 
+function cleanLocationFromText(value: string) {
+return String(value || "")
+.replace(/^24\s*hour\s*/i, "")
+.replace(/mobile\s*tyre\s*fitting\s*/i, "")
+.replace(/mobile\s*tyre\s*replacement\s*/i, "")
+.replace(/tyre\s*fitting\s*/i, "")
+.replace(/tyre\s*replacement\s*/i, "")
+.replace(/car\s*towing\s*service\s*/i, "")
+.replace(/vehicle\s*breakdown\s*recovery\s*service\s*/i, "")
+.replace(/breakdown\s*recovery\s*service\s*/i, "")
+.replace(/vehicle\s*recovery\s*service\s*/i, "")
+.replace(/recovery\s*service\s*/i, "")
+.replace(/vehicle\s*recovery\s*/i, "")
+.replace(/breakdown\s*recovery\s*/i, "")
+.trim();
+}
+
+function getLocation(page: any) {
+const slugValue = page.slug || "";
+const headlineValue = page.headline || titleCaseFromSlug(slugValue);
+
+let location = cleanLocationFromText(headlineValue);
+
+if (!location || location === headlineValue) {
+location = titleCaseFromSlug(slugValue);
+location = cleanLocationFromText(location);
+}
+
+return location || "your local area";
+}
+
 function seoCheck(page: any) {
 const issues: string[] = [];
 
@@ -65,11 +96,11 @@ if (page.headline && page.title_tag && !page.title_tag.includes(page.headline)) 
 issues.push("Title does not match H1");
 }
 
-if (page.meta_description && page.meta_description.length < 120) {
+if (page.meta_description && page.meta_description.length < 80) {
 issues.push("Meta too short");
 }
 
-if (page.meta_description && page.meta_description.length > 180) {
+if (page.meta_description && page.meta_description.length > 220) {
 issues.push("Meta too long");
 }
 
@@ -79,13 +110,11 @@ return issues;
 function recoveryContent(location: string) {
 return `# 24 Hour Recovery in ${location}
 
-Need emergency vehicle recovery in ${location}? AdForge helps connect drivers with fast local recovery services 24 hours a day. Whether you have broken down at home, at work, on the motorway, in a car park or at the roadside, this page helps you get assistance arranged quickly.
+Need emergency vehicle recovery in ${location}? AdForge helps connect drivers with fast local recovery services 24 hours a day.
 
 # Why Choose Our Recovery Service
 
 When your vehicle breaks down, speed matters. Our recovery network helps drivers in ${location} find local recovery support without wasting time ringing around multiple companies.
-
-Recovery support may be available for cars, vans, motorcycles and light commercial vehicles. Services can help with non-starting vehicles, accident damage, roadside breakdowns, flat batteries, vehicle transport and emergency call-outs.
 
 # Services We Offer
 
@@ -102,16 +131,10 @@ Recovery support may be available for cars, vans, motorcycles and light commerci
 • Non Start Vehicle Recovery
 • Motorway Recovery
 • Long Distance Vehicle Transport
-• Insurance Recovery
-• Commercial Vehicle Recovery
 
 # Areas We Cover
 
-Recovery is available throughout ${location} together with surrounding towns, nearby roads, industrial estates, business parks, retail parks, car parks and motorway networks.
-
-# Common Breakdown Problems
-
-Common issues include flat batteries, engine failure, gearbox problems, overheating, electrical faults, accident damage, clutch failure, tyre blowouts, locked wheels, non-runner vehicles and vehicles that are unsafe to drive.
+Recovery is available throughout ${location}, nearby towns, roads, industrial estates, retail parks, car parks and motorway networks.
 
 # Call Now
 
@@ -121,13 +144,11 @@ If you need emergency recovery in ${location}, use this page to arrange assistan
 function tyreContent(location: string) {
 return `# 24 Hour Mobile Tyre Fitting in ${location}
 
-Need 24 hour mobile tyre fitting in ${location}? AdForge helps drivers find fast local tyre fitting, emergency tyre replacement, roadside tyre fitting and puncture repair services across ${location} and surrounding areas.
+Need 24 hour mobile tyre fitting in ${location}? AdForge helps drivers find fast local tyre fitting, emergency tyre replacement, roadside tyre fitting and puncture repair services.
 
 # Why Choose Mobile Tyre Fitting
 
-Mobile tyre fitting saves time because the tyre fitter comes directly to your home, workplace or roadside location. You do not need to arrange recovery, wait at a garage or risk driving on a damaged tyre.
-
-This is ideal if you have a flat tyre, puncture, blowout, damaged sidewall, worn tyre, slow puncture, valve problem or unsafe tyre and need help quickly.
+Mobile tyre fitting saves time because the tyre fitter comes directly to your home, workplace or roadside location.
 
 # Services We Offer
 
@@ -144,15 +165,10 @@ This is ideal if you have a flat tyre, puncture, blowout, damaged sidewall, worn
 • Commercial Vehicle Tyres
 • Wheel Balancing
 • Valve Replacement
-• Seasonal Tyre Changes
 
 # Areas We Cover
 
-Mobile tyre fitting covers ${location}, nearby towns, villages, industrial estates, retail parks, workplaces, homes, car parks and motorway networks.
-
-# Common Tyre Problems
-
-Common tyre problems include flat tyres, punctures, damaged sidewalls, cracked tyres, worn tread, uneven tyre wear, slow punctures, valve leaks, locking wheel nuts, damaged alloys, tyre pressure issues and blowouts.
+Mobile tyre fitting covers ${location}, nearby towns, villages, workplaces, homes, car parks and motorway networks.
 
 # Call Now
 
@@ -166,7 +182,7 @@ Need ${service.toLowerCase()} in ${location}? AdForge helps customers find fast,
 
 # Why Choose ${service}
 
-When you need ${service.toLowerCase()}, speed and trust matter. This page helps customers in ${location} get connected with local providers without wasting time searching multiple websites.
+When you need ${service.toLowerCase()}, speed and trust matter. This page helps customers in ${location} get connected with local providers quickly.
 
 # Services We Offer
 
@@ -179,15 +195,10 @@ When you need ${service.toLowerCase()}, speed and trust matter. This page helps 
 • Workplace Appointments
 • Fast Response Service
 • Local Providers
-• 24/7 Availability Where Possible
 
 # Areas We Cover
 
-This page covers ${location}, nearby towns, local roads, surrounding areas, car parks, homes, workplaces, business parks and roadside locations.
-
-# Common Problems
-
-Customers may need ${service.toLowerCase()} because of urgent problems, roadside issues, breakdowns, damaged parts, unsafe vehicles, emergency call-outs or same-day service needs.
+This page covers ${location}, nearby towns, local roads, surrounding areas, car parks, homes and workplaces.
 
 # Call Now
 
@@ -196,54 +207,31 @@ If you need ${service.toLowerCase()} in ${location}, use this page to get help a
 
 function buildFixedPage(page: any) {
 const slugValue = page.slug || "";
-const oldHeadline = page.headline || titleCaseFromSlug(slugValue) || "Local Service";
 
 const isTyre = slugValue.includes("tyre");
-const isRecovery = slugValue.includes("recovery");
 const isTowing = slugValue.includes("towing");
-const isBreakdown = slugValue.includes("breakdown");
+const isRecovery = slugValue.includes("recovery") || slugValue.includes("breakdown");
 
-let newHeadline = oldHeadline.trim();
+const location = getLocation(page);
 
-if (isTyre && !newHeadline.toLowerCase().includes("24 hour")) {
-newHeadline = newHeadline.replace(/^Mobile Tyre Fitting/i, "24 Hour Mobile Tyre Fitting");
-}
+let newHeadline = page.headline || titleCaseFromSlug(slugValue) || "Local Service";
+newHeadline = newHeadline.trim();
 
-if (isRecovery && !newHeadline.toLowerCase().includes("24 hour")) {
-newHeadline = newHeadline.replace(/^Recovery Service/i, "24 Hour Recovery Service");
-}
-
-let location = "your local area";
-
-if (isTyre) {
-location = newHeadline.replace("24 Hour Mobile Tyre Fitting ", "").replace("Mobile Tyre Fitting ", "").trim();
-} else if (isRecovery) {
-location = newHeadline.replace("24 Hour Recovery Service ", "").replace("Recovery Service ", "").trim();
-} else {
-const parts = newHeadline.split(" ");
-location = parts[parts.length - 1] || "your local area";
-}
-
-let newContent = page.content || "";
-
-if (!newContent || newContent.length < 500) {
-if (isTyre) newContent = tyreContent(location);
-else if (isRecovery) newContent = recoveryContent(location);
-else newContent = customContent(newHeadline, location);
-}
-
+let newContent = "";
 let meta = "";
 
 if (isTyre) {
-meta = `Need 24 hour mobile tyre fitting in ${location}? Fast roadside tyre replacement, puncture repair and emergency mobile tyre fitting available across ${location} and surrounding areas.`;
-} else if (isRecovery) {
-meta = `Need 24 hour recovery in ${location}? Fast breakdown recovery, accident recovery and vehicle transport available across ${location} and surrounding areas.`;
+newContent = tyreContent(location);
+meta = `Need mobile tyre fitting in ${location}? Fast tyre replacement, puncture repair and emergency tyre fitting at home, work or roadside.`;
 } else if (isTowing) {
-meta = `Need ${newHeadline.toLowerCase()}? Fast, reliable local towing support available across ${location} and surrounding areas. Call now for roadside help and vehicle transport.`;
-} else if (isBreakdown) {
-meta = `Need ${newHeadline.toLowerCase()}? Fast, reliable breakdown support available across ${location} and surrounding areas. Call now for roadside help and local assistance.`;
+newContent = customContent("Car Towing Service", location);
+meta = `Need car towing in ${location}? Fast local towing support, roadside help and vehicle transport across ${location} and nearby areas.`;
+} else if (isRecovery) {
+newContent = recoveryContent(location);
+meta = `Need vehicle recovery in ${location}? Fast breakdown recovery, accident recovery and vehicle transport across ${location} and nearby areas.`;
 } else {
-meta = `Need ${newHeadline.toLowerCase()}? Fast, reliable local service available across ${location} and surrounding areas. Call now for same-day help and local assistance.`;
+newContent = customContent(newHeadline, location);
+meta = `Need ${newHeadline.toLowerCase()}? Fast, reliable local service available across ${location} and nearby areas.`;
 }
 
 return {
@@ -275,7 +263,7 @@ return;
 }
 
 resetForm();
-loadPages();
+await loadPages();
 }
 
 function resetForm() {
@@ -312,7 +300,8 @@ alert(error.message);
 return;
 }
 
-loadPages();
+await loadPages();
+alert("SEO fixed");
 }
 
 async function fixAllSeoPages() {
@@ -323,14 +312,47 @@ const badPages = pages.filter((page) => seoCheck(page).length > 0);
 for (const page of badPages) {
 const fixedPayload = buildFixedPage(page);
 
-await supabase
+const { error } = await supabase
 .from("landing_pages")
 .update(fixedPayload)
 .eq("id", page.id);
+
+if (error) {
+alert(error.message);
+return;
+}
 }
 
+await loadPages();
 alert("SEO fixes complete");
-loadPages();
+}
+
+async function updateExistingSeoContent() {
+if (!confirm("Update SEO content on all existing pages with improved content?")) return;
+
+const { data: existingPages, error } = await supabase
+.from("landing_pages")
+.select("*")
+.range(0, 4999);
+
+if (error) return alert(error.message);
+
+for (const page of existingPages || []) {
+const fixedPayload = buildFixedPage(page);
+
+const { error: updateError } = await supabase
+.from("landing_pages")
+.update(fixedPayload)
+.eq("id", page.id);
+
+if (updateError) {
+alert(updateError.message);
+return;
+}
+}
+
+await loadPages();
+alert("Existing SEO page content updated");
 }
 
 async function generateBulkPages(type: "recovery" | "tyres") {
@@ -349,7 +371,7 @@ return {
 slug: `24-hour-recovery-service-${makeSlug(location)}`,
 headline,
 title_tag: `${headline} | AdForge`,
-meta_description: `Need 24 hour recovery in ${location}? Fast breakdown recovery, accident recovery and vehicle transport available across ${location} and surrounding areas.`,
+meta_description: `Need vehicle recovery in ${location}? Fast breakdown recovery, accident recovery and vehicle transport across ${location} and nearby areas.`,
 content: recoveryContent(location),
 active: true,
 };
@@ -361,7 +383,7 @@ return {
 slug: `mobile-tyre-fitting-${makeSlug(location)}`,
 headline,
 title_tag: `${headline} | AdForge`,
-meta_description: `Need 24 hour mobile tyre fitting in ${location}? Fast roadside tyre replacement, puncture repair and emergency mobile tyre fitting across ${location}.`,
+meta_description: `Need mobile tyre fitting in ${location}? Fast tyre replacement, puncture repair and emergency tyre fitting at home, work or roadside.`,
 content: tyreContent(location),
 active: true,
 };
@@ -375,7 +397,7 @@ return;
 }
 
 setBulkLocations("");
-loadPages();
+await loadPages();
 alert("SEO pages created");
 }
 
@@ -393,7 +415,7 @@ return {
 slug: `${makeSlug(service)}-${makeSlug(location)}`,
 headline: pageHeadline,
 title_tag: `${pageHeadline} | AdForge`,
-meta_description: `Need ${service.toLowerCase()} in ${location}? Fast, reliable local service available across ${location} and surrounding areas. Call now for local help and same-day assistance.`,
+meta_description: `Need ${service.toLowerCase()} in ${location}? Fast local help from trusted providers across ${location} and nearby areas.`,
 content: customContent(service, location),
 active: true,
 };
@@ -408,31 +430,8 @@ return;
 
 setCustomService("");
 setCustomLocations("");
-loadPages();
+await loadPages();
 alert("Custom service pages created");
-}
-
-async function updateExistingSeoContent() {
-if (!confirm("Update SEO content on all existing pages with improved content?")) return;
-
-const { data: existingPages, error } = await supabase
-.from("landing_pages")
-.select("*")
-.range(0, 4999);
-
-if (error) return alert(error.message);
-
-for (const page of existingPages || []) {
-const fixedPayload = buildFixedPage(page);
-
-await supabase
-.from("landing_pages")
-.update({ content: fixedPayload.content })
-.eq("id", page.id);
-}
-
-loadPages();
-alert("Existing SEO page content updated");
 }
 
 async function deletePage(id: string) {
@@ -445,7 +444,7 @@ alert(error.message);
 return;
 }
 
-loadPages();
+await loadPages();
 }
 
 const badPages = pages.filter((page) => seoCheck(page).length > 0);
