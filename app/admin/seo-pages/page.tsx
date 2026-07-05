@@ -28,13 +28,32 @@ loadPages();
 }, []);
 
 async function loadPages() {
-const { data } = await supabase
+let allPages: any[] = [];
+let from = 0;
+const step = 1000;
+
+while (true) {
+const { data, error } = await supabase
 .from("landing_pages")
 .select("*")
 .order("created_at", { ascending: false })
-.range(0, 4999);
+.range(from, from + step - 1);
 
-setPages(data || []);
+if (error) {
+alert(error.message);
+return;
+}
+
+if (!data || data.length === 0) break;
+
+allPages.push(...data);
+
+if (data.length < step) break;
+
+from += step;
+}
+
+setPages(allPages);
 }
 
 function makeSlug(value: string) {
