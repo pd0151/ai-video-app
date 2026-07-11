@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+<defs>
+  <radialGradient id="g" cx="75%" cy="20%" r="80%"><stop offset="0" stop-color="#163624"/><stop offset="1" stop-color="#05070d"/></radialGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="16" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1200" height="750" rx="48" fill="url(#g)"/>
+<circle cx="900" cy="235" r="150" fill="none" stroke="#32ff73" stroke-width="24" opacity=".9" filter="url(#glow)"/>
+<circle cx="900" cy="235" r="68" fill="#05070d" stroke="#fff" stroke-width="15"/>
+<path d="M760 500 H1040" stroke="#32ff73" stroke-width="30" stroke-linecap="round" opacity=".9"/>
+<text x="70" y="105" fill="#32ff73" font-family="Arial,sans-serif" font-size="34" font-weight="900" letter-spacing="5">ADFORGE LOCK</text>
+<text x="70" y="300" fill="#fff" font-family="Arial,sans-serif" font-size="74" font-weight="900">LOCKING NUT REMOVAL</text>
+<text x="70" y="375" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="34">Specialist wheel access</text>
+<text x="70" y="655" fill="#fff" opacity=".72" font-family="Arial,sans-serif" font-size="28">Local service information powered by AdForge</text>
+</svg>

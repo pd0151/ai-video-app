@@ -9,7 +9,7 @@ type PageType =
   | "recovery"
   | "custom";
 
-const CONTENT_VERSION = "ADFORGE_SEO_ENGINE_V3";
+const CONTENT_VERSION = "ADFORGE_SEO_ENGINE_V4";
 
 function titleCase(value: string) {
   return String(value || "")
@@ -324,183 +324,191 @@ function buildRecoveryContent(page: LandingPageLike) {
 
 # 24 Hour Vehicle Recovery in ${location}
 
-When a car, van or light commercial vehicle cannot be driven safely, AdForge helps customers find local vehicle recovery information for ${location}. Drivers may need breakdown recovery at home, at work, on a residential road, inside a car park, near a shopping area, outside a garage or beside a busy main road.
+AdForge helps drivers find local vehicle recovery, breakdown recovery and roadside assistance in ${location}. When a car, van, motorcycle, SUV, 4x4 or light commercial vehicle cannot be driven safely, AdForge provides a clear route to local recovery information and contact options.
 
-Customers commonly search for 24 hour recovery near me, breakdown recovery in ${location}, emergency car recovery, van recovery, roadside assistance, tow truck near me, motorway recovery, accident recovery and vehicle transport. This page brings those services together in one detailed local guide.
+Customers commonly search for 24 hour recovery near me, breakdown recovery ${location}, car recovery, van recovery, tow truck near me, accident recovery, motorway recovery, vehicle transport and roadside assistance. This page is written around those real services rather than simply repeating a place name.
 
-# Local Recovery Support Across ${location}
+# Recovery Services Available Through AdForge
 
-A vehicle problem can happen without warning. A driver may turn the key and find that the engine will not start, see a warning light while travelling, hear an unusual mechanical noise or discover that the vehicle is no longer safe to move.
-
-AdForge is designed to make local services easier to find. Rather than ringing several companies or searching through outdated directory listings, customers can use a focused local page that explains the service, the area covered, the information needed when calling and the types of problems that may require recovery.
-
-Recovery may be requested from ${places.join(", ")} and other locations throughout ${location}.
-
-# Why Local Knowledge Matters
-
-Local knowledge can be important when a driver is stranded. Providers familiar with ${location} may already know the fastest routes through the area, busy junctions, one-way systems, restricted-access roads, retail parks, industrial estates and motorway connections.
-
-Clear location information can reduce delays. Customers should mention the road name, direction of travel, nearest junction, postcode, landmark, nearby business or car-park entrance. On motorways, the carriageway direction, junction number and marker information can be especially useful.
-
-# Recovery Services Customers Search For
+AdForge recovery pages explain the main services drivers may need:
 
 • 24 Hour Breakdown Recovery
 • Emergency Vehicle Recovery
-• Car Recovery Near Me
+• Car Recovery
 • Van Recovery
+• Motorcycle Recovery
 • Accident Recovery
-• Roadside Assistance
-• Tow Truck Service
-• Car Towing
-• Motorway Recovery
 • Vehicle Transport
-• Non Runner Vehicle Recovery
-• Flat Battery Recovery
-• Jump Start Assistance
-• Garage Transport
-• Home Vehicle Delivery
-• Auction Vehicle Transport
 • Long Distance Recovery
-• Insurance Recovery
-• Fleet Vehicle Recovery
-• Light Commercial Vehicle Recovery
+• Motorway Recovery
+• Roadside Assistance
+• Flat Battery Assistance
+• Jump Starts
+• Home Starts
+• Non Runner Recovery
+• Winching Where Available
+• Wrong Fuel Assistance Where Available
+• Fleet and Commercial Recovery
+• Auction and Garage Transport
 
-# Roads and Motorway Routes Near ${location}
+AdForge continually links drivers with relevant local recovery information so customers can understand the service before they call.
 
-Drivers may need help on or near ${roads.join(", ")}. Busy routes can create additional safety concerns, particularly during rush hour, poor weather, roadworks or darkness.
+# 24 Hour Breakdown Recovery
 
-Searches often include recovery near ${roads[0]}, breakdown assistance near ${roads[1]}, tow truck open now, roadside help, emergency vehicle recovery and car transport near me.
+Breakdowns do not follow office hours. Vehicles can fail early in the morning, late at night, during weekends or on bank holidays. A 24 hour recovery service may be needed when a vehicle will not start, loses power, overheats, develops a clutch or gearbox fault, suffers electrical failure or becomes unsafe to drive.
 
-If the vehicle is in a dangerous position, safety should come before the vehicle. Switch on hazard lights, move away from traffic where possible and contact the emergency services when there is an immediate danger.
+AdForge is designed to make 24 hour breakdown recovery easier to find in ${location}. Drivers can use the page to identify common services, explain the fault and arrange help without searching through multiple unrelated listings.
 
-# Nearby Towns and Surrounding Areas
+# Accident Recovery
 
-This page focuses on ${location}, although local recovery may also be requested across ${nearby.join(", ")} and other nearby areas.
+Accident recovery may be required when a vehicle has body damage, broken suspension, damaged steering, deployed airbags, leaking fluids or wheels that no longer roll correctly. Even when a vehicle still starts, it may not be safe or legal to drive.
 
-People do not always search using the main town name. They may search using a district, village, postcode, motorway junction, retail park or nearby road. Including surrounding areas helps customers recognise the local coverage and helps search engines understand the geographical relevance of the page.
+AdForge pages highlight accident recovery because it is a major part of local recovery work. The vehicle may need careful loading and transport to a garage, repair centre, storage yard, insurer-approved site or home address.
 
-# Vehicle Types That May Need Recovery
+# Vehicle Transport
+
+Vehicle transport is useful for non-runners, auction purchases, garage transfers, classic cars, project vehicles, newly purchased vehicles and vehicles that need to be moved without being driven.
+
+Through AdForge, customers can find information about local vehicle transport in ${location}, including short-distance and long-distance movements. Accurate details about the vehicle condition, size and destination help the provider bring the right equipment.
+
+# Car, Van and Motorcycle Recovery
 
 Recovery may be suitable for ${vehicles.join(", ")}.
 
-Different vehicles can require different loading equipment, towing methods or transport arrangements. When calling, customers should explain the vehicle make, model, approximate size, condition and whether the wheels can roll freely.
+Cars, vans and motorcycles often need different loading methods. Low vehicles, automatic vehicles, electric vehicles, four-wheel-drive vehicles and motorcycles should be described clearly when calling. AdForge encourages customers to give the make, model, registration and condition so the job can be assessed properly.
 
-Electric and hybrid vehicles may have specific recovery requirements. The recovery provider should be told when a vehicle is electric, hybrid, four-wheel drive, automatic or fitted with low ground clearance.
+# Flat Battery Help and Jump Starts
 
-# Common Reasons Drivers Need Recovery
+A flat battery is one of the most common roadside problems. Batteries may fail because of age, cold weather, lights being left on, charging faults or long periods without use.
 
-Customers in ${location} may need help because of a ${faults.join(", ")}.
+A jump start may get the vehicle moving, but repeat failure may point to a battery, alternator or charging-system problem. AdForge recovery pages explain when a jump start may help and when full recovery to a garage is safer.
 
-Some faults make the vehicle completely immobile. Others may allow limited movement but make continued driving unsafe. Continuing to drive with overheating, low oil pressure, severe warning lights, damaged suspension, steering faults or accident damage can cause further damage and create a safety risk.
+# Home Starts and Roadside Assistance
 
-# Flat Battery and Non-Starting Vehicles
+Some drivers discover a fault before leaving home. Home-start assistance can be useful for a flat battery, non-starting engine, electrical fault or warning light.
 
-A flat battery is one of the most common reasons drivers call for assistance. Batteries can fail after lights are left on, during cold weather, after long periods without use or because the battery has reached the end of its life.
+Roadside assistance may involve basic checks, battery support or making the vehicle safe. When the problem cannot be resolved safely, recovery may be arranged. AdForge presents both roadside assistance and recovery information on the same local page.
 
-A jump start may get some vehicles moving, but repeated battery failure can indicate a charging-system or alternator problem. If the vehicle cannot be restarted reliably, recovery to a garage or safe destination may be the better option.
+# Winching and Difficult Access
 
-# Engine, Clutch and Gearbox Problems
+Vehicles may become stuck in mud, grass, soft ground, snow, flood water, steep driveways or awkward car parks. Winching may be available depending on the location, vehicle and access.
 
-Engine faults, clutch failure and gearbox problems can stop a vehicle from moving or make it unsafe to continue. Warning signs may include loss of power, unusual noises, difficulty selecting gears, burning smells, smoke, fluid leaks or severe vibration.
+Customers should tell the provider about narrow entrances, low ceilings, underground parking, height restrictions, locked wheels, damaged suspension or a vehicle that cannot roll. AdForge encourages clear information so unsuitable equipment is not sent.
 
-Stopping early can prevent a smaller fault becoming a major repair. Recovery allows the vehicle to be moved without driving it further.
+# Wrong Fuel and Fuel Problems
 
-# Accident Recovery and Damaged Vehicles
+Putting the wrong fuel into a vehicle can cause serious damage if the engine is started or driven. Where wrong-fuel assistance is available, the provider may advise whether the vehicle can be drained locally or needs recovery.
 
-After an accident, a vehicle may have damaged bodywork, wheels, suspension, steering, airbags or cooling components. Even when the engine still runs, the vehicle may not be roadworthy.
+Running out of fuel can also leave a driver stranded. AdForge pages mention fuel-related assistance because customers often search for wrong fuel recovery, fuel delivery or breakdown help near me.
 
-Accident recovery may involve loading the vehicle carefully, clearing the immediate location and transporting it to a garage, storage yard, insurer-approved repair centre or home address.
+# Local Recovery Around ${location}
 
-# Vehicle Transport and Non-Runners
+Recovery may be requested from ${places.join(", ")} and other locations throughout ${location}.
 
-Vehicle transport is not only for roadside breakdowns. Customers may need a non-running vehicle moved between home and a garage, collected from an auction, delivered after a purchase, transported for repairs or moved into storage.
+AdForge repeatedly connects the service with the local area so customers and search engines can understand that the page is about recovery work in ${location}, not generic national advice.
 
-Providing accurate information about the vehicle condition helps ensure the correct transport equipment is used.
+# Roads and Motorway Routes
 
-# Motorway and Fast-Road Safety
+Drivers may need help on or near ${roads.join(", ")}. Searches often include recovery near ${roads[0]}, tow truck near ${roads[1]}, breakdown recovery open now and motorway assistance.
 
-Breaking down on a motorway or fast dual carriageway can be dangerous. If possible, move onto the hard shoulder or into an emergency area, switch on hazard lights and leave the vehicle from the passenger side.
+Busy roads, poor weather, darkness and roadworks increase risk. If the vehicle is in a dangerous position, safety comes before the vehicle. Switch on hazard lights, move away from traffic where possible and contact emergency services if there is an immediate danger.
 
-Wait behind the safety barrier where it is safe to do so. Do not stand between the vehicle and moving traffic. If the vehicle is stopped in a live lane or there is an immediate danger, contact emergency services.
+# Nearby Areas Covered
+
+This AdForge page focuses on ${location}, but recovery may also be needed across ${nearby.join(", ")} and surrounding districts.
+
+Customers may search by town, village, postcode, motorway junction, retail park, industrial estate or nearby landmark. Including nearby areas makes the page genuinely useful for local searches.
+
+# Common Breakdown Faults
+
+Drivers in ${location} may need AdForge recovery information because of a ${faults.join(", ")}.
+
+Some faults stop the vehicle immediately. Others allow limited movement but make continued driving unsafe. Overheating, oil-pressure warnings, steering faults, suspension damage, severe vibration and accident damage should not be ignored.
+
+# Engine, Clutch and Gearbox Failure
+
+Engine problems may include loss of power, smoke, unusual noises, warning lights or complete failure to start. Clutch and gearbox faults may cause difficulty selecting gears, slipping, grinding noises or a vehicle that will not move.
+
+AdForge explains these faults because they are common reasons for breakdown recovery. Stopping early can reduce further damage and make recovery safer.
+
+# Electric and Hybrid Vehicle Recovery
+
+Electric and hybrid vehicles may need specialist loading and transport. A provider should know the vehicle type before attendance, especially when the wheels are locked or the vehicle cannot select neutral.
+
+AdForge includes electric vehicle recovery information so modern vehicle owners can find a relevant local service page rather than a generic towing result.
+
+# Fleet, Taxi and Commercial Recovery
+
+A breakdown can interrupt deliveries, customer appointments and working time. Taxi drivers, couriers, tradespeople and fleet operators may need fast local recovery to reduce downtime.
+
+AdForge recovery pages cover fleet vehicles, company vans and commercial call-outs as well as private cars.
 
 # What Happens When You Call
 
-1. Explain your exact location.
-2. Give the vehicle make, model and registration.
-3. Describe the fault or damage.
+1. Give the exact location and postcode.
+2. State the vehicle make, model and registration.
+3. Explain the fault, damage or warning lights.
 4. Confirm whether the vehicle rolls, steers and brakes.
-5. State where you want the vehicle taken.
-6. Mention passengers, access restrictions or safety concerns.
+5. State the destination required.
+6. Mention passengers, access limits and safety concerns.
 
-Clear information allows the recovery provider to assess the job and bring suitable equipment.
+AdForge encourages clear information because it helps the provider assess the job and arrive with suitable equipment.
 
-# Recovery for Businesses, Fleets and Tradespeople
+# Safety Advice While Waiting
 
-A breakdown can interrupt deliveries, customer appointments and daily operations. Tradespeople, taxi drivers, couriers, delivery firms and fleet operators may need fast recovery to minimise lost working time.
+On a motorway or fast road, move to a refuge area or hard shoulder if possible. Leave from the passenger side and wait behind the barrier where it is safe. Do not stand between the vehicle and moving traffic.
 
-Businesses should keep vehicle details, fleet contacts and preferred repair destinations available so arrangements can be made quickly.
-
-# Seasonal Breakdown Risks
-
-Cold weather can expose weak batteries and starting problems. Heavy rain can affect visibility, electrics and road conditions. Summer heat can contribute to overheating, cooling-system faults and tyre problems.
-
-Holiday traffic, bank holidays and winter evenings can increase demand. Regular checks and early maintenance reduce risk, but emergency recovery remains important when a problem occurs unexpectedly.
-
-# Before Recovery Arrives
-
-Remove valuables and personal items where possible. Make sure passengers are waiting safely. Locate the keys and locking-wheel-nut key if relevant. Tell the provider about underground car parks, height restrictions, narrow entrances or inaccessible wheels.
-
-Do not attempt to push a vehicle in moving traffic or work beneath a vehicle at the roadside.
+On local roads, use hazard lights and move passengers away from danger. Never work beneath a vehicle at the roadside.
 
 # Frequently Asked Questions
 
-## Can recovery attend my home address?
+## Is 24 hour recovery available in ${location}?
 
-Recovery may be available from homes, driveways, residential streets and private parking areas, subject to safe access.
+Availability depends on the provider and current workload, but AdForge pages are designed around emergency and out-of-hours recovery searches.
 
-## Can a van or commercial vehicle be recovered?
+## Can a van be recovered?
 
-Many providers can recover vans and light commercial vehicles. Give the approximate weight and dimensions when calling.
+Many providers recover vans and light commercial vehicles. Give the size and approximate weight when calling.
+
+## Can a motorcycle be recovered?
+
+Motorcycle recovery may be available using suitable transport equipment.
 
 ## Can an electric vehicle be recovered?
 
-Electric vehicles can be recovered, but the provider should know the vehicle is electric so the correct loading method is used.
+Yes, but the provider should know the vehicle is electric or hybrid before attendance.
 
 ## Can an accident-damaged vehicle be moved?
 
-Yes, subject to its condition and access. Explain whether wheels, steering, suspension or body panels are damaged.
+Yes, subject to access and vehicle condition. Explain damage to wheels, steering, suspension and bodywork.
 
-## Can the vehicle be taken to my chosen garage?
+## Can the vehicle be taken to my own garage?
 
-Customers can usually request transport to a garage, home, dealership, storage yard or another agreed destination.
+Customers can usually request transport to a garage, dealership, home, storage site or another agreed destination.
 
 ## Is motorway recovery available?
 
-Motorway recovery may be available. Give the motorway, carriageway direction, junction and nearest marker information.
+Motorway recovery may be available. Give the motorway, direction, junction and marker information.
 
-## Can a non-running vehicle be transported?
+## Can a non-runner be transported?
 
-Yes. Non-runners may be moved for repairs, purchase collection, auction transport or storage.
-
-## What if the steering is locked?
-
-Tell the provider before attendance. Locked steering or wheels can affect the equipment required.
+Yes. AdForge pages cover non-running vehicle transport, auction collection and garage transfers.
 
 ## Can recovery help with a flat battery?
 
-A jump start or battery assistance may be possible. Recovery may be required if the vehicle will not restart reliably.
+Jump-start or battery assistance may be possible. Full recovery may be needed when the vehicle will not restart reliably.
 
 ## Do providers cover ${nearby[0]} and ${nearby[1]}?
 
-Nearby coverage may be available depending on provider location and workload.
+Nearby coverage may be available depending on location and workload.
 
-# Popular Recovery Search Terms
+# Popular Recovery Keywords
 
-24 hour recovery ${location}, recovery near me, breakdown recovery ${location}, car recovery, van recovery, emergency towing, tow truck near me, roadside assistance, accident recovery, motorway recovery, non-runner transport, vehicle transport, flat battery recovery and breakdown service open now.
+24 hour recovery ${location}, breakdown recovery ${location}, vehicle recovery near me, car recovery, van recovery, motorcycle recovery, tow truck near me, roadside assistance, accident recovery, motorway recovery, vehicle transport, long distance recovery, flat battery help, jump start, home start, non runner recovery and emergency towing.
 
-# Call for Local Recovery Help
+# Choose AdForge for Local Recovery Information
 
-If a vehicle is broken down, damaged or unsafe to drive in ${location}, use this AdForge page to find local information and arrange support. Give clear details, remain somewhere safe and avoid driving a vehicle that may cause further damage or create a danger.`;
+AdForge is building a trusted local-service platform for drivers who need breakdown recovery, accident recovery, vehicle transport and roadside assistance. If a vehicle is broken down, damaged or unsafe in ${location}, use AdForge to find clear local information and arrange help. `;
 }
 
 function buildTyreContent(page: LandingPageLike) {
@@ -528,211 +536,253 @@ function buildTyreContent(page: LandingPageLike) {
 
 # Mobile Tyre Fitting in ${location}
 
-AdForge helps drivers find detailed local information for mobile tyre fitting in ${location}. A mobile tyre fitter can attend homes, workplaces, car parks and roadside locations when a vehicle has a flat tyre, puncture, blowout, damaged sidewall, worn tyre or another problem that makes driving unsafe.
+AdForge helps drivers find mobile tyre fitting, tyre fitters, new tyres, part worn tyres, puncture repairs, locking wheel nut removal and wheel balancing in ${location}. This page is focused on the actual tyre services customers need, with local information added around the service.
 
-Customers commonly search for mobile tyre fitting near me, emergency tyre fitting ${location}, 24 hour mobile tyres, puncture repair near me, roadside tyre replacement, same-day tyre fitting, locking wheel nut removal and mobile tyre fitter open now.
+Customers commonly search for mobile tyre fitting near me, 24 hour mobile tyre fitting, emergency tyre fitter, tyres near me, new tyres, part worn tyres, puncture repair, locking nut removal, wheel balancing and roadside tyre replacement. AdForge brings those services together on one clear local page.
 
-# Local Mobile Tyre Service Across ${location}
+# Mobile Tyre Services Available Through AdForge
 
-Mobile fitting removes the need to drive to a garage on a damaged tyre. It can also save time for drivers who are at work, looking after children, operating a business vehicle or unable to leave the vehicle unattended.
+AdForge mobile tyre pages cover:
 
-Appointments and emergency call-outs may be requested from ${places.join(", ")} and other locations throughout ${location}.
-
-# Why Mobile Tyre Fitting Is Useful
-
-Driving on a flat, damaged or badly worn tyre can damage the wheel and reduce control of the vehicle. A mobile fitter brings equipment to the customer, checks the tyre and fits a suitable replacement where possible.
-
-For many customers, mobile fitting is more convenient than arranging vehicle recovery, waiting at a garage or risking further damage by driving.
-
-# Tyre Services Customers Search For
-
-• 24 Hour Mobile Tyre Fitting
-• Emergency Tyre Fitting
-• Mobile Tyre Replacement
-• Roadside Tyre Replacement
-• Same Day Tyre Fitting
-• Mobile Puncture Repair
-• Flat Tyre Repair
-• Locking Wheel Nut Removal
-• Run Flat Tyre Replacement
-• Home Tyre Fitting
-• Workplace Tyre Fitting
-• Van Tyre Fitting
-• Commercial Vehicle Tyres
-• Valve Replacement
-• TPMS Support
-• Wheel Balancing
-• Seasonal Tyre Changes
+• New Tyres
+• Part Worn Tyres
 • Budget Tyres
 • Premium Tyres
-• Mobile Tyre Fitter Near Me
+• 24 Hour Mobile Tyre Fitting
+• Emergency Mobile Tyre Fitting
+• Mobile Tyre Fitters
+• Roadside Tyre Replacement
+• Home Tyre Fitting
+• Workplace Tyre Fitting
+• Puncture Repairs
+• Slow Puncture Repairs
+• Locking Wheel Nut Removal
+• Wheel Balancing
+• Valve Replacement
+• TPMS Support
+• Run Flat Tyres
+• Van Tyres
+• Commercial Tyres
+• All Season Tyres
+• Summer Tyres
+• Winter Tyres
 
-# Roads and Routes Near ${location}
+The main purpose of AdForge is to associate local customers with useful service information, not simply to repeat a location name.
 
-Drivers may need tyre assistance on or near ${roads.join(", ")}. Potholes, debris, kerb contact, pressure loss and worn tyres can cause sudden problems on local roads and motorway routes.
+# New Tyres in ${location}
 
-Customers often search for tyre fitter near ${roads[0]}, emergency tyres near ${roads[1]}, roadside puncture repair, mobile tyre replacement open now and same-day tyres near me.
+New tyres are a major part of mobile tyre fitting. AdForge pages explain new tyre options for drivers who need a replacement after a puncture, blowout, sidewall cut, low tread, cracking, uneven wear or MOT advisory.
 
-# Nearby Areas Covered
+New tyres may be available in budget, mid-range and premium ranges. The right choice depends on tyre size, annual mileage, vehicle type, driving conditions and budget. A new tyre should match the correct width, profile, wheel diameter, load index and speed rating.
 
-This page focuses on ${location}, although tyre fitting may also be requested across ${nearby.join(", ")} and other nearby districts.
+AdForge continually mentions new tyres because customers regularly search for new tyres near me, cheap new tyres, premium tyres, same-day tyres and mobile new tyre fitting.
 
-Location pages help customers find relevant services using town names, suburbs, villages, postcodes, motorway junctions and local roads.
+# Part Worn Tyres in ${location}
 
-# Vehicles That May Need Mobile Tyres
+Part worn tyres are also an important service for many customers. A legal part worn tyre should be inspected carefully, marked correctly and have sufficient tread and no dangerous structural damage.
 
-Mobile tyre fitting may be suitable for ${vehicles.join(", ")}.
+AdForge pages clearly mention part worn tyres so customers searching for part worn tyres near me, cheap part worn tyres, mobile part worn tyre fitting and same-day part worn tyres can find a relevant local page.
 
-Common makes include ${vehicleMakes.join(", ")}. Customers should give the exact tyre size rather than relying only on the vehicle model, because different versions of the same vehicle can use different wheels and tyre sizes.
+Part worn tyres may provide a lower-cost option, but safety and condition matter. The tyre should have no exposed cords, serious sidewall damage, bulges or unsafe repairs. Availability depends on the exact tyre size.
 
-# Tyre Brands and Options
+# Budget and Premium Tyres
 
-Depending on size and availability, tyre options may include ${tyreBrands.join(", ")}.
+Budget tyres can be suitable for customers looking for an affordable replacement. Premium tyres may offer different performance, comfort, wet grip, noise and mileage characteristics.
 
-Drivers may choose budget, mid-range or premium tyres based on mileage, vehicle type, driving conditions and price. The replacement should always match the required size, load rating and speed rating.
+Depending on size and availability, tyre brands may include ${tyreBrands.join(", ")}. AdForge does not assume one brand suits every driver; it helps customers understand that tyre size and safe fitting come first.
 
-# How to Find Your Tyre Size
+# 24 Hour Mobile Tyre Fitting
 
-The tyre size is written on the sidewall. A typical size looks like 205/55 R16 91V.
+Tyre problems can happen at any time. A 24 hour mobile tyre fitting service may be needed during the night, early morning, weekend, bank holiday or before an urgent journey.
+
+AdForge pages are written around 24 hour mobile tyre fitting searches because emergency call-outs are one of the main reasons drivers look for a mobile tyre fitter. A tyre fitter may attend the customer at home, work or roadside when the location is safe.
+
+# Emergency Mobile Tyre Fitting
+
+Emergency mobile tyre fitting is useful after a blowout, sudden pressure loss, damaged sidewall, pothole impact or tyre failure. Driving further can damage the wheel and make the vehicle harder to control.
+
+AdForge makes emergency tyre fitting easier to find by connecting service terms such as emergency tyre replacement, roadside tyre fitter, tyre fitter open now and mobile tyre fitting near me with ${location}.
+
+# Mobile Tyre Fitters
+
+A mobile tyre fitter brings fitting equipment directly to the vehicle. This can save customers from arranging recovery, driving on a damaged tyre or waiting at a garage.
+
+AdForge pages repeatedly use the terms tyre fitter and mobile tyre fitter naturally because those are the phrases customers use. Mobile tyre fitters may attend ${places.join(", ")} and other locations around ${location}.
+
+# Puncture Repairs
+
+Puncture repairs are one of the most requested tyre services. A puncture may be repairable when the damage is small, located within the repairable central tread area and the tyre has not been driven while flat.
+
+The tyre should be removed and inspected internally. Sidewall punctures, severe damage, exposed cords and some previous repairs make a tyre unsuitable for repair.
+
+AdForge includes puncture repairs throughout the page because drivers search for puncture repair near me, mobile puncture repair, slow puncture repair and emergency puncture help.
+
+# Slow Punctures
+
+A slow puncture may be caused by a nail, screw, leaking valve, corroded wheel rim or poor seal. Repeatedly adding air does not fix the cause.
+
+A mobile tyre fitter may inspect the tyre, valve and wheel to decide whether a safe puncture repair is possible or a replacement tyre is required.
+
+# Locking Wheel Nut Removal
+
+A missing, damaged or rounded locking wheel nut key can prevent wheel removal. Locking wheel nut removal may be required before a new tyre, part worn tyre or puncture repair can be completed.
+
+Customers should check the glovebox, boot, tool kit and spare-wheel area for the key. AdForge specifically highlights locking wheel nut removal because it is a common emergency search and an important mobile tyre service.
+
+# Wheel Balancing
+
+Wheel balancing helps reduce vibration and uneven tyre wear. After a tyre is fitted, balancing weights are used to distribute the wheel and tyre assembly evenly.
+
+Drivers may notice steering-wheel vibration at speed when balancing is incorrect. AdForge pages mention wheel balancing as part of a complete tyre fitting service rather than treating tyre replacement as the only job.
+
+# Valve Replacement and TPMS
+
+A leaking valve can cause repeated pressure loss. Rubber valves may need replacing during fitting, while some vehicles use tyre-pressure-monitoring sensors.
+
+A TPMS warning can indicate low pressure, a puncture or a sensor problem. AdForge explains valve replacement and TPMS support because they are closely connected to punctures and tyre fitting.
+
+# Run Flat Tyres
+
+Run flat tyres are designed to travel a limited distance after pressure loss, but speed and distance restrictions apply. Driving too far can damage the tyre internally and make repair impossible.
+
+Tell the mobile tyre fitter when the vehicle uses run flat tyres. AdForge includes run flat tyre replacement for drivers searching for specialist mobile tyre services.
+
+# Van and Commercial Tyres
+
+Tradespeople, couriers, delivery drivers and businesses often need van tyres or light commercial tyres quickly to reduce downtime.
+
+Van tyres may require higher load ratings than car tyres. AdForge pages include van tyre fitting and commercial tyre fitting so business users can find a service relevant to their vehicle.
+
+# Home Tyre Fitting
+
+Home tyre fitting is useful when a vehicle is parked on a driveway or safe residential road. Customers can arrange new tyres, part worn tyres or puncture repairs without travelling to a depot.
+
+AdForge helps customers find home tyre fitting in ${location} and nearby areas.
+
+# Workplace Tyre Fitting
+
+Workplace tyre fitting allows employees, taxi drivers, tradespeople and fleet vehicles to receive tyre help while parked safely at work.
+
+Customers should confirm parking permission and provide access details. AdForge includes workplace tyre fitting because convenience is one of the main benefits of a mobile tyre fitter.
+
+# Tyres for Different Vehicles
+
+Mobile fitting may be suitable for ${vehicles.join(", ")}.
+
+Common vehicle makes include ${vehicleMakes.join(", ")}. The exact tyre size must still be confirmed because different models and trim levels can use different wheels.
+
+# How to Read a Tyre Size
+
+A typical tyre size looks like 205/55 R16 91V.
 
 205 is the tyre width in millimetres.
 55 is the sidewall profile.
-R16 means the tyre fits a 16-inch wheel.
+R16 means a 16-inch wheel.
 91 is the load index.
 V is the speed rating.
 
-Giving the full tyre size helps the fitter confirm stock before travelling.
+AdForge encourages customers to provide the full tyre size so a mobile tyre fitter can check new tyre or part worn tyre availability before travelling.
 
 # Common Tyre Problems
 
-Customers in ${location} may need help with a ${tyreProblems.join(", ")}.
+Drivers in ${location} may need AdForge tyre information because of a ${tyreProblems.join(", ")}.
 
-Some tyre damage can be repaired safely. Other damage requires replacement. Sidewall cuts, exposed cords, severe cracking, large punctures and damage outside the central tread area are usually not suitable for repair.
-
-# Puncture Repair
-
-A puncture may be repairable when the hole is small, located within the repairable central tread area and the tyre has not been driven while flat.
-
-The tyre should be removed and inspected internally. A quick external plug is not always a permanent or suitable repair.
+Some problems can be repaired. Others require a new tyre or part worn tyre replacement. Sidewall damage, bulges, exposed cords and severe cracking should not be ignored.
 
 # Sidewall Damage and Blowouts
 
-Sidewall damage is serious because the sidewall flexes while driving. Bulges, cuts, splits or exposed cords normally mean the tyre must be replaced.
+Sidewall cuts and bulges usually require tyre replacement because the sidewall carries structural load. A blowout can cause sudden pressure loss and loss of control.
 
-A blowout can cause sudden pressure loss and loss of control. Drivers should slow down carefully, avoid harsh steering or braking and stop somewhere safe.
+Slow down carefully, avoid harsh steering and stop somewhere safe. AdForge helps customers find emergency tyre fitters for these situations.
 
-# Slow Punctures and Pressure Loss
+# Pothole and Wheel Damage
 
-A slow puncture may be caused by a nail, screw, leaking valve, damaged wheel rim or poor seal between the tyre and wheel.
+Potholes and kerb impacts can damage tyres, wheels, tracking and suspension. A bent or cracked wheel may cause repeated pressure loss even after a tyre is changed.
 
-Repeatedly inflating the tyre without identifying the cause is not a long-term solution. The tyre and wheel should be inspected.
+The mobile tyre fitter should be told about wheel damage before attendance.
 
-# Locking Wheel Nut Problems
+# Local Tyre Fitting Around ${location}
 
-A missing, damaged or rounded locking-wheel-nut key can prevent tyre replacement. Specialist removal may be needed before the wheel can be removed.
+Tyre assistance may be requested from ${places.join(", ")} and other locations across ${location}.
 
-Customers should check the glovebox, boot, spare-wheel compartment and tool kit before calling.
+AdForge keeps the service central while also providing local relevance. The page is about mobile tyre fitting, new tyres, part worn tyres and puncture repairs in ${location}, not generic tyre advice.
 
-# Run-Flat Tyres
+# Roads and Motorway Routes
 
-Run-flat tyres are designed to travel a limited distance after pressure loss, but distance and speed limits vary. Driving too far can make repair impossible and may damage the tyre internally.
+Drivers may need a mobile tyre fitter on or near ${roads.join(", ")}. Searches often include mobile tyre fitter near ${roads[0]}, puncture repair near ${roads[1]}, tyre replacement open now and emergency tyres near me.
 
-Tell the fitter when the vehicle uses run-flat tyres so a suitable replacement can be sourced.
+Roadside fitting requires a safe working area. A live lane, blind bend or fast-moving traffic may make fitting unsafe.
 
-# TPMS Warning Lights
+# Nearby Areas Covered
 
-A tyre-pressure-monitoring-system warning can indicate low pressure, a puncture, temperature-related pressure change or a sensor problem.
-
-Check all tyres safely. Do not assume the warning is only a faulty sensor, especially when handling or steering feels different.
-
-# Wheel and Pothole Damage
-
-Potholes and kerb impacts can damage tyres, alloy wheels, tracking and suspension. A wheel may crack or bend, causing repeated pressure loss.
-
-If a new tyre cannot seal safely against a damaged wheel, the wheel may also need repair or replacement.
-
-# Mobile Fitting at Home or Work
-
-Home tyre fitting is useful for vehicles on driveways or residential parking areas. Workplace fitting can reduce time away from work for employees, tradespeople, couriers and fleet operators.
-
-Customers should ensure there is enough safe space around the vehicle and provide any access instructions.
-
-# Roadside Tyre Fitting Safety
-
-A fitter needs a safe working area. Tyre replacement may not be possible in a live lane, on a blind bend or immediately beside fast-moving traffic.
-
-Move to a safer location when possible. On motorways, follow emergency guidance and wait behind the barrier.
-
-# Tyres for Taxis, Couriers and Fleets
-
-Taxis, delivery vans, private-hire vehicles and business fleets often cover high mileage. Regular pressure and tread checks help reduce downtime and unexpected failures.
-
-Fleet customers should record tyre sizes and preferred tyre options for each vehicle.
+This AdForge page focuses on ${location}, but mobile tyre fitting may also be available across ${nearby.join(", ")} and surrounding districts.
 
 # Seasonal Tyre Advice
 
-Cold weather can reduce tyre pressure. Heavy rain increases the importance of tread depth. Summer heat can increase pressure and expose existing tyre damage.
+Cold weather can reduce tyre pressure. Heavy rain makes tread depth and wet grip more important. Summer heat can expose existing tyre weakness.
 
-Before long journeys, bank holidays and winter travel, check tyre pressure, tread, sidewalls and the condition of the spare tyre or inflation kit.
+Before long journeys, check tread, pressure, sidewalls and the spare tyre or inflation kit. AdForge pages include seasonal advice because emergency call-outs often increase during bad weather and busy travel periods.
 
-# Before the Fitter Arrives
+# What Happens When You Call
 
-1. Confirm the exact location and postcode.
+1. Give the exact location and postcode.
 2. Read the full tyre size from the sidewall.
-3. Check whether a locking-wheel-nut key is present.
-4. State whether the tyre is completely flat or damaged.
-5. Mention run-flat tyres, wheel damage or TPMS warnings.
-6. Make sure the vehicle is parked somewhere safe and accessible.
+3. Explain whether you want new tyres, part worn tyres or a puncture repair.
+4. Mention a missing locking wheel nut key.
+5. State whether the tyre is completely flat or the wheel is damaged.
+6. Confirm that the vehicle is parked somewhere safe.
+
+Clear details help the tyre fitter check stock and bring the correct equipment.
 
 # Frequently Asked Questions
 
-## Can a mobile fitter come to my home?
+## Do you supply new tyres?
 
-Home tyre fitting may be available where the vehicle is parked safely and there is suitable access.
+New tyres may be available in budget, mid-range and premium options depending on size and stock.
 
-## Can tyres be fitted at work?
+## Do you supply part worn tyres?
 
-Yes, workplace car parks, yards and business premises may be suitable with permission and safe space.
+Part worn tyres may be available for selected sizes. Condition and legal safety requirements are important.
 
 ## Can a puncture be repaired?
 
-A puncture may be repairable after an internal inspection if its position and size meet safety standards.
+A puncture may be repairable after inspection when its position and size meet safety standards.
 
-## Can sidewall damage be repaired?
+## Can you remove locking wheel nuts?
 
-Sidewall cuts, bulges and structural damage generally require tyre replacement.
+Locking wheel nut removal may be available when the key is missing or damaged.
 
-## What if I do not know my tyre size?
+## Is wheel balancing included?
 
-Read the code printed on the tyre sidewall or send a clear photograph of it.
+Wheel balancing may be included with fitting or offered as an additional service. Confirm when booking.
 
-## Can run-flat tyres be replaced?
+## Is 24 hour mobile tyre fitting available?
 
-Yes, subject to correct size and availability. Tell the fitter the vehicle uses run-flat tyres.
+Availability depends on the local tyre fitter and current workload, but AdForge pages target emergency and out-of-hours tyre searches.
 
-## Can locking wheel nuts be removed?
+## Can tyres be fitted at home?
 
-Specialist removal may be available when the key is missing or damaged.
+Home fitting may be available where the vehicle is parked safely and there is enough working space.
 
-## Can mobile fitting help with vans?
+## Can tyres be fitted at work?
 
-Van and light-commercial tyre fitting may be available. Give the tyre size and vehicle details.
+Workplace fitting may be available with safe access and permission.
+
+## Can you fit van tyres?
+
+Van and commercial tyre fitting may be available. Give the tyre size and vehicle details.
 
 ## Do providers cover ${nearby[0]} and ${nearby[1]}?
 
-Nearby coverage may be available depending on provider location, stock and workload.
+Nearby coverage depends on fitter location, stock and workload.
 
-## Is same-day fitting available?
+# Popular Tyre Keywords
 
-Same-day service depends on tyre size, stock, distance and local demand.
+mobile tyre fitting ${location}, 24 hour mobile tyre fitting, emergency tyre fitter, mobile tyre fitter near me, new tyres, part worn tyres, cheap tyres, budget tyres, premium tyres, puncture repairs, slow puncture repair, locking wheel nut removal, wheel balancing, valve replacement, run flat tyres, van tyres, roadside tyre fitting, home tyre fitting and workplace tyre fitting.
 
-# Popular Tyre Search Terms
+# Choose AdForge for Mobile Tyre Information
 
-mobile tyre fitting ${location}, mobile tyre fitter near me, 24 hour tyre fitting, emergency tyre replacement, puncture repair ${location}, roadside tyre fitting, flat tyre help, same-day tyres, home tyre fitting, work tyre fitting, run-flat tyre replacement, locking wheel nut removal and tyre fitter open now.
-
-# Arrange Mobile Tyre Help
-
-If a tyre is flat, damaged or unsafe in ${location}, use this AdForge page to find local information and arrange help. Provide the correct tyre size and location so the fitter can check availability before travelling.`;
+AdForge is building a trusted local-service platform for customers who need mobile tyre fitting, new tyres, part worn tyres, puncture repairs, locking wheel nut removal, wheel balancing and 24 hour emergency tyre call-outs. If you need a tyre fitter in ${location}, use AdForge to find clear local information and arrange help. `;
 }
 
 function buildCustomContent(page: LandingPageLike) {
@@ -868,6 +918,35 @@ export function buildRichContent(page: LandingPageLike) {
   if (type === "tyre") return buildTyreContent(page);
   if (type === "recovery") return buildRecoveryContent(page);
   return buildCustomContent(page);
+}
+
+
+export function getSeoGallery(page: LandingPageLike) {
+  const type = detectPageType(page);
+
+  if (type === "tyre") {
+    return [
+      { src: "/images/seo-v4/new-tyres.svg", alt: "New tyres supplied by mobile tyre fitters", title: "New Tyres" },
+      { src: "/images/seo-v4/part-worn-tyres.svg", alt: "Part worn tyres available locally", title: "Part Worn Tyres" },
+      { src: "/images/seo-v4/puncture-repair.svg", alt: "Mobile puncture repair service", title: "Puncture Repairs" },
+      { src: "/images/seo-v4/locking-wheel-nut.svg", alt: "Locking wheel nut removal", title: "Locking Nut Removal" },
+      { src: "/images/seo-v4/wheel-balancing.svg", alt: "Wheel balancing service", title: "Wheel Balancing" },
+      { src: "/images/seo-v4/mobile-tyre-fitting.svg", alt: "24 hour mobile tyre fitting", title: "24 Hour Mobile Tyre Fitting" },
+    ];
+  }
+
+  if (type === "recovery") {
+    return [
+      { src: "/images/seo-v4/breakdown-recovery.svg", alt: "24 hour breakdown recovery", title: "Breakdown Recovery" },
+      { src: "/images/seo-v4/accident-recovery.svg", alt: "Accident recovery service", title: "Accident Recovery" },
+      { src: "/images/seo-v4/vehicle-transport.svg", alt: "Vehicle transport service", title: "Vehicle Transport" },
+      { src: "/images/seo-v4/jump-start.svg", alt: "Flat battery and jump start assistance", title: "Battery Assistance" },
+      { src: "/images/seo-v4/motorway-recovery.svg", alt: "Motorway recovery", title: "Motorway Recovery" },
+      { src: "/images/seo-v4/van-recovery.svg", alt: "Car and van recovery", title: "Car & Van Recovery" },
+    ];
+  }
+
+  return [];
 }
 
 export { CONTENT_VERSION };
