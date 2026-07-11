@@ -1,366 +1,804 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import { createClient } from "@supabase/supabase-js";
 import { notFound } from "next/navigation";
 import Script from "next/script";
-import type { Metadata } from "next";
 
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+process.env.NEXT_PUBLIC_SUPABASE_URL!,
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-const PHONE = "+447576579923";
-const DISPLAY_PHONE = "07576 579923";
+const phone = "+447576579923";
+const SITE_URL = "https://adforge.uk";
 
-type LandingPage = {
-  id?: string;
-  slug: string;
-  headline: string;
-  title_tag?: string | null;
-  meta_description?: string | null;
-  content?: string | null;
-  active?: boolean | null;
+export async function generateMetadata({ params }: any) {
+const { data } = await supabase
+.from("landing_pages")
+.select("*")
+.order("created_at", { ascending: false })
+.range(0, 4999)
+.eq("slug", params.slug)
+.eq("active", true)
+.single();
+
+const title = data?.title_tag || data?.headline || "AdForge";
+const description = data?.meta_description || "";
+const url = `${SITE_URL}/seo/${params.slug}`;
+
+return {
+title,
+description,
+alternates: {
+canonical: url,
+},
+openGraph: {
+title,
+description,
+url,
+siteName: "AdForge",
+images: ["/icon.png"],
+},
+twitter: {
+card: "summary_large_image",
+title,
+description,
+},
 };
-
-type RelatedPage = { slug: string; headline: string };
-type ServiceItem = { title: string; description: string; image: string; alt: string };
+}
 
 function titleCase(value: string) {
-  return String(value || "")
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (letter) => letter.toUpperCase())
-    .replace(/\s+/g, " ")
-    .trim();
+return String(value || "")
+.replace(/-/g, " ")
+.replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function extractLocation(page: LandingPage) {
-  const source = page.headline || titleCase(page.slug);
-  const cleaned = source
-    .replace(/^24\s*hour\s*/i, "")
-    .replace(/emergency\s*/i, "")
-    .replace(/mobile\s*/i, "")
-    .replace(/new\s+and\s+part\s+worn\s+tyres?\s*/i, "")
-    .replace(/part\s+worn\s+tyres?\s*/i, "")
-    .replace(/new\s+tyres?\s*/i, "")
-    .replace(/tyre\s+replacement\s*/i, "")
-    .replace(/tyre\s+repair\s*/i, "")
-    .replace(/tyre\s+fitting\s*/i, "")
-    .replace(/puncture\s+repair\s*/i, "")
-    .replace(/locking\s+wheel\s+nut\s+removal\s*/i, "")
-    .replace(/wheel\s+balancing\s*/i, "")
-    .replace(/vehicle\s+breakdown\s+recovery\s+service\s*/i, "")
-    .replace(/breakdown\s+recovery\s+service\s*/i, "")
-    .replace(/vehicle\s+recovery\s+service\s*/i, "")
-    .replace(/recovery\s+service\s*/i, "")
-    .replace(/breakdown\s+recovery\s*/i, "")
-    .replace(/vehicle\s+recovery\s*/i, "")
-    .replace(/car\s+towing\s+service\s*/i, "")
-    .replace(/\s+/g, " ")
-    .trim();
-  return cleaned || "your local area";
-}
+export default async function LandingPage({ params }: any) {
+const { data: page } = await supabase
+.from("landing_pages")
+.select("*")
+.eq("slug", params.slug)
+.eq("active", true)
+.single();
 
-function pageType(page: LandingPage): "tyre" | "recovery" | "custom" {
-  const text = `${page.slug} ${page.headline}`.toLowerCase();
-  if (
-    text.includes("tyre") || text.includes("puncture") ||
-    text.includes("wheel-nut") || text.includes("wheel nut") ||
-    text.includes("locking-nut") || text.includes("locking nut")
-  ) return "tyre";
-  if (
-    text.includes("recovery") || text.includes("breakdown") ||
-    text.includes("towing") || text.includes("vehicle transport")
-  ) return "recovery";
-  return "custom";
-}
+if (!page) notFound();
 
-function splitContentSections(content: string) {
-  const lines = String(content || "").split("\n");
-  const sections: { title: string; body: string[] }[] = [];
-  let current = { title: "Read more about this service", body: [] as string[] };
+const slug = page.slug || "";
+const title = page.headline;
+const description =
+page.meta_description ||
+"Fast local service available across your area with rapid response.";
 
-  for (const rawLine of lines) {
-    const line = rawLine.trim();
-    if (!line) {
-      if (current.body.length && current.body[current.body.length - 1] !== "") current.body.push("");
-      continue;
-    }
-    if (line.startsWith("#")) {
-      if (current.body.some(Boolean)) sections.push(current);
-      current = { title: line.replace(/^#+\s*/, "").trim() || "Service information", body: [] };
-    } else {
-      current.body.push(line);
-    }
-  }
-  if (current.body.some(Boolean)) sections.push(current);
-  return sections;
-}
+const isTyrePage =
+slug.includes("tyre") ||
+slug.includes("puncture") ||
+slug.includes("locking-nut") ||
+slug.includes("wheel-nut") ||
+slug.includes("flat-tyre") ||
+slug.includes("run-flat");
 
-function tyreServices(location: string): ServiceItem[] {
-  return [
-    ["24 Hour Mobile Tyre Fitting", `AdForge helps customers find mobile tyre fitters in ${location} for home, workplace and roadside call-outs, including urgent 24 hour tyre fitting.`, "/images/seo-v4/mobile-tyre-fitting.svg"],
-    ["New Tyres", "New tyres for cars, vans and commercial vehicles, with budget, mid-range and premium options available through local tyre fitters.", "/images/seo-v4/new-tyres.svg"],
-    ["Part Worn Tyres", "Affordable part worn tyres for drivers who need a lower-cost replacement, subject to size, condition and local stock availability.", "/images/seo-v4/part-worn-tyres.svg"],
-    ["Puncture Repairs", "Professional puncture repair for suitable tyre damage, including checks for nails, screws, slow punctures and valve leaks.", "/images/seo-v4/puncture-repair.svg"],
-    ["Locking Wheel Nut Removal", "Help removing damaged, missing or seized locking wheel nuts so tyre replacement can continue without unnecessary delay.", "/images/seo-v4/locking-wheel-nut.svg"],
-    ["Wheel Balancing", "Wheel balancing helps reduce vibration, improve comfort and support even tyre wear after fitting replacement tyres.", "/images/seo-v4/wheel-balancing.svg"],
-    ["Run Flat Tyres", "Supply and fitting for run-flat tyres, including checks to determine whether replacement is required after pressure loss or damage.", "/images/seo-v4/new-tyres.svg"],
-    ["Van and Commercial Tyres", "Mobile van tyre fitting for work vehicles and light commercial vehicles at depots, workplaces, homes or roadside locations.", "/images/seo-v4/mobile-tyre-fitting.svg"],
-  ].map(([title, description, image]) => ({ title, description, image, alt: `${title} in ${location}` }));
-}
+const isRecoveryPage =
+slug.includes("recovery") ||
+slug.includes("breakdown") ||
+slug.includes("towing") ||
+slug.includes("vehicle-transport") ||
+slug.includes("roadside-assistance");
 
-function recoveryServices(location: string): ServiceItem[] {
-  return [
-    ["24 Hour Breakdown Recovery", `AdForge helps drivers find local breakdown recovery in ${location} for cars, vans and other vehicles that cannot continue safely.`, "/images/seo-v4/breakdown-recovery.svg"],
-    ["Accident Recovery", "Vehicle collection after an accident, with options for transport to a garage, storage location, home address or approved destination.", "/images/seo-v4/accident-recovery.svg"],
-    ["Vehicle Transport", "Local and long-distance vehicle transport for non-runners, purchased vehicles, garage transfers and planned vehicle movements.", "/images/seo-v4/vehicle-transport.svg"],
-    ["Motorway Recovery", "Urgent recovery support near motorway routes and major roads when a vehicle is stranded or unsafe to drive.", "/images/seo-v4/motorway-recovery.svg"],
-    ["Van Recovery", "Recovery for vans and light commercial vehicles, including work vehicles carrying tools, stock or equipment.", "/images/seo-v4/van-recovery.svg"],
-    ["Jump Starts and Flat Batteries", "Roadside battery assistance and jump-start support when a vehicle will not start because of a weak or flat battery.", "/images/seo-v4/jump-start.svg"],
-    ["Roadside Assistance", "Initial roadside support for common vehicle problems, with recovery arranged where the fault cannot be resolved safely at the scene.", "/images/seo-v4/breakdown-recovery.svg"],
-    ["Long Distance Recovery", "Planned or emergency vehicle transport beyond the local area for home delivery, garage transfers and onward journeys.", "/images/seo-v4/vehicle-transport.svg"],
-  ].map(([title, description, image]) => ({ title, description, image, alt: `${title} in ${location}` }));
-}
+const heroImageSrc = isTyrePage
+? "/images/mobile-tyre-fitting.jpg"
+: "/images/recovery-truck.jpg";
 
-const tyreFaqs = (location: string) => [
-  ["Can AdForge help me find 24 hour mobile tyre fitting?", `Yes. AdForge pages help customers find mobile tyre fitters offering emergency call-outs in ${location} and nearby areas.`],
-  ["Do mobile tyre fitters supply new tyres?", "Many mobile tyre fitters supply new tyres in budget, mid-range and premium brands."],
-  ["Are part worn tyres available?", "Part worn tyres may be available depending on size and local stock. They should be checked for tread depth and structural condition before fitting."],
-  ["Can a puncture be repaired at the roadside?", "Some punctures can be repaired if the damage is in a repairable area and the tyre remains structurally safe."],
-  ["Can you remove a locking wheel nut without the key?", "Specialist locking wheel nut removal may be possible when the key is missing, damaged or no longer grips correctly."],
-  ["Is wheel balancing available?", "Wheel balancing is commonly carried out after tyre replacement to reduce vibration and help the tyre wear evenly."],
-  ["Can tyres be fitted at home or work?", "Yes. Mobile tyre fitting can usually be arranged at a home address, workplace, car park or safe roadside location."],
-  ["Do mobile tyre fitters cover vans?", "Many mobile tyre fitters supply and fit van tyres and light commercial tyres."],
+const serviceName = isTyrePage
+? "mobile tyre fitting"
+: isRecoveryPage
+? "vehicle recovery"
+: titleCase(slug);
+
+const greenHeading = isTyrePage
+? "24 HOUR MOBILE TYRE FITTING"
+: isRecoveryPage
+? "24 HOUR EMERGENCY RECOVERY"
+: "LOCAL EMERGENCY SERVICE";
+
+const searchTags = isTyrePage
+? ["24 Hour Tyre Fitting", "Puncture Repair", "Mobile Tyre Fitter Near Me", "Roadside Tyre Replacement"]
+: ["24 Hour Vehicle Recovery", "Breakdown Recovery", "Car Towing", "Roadside Assistance", "Recovery Near Me"];
+
+const serviceCards = isTyrePage
+? ["Mobile Tyre Fitting", "Emergency Tyre Fitting", "Puncture Repair", "Tyre Replacement"]
+: ["Breakdown Recovery", "Accident Recovery", "Vehicle Transport", "Roadside Assistance"];
+
+const areas = [
+"Liverpool", "Bootle", "Huyton", "Kirkby", "Speke", "Widnes", "St Helens",
+"Wirral", "Wallasey", "Sefton", "Knowsley", "Southport", "Crosby", "Maghull",
+"Aintree", "Prescot", "Halewood", "Birkenhead", "Warrington", "M57", "M58", "M62"
 ];
 
-const recoveryFaqs = (location: string) => [
-  ["Can AdForge help arrange breakdown recovery?", `Yes. AdForge local pages help drivers find recovery support in ${location} and surrounding areas.`],
-  ["What information should I provide?", "Give your exact location, vehicle make and model, registration, the problem and where you need the vehicle transported."],
-  ["Can a recovery operator collect a van?", "Many operators recover vans and light commercial vehicles, but size and weight should be confirmed first."],
-  ["Do recovery services cover motorways?", "Motorway recovery is available through suitable operators. Give a marker post, junction or precise location."],
-  ["Can a non-running vehicle be transported?", "Yes. Non-runners can often be moved using suitable loading equipment."],
-  ["Is long-distance vehicle transport available?", "Many recovery providers offer longer-distance transport based on collection point, destination and vehicle type."],
-];
+const roads = ["M62", "M57", "M58", "M53", "M56", "A580", "A59", "A565", "Queens Drive", "East Lancs Road"];
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
+const commonProblems = isTyrePage
+? ["Flat tyre", "Puncture", "Tyre blowout", "Damaged sidewall", "Slow puncture", "Locking wheel nut issue", "Run flat tyre", "Emergency tyre replacement"]
+: ["Vehicle breakdown", "Car will not start", "Flat battery", "Accident recovery", "Vehicle transport", "Motorway recovery", "Roadside assistance", "Non-runner vehicle"];
 
-  const { data } = await supabase
-    .from("landing_pages")
-    .select("slug,headline,title_tag,meta_description,active")
-    .eq("slug", slug)
-    .eq("active", true)
-    .single();
+const { data: relatedPages } = await supabase
+.from("landing_pages")
+.select("slug, headline")
+.neq("slug", params.slug)
+.eq("active", true)
+.ilike("slug", isTyrePage ? "%tyre%" : "%recovery%")
+.limit(30);
 
-  if (!data) {
-    return {
-      title: "AdForge",
-      description: "Find trusted local services with AdForge.",
-    };
-  }
+const pageUrl = `${SITE_URL}/seo/${slug}`;
 
-  const title = data.title_tag || data.headline || "AdForge";
-  const description = data.meta_description || "";
-  const url = `https://adforge.uk/seo/${data.slug}`;
-
-  return {
-    title,
-    description,
-    alternates: { canonical: url },
-    openGraph: {
-      title,
-      description,
-      url,
-      siteName: "AdForge",
-      type: "website",
-      images: [{ url: "https://adforge.uk/icon.png" }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["https://adforge.uk/icon.png"],
-    },
-    icons: {
-      icon: "/icon.png",
-      shortcut: "/icon.png",
-      apple: "/icon.png",
-    },
-  };
-}
-
-export default async function SeoLandingPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-
-  const { data, error } = await supabase
-    .from("landing_pages")
-    .select("*")
-    .eq("slug", slug)
-    .eq("active", true)
-    .single();
-
-  if (error || !data) notFound();
-
-  const page = data as LandingPage;
-  const type = pageType(page);
-  const location = extractLocation(page);
-  const isTyre = type === "tyre";
-  const isRecovery = type === "recovery";
-  const services = isTyre ? tyreServices(location) : isRecovery ? recoveryServices(location) : [];
-  const contentSections = splitContentSections(page.content || "");
-  const faqs = isTyre ? tyreFaqs(location) : isRecovery ? recoveryFaqs(location) : [];
-
-  const searchWord = isTyre ? "tyre" : isRecovery ? "recovery" : "";
-  let relatedQuery = supabase
-    .from("landing_pages")
-    .select("slug,headline")
-    .eq("active", true)
-    .neq("slug", slug)
-    .limit(24);
-
-  if (searchWord) relatedQuery = relatedQuery.ilike("slug", `%${searchWord}%`);
-  const { data: relatedData } = await relatedQuery;
-  const relatedPages = (relatedData || []) as RelatedPage[];
-
-  const heroImage = isTyre ? "/images/mobile-tyre-fitting.jpg" : "/images/recovery-truck.jpg";
-  const intro = page.meta_description || (isTyre
-    ? `Need mobile tyre fitting in ${location}? AdForge helps customers find local tyre fitters for new tyres, part worn tyres, puncture repairs, locking wheel nut removal, wheel balancing and emergency call-outs.`
-    : `Need vehicle recovery in ${location}? AdForge helps drivers find breakdown recovery, accident recovery, vehicle transport and roadside assistance.`);
-  const keywordLine = isTyre
-    ? "New Tyres · Part Worn Tyres · Puncture Repairs · Locking Wheel Nut Removal · Wheel Balancing · 24 Hour Mobile Tyre Fitting"
-    : "Breakdown Recovery · Accident Recovery · Vehicle Transport · Van Recovery · Motorway Recovery · Roadside Assistance";
-
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: page.headline,
-    description: page.meta_description || intro,
-    areaServed: location,
-    provider: { "@type": "Organization", name: "AdForge", url: "https://adforge.uk" },
-    url: `https://adforge.uk/seo/${page.slug}`,
-    serviceType: isTyre ? "Mobile tyre fitting" : isRecovery ? "Vehicle breakdown recovery" : page.headline,
-  };
-
-  return (
-    <>
-      <Script id={`service-schema-${page.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <main style={styles.page}>
-        <header style={styles.header} className="seo-header">
-          <a href="/" style={styles.brandLink}><span style={styles.brandWhite}>Ad</span><span style={styles.brandGreen}>Forge</span><small style={styles.brandSub}>LOCAL EMERGENCY SERVICE</small></a>
-          <nav style={styles.desktopNav} className="seo-nav">
-            <a href="#services" style={styles.navLink}>Services</a>
-            <a href="#why" style={styles.navLink}>Why AdForge</a>
-            <a href="#areas" style={styles.navLink}>Areas</a>
-            <a href="#faq" style={styles.navLink}>FAQs</a>
-          </nav>
-          <a href={`tel:${PHONE}`} style={styles.headerCall}><span>Call now</span><small>{DISPLAY_PHONE}</small></a>
-        </header>
-
-        <section style={styles.hero}>
-          <img src={heroImage} alt="" style={styles.heroImage} />
-          <div style={styles.heroShade} />
-          <div style={styles.heroInner} className="seo-hero-inner">
-            <div style={styles.heroCopy}>
-              <div style={styles.eyebrow}>{isTyre ? "24 HOUR MOBILE TYRE FITTING" : isRecovery ? "24 HOUR VEHICLE RECOVERY" : "LOCAL SERVICE"}</div>
-              <h1 style={styles.h1}>{page.headline}</h1>
-              <p style={styles.heroText}>{intro}</p>
-              <p style={styles.keywordLine}>{keywordLine}</p>
-              <div style={styles.heroButtons}>
-                <a href={`tel:${PHONE}`} style={styles.primaryButton}>Call now</a>
-                <a href="#services" style={styles.secondaryButton}>View services</a>
-              </div>
-              <p style={styles.coverageLine}>Covering {location} and surrounding areas</p>
-            </div>
-            <div style={styles.heroBadge} className="seo-hero-badge"><span style={styles.heroBadgeTop}>ADFORGE</span><strong>Local service help</strong><small>Fast contact. Clear service information.</small></div>
-          </div>
-        </section>
-
-        <section style={styles.trustGrid} className="seo-trust-grid">
-          {[["24/7","Emergency availability"],["Fast","Direct contact"],["Local",`${location} coverage`],["AdForge","Service information"]].map(([top,bottom]) => <div key={top+bottom} style={styles.trustCard}><strong>{top}</strong><span>{bottom}</span></div>)}
-        </section>
-
-        {services.length > 0 && (
-          <section id="services" style={styles.section}>
-            <p style={styles.sectionLabel}>OUR SERVICES</p>
-            <div style={styles.sectionHeadingRow} className="seo-section-heading-row">
-              <div><h2 style={styles.h2}>{isTyre ? "Professional tyre services at your doorstep" : "Professional recovery services when you need help"}</h2><p style={styles.sectionIntro}>AdForge brings the main services together on one local page so customers can understand the job and make direct contact quickly.</p></div>
-              <a href={`tel:${PHONE}`} style={styles.smallCallButton}>Call {DISPLAY_PHONE}</a>
-            </div>
-            <div style={styles.serviceGrid} className="seo-service-grid">
-              {services.map((service) => <article key={service.title} style={styles.serviceCard}><div style={styles.serviceImageWrap}><img src={service.image} alt={service.alt} style={styles.serviceImage} /></div><h3 style={styles.h3}>{service.title}</h3><p style={styles.cardText}>{service.description}</p><a href={`tel:${PHONE}`} style={styles.cardLink}>Ask about this service →</a></article>)}
-            </div>
-          </section>
-        )}
-
-        <section id="why" style={styles.splitSection} className="seo-split-section">
-          <div style={styles.splitCopy}>
-            <p style={styles.sectionLabel}>WHY ADFORGE?</p>
-            <h2 style={styles.h2}>A clearer way to find local {isTyre ? "tyre fitting" : isRecovery ? "recovery" : "service"} help</h2>
-            <p style={styles.bodyText}>AdForge is designed to make local service searches simpler. Each AdForge page explains the service, highlights common jobs and gives a direct call option.</p>
-            <p style={styles.bodyText}>This page focuses on {page.headline.toLowerCase()}. {isTyre ? "That includes new tyres, part worn tyres, puncture repairs, locking wheel nut removal, wheel balancing, roadside tyre replacement and 24 hour mobile tyre fitting." : "That includes breakdown recovery, accident recovery, vehicle transport, motorway recovery, van recovery, flat battery help and roadside assistance."}</p>
-            <ul style={styles.checkList}><li>Clear service information before calling</li><li>Local pages built around real customer searches</li><li>Direct phone contact for urgent enquiries</li><li>Related local pages for nearby services and areas</li></ul>
-          </div>
-          <div style={styles.stockCard} className="seo-stock-card"><div><p style={styles.sectionLabel}>{isTyre ? "NEED TYRES TODAY?" : "NEED RECOVERY TODAY?"}</p><h2 style={styles.stockHeading}>{isTyre ? "New tyres, part worn tyres and emergency fitting" : "Breakdown help, recovery and vehicle transport"}</h2><p style={styles.bodyText}>Call now and explain the vehicle, location and service required. AdForge helps customers reach the right local service quickly.</p><a href={`tel:${PHONE}`} style={styles.primaryButton}>Call {DISPLAY_PHONE}</a></div><img src={isTyre ? "/images/seo-v4/new-tyres.svg" : "/images/seo-v4/breakdown-recovery.svg"} alt="" style={styles.stockImage} /></div>
-        </section>
-
-        {contentSections.length > 0 && (
-          <section style={styles.section}>
-            <p style={styles.sectionLabel}>DETAILED SERVICE INFORMATION</p>
-            <h2 style={styles.h2}>Everything customers need to know</h2>
-            <div style={styles.detailsGrid}>{contentSections.map((section,index) => <details key={`${section.title}-${index}`} style={styles.detailsCard} open={index===0}><summary style={styles.summary}>{section.title}</summary><div style={styles.detailsBody}>{section.body.map((line,lineIndex) => !line ? <div key={lineIndex} style={{height:8}} /> : <p key={lineIndex} style={line.startsWith("•") ? styles.bulletLine : styles.bodyText}>{line}</p>)}</div></details>)}</div>
-          </section>
-        )}
-
-        <section id="areas" style={styles.areaSection}>
-          <div><p style={styles.sectionLabel}>LOCAL COVERAGE</p><h2 style={styles.h2}>{location} and surrounding areas</h2><p style={styles.sectionIntro}>AdForge local pages cover towns, districts, roads, residential areas, workplaces, retail parks, industrial estates and suitable roadside locations around {location}.</p></div>
-          <div style={styles.areaPills}>{[location,"Liverpool","Bootle","Kirkby","Huyton","Prescot","St Helens","Widnes","Runcorn","Wirral","Wallasey","Birkenhead","Aigburth","Allerton","Speke","Garston","Sefton","Knowsley","M57","M58","M62","M53"].filter((item,index,array)=>array.indexOf(item)===index).map(area => <span key={area} style={styles.areaPill}>{area}</span>)}</div>
-        </section>
-
-        <section id="faq" style={styles.threeColumnSection} className="seo-three-column">
-          <div style={styles.panel}><p style={styles.sectionLabel}>POPULAR SEARCHES</p><h3 style={styles.panelHeading}>Customers also search for</h3>{(isTyre ? [`mobile tyre fitting ${location}`,`new tyres ${location}`,`part worn tyres ${location}`,`puncture repair ${location}`,`locking wheel nut removal ${location}`,`wheel balancing ${location}`,"24 hour tyre fitter near me"] : [`breakdown recovery ${location}`,`vehicle recovery ${location}`,"car recovery near me",`accident recovery ${location}`,`van recovery ${location}`,`vehicle transport ${location}`,"24 hour recovery near me"]).map(search => <div key={search} style={styles.searchRow}><span>⌕</span><span>{search}</span></div>)}</div>
-          <div style={{...styles.panel,gridColumn:"span 2"}}><p style={styles.sectionLabel}>FREQUENTLY ASKED QUESTIONS</p><h3 style={styles.panelHeading}>Useful answers before you call</h3><div style={styles.faqList}>{faqs.map(([q,a]) => <details key={q} style={styles.faqItem}><summary style={styles.faqSummary}>{q}</summary><p style={styles.faqAnswer}>{a}</p></details>)}</div></div>
-        </section>
-
-        {relatedPages.length > 0 && <section style={styles.section}><p style={styles.sectionLabel}>NEARBY PAGES</p><h2 style={styles.h2}>Related local pages</h2><div style={styles.relatedGrid} className="seo-related-grid">{relatedPages.map(related => <a key={related.slug} href={`/seo/${related.slug}`} style={styles.relatedCard}>{related.headline}</a>)}</div></section>}
-
-        <section style={styles.finalCta} className="seo-final-cta"><div><small style={styles.finalSmall}>DON&apos;T WASTE TIME RINGING AROUND</small><h2 style={styles.finalHeading}>Call now for fast local {isTyre ? "tyre help" : isRecovery ? "recovery help" : "service help"}</h2><p style={styles.finalText}>Tell us your location, vehicle and the service you need.</p></div><a href={`tel:${PHONE}`} style={styles.finalButton}>Call {DISPLAY_PHONE}</a></section>
-        <footer style={styles.footer}><span>© {new Date().getFullYear()} AdForge</span><span>Local emergency service pages</span><a href="/" style={styles.footerLink}>Home</a></footer>
-      </main>
-
-      <style jsx global>{`
-        *{box-sizing:border-box} html{scroll-behavior:smooth;background:#030508} body{margin:0;background:#030508;color:#fff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif} a{color:inherit} summary::-webkit-details-marker{display:none}
-        @keyframes spin{to{transform:rotate(360deg)}}
-        @media(max-width:980px){.seo-nav{display:none!important}.seo-hero-inner{grid-template-columns:1fr!important;padding:54px 24px 80px!important}.seo-hero-badge{display:none!important}.seo-trust-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;margin-top:-28px!important}.seo-section-heading-row{align-items:flex-start!important;flex-direction:column!important}.seo-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.seo-split-section{grid-template-columns:1fr!important}.seo-three-column{grid-template-columns:1fr!important}.seo-related-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.seo-final-cta{align-items:flex-start!important;flex-direction:column!important}}
-        @media(max-width:620px){.seo-header{padding:14px 18px!important}.seo-header>a:last-child small{display:none}.seo-service-grid,.seo-related-grid{grid-template-columns:1fr!important}.seo-trust-grid{width:calc(100% - 28px)!important;gap:9px!important}.seo-stock-card{grid-template-columns:1fr!important}.seo-stock-card img{max-width:180px;justify-self:end}}
-      `}</style>
-    </>
-  );
-}
-
-const styles: Record<string, CSSProperties> = {
-  page:{minHeight:"100vh",background:"radial-gradient(circle at 50% -10%, rgba(50,255,115,.1), transparent 28%), #030508",color:"#fff",paddingBottom:70},
-  loading:{minHeight:"100vh",display:"grid",placeItems:"center",alignContent:"center",gap:16,background:"#030508",color:"#fff"},
-  loader:{width:44,height:44,borderRadius:"50%",border:"4px solid rgba(255,255,255,.12)",borderTopColor:"#32ff73",animation:"spin 1s linear infinite"},
-  header:{minHeight:86,padding:"16px clamp(20px,4vw,68px)",display:"flex",alignItems:"center",justifyContent:"space-between",gap:24,background:"rgba(3,5,8,.9)",borderBottom:"1px solid rgba(255,255,255,.08)",position:"relative",zIndex:20},
-  brandLink:{textDecoration:"none",fontSize:"clamp(30px,3vw,45px)",lineHeight:.88,fontWeight:1000,letterSpacing:-2.5,display:"inline-flex",flexWrap:"wrap",maxWidth:260}, brandWhite:{color:"#fff"}, brandGreen:{color:"#32ff73"}, brandSub:{width:"100%",fontSize:10,letterSpacing:3,marginTop:9,color:"rgba(255,255,255,.78)"},
-  desktopNav:{display:"flex",alignItems:"center",gap:28}, navLink:{textDecoration:"none",fontWeight:800,fontSize:14,color:"rgba(255,255,255,.82)"}, headerCall:{textDecoration:"none",display:"grid",gap:1,textAlign:"right",color:"#32ff73",fontWeight:1000,fontSize:16},
-  hero:{minHeight:"min(720px,78vh)",position:"relative",overflow:"hidden",borderBottom:"1px solid rgba(255,255,255,.09)"}, heroImage:{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}, heroShade:{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(2,4,7,.98) 0%,rgba(2,4,7,.86) 40%,rgba(2,4,7,.22) 72%,rgba(2,4,7,.38) 100%),linear-gradient(0deg,rgba(2,4,7,.82),transparent 48%)"},
-  heroInner:{position:"relative",zIndex:2,minHeight:"min(720px,78vh)",display:"grid",gridTemplateColumns:"minmax(0,760px) minmax(220px,1fr)",alignItems:"center",gap:30,padding:"70px clamp(24px,5vw,80px)"}, heroCopy:{maxWidth:760}, eyebrow:{display:"inline-flex",padding:"12px 20px",borderRadius:999,background:"#32ff73",color:"#041108",fontSize:13,letterSpacing:2,fontWeight:1000,boxShadow:"0 0 34px rgba(50,255,115,.25)"},
-  h1:{margin:"26px 0 18px",fontSize:"clamp(50px,7.5vw,112px)",maxWidth:850,lineHeight:.92,letterSpacing:-5,fontWeight:1000,textWrap:"balance" as any}, heroText:{maxWidth:720,margin:0,fontSize:"clamp(17px,1.8vw,24px)",lineHeight:1.55,color:"rgba(255,255,255,.87)"}, keywordLine:{margin:"20px 0 0",maxWidth:760,fontWeight:900,lineHeight:1.5,color:"#eaffef"}, heroButtons:{marginTop:30,display:"flex",flexWrap:"wrap",gap:14},
-  primaryButton:{display:"inline-flex",alignItems:"center",justifyContent:"center",minHeight:54,padding:"0 26px",borderRadius:12,background:"#32ff73",color:"#031007",textDecoration:"none",fontWeight:1000,boxShadow:"0 0 28px rgba(50,255,115,.18)"}, secondaryButton:{display:"inline-flex",alignItems:"center",justifyContent:"center",minHeight:54,padding:"0 26px",borderRadius:12,border:"1px solid rgba(255,255,255,.34)",background:"rgba(4,8,13,.54)",backdropFilter:"blur(12px)",textDecoration:"none",fontWeight:900}, coverageLine:{marginTop:20,color:"rgba(255,255,255,.72)",fontWeight:700},
-  heroBadge:{justifySelf:"end",alignSelf:"start",maxWidth:260,padding:20,display:"grid",gap:7,borderRadius:16,border:"1px solid rgba(50,255,115,.25)",background:"rgba(4,8,13,.8)",backdropFilter:"blur(18px)"}, heroBadgeTop:{color:"#32ff73",fontWeight:1000,letterSpacing:2,fontSize:12},
-  trustGrid:{margin:"-42px auto 0",width:"min(1240px,calc(100% - 40px))",position:"relative",zIndex:5,display:"grid",gridTemplateColumns:"repeat(4,minmax(0,1fr))",gap:12}, trustCard:{minHeight:110,padding:22,display:"grid",alignContent:"center",gap:8,borderRadius:16,background:"linear-gradient(180deg,#11161d,#0b1016)",border:"1px solid rgba(255,255,255,.11)",boxShadow:"0 22px 60px rgba(0,0,0,.25)"},
-  section:{width:"min(1320px,calc(100% - 40px))",margin:"0 auto",padding:"84px 0 0"}, sectionLabel:{margin:"0 0 9px",color:"#32ff73",fontWeight:1000,letterSpacing:2,fontSize:13}, sectionHeadingRow:{display:"flex",alignItems:"end",justifyContent:"space-between",gap:30,marginBottom:28}, h2:{margin:0,fontSize:"clamp(34px,4vw,62px)",lineHeight:1,letterSpacing:-2.5,fontWeight:1000,textWrap:"balance" as any}, sectionIntro:{maxWidth:820,margin:"16px 0 0",color:"rgba(255,255,255,.68)",lineHeight:1.7,fontSize:17}, smallCallButton:{flexShrink:0,minHeight:48,padding:"0 20px",display:"inline-flex",alignItems:"center",justifyContent:"center",textDecoration:"none",borderRadius:12,background:"#32ff73",color:"#031007",fontWeight:1000},
-  serviceGrid:{display:"grid",gridTemplateColumns:"repeat(4,minmax(0,1fr))",gap:14}, serviceCard:{minHeight:330,padding:20,borderRadius:18,border:"1px solid rgba(255,255,255,.11)",background:"linear-gradient(180deg,rgba(18,24,31,.98),rgba(10,14,19,.98))",display:"flex",flexDirection:"column",boxShadow:"inset 0 1px rgba(255,255,255,.035)"}, serviceImageWrap:{width:74,height:74,borderRadius:16,display:"grid",placeItems:"center",background:"rgba(50,255,115,.07)",border:"1px solid rgba(50,255,115,.14)",overflow:"hidden"}, serviceImage:{width:"100%",height:"100%",objectFit:"cover"}, h3:{margin:"22px 0 10px",fontSize:22,lineHeight:1.15,fontWeight:1000}, cardText:{margin:0,color:"rgba(255,255,255,.65)",lineHeight:1.65}, cardLink:{marginTop:"auto",paddingTop:20,color:"#32ff73",textDecoration:"none",fontWeight:900},
-  splitSection:{width:"min(1320px,calc(100% - 40px))",margin:"84px auto 0",display:"grid",gridTemplateColumns:"1fr 1fr",gap:18}, splitCopy:{padding:"clamp(26px,4vw,54px)",borderRadius:22,background:"#080c11",border:"1px solid rgba(255,255,255,.09)"}, bodyText:{margin:"18px 0 0",color:"rgba(255,255,255,.72)",lineHeight:1.82,fontSize:16}, checkList:{margin:"24px 0 0",paddingLeft:22,color:"rgba(255,255,255,.8)",lineHeight:1.9}, stockCard:{minHeight:460,padding:"clamp(26px,4vw,54px)",borderRadius:22,border:"1px solid rgba(50,255,115,.25)",background:"radial-gradient(circle at 100% 100%,rgba(50,255,115,.12),transparent 35%),#0b1016",display:"grid",gridTemplateColumns:"1fr 210px",gap:20,overflow:"hidden"}, stockHeading:{margin:0,fontSize:"clamp(34px,4vw,56px)",lineHeight:1,letterSpacing:-2}, stockImage:{width:"100%",alignSelf:"end",filter:"drop-shadow(0 0 28px rgba(50,255,115,.12))"},
-  detailsGrid:{display:"grid",gap:14,marginTop:28}, detailsCard:{borderRadius:18,border:"1px solid rgba(255,255,255,.1)",background:"#0e1319",overflow:"hidden"}, summary:{cursor:"pointer",padding:"24px 28px",fontWeight:1000,fontSize:21,listStyle:"none"}, detailsBody:{padding:"0 28px 28px",borderTop:"1px solid rgba(255,255,255,.08)"}, bulletLine:{margin:"13px 0 0",color:"#dfffe8",lineHeight:1.65},
-  areaSection:{width:"min(1320px,calc(100% - 40px))",margin:"84px auto 0",padding:"clamp(28px,4vw,52px)",borderRadius:22,background:"#080c11",border:"1px solid rgba(255,255,255,.09)"}, areaPills:{display:"flex",flexWrap:"wrap",gap:10,marginTop:28}, areaPill:{padding:"11px 15px",borderRadius:9,border:"1px solid rgba(255,255,255,.16)",background:"#10161d",color:"rgba(255,255,255,.84)",fontWeight:800},
-  threeColumnSection:{width:"min(1320px,calc(100% - 40px))",margin:"18px auto 0",display:"grid",gridTemplateColumns:"repeat(3,minmax(0,1fr))",gap:18}, panel:{padding:28,borderRadius:20,border:"1px solid rgba(255,255,255,.1)",background:"#0b1016"}, panelHeading:{margin:"0 0 18px",fontSize:24,fontWeight:1000}, searchRow:{display:"flex",alignItems:"center",gap:10,padding:"14px 0",borderBottom:"1px solid rgba(255,255,255,.08)",color:"rgba(255,255,255,.78)"}, faqList:{display:"grid",gap:10}, faqItem:{borderRadius:12,border:"1px solid rgba(255,255,255,.09)",background:"#10161c",overflow:"hidden"}, faqSummary:{cursor:"pointer",padding:"17px 18px",fontWeight:900,listStyle:"none"}, faqAnswer:{padding:"0 18px 18px",margin:0,color:"rgba(255,255,255,.66)",lineHeight:1.7},
-  relatedGrid:{marginTop:28,display:"grid",gridTemplateColumns:"repeat(4,minmax(0,1fr))",gap:12}, relatedCard:{minHeight:88,padding:20,display:"flex",alignItems:"center",borderRadius:16,border:"1px solid rgba(255,255,255,.11)",background:"#10151b",color:"#fff",textDecoration:"none",fontWeight:900},
-  finalCta:{width:"min(1320px,calc(100% - 40px))",margin:"84px auto 0",padding:"28px clamp(24px,4vw,44px)",display:"flex",alignItems:"center",justifyContent:"space-between",gap:24,borderRadius:20,border:"1px solid rgba(50,255,115,.2)",background:"linear-gradient(90deg,rgba(50,255,115,.12),transparent 30%),#0d1319"}, finalSmall:{color:"#32ff73",fontWeight:1000,letterSpacing:2}, finalHeading:{margin:"5px 0",fontSize:"clamp(28px,3vw,44px)",lineHeight:1}, finalText:{margin:0,color:"rgba(255,255,255,.65)"}, finalButton:{flexShrink:0,minHeight:62,padding:"0 30px",display:"inline-flex",alignItems:"center",justifyContent:"center",borderRadius:12,background:"#32ff73",color:"#031007",textDecoration:"none",fontWeight:1000,fontSize:18},
-  footer:{width:"min(1320px,calc(100% - 40px))",margin:"28px auto 0",padding:"24px 0",display:"flex",flexWrap:"wrap",justifyContent:"space-between",gap:16,color:"rgba(255,255,255,.48)",borderTop:"1px solid rgba(255,255,255,.08)"}, footerLink:{color:"rgba(255,255,255,.7)",textDecoration:"none"},
+const schema = {
+"@context": "https://schema.org",
+"@graph": [
+{
+"@type": "Organization",
+"@id": `${SITE_URL}/#organization`,
+name: "AdForge",
+url: SITE_URL,
+logo: `${SITE_URL}/icon.png`,
+},
+{
+"@type": "WebSite",
+"@id": `${SITE_URL}/#website`,
+url: SITE_URL,
+name: "AdForge",
+alternateName: "AdForge Local Business Directory",
+publisher: {
+"@id": `${SITE_URL}/#organization`,
+},
+},
+{
+"@type": "WebPage",
+"@id": `${pageUrl}#webpage`,
+url: pageUrl,
+name: title,
+headline: title,
+description,
+isPartOf: {
+"@id": `${SITE_URL}/#website`,
+},
+publisher: {
+"@id": `${SITE_URL}/#organization`,
+},
+breadcrumb: {
+"@id": `${pageUrl}#breadcrumb`,
+},
+},
+{
+"@type": "BreadcrumbList",
+"@id": `${pageUrl}#breadcrumb`,
+itemListElement: [
+{
+"@type": "ListItem",
+position: 1,
+name: "AdForge",
+item: SITE_URL,
+},
+{
+"@type": "ListItem",
+position: 2,
+name: isTyrePage ? "Mobile Tyre Services" : "Recovery Services",
+item: `${SITE_URL}/seo`,
+},
+{
+"@type": "ListItem",
+position: 3,
+name: title,
+item: pageUrl,
+},
+],
+},
+{
+"@type": "Service",
+name: title,
+description,
+areaServed: areas,
+provider: {
+"@id": `${SITE_URL}/#organization`,
+},
+url: pageUrl,
+},
+],
 };
+
+return (
+<main className="page">
+
+<Script
+id="seo-schema"
+type="application/ld+json"
+strategy="beforeInteractive"
+dangerouslySetInnerHTML={{
+__html: JSON.stringify(schema),
+}}
+/>
+
+<section className="hero">
+<img src={heroImageSrc} alt={title} className="heroImg" />
+<div className="heroOverlay" />
+
+<div className="heroInner">
+<div className="topBar">
+<div>
+<div className="brand">Ad<span>Forge</span></div>
+<p>LOCAL EMERGENCY SERVICE</p>
+</div>
+<a href={`tel:${phone}`} className="topCall">Call Now</a>
+</div>
+
+<div className="heroText">
+<h2 className="greenPill">{greenHeading}</h2>
+<h1>{title}</h1>
+<p className="intro">{description}</p>
+
+<p className="searchTags">
+{searchTags.map((tag, index) => (
+<React.Fragment key={tag}>
+<a href={`/seo/${tag.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>{tag}</a>
+{index < searchTags.length - 1 && <span> • </span>}
+</React.Fragment>
+))}
+</p>
+
+<div className="heroButtons">
+<a href={`tel:${phone}`} className="whiteBtn">Call Now</a>
+<a href="#services" className="glassBtn">View Services</a>
+</div>
+
+<div className="trustGrid">
+<div>24/7 <span>Available</span></div>
+<div>Fast <span>Response</span></div>
+<div>Local <span>Coverage</span></div>
+<div>Fully <span>Insured</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="services" className="section">
+<p className="label">OUR SERVICES</p>
+<h2>Choose what you need</h2>
+
+<div className="services">
+{serviceCards.map((service) => (
+<a key={service} href={`/seo/${service.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="serviceCard">
+<h3>{service}</h3>
+<p>Fast local support available with simple contact options and rapid response.</p>
+</a>
+))}
+</div>
+</section>
+
+<section className="section">
+<details>
+<summary>Read more about this service</summary>
+
+<p>{page.content}</p>
+
+<p>
+AdForge helps customers find fast local help for {serviceName} when they need a clear,
+simple way to contact a local provider. This page is built for people searching for
+{` ${serviceName} near me`}, emergency help, same day support, out of hours service,
+roadside assistance and local call-outs.
+{"\n\n"}
+Whether you are at home, at work, stuck on a roadside, waiting in a supermarket car park,
+broken down near a motorway junction or trying to arrange urgent help for a customer,
+AdForge is designed to make local services easier to find.
+{"\n\n"}
+Many customers do not search using one exact phrase. They may search for “open now”,
+“near me”, “24 hour”, “emergency”, “same day”, “local company”, “fast response”,
+“roadside help” or “urgent call-out”. This page includes those search terms naturally
+so Google can understand the full meaning of the service.
+</p>
+</details>
+
+<details>
+<summary>Popular searches for this service</summary>
+
+<div className="keywordGrid">
+{(isTyrePage
+? [
+"24 hour mobile tyre fitting",
+"mobile tyre fitting near me",
+"emergency mobile tyre fitting",
+"mobile tyre replacement",
+"roadside tyre fitting",
+"same day tyre fitting",
+"mobile puncture repair",
+"flat tyre repair",
+"emergency tyre replacement",
+"home tyre fitting",
+"workplace tyre fitting",
+"run flat tyre replacement",
+"locking wheel nut removal",
+"mobile tyre fitter open now",
+"cheap mobile tyre fitting",
+"local mobile tyre company",
+"mobile tyre service near me",
+"out of hours tyre fitting",
+"weekend mobile tyre fitting",
+"blown tyre replacement",
+"van tyre fitting",
+"commercial tyre fitting",
+"tyre change at home",
+"tyre change at work",
+]
+: [
+"24 hour recovery",
+"vehicle recovery near me",
+"breakdown recovery",
+"car recovery",
+"van recovery",
+"roadside recovery",
+"accident recovery",
+"emergency vehicle recovery",
+"car towing service",
+"tow truck near me",
+"vehicle transport",
+"motorway recovery",
+"flat battery recovery",
+"jump start service",
+"non runner recovery",
+"breakdown service open now",
+"local recovery company",
+"recovery truck near me",
+"car breakdown service",
+"van breakdown recovery",
+"roadside assistance near me",
+"emergency towing service",
+"vehicle breakdown help",
+"24 hour towing",
+]
+).map((keyword) => (
+<span key={keyword}>{keyword}</span>
+))}
+</div>
+
+<p>
+AdForge pages are written to match the different ways real customers search online.
+Some people search by service, some search by location, some search by road name and
+others search by urgency. That is why this page includes a wide mix of natural search
+phrases connected to {serviceName}.
+{"\n\n"}
+For example, a customer may search for a fast local provider, an emergency call-out,
+a same-day service, a company open now, a provider near their postcode, or help on a
+main road or motorway. AdForge uses this type of local content to help each page become
+more useful for both customers and search engines.
+</p>
+</details>
+
+<details>
+<summary>Why choose local help?</summary>
+
+<p>
+Choosing local help matters because response time is often the biggest problem when
+someone needs {serviceName}. A local provider may already know the surrounding roads,
+nearby estates, car parks, business parks, retail parks, industrial areas and motorway
+routes.
+{"\n\n"}
+AdForge is built to make that local connection easier. Instead of customers searching
+through lots of websites, old listings or companies that may not cover the area, this
+page gives them a clear local service page with a direct call option.
+{"\n\n"}
+Local pages also help Google understand the service area better. By mentioning nearby
+towns, roads, common problems and customer search phrases, each AdForge page becomes
+more relevant for local searches.
+</p>
+</details>
+
+<details>
+<summary>Areas and nearby towns covered</summary>
+
+<p>
+This AdForge page can help customers across {areas.join(", ")} and surrounding local
+areas. Coverage may include homes, workplaces, business parks, industrial estates,
+supermarkets, retail parks, garages, car parks, roadside locations and nearby motorway
+routes.
+{"\n\n"}
+A customer looking for {serviceName} may also search for help near Liverpool, Wirral,
+Wallasey, Sefton, Knowsley, Bootle, Huyton, Kirkby, Prescot, St Helens, Widnes,
+Southport, Crosby, Maghull, Aintree, Birkenhead, Warrington or nearby motorway routes.
+</p>
+</details>
+
+<details>
+<summary>Roads and motorway coverage</summary>
+
+<p>
+Emergency services are often needed on busy roads and motorway routes such as
+{` ${roads.join(", ")}`}. Customers may need help after a breakdown, accident,
+flat battery, puncture, tyre blowout, warning light, engine fault, overheating,
+clutch problem, gearbox fault or vehicle transport issue.
+{"\n\n"}
+AdForge pages include road and motorway terms because many urgent searches happen when
+someone is already stranded. People may search for “recovery near M62”, “breakdown help
+on M57”, “tyre fitter near M58”, “tow truck near me” or “roadside assistance open now”.
+</p>
+</details>
+
+<details>
+<summary>Common problems customers need help with</summary>
+
+<div className="keywordGrid">
+{commonProblems.map((item) => (
+<span key={item}>{item}</span>
+))}
+</div>
+
+<p>
+Customers usually search for {serviceName} because something has gone wrong quickly.
+A vehicle may not start, a tyre may be flat, a battery may be dead, a warning light may
+appear, a vehicle may be damaged after an accident, or the driver may not feel safe
+continuing the journey.
+{"\n\n"}
+AdForge pages are designed to explain these problems clearly so customers can recognise
+their situation and call for help. This helps the page cover more search intent than a
+basic directory listing.
+</p>
+</details>
+
+<details>
+<summary>{isTyrePage ? "Mobile tyre fitting information" : "Vehicle recovery information"}</summary>
+
+{isTyrePage ? (
+<p>
+Mobile tyre fitting is useful when you need tyres fitted at home, work or roadside.
+Customers may need help with a flat tyre, puncture, tyre blowout, damaged sidewall,
+slow puncture, low tread, valve issue, run flat tyre, locking wheel nut problem,
+damaged alloy, tyre pressure warning or emergency tyre replacement.
+{"\n\n"}
+AdForge includes mobile tyre fitting content because customers search in many different
+ways. Some search for “mobile tyre fitting near me”, others search for “emergency tyre
+replacement”, “puncture repair near me”, “roadside tyre fitting”, “same day tyres”,
+“mobile tyre fitter open now”, “home tyre fitting” or “workplace tyre fitting”.
+</p>
+) : (
+<p>
+Vehicle recovery helps when a car, van, SUV, 4x4 or light commercial vehicle cannot be
+driven safely. This may include breakdown recovery, accident recovery, car towing, van
+recovery, vehicle transport, motorway recovery, non-runner recovery, flat battery help,
+jump starts and roadside assistance.
+{"\n\n"}
+AdForge includes recovery keywords because customers search for help in different ways.
+Some search for “24 hour recovery”, others search for “tow truck near me”, “vehicle
+recovery near me”, “breakdown recovery”, “car recovery”, “van recovery”, “roadside
+recovery”, “accident recovery”, “motorway recovery” or “breakdown service open now”.
+</p>
+)}
+</details>
+
+<details>
+<summary>How the service works</summary>
+
+<p>
+The process is simple. A customer finds the AdForge page, checks the service and location,
+then uses the call button to request help. The customer should explain what has happened,
+where the vehicle is, whether it is safe, and what type of vehicle needs assistance.
+{"\n\n"}
+AdForge pages are made to reduce confusion by giving customers a simple page, clear call
+buttons, service details and local information all in one place.
+</p>
+</details>
+
+<details>
+<summary>Emergency advice</summary>
+
+<p>
+If you have broken down or suffered a tyre problem, avoid driving if the vehicle feels
+unsafe. Pull over where it is safe, switch on hazard lights and keep passengers away from
+moving traffic.
+{"\n\n"}
+When calling for help through an AdForge local service page, give your location clearly.
+Mention the road name, direction of travel, junction number, nearest exit, postcode,
+what3words if available, nearby landmark or any shops, garages or buildings nearby.
+</p>
+</details>
+
+<details>
+<summary>Frequently asked questions</summary>
+
+<h3>Is this service available 24/7?</h3>
+<p>Emergency help may be available day and night depending on local provider availability.</p>
+
+<h3>How quickly can someone arrive?</h3>
+<p>Response times depend on location, traffic, weather, demand and provider availability.</p>
+
+<h3>Do you cover nearby towns?</h3>
+<p>Yes, nearby areas and surrounding towns may be covered depending on the local provider.</p>
+
+<h3>Can I call now?</h3>
+<p>Yes. Use the call button on this AdForge page to arrange help quickly.</p>
+
+<h3>Can help come to my workplace?</h3>
+<p>Many services can attend homes, workplaces, yards, car parks and roadside locations.</p>
+
+<h3>Do you cover motorways?</h3>
+<p>Motorway support may be available depending on location and safety requirements.</p>
+
+<h3>Can vans be helped?</h3>
+<p>Cars, vans, SUVs, 4x4s and light commercial vehicles may be supported.</p>
+
+<h3>Why is AdForge showing this page?</h3>
+<p>AdForge creates local service pages to help customers find trusted local help faster.</p>
+
+<h3>Can businesses advertise on AdForge?</h3>
+<p>Yes. Local businesses can use AdForge to advertise services, create pages and attract customers.</p>
+</details>
+</section>
+
+<section className="section">
+<p className="label">NEARBY PAGES</p>
+<h2>Related local pages</h2>
+<div className="related">
+{relatedPages?.map((p) => (
+<a key={p.slug} href={`/seo/${p.slug}`}>{p.headline}</a>
+))}
+</div>
+</section>
+
+<style>{`
+* { box-sizing: border-box; }
+
+.page {
+min-height: 100vh;
+background: #05070d;
+color: white;
+padding-bottom: 130px;
+font-family: Inter, Arial, sans-serif;
+}
+
+.hero {
+position: relative;
+min-height: 700px;
+overflow: hidden;
+}
+
+.heroImg {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+object-fit: contain;
+object-position: 76% center;
+opacity: 1;
+}
+
+.heroOverlay {
+position: absolute;
+inset: 0;
+background:
+radial-gradient(circle at 78% 18%, rgba(50,255,115,.13), transparent 28%),
+linear-gradient(90deg, rgba(5,7,13,.74), rgba(5,7,13,.20), rgba(5,7,13,.08)),
+linear-gradient(180deg, rgba(5,7,13,.02), rgba(5,7,13,.22), #05070d 98%);
+}
+
+.heroInner, .section {
+position: relative;
+z-index: 2;
+max-width: 1180px;
+margin: 0 auto;
+padding: 28px 22px;
+}
+
+.topBar {
+display: flex;
+justify-content: space-between;
+gap: 18px;
+margin-bottom: 48px;
+}
+
+.brand {
+font-size: 44px;
+font-weight: 1000;
+letter-spacing: -2.5px;
+line-height: .9;
+}
+
+.brand span {
+color: #32ff73;
+text-shadow: 0 0 25px rgba(50,255,115,.55);
+}
+
+.topBar p {
+margin: 8px 0 0;
+font-size: 12px;
+letter-spacing: 3px;
+font-weight: 900;
+color: rgba(255,255,255,.8);
+}
+
+.topCall, .whiteBtn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+padding: 14px 24px;
+border-radius: 999px;
+background: white;
+color: #05070d;
+font-weight: 1000;
+text-decoration: none;
+}
+
+.heroText {
+max-width: 600px;
+}
+
+.greenPill {
+display: inline-flex;
+padding: 11px 18px;
+border-radius: 999px;
+background: #32ff73;
+color: #05070d;
+font-size: 13px;
+font-weight: 1000;
+letter-spacing: 1.2px;
+box-shadow: 0 0 34px rgba(50,255,115,.5);
+}
+
+h1 {
+font-size: clamp(46px, 6vw, 76px);
+line-height: .94;
+letter-spacing: -3px;
+margin: 24px 0 16px;
+font-weight: 1000;
+max-width: 700px;
+}
+
+.intro {
+font-size: 18px;
+line-height: 1.55;
+max-width: 560px;
+color: rgba(255,255,255,.9);
+}
+
+.searchTags {
+margin: 14px 0 0;
+font-size: 15px;
+line-height: 1.5;
+font-weight: 900;
+}
+
+.searchTags a {
+color: #dfffe8;
+text-decoration: none;
+}
+
+.searchTags span {
+color: rgba(255,255,255,.45);
+}
+
+.heroButtons {
+display: flex;
+gap: 14px;
+flex-wrap: wrap;
+margin-top: 24px;
+}
+
+.glassBtn {
+padding: 14px 24px;
+border-radius: 999px;
+color: white;
+background: rgba(255,255,255,.1);
+border: 1px solid rgba(255,255,255,.22);
+text-decoration: none;
+font-weight: 950;
+}
+
+.trustGrid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 14px;
+margin-top: 34px;
+}
+
+.trustGrid div, .serviceCard, details, .related a {
+background: rgba(255,255,255,.08);
+border: 1px solid rgba(255,255,255,.14);
+border-radius: 22px;
+}
+
+.trustGrid div {
+padding: 16px 20px;
+font-weight: 1000;
+}
+
+.trustGrid span {
+display: block;
+font-size: 14px;
+opacity: .75;
+margin-top: 4px;
+}
+
+.label {
+color: #32ff73;
+letter-spacing: 2.4px;
+font-weight: 1000;
+font-size: 13px;
+}
+
+.section h2 {
+font-size: clamp(30px, 4vw, 44px);
+line-height: 1;
+margin: 0 0 22px;
+font-weight: 1000;
+}
+
+.services {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 14px;
+}
+
+.serviceCard {
+padding: 22px;
+color: white;
+text-decoration: none;
+}
+
+.serviceCard h3 {
+font-size: 23px;
+margin: 0 0 14px;
+}
+
+.serviceCard p, details p {
+color: rgba(255,255,255,.78);
+line-height: 1.65;
+font-size: 16px;
+white-space: pre-line;
+}
+
+details {
+padding: 24px;
+margin-bottom: 16px;
+}
+
+summary {
+cursor: pointer;
+font-size: 20px;
+font-weight: 1000;
+}
+
+.keywordGrid {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin: 18px 0;
+}
+
+.keywordGrid span {
+padding: 11px 15px;
+border-radius: 999px;
+background: rgba(50,255,115,.12);
+border: 1px solid rgba(50,255,115,.25);
+font-weight: 900;
+}
+
+.related {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 12px;
+}
+
+.related a {
+padding: 16px 18px;
+color: white;
+text-decoration: none;
+font-weight: 900;
+}
+
+@media (max-width: 760px) {
+.hero { min-height: 660px; }
+.heroInner, .section { padding: 22px 20px; }
+.brand { font-size: 38px; }
+h1 { font-size: 40px; max-width: 330px; }
+.intro { font-size: 15.5px; max-width: 310px; }
+.searchTags { font-size: 13px; }
+.trustGrid { grid-template-columns: repeat(2, 1fr); }
+.services { grid-template-columns: 1fr; }
+}
+`}</style>
+</main>
+);
+}
