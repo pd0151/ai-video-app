@@ -113,6 +113,8 @@ const heroImageSrc = isTyrePage
 ? "/images/mobile-tyre-fitting.jpg"
 : "/images/recovery-truck.jpg";
 
+const schemaImage = `${SITE_URL}${heroImageSrc}`;
+
 const serviceName = isTyrePage
 ? "mobile tyre fitting"
 : isRecoveryPage
@@ -182,6 +184,12 @@ url: pageUrl,
 name: title,
 headline: title,
 description,
+image: {
+  "@type": "ImageObject",
+  url: schemaImage,
+  contentUrl: schemaImage,
+  caption: page.headline,
+},
 isPartOf: {
 "@id": `${SITE_URL}/#website`,
 },
@@ -220,6 +228,7 @@ item: pageUrl,
 "@type": "Service",
 name: title,
 description,
+image: schemaImage,
 areaServed: areas,
 provider: {
 "@id": `${SITE_URL}/#organization`,
