@@ -12,38 +12,64 @@ const phone = "+447576579923";
 const SITE_URL = "https://adforge.uk";
 
 export async function generateMetadata({ params }: any) {
-const { data } = await supabase
-.from("landing_pages")
-.select("*")
-.order("created_at", { ascending: false })
-.range(0, 4999)
-.eq("slug", params.slug)
-.eq("active", true)
-.single();
+  const { data } = await supabase
+    .from("landing_pages")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .range(0, 4999)
+    .eq("slug", params.slug)
+    .eq("active", true)
+    .single();
 
-const title = data?.title_tag || data?.headline || "AdForge";
-const description = data?.meta_description || "";
-const url = `${SITE_URL}/seo/${params.slug}`;
+  const slug = String(params.slug || "");
 
-return {
-title,
-description,
-alternates: {
-canonical: url,
-},
-openGraph: {
-title,
-description,
-url,
-siteName: "AdForge",
-images: ["/icon.png"],
-},
-twitter: {
-card: "summary_large_image",
-title,
-description,
-},
-};
+  const isTyrePage =
+    slug.includes("tyre") ||
+    slug.includes("puncture") ||
+    slug.includes("locking-nut") ||
+    slug.includes("wheel-nut") ||
+    slug.includes("flat-tyre") ||
+    slug.includes("run-flat");
+
+  const imageUrl = isTyrePage
+    ? `${SITE_URL}/images/mobile-tyre-fitting.jpg`
+    : `${SITE_URL}/images/recovery-truck.jpg`;
+
+  const title = data?.title_tag || data?.headline || "AdForge";
+  const description = data?.meta_description || "";
+  const url = `${SITE_URL}/seo/${slug}`;
+
+  return {
+    title,
+    description,
+
+    alternates: {
+      canonical: url,
+    },
+
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "AdForge",
+      type: "website",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
+  };
 }
 
 function titleCase(value: string) {
