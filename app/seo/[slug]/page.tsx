@@ -1800,12 +1800,12 @@ h1 { font-size: 42px; max-width: 350px; }
 .trustItem:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.1); }
 /* MOBILE HERO IMAGE — SHOW MORE OF THE FULL PHOTO */
 .hero {
-min-height: 620px;
+min-height: 580px;
 }
 
 .heroImg {
 object-fit: contain;
-object-position: 70% center;
+object-position: 70% top;
 background: #05070d;
 filter: none;
 }
