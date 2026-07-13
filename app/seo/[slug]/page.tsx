@@ -1775,7 +1775,13 @@ font-size: 14px;
 .page { padding-bottom: 120px; }
 .headerInner { padding: 12px 16px; }
 .brand { font-size: 29px; }
-.brandSub { display: none; }
+.brandSub {
+  display: block;
+  margin-top: 6px;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
 .headerCall { padding: 9px 12px; font-size: 12px; }
 
 .hero { min-height: 680px; }
