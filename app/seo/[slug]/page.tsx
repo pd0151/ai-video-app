@@ -136,14 +136,14 @@ const serviceCards = isTyrePage
 : ["Breakdown Recovery", "Accident Recovery", "Vehicle Transport", "Roadside Assistance"];
 
 const serviceImageMap: Record<string, string> = {
-"Mobile Tyre Fitting": "/images/services/mobile-tyre-fitting.svg",
-"Emergency Tyre Fitting": "/images/services/new-tyres.svg",
-"Puncture Repair": "/images/services/puncture-repair.svg",
-"Tyre Replacement": "/images/services/new-tyres.svg",
-"Breakdown Recovery": "/images/services/breakdown-recovery.svg",
-"Accident Recovery": "/images/services/accident-recovery.svg",
-"Vehicle Transport": "/images/services/vehicle-transport.svg",
-"Roadside Assistance": "/images/services/motorway-recovery.svg",
+"Mobile Tyre Fitting": "/images/mobile-tyre-fitting.jpg",
+"Emergency Tyre Fitting": "/images/quick-1.jpg",
+"Puncture Repair": "/images/quick-2.jpg",
+"Tyre Replacement": "/images/quick-3.jpg",
+"Breakdown Recovery": "/images/recovery-truck.jpg",
+"Accident Recovery": "/images/accident-recovery.jpg",
+"Vehicle Transport": "/images/vehicle-transport.jpg",
+"Roadside Assistance": "/images/roadside-assistance.jpg",
 };
 
 function getServiceImage(service: string) {
@@ -152,14 +152,14 @@ return serviceImageMap[service] || heroImageSrc;
 
 const galleryImages = isTyrePage
 ? [
-"/images/services/mobile-tyre-fitting.svg",
-"/images/services/puncture-repair.svg",
-"/images/services/new-tyres.svg",
+"/images/mobile-tyre-fitting.jpg",
+"/images/quick-2.jpg",
+"/images/quick-3.jpg",
 ]
 : [
-"/images/services/breakdown-recovery.svg",
-"/images/services/accident-recovery.svg",
-"/images/services/vehicle-transport.svg",
+"/images/recovery-truck.jpg",
+"/images/accident-recovery.jpg",
+"/images/vehicle-transport.jpg",
 ];
 
 const areas = [
@@ -359,7 +359,14 @@ key={service}
 href={`/seo/${service.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
 className="serviceCard"
 >
-<img src={getServiceImage(service)} alt={service} />
+<div
+className="serviceImage"
+role="img"
+aria-label={service}
+style={{
+backgroundImage: `url("${getServiceImage(service)}"), url("${heroImageSrc}")`,
+}}
+/>
 <div className="serviceShade" />
 <div className="serviceContent">
 <span className="serviceNumber">0{index + 1}</span>
@@ -415,15 +422,24 @@ className="serviceCard"
 </div>
 
 <div className="galleryGrid">
-<div className="galleryLarge">
-<img src={galleryImages[0]} alt={serviceCards[0]} />
-</div>
-<div className="gallerySmall">
-<img src={galleryImages[1]} alt={serviceCards[1]} />
-</div>
-<div className="gallerySmall">
-<img src={galleryImages[2]} alt={serviceCards[2]} />
-</div>
+<div
+className="galleryLarge galleryImage"
+role="img"
+aria-label={serviceCards[0]}
+style={{ backgroundImage: `url("${galleryImages[0]}"), url("${heroImageSrc}")` }}
+/>
+<div
+className="gallerySmall galleryImage"
+role="img"
+aria-label={serviceCards[1]}
+style={{ backgroundImage: `url("${galleryImages[1]}"), url("${heroImageSrc}")` }}
+/>
+<div
+className="gallerySmall galleryImage"
+role="img"
+aria-label={serviceCards[2]}
+style={{ backgroundImage: `url("${galleryImages[2]}"), url("${heroImageSrc}")` }}
+/>
 </div>
 </section>
 
@@ -1054,16 +1070,16 @@ text-decoration: none;
 background: #090c12;
 }
 
-.serviceCard img {
+.serviceImage {
 position: absolute;
 inset: 0;
-width: 100%;
-height: 100%;
-object-fit: cover;
+background-size: cover, cover;
+background-position: center, center;
+background-repeat: no-repeat;
 transition: transform .35s ease;
 }
 
-.serviceCard:hover img { transform: scale(1.04); }
+.serviceCard:hover .serviceImage { transform: scale(1.04); }
 
 .serviceShade {
 position: absolute;
@@ -1156,10 +1172,12 @@ overflow: hidden;
 border: 1px solid rgba(255,255,255,.1);
 }
 
-.galleryGrid img {
+.galleryImage {
 width: 100%;
 height: 100%;
-object-fit: cover;
+background-size: cover, cover;
+background-position: center, center;
+background-repeat: no-repeat;
 display: block;
 }
 
