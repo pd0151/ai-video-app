@@ -135,6 +135,33 @@ const serviceCards = isTyrePage
 ? ["Mobile Tyre Fitting", "Emergency Tyre Fitting", "Puncture Repair", "Tyre Replacement"]
 : ["Breakdown Recovery", "Accident Recovery", "Vehicle Transport", "Roadside Assistance"];
 
+const serviceImageMap: Record<string, string> = {
+"Mobile Tyre Fitting": "/images/services/mobile-tyre-fitting.jpg",
+"Emergency Tyre Fitting": "/images/services/emergency-tyre-fitting.jpg",
+"Puncture Repair": "/images/services/puncture-repair.jpg",
+"Tyre Replacement": "/images/services/tyre-replacement.jpg",
+"Breakdown Recovery": "/images/services/breakdown-recovery.jpg",
+"Accident Recovery": "/images/services/accident-recovery.jpg",
+"Vehicle Transport": "/images/services/vehicle-transport.jpg",
+"Roadside Assistance": "/images/services/roadside-assistance.jpg",
+};
+
+function getServiceImage(service: string) {
+return serviceImageMap[service] || heroImageSrc;
+}
+
+const galleryImages = isTyrePage
+? [
+"/images/services/mobile-tyre-fitting.jpg",
+"/images/services/puncture-repair.jpg",
+"/images/services/tyre-replacement.jpg",
+]
+: [
+"/images/services/breakdown-recovery.jpg",
+"/images/services/accident-recovery.jpg",
+"/images/services/vehicle-transport.jpg",
+];
+
 const areas = [
 "Liverpool", "Bootle", "Huyton", "Kirkby", "Speke", "Widnes", "St Helens",
 "Wirral", "Wallasey", "Sefton", "Knowsley", "Southport", "Crosby", "Maghull",
@@ -332,7 +359,7 @@ key={service}
 href={`/seo/${service.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
 className="serviceCard"
 >
-<img src={heroImageSrc} alt={service} />
+<img src={getServiceImage(service)} alt={service} />
 <div className="serviceShade" />
 <div className="serviceContent">
 <span className="serviceNumber">0{index + 1}</span>
@@ -389,13 +416,13 @@ className="serviceCard"
 
 <div className="galleryGrid">
 <div className="galleryLarge">
-<img src={heroImageSrc} alt={title} />
+<img src={galleryImages[0]} alt={serviceCards[0]} />
 </div>
 <div className="gallerySmall">
-<img src={heroImageSrc} alt={`${serviceName} service`} />
+<img src={galleryImages[1]} alt={serviceCards[1]} />
 </div>
 <div className="gallerySmall">
-<img src={heroImageSrc} alt={`${serviceName} local help`} />
+<img src={galleryImages[2]} alt={serviceCards[2]} />
 </div>
 </div>
 </section>
@@ -741,9 +768,7 @@ body { margin: 0; }
 
 .page {
 min-height: 100vh;
-background:
-radial-gradient(circle at 70% 0%, rgba(50,255,115,.06), transparent 24%),
-#05070d;
+background: #05070d;
 color: #fff;
 font-family: Inter, Arial, sans-serif;
 }
@@ -754,7 +779,7 @@ top: 0;
 z-index: 50;
 background: rgba(5,7,13,.88);
 backdrop-filter: blur(18px);
-border-bottom: 1px solid rgba(255,255,255,.08);
+border-bottom: 1px solid rgba(255,255,255,.10);
 }
 
 .headerInner {
@@ -812,11 +837,11 @@ display: flex;
 flex-direction: column;
 align-items: flex-end;
 padding: 10px 16px;
-border: 1px solid rgba(50,255,115,.5);
+border: 1px solid rgba(255,255,255,.18);
 border-radius: 12px;
 color: #fff;
 text-decoration: none;
-background: rgba(50,255,115,.08);
+background: rgba(255,255,255,.045);
 font-weight: 900;
 }
 
@@ -854,7 +879,7 @@ linear-gradient(180deg, rgba(5,7,13,.10), rgba(5,7,13,.2) 65%, #05070d 100%);
 .heroGlow {
 position: absolute;
 inset: 0;
-background: radial-gradient(circle at 73% 36%, rgba(50,255,115,.12), transparent 24%);
+background: radial-gradient(circle at 73% 36%, rgba(255,255,255,.045), transparent 28%);
 }
 
 .heroInner {
@@ -873,13 +898,13 @@ max-width: 660px;
 display: inline-flex;
 padding: 10px 16px;
 border-radius: 999px;
-border: 1px solid rgba(50,255,115,.7);
-background: rgba(50,255,115,.11);
-color: #7cff9f;
+border: 1px solid rgba(255,255,255,.18);
+background: rgba(255,255,255,.06);
+color: #32ff73;
 font-size: 12px;
 font-weight: 1000;
 letter-spacing: 1.2px;
-box-shadow: 0 0 28px rgba(50,255,115,.12);
+box-shadow: none;
 }
 
 h1 {
@@ -920,7 +945,7 @@ text-decoration: none;
 .primaryBtn {
 background: #32ff73;
 color: #05070d;
-box-shadow: 0 0 28px rgba(50,255,115,.25);
+box-shadow: 0 10px 30px rgba(50,255,115,.18);
 }
 
 .secondaryBtn {
@@ -937,7 +962,7 @@ max-width: 800px;
 border: 1px solid rgba(255,255,255,.12);
 border-radius: 14px;
 overflow: hidden;
-background: rgba(5,7,13,.62);
+background: rgba(7,10,16,.86);
 backdrop-filter: blur(14px);
 }
 
@@ -972,6 +997,10 @@ color: rgba(255,255,255,.55);
 max-width: 1240px;
 margin: 0 auto;
 padding: 72px 22px;
+}
+
+.section + .section {
+border-top: 1px solid rgba(255,255,255,.045);
 }
 
 .sectionTop { padding-top: 54px; }
@@ -1022,7 +1051,7 @@ overflow: hidden;
 border: 1px solid rgba(255,255,255,.11);
 color: #fff;
 text-decoration: none;
-background: #0b0f17;
+background: #090c12;
 }
 
 .serviceCard img {
@@ -1059,8 +1088,8 @@ height: 40px;
 align-items: center;
 justify-content: center;
 border-radius: 999px;
-background: rgba(50,255,115,.14);
-border: 1px solid rgba(50,255,115,.35);
+background: rgba(255,255,255,.055);
+border: 1px solid rgba(255,255,255,.14);
 color: #32ff73;
 font-size: 12px;
 font-weight: 1000;
@@ -1097,7 +1126,7 @@ gap: 14px;
 padding: 24px;
 border-radius: 16px;
 border: 1px solid rgba(255,255,255,.11);
-background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
+background: linear-gradient(180deg, #0b0e14, #080b11);
 }
 
 .featureCard h3 {
@@ -1156,7 +1185,7 @@ gap: 10px;
 padding: 11px 14px;
 border-radius: 9px;
 border: 1px solid rgba(255,255,255,.12);
-background: rgba(255,255,255,.045);
+background: #0a0d13;
 color: rgba(255,255,255,.84);
 font-size: 13px;
 font-weight: 800;
@@ -1164,8 +1193,8 @@ text-decoration: none;
 }
 
 .areaGrid span {
-border-color: rgba(50,255,115,.22);
-background: rgba(50,255,115,.06);
+border-color: rgba(255,255,255,.13);
+background: #0a0d13;
 }
 
 .contentSection { padding-top: 36px; }
@@ -1174,7 +1203,7 @@ details {
 margin-bottom: 12px;
 border: 1px solid rgba(255,255,255,.11);
 border-radius: 14px;
-background: rgba(255,255,255,.035);
+background: #0a0d13;
 overflow: hidden;
 }
 
@@ -1219,7 +1248,7 @@ padding-top: 22px;
 .faqGrid div {
 padding: 18px;
 border-radius: 12px;
-background: rgba(255,255,255,.035);
+background: #0a0d13;
 border: 1px solid rgba(255,255,255,.08);
 }
 
@@ -1243,7 +1272,7 @@ gap: 10px;
 padding: 18px;
 border-radius: 14px;
 border: 1px solid rgba(255,255,255,.11);
-background: rgba(255,255,255,.035);
+background: #0a0d13;
 color: #fff;
 text-decoration: none;
 font-weight: 900;
@@ -1265,8 +1294,8 @@ padding: 34px;
 border-radius: 18px;
 border: 1px solid rgba(50,255,115,.24);
 background:
-radial-gradient(circle at 85% 0%, rgba(50,255,115,.12), transparent 35%),
-rgba(255,255,255,.04);
+radial-gradient(circle at 85% 0%, rgba(255,255,255,.05), transparent 35%),
+#0a0d13;
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -1280,7 +1309,7 @@ color: rgba(255,255,255,.62);
 
 .footer {
 border-top: 1px solid rgba(255,255,255,.08);
-background: #03050a;
+background: #04060b;
 }
 
 .footerInner {
@@ -1322,6 +1351,7 @@ font-size: 14px;
 }
 
 @media (max-width: 760px) {
+.page { padding-bottom: 120px; }
 .headerInner { padding: 12px 16px; }
 .brand { font-size: 29px; }
 .brandSub { display: none; }
