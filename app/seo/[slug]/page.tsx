@@ -136,14 +136,14 @@ const serviceCards = isTyrePage
 : ["Breakdown Recovery", "Accident Recovery", "Vehicle Transport", "Roadside Assistance"];
 
 const serviceImageMap: Record<string, string> = {
-"Mobile Tyre Fitting": "/images/services/mobile-tyre-fitting.jpg",
-"Emergency Tyre Fitting": "/images/services/emergency-tyre-fitting.jpg",
-"Puncture Repair": "/images/services/puncture-repair.jpg",
-"Tyre Replacement": "/images/services/tyre-replacement.jpg",
-"Breakdown Recovery": "/images/services/breakdown-recovery.jpg",
-"Accident Recovery": "/images/services/accident-recovery.jpg",
-"Vehicle Transport": "/images/services/vehicle-transport.jpg",
-"Roadside Assistance": "/images/services/roadside-assistance.jpg",
+"Mobile Tyre Fitting": "/images/smobile-tyre-fitting.jpg",
+"Emergency Tyre Fitting": "/images/emergency-tyre-fitting.jpg",
+"Puncture Repair": "/images/puncture-repair.jpg",
+"Tyre Replacement": "/images/tyre-replacement.jpg",
+"Breakdown Recovery": "/images/breakdown-recovery.jpg",
+"Accident Recovery": "/images/accident-recovery.jpg",
+"Vehicle Transport": "/images/vehicle-transport.jpg",
+"Roadside Assistance": "/images/roadside-assistance.jpg",
 };
 
 function getServiceImage(service: string) {
