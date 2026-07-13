@@ -1798,7 +1798,58 @@ h1 { font-size: 42px; max-width: 350px; }
 .heroTrust { grid-template-columns: repeat(2,1fr); }
 .trustItem:nth-child(2) { border-right: 0; }
 .trustItem:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.1); }
+/* MOBILE HERO IMAGE — SHOW MORE OF THE FULL PHOTO */
+.hero {
+min-height: 620px;
+}
 
+.heroImg {
+object-fit: contain;
+object-position: 70% center;
+background: #05070d;
+filter: none;
+}
+
+.heroShade {
+background:
+linear-gradient(
+90deg,
+rgba(5, 7, 13, 0.82) 0%,
+rgba(5, 7, 13, 0.56) 42%,
+rgba(5, 7, 13, 0.18) 100%
+),
+linear-gradient(
+180deg,
+rgba(5, 7, 13, 0.04),
+rgba(5, 7, 13, 0.16) 65%,
+#05070d 100%
+);
+}
+
+/* MAKE THE FOUR TRUST BOXES SMALLER */
+.heroTrust {
+margin-top: 24px;
+border-radius: 12px;
+}
+
+.trustItem {
+min-height: 94px;
+padding: 12px 14px;
+}
+
+.trustItem strong {
+font-size: 17px;
+}
+
+.trustItem span {
+font-size: 13px;
+}
+
+.trustItem small {
+margin-top: 4px;
+font-size: 10px;
+line-height: 1.3;
+}
 .section { padding: 54px 18px; }
 .sectionHeading { align-items: flex-start; flex-direction: column; }
 .sectionIntro { max-width: 100%; }
