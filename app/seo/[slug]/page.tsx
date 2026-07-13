@@ -137,10 +137,10 @@ const serviceCards = isTyrePage
 
 const serviceImageMap: Record<string, string> = {
 "Mobile Tyre Fitting": "/images/mobile-tyre-fitting.jpg",
-"Emergency Tyre Fitting": "/images/quick-1.jpg",
-"Puncture Repair": "/images/quick-2.jpg",
-"Tyre Replacement": "/images/quick-3.jpg",
-"Breakdown Recovery": "/images/recovery-truck.jpg",
+"Emergency Tyre Fitting": "/images/emergency-tyre-fitting.jpg",
+"Puncture Repair": "/images/puncture-repair.jpg",
+"Tyre Replacement": "/images/tyre-replacement.jpg",
+"Breakdown Recovery": "/images/breakdown-recovery.jpg",
 "Accident Recovery": "/images/accident-recovery.jpg",
 "Vehicle Transport": "/images/vehicle-transport.jpg",
 "Roadside Assistance": "/images/roadside-assistance.jpg",
