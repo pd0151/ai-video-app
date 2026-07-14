@@ -214,38 +214,58 @@ slug
 ) ||
 "your area";
 
+const pageUrl = `${SITE_URL}/seo/${slug}`;
+
 const { data: businessRows } = await supabase
 .from("businesses")
 .select("*")
 .limit(250);
 
-const matchingBusinesses = (businessRows || [])
+const allBusinesses = businessRows || [];
+
+const featuredProvider =
+allBusinesses.find((business: any) => {
+const providerType = normalise(business?.provider_type);
+const businessName = normalise(getBusinessName(business));
+
+const approved = business?.approved === true || business?.featured === true;
+const receivesLeads = business?.receive_leads !== false;
+const matchesService = isTyrePage
+? providerType.includes("tyre") || businessName.includes("total tyres")
+: providerType.includes("recovery") || businessName.includes("total tyres");
+
+return approved && receivesLeads && matchesService;
+}) ||
+allBusinesses.find((business: any) =>
+normalise(getBusinessName(business)).includes("total tyres")
+) ||
+null;
+
+const futurePaidProviders = allBusinesses
 .filter((business: any) => {
+if (!business || business?.id === featuredProvider?.id) return false;
 if (business?.active === false) return false;
 
-const paidOrClaimed =
+const isApprovedPaidProvider =
+business?.approved === true &&
+business?.featured !== true &&
+business?.receive_leads === true &&
+(
 business?.is_paid === true ||
 business?.subscription_active === true ||
-business?.claimed === true ||
-business?.ai_activated === true ||
 normalise(business?.plan).includes("pro") ||
-normalise(business?.plan).includes("premium");
+normalise(business?.plan).includes("premium")
+);
 
-if (!paidOrClaimed) return false;
+if (!isApprovedPaidProvider) return false;
 
 const businessService = [
+business?.provider_type,
 business?.business_type,
 business?.category,
 business?.service,
 business?.services,
 business?.description,
-].filter(Boolean);
-
-const businessAreas = [
-business?.location,
-business?.service_area,
-business?.service_areas,
-business?.areas_covered,
 ].filter(Boolean);
 
 const serviceMatches = isTyrePage
@@ -261,38 +281,57 @@ valueContains(value, "roadside") ||
 valueContains(value, "transport")
 );
 
-const locationMatches = businessAreas.some((value) =>
-valueContains(value, pageLocation)
-);
-
-return serviceMatches && locationMatches;
+return serviceMatches;
 })
-.slice(0, 6);
+.slice(0, 5);
 
-const matchingBusinessNames = matchingBusinesses
+const displayedBusinesses = [
+...(featuredProvider ? [featuredProvider] : []),
+...futurePaidProviders,
+];
+
+const matchingBusinessNames = displayedBusinesses
 .map((business: any) => getBusinessName(business))
 .filter(Boolean);
 
-const businessSchema = matchingBusinesses.map((business: any) => {
+const providerName = featuredProvider
+? getBusinessName(featuredProvider)
+: "Total Tyres & Recovery 247 Ltd";
+
+const providerImage = featuredProvider
+? getBusinessImage(featuredProvider) || heroImageSrc
+: heroImageSrc;
+
+const providerArea = featuredProvider
+? getBusinessAreaText(featuredProvider)
+: "Liverpool, Merseyside and surrounding areas";
+
+const providerDescription = isTyrePage
+? `Local mobile tyre fitting provider offering emergency tyre replacement, puncture repairs, new tyres and roadside tyre support across ${pageLocation} and nearby areas.`
+: `Local vehicle recovery provider offering breakdown recovery, roadside assistance, accident recovery and vehicle transport across ${pageLocation} and nearby areas.`;
+
+const providerServices = isTyrePage
+? ["Mobile Tyre Fitting", "Puncture Repairs", "New Tyres Supplied", "Emergency Tyre Replacement"]
+: ["Breakdown Recovery", "Roadside Assistance", "Accident Recovery", "Vehicle Transport"];
+
+const businessSchema = displayedBusinesses.map((business: any) => {
 const businessName = getBusinessName(business);
-const businessPhone = getBusinessPhone(business);
 const businessImage = getBusinessImage(business);
-const businessUrl =
-business?.slug
+const businessUrl = business?.slug
 ? `${SITE_URL}/business/${business.slug}`
-: business?.website || pageUrl;
+: pageUrl;
 
 return {
 "@type": "LocalBusiness",
 "@id": `${pageUrl}#business-${business?.id || normalise(businessName).replace(/\s+/g, "-")}`,
 name: businessName,
 url: businessUrl,
-telephone: businessPhone || undefined,
-image: businessImage || undefined,
+telephone: phone,
+image: businessImage || schemaImage,
 areaServed: getBusinessAreaText(business),
 description:
 business?.description ||
-`${businessName} is a local business provider offering ${serviceName} services in and around ${pageLocation}.`,
+`${businessName} is a local business provider offering ${serviceName} services in and around ${pageLocation}. Calls are routed through AdForge.`,
 };
 });
 
@@ -303,8 +342,6 @@ const { data: relatedPages } = await supabase
 .eq("active", true)
 .ilike("slug", isTyrePage ? "%tyre%" : "%recovery%")
 .limit(30);
-
-const pageUrl = `${SITE_URL}/seo/${slug}`;
 
 const schema = {
 "@context": "https://schema.org",
@@ -465,106 +502,76 @@ __html: JSON.stringify(schema),
 </section>
 
 <section id="local-businesses" className="section businessSection">
-<div className="sectionHeading">
+<div className="sectionHeading providerHeading">
 <div>
-<p className="label">LOCAL BUSINESS PROVIDERS</p>
-<h2>Local businesses covering {pageLocation}</h2>
+<p className="label">FEATURED LOCAL PROVIDER</p>
+<h2>Local help for {pageLocation}</h2>
 </div>
 <p className="sectionIntro">
-AdForge connects customers with local businesses and trusted local service providers
-offering {serviceName} in and around {pageLocation}.
+AdForge connects customers with a genuine local provider while every enquiry stays
+inside the AdForge system.
 </p>
 </div>
 
-{matchingBusinesses.length > 0 ? (
-<>
-<p className="providerIntro">
-Local business providers currently matched to this page include{" "}
-<strong>{matchingBusinessNames.join(", ")}</strong>. Customers can contact a listed
-business directly or request help through AdForge.
-</p>
+<article className="featuredProviderCard">
+<div className="featuredProviderMedia">
+<img src={providerImage} alt={`${providerName} serving ${pageLocation}`} />
+<span className="featuredBadge">FEATURED LOCAL PROVIDER</span>
+</div>
 
+<div className="featuredProviderBody">
+<p className="providerEyebrow">LOCAL BUSINESS COVERING {String(pageLocation).toUpperCase()}</p>
+<h3>{providerName}</h3>
+<h4>{isTyrePage ? "Mobile Tyre Fitting & Tyre Support" : "Vehicle Recovery & Roadside Assistance"}</h4>
+<p>{providerDescription}</p>
+
+<div className="providerServiceGrid">
+{providerServices.map((item) => (
+<span key={item}>{item}</span>
+))}
+</div>
+
+<div className="providerCoverage">
+<strong>Coverage:</strong> {providerArea}
+</div>
+
+<div className="featuredProviderActions">
+<a href={`tel:${phone}`} className="primaryBtn">Call Through AdForge</a>
+<a href="/request-service" className="secondaryBtn">Request Help</a>
+</div>
+
+<small className="providerNotice">
+All calls and enquiries go through AdForge. We collect the job details and arrange the
+right local support without publishing the provider&apos;s private number.
+</small>
+</div>
+</article>
+
+{futurePaidProviders.length > 0 && (
+<div className="additionalProviders">
+<p className="label">MORE APPROVED PROVIDERS</p>
 <div className="businessGrid">
-{matchingBusinesses.map((business: any) => {
+{futurePaidProviders.map((business: any) => {
 const businessName = getBusinessName(business);
-const businessPhone = getBusinessPhone(business);
-const businessImage = getBusinessImage(business);
+const businessImage = getBusinessImage(business) || heroImageSrc;
 const businessArea = getBusinessAreaText(business);
-const businessHref = business?.slug
-? `/business/${business.slug}`
-: business?.website || "#local-businesses";
 
 return (
 <article key={business?.id || businessName} className="businessCard">
-<div
-className="businessImage"
-style={{
-backgroundImage: businessImage
-? `url("${businessImage}"), url("${heroImageSrc}")`
-: `url("${heroImageSrc}")`,
-}}
-/>
-
+<div className="businessImage">
+<img src={businessImage} alt={`${businessName} local provider`} />
+</div>
 <div className="businessBody">
-<div className="businessTop">
-<div>
-<span className="verifiedBadge">
-{business?.verified === true ? "VERIFIED PROVIDER" : "LOCAL PROVIDER"}
-</span>
+<span className="verifiedBadge">APPROVED PROVIDER</span>
 <h3>{businessName}</h3>
-</div>
-<span className="businessStatus">
-{business?.opening_hours ? "VIEW HOURS" : "LOCAL COVERAGE"}
-</span>
-</div>
-
-<p>
-Local business provider offering {serviceName} services across {businessArea}.
-</p>
-
-<div className="businessMeta">
-<span>{businessArea}</span>
-{business?.opening_hours && <span>{String(business.opening_hours)}</span>}
-</div>
-
+<p>{serviceName} services across {businessArea}.</p>
 <div className="businessActions">
-{businessPhone && (
-<a href={`tel:${businessPhone}`} className="businessCall">
-Call Business
-</a>
-)}
-{business?.whatsapp && (
-<a
-href={`https://wa.me/${String(business.whatsapp).replace(/\D/g, "")}`}
-className="businessAlt"
->
-WhatsApp
-</a>
-)}
-<a href={businessHref} className="businessAlt">
-View Listing
-</a>
+<a href={`tel:${phone}`} className="businessCall">Call Through AdForge</a>
 </div>
 </div>
 </article>
 );
 })}
-</div>
-</>
-) : (
-<div className="emptyProviders">
-<div>
-<span className="emptyNumber">LOCAL</span>
-<h3>We are adding local businesses for {pageLocation}</h3>
-<p>
-AdForge is building a network of local businesses and trusted local providers
-covering this area. Customers can still call now for help, while businesses can
-join AdForge to appear on relevant service and location pages.
-</p>
-</div>
-<div className="emptyActions">
-<a href={`tel:${phone}`} className="primaryBtn">Call Now</a>
-<a href="/signup" className="secondaryBtn">List Your Business</a>
 </div>
 </div>
 )}
@@ -652,13 +659,13 @@ backgroundImage: `url("${getServiceImage(service)}"), url("${heroImageSrc}")`,
 
 <div className="galleryGrid">
 <div className="galleryLarge">
-<img src={heroImageSrc} alt={title} />
+<img src={getServiceImage(serviceCards[0])} alt={`${serviceCards[0]} in ${pageLocation}`} />
 </div>
 <div className="gallerySmall">
-<img src={heroImageSrc} alt={`${serviceName} service`} />
+<img src={getServiceImage(serviceCards[1])} alt={`${serviceCards[1]} in ${pageLocation}`} />
 </div>
 <div className="gallerySmall">
-<img src={heroImageSrc} alt={`${serviceName} local help`} />
+<img src={getServiceImage(serviceCards[2])} alt={`${serviceCards[2]} in ${pageLocation}`} />
 </div>
 </div>
 </section>
@@ -805,7 +812,7 @@ providers offering {serviceName} in {pageLocation} and nearby areas. A local pro
 may be able to attend homes, workplaces, car parks, roadside locations, retail parks,
 industrial estates and motorway routes depending on availability.
 {"\n\n"}
-{matchingBusinesses.length > 0
+{displayedBusinesses.length > 0
 ? `Businesses currently matched to this page include ${matchingBusinessNames.join(", ")}. These business names are taken directly from active AdForge listings rather than being invented for search content.`
 : `AdForge is currently building its network of local businesses covering ${pageLocation}. Businesses can create or claim a listing so customers can find genuine providers serving this area.`}
 {"\n\n"}
@@ -1280,6 +1287,156 @@ line-height: 1.7;
 color: #fff;
 }
 
+.providerHeading { margin-bottom: 22px; }
+
+.featuredProviderCard {
+display: grid;
+grid-template-columns: minmax(300px, .85fr) minmax(0, 1.35fr);
+gap: 0;
+overflow: hidden;
+border-radius: 20px;
+border: 1px solid rgba(50,255,115,.42);
+background:
+radial-gradient(circle at 86% 10%, rgba(50,255,115,.09), transparent 30%),
+#080b11;
+box-shadow: 0 24px 70px rgba(0,0,0,.24);
+}
+
+.featuredProviderMedia {
+position: relative;
+min-height: 390px;
+overflow: hidden;
+background: #05070d;
+}
+
+.featuredProviderMedia::after {
+content: "";
+position: absolute;
+inset: 0;
+background: linear-gradient(180deg, transparent 52%, rgba(5,7,13,.76) 100%);
+pointer-events: none;
+}
+
+.featuredProviderMedia img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center;
+display: block;
+}
+
+.featuredBadge {
+position: absolute;
+top: 18px;
+left: 18px;
+z-index: 2;
+padding: 9px 12px;
+border-radius: 999px;
+background: rgba(5,7,13,.8);
+border: 1px solid rgba(50,255,115,.46);
+color: #32ff73;
+font-size: 10px;
+font-weight: 1000;
+letter-spacing: 1.2px;
+backdrop-filter: blur(12px);
+}
+
+.featuredProviderBody {
+padding: 36px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.providerEyebrow {
+margin: 0 0 10px;
+color: #32ff73;
+font-size: 11px;
+font-weight: 1000;
+letter-spacing: 1.8px;
+}
+
+.featuredProviderBody h3 {
+margin: 0;
+font-size: clamp(30px, 4vw, 48px);
+line-height: .98;
+letter-spacing: -1.7px;
+}
+
+.featuredProviderBody h4 {
+margin: 12px 0 0;
+color: #32ff73;
+font-size: 18px;
+}
+
+.featuredProviderBody > p:not(.providerEyebrow) {
+margin: 18px 0;
+max-width: 720px;
+color: rgba(255,255,255,.72);
+font-size: 15px;
+line-height: 1.7;
+}
+
+.providerServiceGrid {
+display: grid;
+grid-template-columns: repeat(2, minmax(0,1fr));
+gap: 10px 20px;
+margin: 4px 0 20px;
+}
+
+.providerServiceGrid span {
+position: relative;
+padding-left: 24px;
+color: rgba(255,255,255,.9);
+font-size: 14px;
+font-weight: 800;
+}
+
+.providerServiceGrid span::before {
+content: "✓";
+position: absolute;
+left: 0;
+top: -1px;
+width: 17px;
+height: 17px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+border-radius: 999px;
+border: 1px solid rgba(50,255,115,.58);
+color: #32ff73;
+font-size: 10px;
+}
+
+.providerCoverage {
+margin-bottom: 22px;
+padding: 13px 15px;
+border-radius: 11px;
+background: rgba(255,255,255,.045);
+border: 1px solid rgba(255,255,255,.09);
+color: rgba(255,255,255,.67);
+font-size: 13px;
+}
+
+.providerCoverage strong { color: #fff; }
+
+.featuredProviderActions {
+display: flex;
+gap: 12px;
+flex-wrap: wrap;
+}
+
+.providerNotice {
+display: block;
+margin-top: 16px;
+max-width: 700px;
+color: rgba(255,255,255,.52);
+font-size: 11px;
+line-height: 1.55;
+}
+
+.additionalProviders { margin-top: 34px; }
+
 .businessGrid {
 display: grid;
 grid-template-columns: repeat(3, minmax(0,1fr));
@@ -1295,24 +1452,20 @@ background: #0a0d13;
 
 .businessImage {
 height: 180px;
-background-size: cover, cover;
-background-position: center, center;
-background-repeat: no-repeat;
+overflow: hidden;
 border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
-.businessBody {
-padding: 19px;
+.businessImage img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
 }
 
-.businessTop {
-display: flex;
-align-items: flex-start;
-justify-content: space-between;
-gap: 16px;
-}
+.businessBody { padding: 19px; }
 
-.businessTop h3 {
+.businessBody h3 {
 margin: 9px 0 0;
 font-size: 22px;
 line-height: 1.05;
@@ -1326,36 +1479,11 @@ font-weight: 1000;
 color: #32ff73;
 }
 
-.businessStatus {
-font-size: 9px;
-font-weight: 1000;
-letter-spacing: 1px;
-color: rgba(255,255,255,.5);
-white-space: nowrap;
-}
-
 .businessBody > p {
 margin: 16px 0;
 color: rgba(255,255,255,.66);
 font-size: 14px;
 line-height: 1.6;
-}
-
-.businessMeta {
-display: flex;
-flex-wrap: wrap;
-gap: 8px;
-margin-bottom: 18px;
-}
-
-.businessMeta span {
-padding: 8px 10px;
-border-radius: 8px;
-background: rgba(255,255,255,.045);
-border: 1px solid rgba(255,255,255,.09);
-color: rgba(255,255,255,.68);
-font-size: 11px;
-font-weight: 800;
 }
 
 .businessActions {
@@ -1364,8 +1492,7 @@ flex-wrap: wrap;
 gap: 8px;
 }
 
-.businessCall,
-.businessAlt {
+.businessCall {
 display: inline-flex;
 align-items: center;
 justify-content: center;
@@ -1375,54 +1502,8 @@ border-radius: 9px;
 font-size: 12px;
 font-weight: 950;
 text-decoration: none;
-}
-
-.businessCall {
 background: #32ff73;
 color: #05070d;
-}
-
-.businessAlt {
-background: rgba(255,255,255,.055);
-border: 1px solid rgba(255,255,255,.12);
-color: #fff;
-}
-
-.emptyProviders {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 30px;
-padding: 28px;
-border-radius: 16px;
-border: 1px solid rgba(255,255,255,.11);
-background: #0a0d13;
-}
-
-.emptyProviders h3 {
-font-size: 25px;
-margin: 10px 0 10px;
-}
-
-.emptyProviders p {
-max-width: 760px;
-margin: 0;
-color: rgba(255,255,255,.65);
-line-height: 1.65;
-}
-
-.emptyNumber {
-color: #32ff73;
-font-size: 11px;
-font-weight: 1000;
-letter-spacing: 1.8px;
-}
-
-.emptyActions {
-display: flex;
-gap: 10px;
-flex-wrap: wrap;
-flex-shrink: 0;
 }
 
 .sectionHeading {
@@ -1764,6 +1845,8 @@ font-size: 14px;
 
 @media (max-width: 980px) {
 .nav { display: none; }
+.featuredProviderCard { grid-template-columns: 1fr; }
+.featuredProviderMedia { min-height: 340px; }
 .businessGrid { grid-template-columns: repeat(2, minmax(0,1fr)); }
 .serviceGrid,
 .featureGrid { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -1854,16 +1937,21 @@ line-height: 1.3;
 .sectionHeading { align-items: flex-start; flex-direction: column; }
 .sectionIntro { max-width: 100%; }
 
+.featuredProviderCard,
 .businessGrid,
 .serviceGrid,
 .featureGrid,
 .twoColSection,
 .faqGrid { grid-template-columns: 1fr; }
 
-.emptyProviders {
-align-items: flex-start;
-flex-direction: column;
-}
+.featuredProviderCard { grid-template-columns: 1fr; border-radius: 16px; }
+.featuredProviderMedia { min-height: 250px; }
+.featuredProviderMedia img { object-position: center; }
+.featuredProviderBody { padding: 24px 20px; }
+.featuredProviderBody h3 { font-size: 32px; }
+.providerServiceGrid { grid-template-columns: 1fr; gap: 9px; }
+.featuredProviderActions .primaryBtn,
+.featuredProviderActions .secondaryBtn { width: 100%; }
 
 .serviceCard { min-height: 260px; }
 
