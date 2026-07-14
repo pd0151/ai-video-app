@@ -203,16 +203,16 @@ const commonProblems = isTyrePage
 : ["Vehicle breakdown", "Car will not start", "Flat battery", "Accident recovery", "Vehicle transport", "Motorway recovery", "Roadside assistance", "Non-runner vehicle"];
 
 
-const pageLocation =
+const detectedArea =
 areas.find((area) => normalise(title).includes(normalise(area))) ||
-areas.find((area) => normalise(slug).includes(normalise(area))) ||
-titleCase(
+areas.find((area) => normalise(slug).includes(normalise(area)));
+
+const pageLocation = detectedArea || titleCase(
 slug
-.replace(/mobile|emergency|24-hour|24hr|tyre|tire|fitting|puncture|repair|replacement|recovery|breakdown|towing|vehicle|transport|roadside|assistance|locking|wheel|nut|flat|run/g, " ")
+.replace(/24-hour|24hr|24|hour|mobile|emergency|local|service|services|help|tyre|tire|fitting|puncture|repair|replacement|recovery|breakdown|towing|vehicle|transport|roadside|assistance|locking|wheel|nut|flat|run/gi, " ")
 .replace(/\s+/g, " ")
 .trim()
-) ||
-"your area";
+) || "your area";
 
 const pageUrl = `${SITE_URL}/seo/${slug}`;
 
@@ -294,13 +294,17 @@ const matchingBusinessNames = displayedBusinesses
 .map((business: any) => getBusinessName(business))
 .filter(Boolean);
 
-const providerName = featuredProvider
+const rawProviderName = featuredProvider
 ? getBusinessName(featuredProvider)
 : "Total Tyres & Recovery 247 Ltd";
 
-const providerImage = featuredProvider
-? getBusinessImage(featuredProvider) || heroImageSrc
-: heroImageSrc;
+const providerName = normalise(rawProviderName).includes("total tyres")
+? "Total Tyres & Recovery 247 Ltd"
+: rawProviderName;
+
+const providerImage = isTyrePage
+? (featuredProvider ? getBusinessImage(featuredProvider) || "/images/mobile-tyre-fitting.jpg" : "/images/mobile-tyre-fitting.jpg")
+: "/images/breakdown-recovery.jpg";
 
 const providerArea = featuredProvider
 ? getBusinessAreaText(featuredProvider)
@@ -313,6 +317,18 @@ const providerDescription = isTyrePage
 const providerServices = isTyrePage
 ? ["Mobile Tyre Fitting", "Puncture Repairs", "New Tyres Supplied", "Emergency Tyre Replacement"]
 : ["Breakdown Recovery", "Roadside Assistance", "Accident Recovery", "Vehicle Transport"];
+
+const galleryImages = isTyrePage
+? [
+"/images/mobile-tyre-fitting.jpg",
+"/images/puncture-repair.jpg",
+"/images/tyre-replacement.jpg",
+]
+: [
+"/images/breakdown-recovery.jpg",
+"/images/accident-recovery.jpg",
+"/images/vehicle-transport.jpg",
+];
 
 const businessSchema = displayedBusinesses.map((business: any) => {
 const businessName = getBusinessName(business);
@@ -659,13 +675,13 @@ backgroundImage: `url("${getServiceImage(service)}"), url("${heroImageSrc}")`,
 
 <div className="galleryGrid">
 <div className="galleryLarge">
-<img src={getServiceImage(serviceCards[0])} alt={`${serviceCards[0]} in ${pageLocation}`} />
+<img src={galleryImages[0]} alt={`${serviceCards[0]} in ${pageLocation}`} />
 </div>
 <div className="gallerySmall">
-<img src={getServiceImage(serviceCards[1])} alt={`${serviceCards[1]} in ${pageLocation}`} />
+<img src={galleryImages[1]} alt={`${serviceCards[1]} in ${pageLocation}`} />
 </div>
 <div className="gallerySmall">
-<img src={getServiceImage(serviceCards[2])} alt={`${serviceCards[2]} in ${pageLocation}`} />
+<img src={galleryImages[2]} alt={`${serviceCards[2]} in ${pageLocation}`} />
 </div>
 </div>
 </section>
@@ -1304,7 +1320,7 @@ box-shadow: 0 24px 70px rgba(0,0,0,.24);
 
 .featuredProviderMedia {
 position: relative;
-min-height: 390px;
+min-height: 330px;
 overflow: hidden;
 background: #05070d;
 }
@@ -1342,7 +1358,7 @@ backdrop-filter: blur(12px);
 }
 
 .featuredProviderBody {
-padding: 36px;
+padding: 30px;
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -1874,9 +1890,10 @@ background:
 linear-gradient(90deg, rgba(5,7,13,.94), rgba(5,7,13,.56)),
 linear-gradient(180deg, rgba(5,7,13,.1), rgba(5,7,13,.35) 60%, #05070d 100%);
 }
-.heroInner { padding: 72px 18px 28px; }
+.heroInner { padding: 40px 18px 24px; }
 .heroCopy { max-width: 100%; }
-h1 { font-size: 42px; max-width: 350px; }
+.greenPill { transform: translateY(-8px); }
+h1 { font-size: 42px; max-width: 350px; margin-top: 14px; }
 .intro { font-size: 15.5px; max-width: 335px; }
 .heroTrust { grid-template-columns: repeat(2,1fr); }
 .trustItem:nth-child(2) { border-right: 0; }
@@ -1945,13 +1962,23 @@ line-height: 1.3;
 .faqGrid { grid-template-columns: 1fr; }
 
 .featuredProviderCard { grid-template-columns: 1fr; border-radius: 16px; }
-.featuredProviderMedia { min-height: 250px; }
+.businessSection { padding-top: 42px; padding-bottom: 72px; }
+.providerHeading { margin-bottom: 16px; }
+.featuredProviderMedia { min-height: 205px; }
 .featuredProviderMedia img { object-position: center; }
-.featuredProviderBody { padding: 24px 20px; }
-.featuredProviderBody h3 { font-size: 32px; }
-.providerServiceGrid { grid-template-columns: 1fr; gap: 9px; }
+.featuredBadge { top: 12px; left: 12px; padding: 8px 10px; font-size: 9px; }
+.featuredProviderBody { padding: 20px 18px 24px; }
+.providerEyebrow { margin-bottom: 7px; font-size: 9px; letter-spacing: 1.35px; }
+.featuredProviderBody h3 { font-size: 28px; line-height: 1.02; }
+.featuredProviderBody h4 { margin-top: 8px; font-size: 16px; }
+.featuredProviderBody > p:not(.providerEyebrow) { margin: 13px 0; font-size: 13px; line-height: 1.55; }
+.providerServiceGrid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px 12px; margin-bottom: 14px; }
+.providerServiceGrid span { padding-left: 21px; font-size: 12px; line-height: 1.3; }
+.providerCoverage { margin-bottom: 14px; padding: 10px 12px; font-size: 11px; }
+.featuredProviderActions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
 .featuredProviderActions .primaryBtn,
-.featuredProviderActions .secondaryBtn { width: 100%; }
+.featuredProviderActions .secondaryBtn { width: 100%; min-width: 0; padding: 13px 10px; font-size: 12px; }
+.providerNotice { margin-top: 11px; font-size: 10px; }
 
 .serviceCard { min-height: 260px; }
 
