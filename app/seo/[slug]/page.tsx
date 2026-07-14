@@ -302,9 +302,15 @@ const providerName = normalise(rawProviderName).includes("total tyres")
 ? "Total Tyres & Recovery 247 Ltd"
 : rawProviderName;
 
-const providerImage = isTyrePage
-? (featuredProvider ? getBusinessImage(featuredProvider) || "/images/mobile-tyre-fitting.jpg" : "/images/mobile-tyre-fitting.jpg")
-: "/images/breakdown-recovery.jpg";
+const providerImage = featuredProvider
+? getBusinessImage(featuredProvider)
+: "";
+
+const providerImageStyle = {
+backgroundImage: isTyrePage
+? `${providerImage ? `url("${providerImage}"), ` : ""}url("/images/mobile-tyre-fitting.jpg")`
+: `${providerImage ? `url("${providerImage}"), ` : ""}url("/images/recovery-truck.jpg")`,
+};
 
 const providerArea = featuredProvider
 ? getBusinessAreaText(featuredProvider)
@@ -320,14 +326,14 @@ const providerServices = isTyrePage
 
 const galleryImages = isTyrePage
 ? [
-"/images/mobile-tyre-fitting.jpg",
-"/images/puncture-repair.jpg",
-"/images/tyre-replacement.jpg",
+'url("/images/mobile-tyre-fitting.jpg")',
+'url("/images/puncture-repair.jpg"), url("/images/mobile-tyre-fitting.jpg")',
+'url("/images/tyre-replacement.jpg"), url("/images/mobile-tyre-fitting.jpg")',
 ]
 : [
-"/images/breakdown-recovery.jpg",
-"/images/accident-recovery.jpg",
-"/images/vehicle-transport.jpg",
+'url("/images/breakdown-recovery.jpg"), url("/images/recovery-truck.jpg")',
+'url("/images/accident-recovery.jpg"), url("/images/recovery-truck.jpg")',
+'url("/images/vehicle-transport.jpg"), url("/images/recovery-truck.jpg")',
 ];
 
 const businessSchema = displayedBusinesses.map((business: any) => {
@@ -530,8 +536,12 @@ inside the AdForge system.
 </div>
 
 <article className="featuredProviderCard">
-<div className="featuredProviderMedia">
-<img src={providerImage} alt={`${providerName} serving ${pageLocation}`} />
+<div
+className="featuredProviderMedia"
+role="img"
+aria-label={`${providerName} serving ${pageLocation}`}
+style={providerImageStyle}
+>
 <span className="featuredBadge">FEATURED LOCAL PROVIDER</span>
 </div>
 
@@ -674,15 +684,24 @@ backgroundImage: `url("${getServiceImage(service)}"), url("${heroImageSrc}")`,
 </div>
 
 <div className="galleryGrid">
-<div className="galleryLarge">
-<img src={galleryImages[0]} alt={`${serviceCards[0]} in ${pageLocation}`} />
-</div>
-<div className="gallerySmall">
-<img src={galleryImages[1]} alt={`${serviceCards[1]} in ${pageLocation}`} />
-</div>
-<div className="gallerySmall">
-<img src={galleryImages[2]} alt={`${serviceCards[2]} in ${pageLocation}`} />
-</div>
+<div
+className="galleryLarge galleryPhoto"
+role="img"
+aria-label={`${serviceCards[0]} in ${pageLocation}`}
+style={{ backgroundImage: galleryImages[0] }}
+/>
+<div
+className="gallerySmall galleryPhoto"
+role="img"
+aria-label={`${serviceCards[1]} in ${pageLocation}`}
+style={{ backgroundImage: galleryImages[1] }}
+/>
+<div
+className="gallerySmall galleryPhoto"
+role="img"
+aria-label={`${serviceCards[2]} in ${pageLocation}`}
+style={{ backgroundImage: galleryImages[2] }}
+/>
 </div>
 </section>
 
@@ -1673,11 +1692,12 @@ overflow: hidden;
 border: 1px solid rgba(255,255,255,.1);
 }
 
-.galleryGrid img {
+.galleryPhoto {
 width: 100%;
 height: 100%;
-object-fit: cover;
-display: block;
+background-size: cover, cover;
+background-position: center, center;
+background-repeat: no-repeat;
 }
 
 .twoColSection {
@@ -1892,7 +1912,7 @@ linear-gradient(180deg, rgba(5,7,13,.1), rgba(5,7,13,.35) 60%, #05070d 100%);
 }
 .heroInner { padding: 40px 18px 24px; }
 .heroCopy { max-width: 100%; }
-.greenPill { transform: translateY(-8px); }
+.greenPill { transform: translateY(-18px); margin-bottom: -10px; }
 h1 { font-size: 42px; max-width: 350px; margin-top: 14px; }
 .intro { font-size: 15.5px; max-width: 335px; }
 .heroTrust { grid-template-columns: repeat(2,1fr); }
@@ -1965,7 +1985,7 @@ line-height: 1.3;
 .businessSection { padding-top: 42px; padding-bottom: 72px; }
 .providerHeading { margin-bottom: 16px; }
 .featuredProviderMedia { min-height: 205px; }
-.featuredProviderMedia img { object-position: center; }
+
 .featuredBadge { top: 12px; left: 12px; padding: 8px 10px; font-size: 9px; }
 .featuredProviderBody { padding: 20px 18px 24px; }
 .providerEyebrow { margin-bottom: 7px; font-size: 9px; letter-spacing: 1.35px; }
