@@ -35,20 +35,27 @@ export async function generateMetadata({ params }: any) {
     ? `${SITE_URL}/images/mobile-tyre-fitting.jpg`
     : `${SITE_URL}/images/recovery-truck.jpg`;
 
-  const title = data?.title_tag || data?.headline || "AdForge";
+  const pageHeadline = String(
+    data?.headline || "Local Emergency Service",
+  )
+    .replace(/\s*\|\s*AdForge\s*$/i, "")
+    .trim();
+
+  const searchTitle = `${pageHeadline} | AdForge`;
   const description = data?.meta_description || "";
   const url = `${SITE_URL}/seo/${slug}`;
 
   return {
-    title,
+    title: searchTitle,
     description,
+    applicationName: "AdForge",
 
     alternates: {
       canonical: url,
     },
 
     openGraph: {
-      title,
+      title: searchTitle,
       description,
       url,
       siteName: "AdForge",
@@ -58,14 +65,14 @@ export async function generateMetadata({ params }: any) {
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: pageHeadline,
         },
       ],
     },
 
     twitter: {
       card: "summary_large_image",
-      title,
+      title: searchTitle,
       description,
       images: [imageUrl],
     },
@@ -480,7 +487,7 @@ export default async function LandingPage({ params }: any) {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
         url: pageUrl,
-        name: title,
+        name: `${title} | AdForge`,
         headline: title,
         description,
         image: {
