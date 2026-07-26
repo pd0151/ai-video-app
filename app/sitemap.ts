@@ -90,6 +90,14 @@ url: SITE_URL,
 lastModified: new Date(),
 },
 {
+url: `${SITE_URL}/services/mobile-tyre-fitting`,
+lastModified: new Date(),
+},
+{
+url: `${SITE_URL}/services/vehicle-recovery`,
+lastModified: new Date(),
+},
+{
 url: `${SITE_URL}/businesses`,
 lastModified: new Date(),
 },
