@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "AdForge | Mobile Tyres, Recovery & Local Businesses",
+  title: "AdForge | Mobile Tyres, Recovery & Local Help",
   description:
     "Find mobile tyre fitting, vehicle recovery and trusted local businesses across Liverpool, Wirral and Merseyside.",
   alternates: {
@@ -18,44 +18,48 @@ export const metadata: Metadata = {
   },
 };
 
-const services = [
+const serviceCards = [
   {
-    label: "TYRE SERVICES",
     title: "Mobile Tyre Fitting",
     description:
-      "Puncture repairs, replacement tyres, emergency call-outs and roadside tyre fitting.",
+      "Puncture repairs, replacement tyres and roadside tyre fitting at your location.",
     href: "/services/mobile-tyre-fitting",
     image: "/images/mobile-tyre-fitting.jpg",
-    button: "Find tyre fitting",
+    icon: "◉",
   },
   {
-    label: "RECOVERY SERVICES",
     title: "Vehicle Recovery",
     description:
-      "Breakdown recovery, accident recovery, roadside assistance and vehicle transport.",
+      "Breakdown recovery, accident recovery and safe vehicle transport, 24/7.",
     href: "/services/vehicle-recovery",
     image: "/images/recovery-truck.jpg",
-    button: "Get recovery help",
+    icon: "▱",
   },
   {
-    label: "LOCAL DIRECTORY",
-    title: "Local Businesses",
+    title: "Roadside Assistance",
     description:
-      "Browse trusted local businesses, compare services and contact providers directly.",
+      "Battery help, jump starts, tyre emergencies and other urgent roadside support.",
     href: "/businesses",
-    image:
-      "https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?auto=format&fit=crop&w=1200&q=85",
-    button: "Browse businesses",
+    image: "/images/hero-recovery.png",
+    icon: "▣",
+  },
+];
+
+const steps = [
+  {
+    number: "01",
+    title: "Search",
+    description: "Tell us what service you need and where you are.",
   },
   {
-    label: "BUSINESS AUTOMATION",
-    title: "AI Receptionist",
-    description:
-      "Answer calls 24/7, capture customer details and send new leads straight by SMS.",
-    href: "/ai-receptionist",
-    image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=85",
-    button: "Explore AI receptionist",
+    number: "02",
+    title: "Choose",
+    description: "View trusted local businesses operating near you.",
+  },
+  {
+    number: "03",
+    title: "Get Help",
+    description: "Contact a provider directly and get moving again.",
   },
 ];
 
@@ -68,8 +72,6 @@ const areas = [
   "St Helens",
   "Widnes",
   "Warrington",
-  "Southport",
-  "Prescot",
 ];
 
 export default function PublicHomePage() {
@@ -79,23 +81,23 @@ export default function PublicHomePage() {
     name: "AdForge",
     url: "https://adforge.uk/",
     description:
-      "Find mobile tyre fitting, vehicle recovery and local businesses.",
+      "Find mobile tyre fitting, vehicle recovery and trusted local businesses.",
   };
 
   return (
     <>
       <main className="page">
         <header className="header">
-          <Link href="/" className="logo" aria-label="AdForge homepage">
-            <span className="logoMark">AF</span>
+          <Link href="/" className="brand" aria-label="AdForge homepage">
+            <span className="brandMark">AF</span>
 
-            <span className="logoText">
+            <span className="brandText">
               Ad<span>Forge</span>
               <small>LOCAL SERVICE PLATFORM</small>
             </span>
           </Link>
 
-          <nav className="desktopNav">
+          <nav className="desktopNav" aria-label="Public navigation">
             <Link href="#services">Services</Link>
             <Link href="/businesses">Businesses</Link>
             <Link href="/ai-receptionist">AI Receptionist</Link>
@@ -103,7 +105,7 @@ export default function PublicHomePage() {
             <Link href="/home">Open App</Link>
           </nav>
 
-          <Link href="/signup" className="listButton">
+          <Link href="/signup" className="topButton">
             List Business Free <span>→</span>
           </Link>
         </header>
@@ -118,12 +120,11 @@ export default function PublicHomePage() {
 
         <section className="hero">
           <div className="heroImage" />
-          <div className="heroOverlay" />
-          <div className="heroGlow" />
+          <div className="heroShade" />
 
           <div className="heroInner">
             <div className="heroCopy">
-              <div className="heroBadge">
+              <div className="eyebrow">
                 <i />
                 24/7 MOBILE TYRE &amp; RECOVERY SERVICES
               </div>
@@ -139,7 +140,7 @@ export default function PublicHomePage() {
                 and Merseyside.
               </p>
 
-              <div className="heroActions">
+              <div className="heroButtons">
                 <Link
                   href="/services/mobile-tyre-fitting"
                   className="primaryButton"
@@ -155,226 +156,164 @@ export default function PublicHomePage() {
                 </Link>
               </div>
 
-              <Link href="/signup" className="freeBusinessLink">
+              <Link href="/signup" className="freeLink">
                 List your business free <span>→</span>
               </Link>
             </div>
           </div>
         </section>
 
-        <section className="servicePanel" id="services">
+        <section className="trustStrip" aria-label="Why use AdForge">
+          <article>
+            <div className="trustIcon">✓</div>
+            <div>
+              <strong>Trusted Local Businesses</strong>
+              <span>Vetted. Rated. Reliable.</span>
+            </div>
+          </article>
+
+          <article>
+            <div className="trustIcon">◷</div>
+            <div>
+              <strong>24/7 Support</strong>
+              <span>Help whenever you need it.</span>
+            </div>
+          </article>
+
+          <article>
+            <div className="trustIcon">☆</div>
+            <div>
+              <strong>4.9/5 Average Rating</strong>
+              <span>From local customers.</span>
+            </div>
+          </article>
+        </section>
+
+        <section className="servicesSection" id="services">
+          <div className="sectionHeading">
+            <span>OUR SERVICES</span>
+            <h2>Help when you need it most.</h2>
+            <p>
+              Simple, focused service options without the clutter. Choose what
+              you need and find local help fast.
+            </p>
+          </div>
+
           <div className="serviceGrid">
-            {services.map((service) => (
+            {serviceCards.map((service) => (
               <Link
                 key={service.title}
                 href={service.href}
                 className="serviceCard"
               >
                 <div
-                  className="serviceImage"
+                  className="servicePhoto"
                   style={{ backgroundImage: `url("${service.image}")` }}
                 />
-                <div className="serviceShade" />
+                <div className="serviceOverlay" />
 
-                <div className="serviceLabel">{service.label}</div>
+                <div className="serviceContent">
+                  <div className="serviceIcon">{service.icon}</div>
 
-                <div className="serviceBody">
-                  <h2>{service.title}</h2>
+                  <h3>{service.title}</h3>
                   <p>{service.description}</p>
 
-                  <div className="serviceButton">
-                    {service.button} <span>→</span>
-                  </div>
+                  <span className="learnMore">
+                    Learn more <b>→</b>
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
+        </section>
 
-          <div className="featuredRow">
-            <article className="featuredBusiness">
-              <span className="premiumTag">PREMIUM</span>
-
-              <div className="businessLogo">TT</div>
-
-              <div className="businessInfo">
-                <span className="featuredEyebrow">FEATURED BUSINESS</span>
-                <h2>Total Tyres 24/7</h2>
-
-                <div className="rating">
-                  ★★★★★ <small>4.9 customer rating</small>
-                </div>
-
-                <p>
-                  Mobile tyre fitting • Emergency call-outs • Puncture repairs •
-                  New and part-worn tyres • Wheel alignment
-                </p>
-
-                <div className="businessTags">
-                  <span>Tyres</span>
-                  <span>Brakes</span>
-                  <span>Batteries</span>
-                  <span>Wheel Alignment</span>
-                  <span>24/7 Call Out</span>
-                </div>
-              </div>
-
-              <div className="businessActions">
-                <a href="tel:07385182500" className="primaryButton compact">
-                  Call 07385 182 500 <span>→</span>
-                </a>
-
-                <Link
-                  href="/services/mobile-tyre-fitting"
-                  className="secondaryButton compact"
-                >
-                  View Services <span>→</span>
-                </Link>
-              </div>
-            </article>
-
-            <aside className="searchCard">
-              <div className="searchHeading">
-                <span>FIND LOCAL HELP FAST</span>
-                <b>LIVE</b>
-              </div>
-
-              <div className="searchInput">
-                <span>⌖</span>
-                <div>
-                  <small>Your postcode or area</small>
-                  <strong>Liverpool</strong>
-                </div>
-                <b>⌄</b>
-              </div>
-
-              <div className="searchInput">
-                <span>◇</span>
-                <div>
-                  <small>What do you need?</small>
-                  <strong>Mobile Tyre Fitting</strong>
-                </div>
-                <b>⌄</b>
-              </div>
-
-              <Link href="/businesses" className="searchButton">
-                Search Local Services <span>→</span>
-              </Link>
-            </aside>
+        <section className="howSection">
+          <div className="sectionHeading centred">
+            <span>HOW IT WORKS</span>
+            <h2>Quick. Simple. Done.</h2>
           </div>
 
-          <div className="benefits">
-            <article>
-              <b>24/7</b>
-              <div>
-                <strong>Emergency Help</strong>
-                <span>Available when you need it</span>
-              </div>
-            </article>
+          <div className="steps">
+            {steps.map((step) => (
+              <article key={step.number} className="step">
+                <div className="stepNumber">{step.number}</div>
 
-            <article>
-              <b>⚡</b>
-              <div>
-                <strong>Fast Local Response</strong>
-                <span>Find trusted providers nearby</span>
-              </div>
-            </article>
-
-            <article>
-              <b>⌖</b>
-              <div>
-                <strong>Area-Based Results</strong>
-                <span>Search by service and location</span>
-              </div>
-            </article>
-
-            <article>
-              <b>✓</b>
-              <div>
-                <strong>Free Business Listings</strong>
-                <span>List your business for free</span>
-              </div>
-            </article>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
-        <section className="stats">
-          <article>
-            <strong>3,000+</strong>
-            <span>Local service pages</span>
-          </article>
-          <article>
-            <strong>24/7</strong>
-            <span>Emergency support</span>
-          </article>
-          <article>
-            <strong>50+</strong>
-            <span>Areas covered</span>
-          </article>
-          <article>
-            <strong>Fast</strong>
-            <span>Local response</span>
-          </article>
-        </section>
+        <section className="featuredBusiness">
+          <div className="featuredCopy">
+            <span>FEATURED BUSINESS</span>
+            <h2>Total Tyres 24/7</h2>
 
-        <section className="aiSection">
-          <div className="aiCopy">
-            <span>NEW • AI RECEPTIONIST</span>
-            <h2>Never miss another call.</h2>
+            <div className="stars">
+              ★★★★★ <small>4.9 customer rating</small>
+            </div>
 
             <p>
-              AdForge AI answers customer calls 24/7, captures job details and
-              sends every new lead straight to your phone.
+              Mobile tyre fitting, puncture repairs, new and part-worn tyres,
+              brakes, batteries and emergency call-outs across Liverpool and
+              Merseyside.
             </p>
 
-            <div className="aiActions">
-              <Link href="/ai-receptionist" className="primaryButton compact">
-                Learn More <span>→</span>
-              </Link>
-
-              <Link href="/signup" className="secondaryButton compact">
-                Start Free <span>→</span>
-              </Link>
+            <div className="featureTags">
+              <span>Mobile Tyres</span>
+              <span>Puncture Repairs</span>
+              <span>Brakes</span>
+              <span>Batteries</span>
+              <span>24/7 Call Out</span>
             </div>
           </div>
 
-          <div className="phone">
-            <div className="speaker" />
+          <div className="featuredActions">
+            <a href="tel:07385182500" className="primaryButton">
+              Call 07385 182 500 <span>→</span>
+            </a>
 
-            <div className="phoneScreen">
-              <small>ADFORGE AI</small>
-              <strong>Receptionist</strong>
-              <span>00:24</span>
-
-              <div className="wave">
-                <i />
-                <i />
-                <i />
-                <i />
-                <i />
-                <i />
-                <i />
-                <i />
-              </div>
-
-              <b>☎</b>
-            </div>
-          </div>
-
-          <div className="aiFeatures">
-            <span>✓ Answers calls instantly</span>
-            <span>✓ Captures customer details</span>
-            <span>✓ Sends leads by SMS</span>
-            <span>✓ Available 24/7</span>
+            <Link
+              href="/services/mobile-tyre-fitting"
+              className="secondaryButton"
+            >
+              View Services <span>→</span>
+            </Link>
           </div>
         </section>
 
-        <section className="areas" id="areas">
-          <div className="areasHeading">
+        <section className="statsSection">
+          <article>
+            <strong>3,000+</strong>
+            <span>Service Pages</span>
+          </article>
+
+          <article>
+            <strong>50+</strong>
+            <span>Areas Covered</span>
+          </article>
+
+          <article>
+            <strong>24/7</strong>
+            <span>Always Available</span>
+          </article>
+
+          <article>
+            <strong>Fast</strong>
+            <span>Local Response</span>
+          </article>
+        </section>
+
+        <section className="areasSection" id="areas">
+          <div className="sectionHeading">
             <span>LOCAL COVERAGE</span>
             <h2>Serving Liverpool and Merseyside.</h2>
           </div>
 
-          <div className="areaGrid">
+          <div className="areaLinks">
             {areas.map((area) => (
               <Link
                 key={area}
@@ -386,23 +325,27 @@ export default function PublicHomePage() {
           </div>
         </section>
 
-        <section className="bottomCta">
+        <section className="businessCta">
           <div>
-            <span>NEED HELP NOW?</span>
-            <h2>We’re here 24/7.</h2>
+            <span>GROW YOUR BUSINESS</span>
+            <h2>Get discovered by more local customers.</h2>
+            <p>
+              Create a free business listing and appear across AdForge local
+              service pages.
+            </p>
           </div>
 
-          <Link href="/businesses" className="secondaryButton compact">
-            Get Help Now <span>→</span>
+          <Link href="/signup" className="primaryButton">
+            List Business Free <span>→</span>
           </Link>
         </section>
 
         <footer className="footer">
-          <div className="footerIntro">
-            <Link href="/" className="logo">
-              <span className="logoMark">AF</span>
+          <div className="footerBrand">
+            <Link href="/" className="brand">
+              <span className="brandMark">AF</span>
 
-              <span className="logoText">
+              <span className="brandText">
                 Ad<span>Forge</span>
                 <small>LOCAL SERVICE PLATFORM</small>
               </span>
@@ -417,7 +360,7 @@ export default function PublicHomePage() {
           <div className="footerLinks">
             <Link href="/services/mobile-tyre-fitting">Mobile Tyres</Link>
             <Link href="/services/vehicle-recovery">Vehicle Recovery</Link>
-            <Link href="/businesses">Businesses</Link>
+            <Link href="/businesses">Local Businesses</Link>
             <Link href="/ai-receptionist">AI Receptionist</Link>
             <Link href="/signup">List Business Free</Link>
             <Link href="/home">Open App</Link>
@@ -437,20 +380,24 @@ export default function PublicHomePage() {
 
       <style>{`
         :root {
-          --bg: #020304;
-          --panel: #080c10;
-          --panel2: #0b1117;
-          --line: rgba(255,255,255,.12);
-          --green: #98ed00;
-          --green2: #baff16;
-          --text: #f7f8f9;
-          --muted: #9aa3ac;
-          --max: 1460px;
+          --bg: #020202;
+          --panel: #0a0b0c;
+          --panel-soft: #0e1012;
+          --line: rgba(255,255,255,.11);
+          --green: #9cf000;
+          --green-bright: #b8ff18;
+          --text: #f6f7f8;
+          --muted: #a5abb1;
+          --max: 1420px;
         }
 
-        * { box-sizing: border-box; }
+        * {
+          box-sizing: border-box;
+        }
 
-        html { scroll-behavior: smooth; }
+        html {
+          scroll-behavior: smooth;
+        }
 
         body {
           margin: 0;
@@ -468,9 +415,7 @@ export default function PublicHomePage() {
         .page {
           min-height: 100vh;
           overflow: hidden;
-          background:
-            radial-gradient(circle at 50% 0%, rgba(110,185,0,.12), transparent 30%),
-            #020304;
+          background: #020202;
         }
 
         .header {
@@ -479,86 +424,122 @@ export default function PublicHomePage() {
           top: 0;
           left: 50%;
           width: min(calc(100% - 64px), var(--max));
-          height: 92px;
+          height: 94px;
           transform: translateX(-50%);
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          gap: 28px;
+          gap: 30px;
         }
 
-        .logo {
+        .brand {
           display: flex;
           align-items: center;
           gap: 12px;
           flex-shrink: 0;
         }
 
-        .logoMark {
-          color: white;
-          font-size: 31px;
+        .brandMark {
+          color: #fff;
+          font-size: 32px;
           font-style: italic;
           font-weight: 1000;
           letter-spacing: -5px;
         }
 
-        .logoText {
+        .brandText {
           display: flex;
           flex-direction: column;
+          color: #fff;
           font-size: 28px;
           line-height: .86;
           font-weight: 950;
           letter-spacing: -2px;
         }
 
-        .logoText > span { color: var(--green); }
+        .brandText > span {
+          color: var(--green);
+        }
 
-        .logoText small {
+        .brandText small {
           margin-top: 8px;
-          color: #8c959f;
+          color: #8c9298;
           font-size: 6px;
           font-weight: 900;
-          letter-spacing: 2.3px;
+          letter-spacing: 2.2px;
         }
 
         .desktopNav {
+          margin-left: auto;
           display: flex;
           align-items: center;
-          gap: 31px;
-          margin-left: auto;
+          gap: 12px;
         }
 
         .desktopNav a {
+          min-height: 40px;
+          display: inline-flex;
+          align-items: center;
+          padding: 0 17px;
+          border: 1px solid rgba(255,255,255,.08);
+          border-radius: 999px;
+          background: rgba(7,8,9,.6);
           color: rgba(255,255,255,.84);
-          font-size: 12px;
+          font-size: 11px;
           font-weight: 800;
         }
 
-        .desktopNav a:hover { color: var(--green); }
+        .desktopNav a:hover {
+          color: var(--green);
+          border-color: rgba(156,240,0,.35);
+        }
+
+        .topButton,
+        .primaryButton,
+        .secondaryButton {
+          min-height: 56px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 22px;
+          padding: 0 21px;
+          border-radius: 10px;
+          font-size: 12px;
+          font-weight: 950;
+          transition: transform .2s ease, border-color .2s ease;
+        }
+
+        .topButton,
+        .primaryButton {
+          border: 1px solid var(--green);
+          color: #061000;
+          background: linear-gradient(135deg, var(--green-bright), #78d500);
+          box-shadow: 0 0 28px rgba(156,240,0,.16);
+        }
+
+        .topButton {
+          min-height: 46px;
+          margin-left: 6px;
+        }
+
+        .secondaryButton {
+          border: 1px solid rgba(156,240,0,.42);
+          color: #fff;
+          background: rgba(3,4,5,.82);
+        }
+
+        .topButton:hover,
+        .primaryButton:hover,
+        .secondaryButton:hover {
+          transform: translateY(-2px);
+        }
 
         .mobileNav {
           display: none;
         }
 
-        .listButton {
-          min-height: 46px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 22px;
-          padding: 0 20px;
-          border: 1px solid var(--green);
-          border-radius: 10px;
-          color: #061000;
-          background: linear-gradient(135deg, var(--green2), #72ce00);
-          box-shadow: 0 0 28px rgba(152,237,0,.2);
-          font-size: 12px;
-          font-weight: 950;
-        }
-
         .hero {
           position: relative;
-          min-height: 650px;
+          min-height: 760px;
           display: flex;
           align-items: flex-end;
           isolation: isolate;
@@ -568,73 +549,72 @@ export default function PublicHomePage() {
           position: absolute;
           inset: 0;
           z-index: -3;
-          background:
-            url("/images/hero-recovery.png") center / cover no-repeat;
+          background-image: url("/images/hero-recovery.png");
+          background-size: cover;
+          background-position: center 54%;
+          background-repeat: no-repeat;
+          filter: brightness(1.03) contrast(1.08) saturate(1.04);
         }
 
-        .heroOverlay {
+        .heroShade {
           position: absolute;
           inset: 0;
           z-index: -2;
           background:
-            linear-gradient(90deg, rgba(0,0,0,.98) 0%, rgba(0,0,0,.84) 38%, rgba(0,0,0,.06) 76%, rgba(0,0,0,.28) 100%),
-            linear-gradient(0deg, #020304 0%, transparent 42%);
-        }
-
-        .heroGlow {
-          position: absolute;
-          z-index: -1;
-          left: 6%;
-          bottom: 8%;
-          width: 500px;
-          height: 260px;
-          border-radius: 50%;
-          background: rgba(152,237,0,.12);
-          filter: blur(100px);
+            linear-gradient(
+              90deg,
+              rgba(0,0,0,.96) 0%,
+              rgba(0,0,0,.76) 34%,
+              rgba(0,0,0,.18) 62%,
+              rgba(0,0,0,.04) 100%
+            ),
+            linear-gradient(
+              0deg,
+              #020202 0%,
+              transparent 28%
+            );
         }
 
         .heroInner {
           width: min(calc(100% - 64px), var(--max));
           margin: 0 auto;
-          padding: 135px 0 50px;
+          padding: 150px 0 74px;
         }
 
         .heroCopy {
-          width: 42%;
-          max-width: 520px;
-          margin-left: 28px;
+          width: 46%;
+          max-width: 610px;
         }
 
-        .heroBadge {
+        .eyebrow {
           width: fit-content;
           display: flex;
           align-items: center;
           gap: 10px;
           margin-bottom: 20px;
           padding: 10px 14px;
-          border: 1px solid rgba(152,237,0,.35);
+          border: 1px solid rgba(156,240,0,.36);
           border-radius: 999px;
-          background: rgba(3,7,4,.72);
-          color: #dce8cd;
+          background: rgba(0,0,0,.58);
+          color: #dfe6d4;
           font-size: 8px;
           font-weight: 950;
           letter-spacing: 1.7px;
         }
 
-        .heroBadge i {
+        .eyebrow i {
           width: 8px;
           height: 8px;
           border-radius: 50%;
           background: var(--green);
-          box-shadow: 0 0 14px var(--green);
+          box-shadow: 0 0 13px var(--green);
         }
 
         .hero h1 {
           margin: 0;
-          max-width: 520px;
-          font-size: clamp(44px, 4.6vw, 72px);
-          line-height: .92;
-          letter-spacing: -4px;
+          font-size: clamp(55px, 6.1vw, 92px);
+          line-height: .9;
+          letter-spacing: -5.5px;
           font-weight: 1000;
         }
 
@@ -644,624 +624,443 @@ export default function PublicHomePage() {
         }
 
         .heroCopy > p {
-          max-width: 560px;
-          margin: 22px 0 24px;
-          color: #c1c7cd;
-          font-size: 14px;
-          line-height: 1.65;
+          max-width: 570px;
+          margin: 24px 0 27px;
+          color: #c7ccd1;
+          font-size: 15px;
+          line-height: 1.68;
         }
 
-        .heroActions {
+        .heroButtons {
+          max-width: 600px;
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 11px;
-          max-width: 580px;
+          gap: 12px;
         }
 
-        .primaryButton,
-        .secondaryButton {
-          min-height: 58px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 16px;
-          padding: 0 20px;
-          border-radius: 10px;
-          font-size: 12px;
-          font-weight: 950;
-          transition: .2s ease;
-        }
-
-        .primaryButton {
-          border: 1px solid var(--green);
-          color: #061000;
-          background: linear-gradient(135deg, var(--green2), #72d000);
-          box-shadow: 0 0 30px rgba(152,237,0,.18);
-        }
-
-        .secondaryButton {
-          border: 1px solid rgba(152,237,0,.5);
-          background: rgba(2,5,7,.82);
-          color: white;
-        }
-
-        .primaryButton:hover,
-        .secondaryButton:hover,
-        .listButton:hover {
-          transform: translateY(-2px);
-        }
-
-        .freeBusinessLink {
+        .freeLink {
           width: fit-content;
           display: flex;
           align-items: center;
-          gap: 15px;
-          margin-top: 14px;
-          color: #d4d9de;
+          gap: 14px;
+          margin-top: 17px;
+          color: #e0e3e6;
           font-size: 11px;
           font-weight: 850;
         }
 
-        .freeBusinessLink span { color: var(--green); }
+        .freeLink span {
+          color: var(--green);
+        }
 
-        .servicePanel {
+        .trustStrip {
+          width: min(calc(100% - 64px), var(--max));
+          margin: -20px auto 0;
+          position: relative;
+          z-index: 6;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          border: 1px solid var(--line);
+          border-radius: 18px;
+          background: rgba(10,11,12,.96);
+          box-shadow: 0 18px 50px rgba(0,0,0,.35);
+        }
+
+        .trustStrip article {
+          min-height: 96px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 20px 28px;
+          border-right: 1px solid var(--line);
+        }
+
+        .trustStrip article:last-child {
+          border-right: 0;
+        }
+
+        .trustIcon {
+          width: 43px;
+          height: 43px;
+          flex-shrink: 0;
+          display: grid;
+          place-items: center;
+          border: 1px solid rgba(156,240,0,.4);
+          border-radius: 50%;
+          color: var(--green);
+          background: rgba(156,240,0,.06);
+          font-size: 19px;
+        }
+
+        .trustStrip strong,
+        .trustStrip span {
+          display: block;
+        }
+
+        .trustStrip strong {
+          margin-bottom: 5px;
+          font-size: 12px;
+        }
+
+        .trustStrip span {
+          color: var(--muted);
+          font-size: 10px;
+        }
+
+        .servicesSection,
+        .howSection,
+        .areasSection {
           width: min(calc(100% - 64px), var(--max));
           margin: 0 auto;
-          padding: 24px 0 0;
+        }
+
+        .servicesSection {
+          padding: 82px 0 0;
+        }
+
+        .howSection,
+        .areasSection {
+          padding: 88px 0 0;
+        }
+
+        .sectionHeading {
+          max-width: 700px;
+        }
+
+        .sectionHeading.centred {
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        .sectionHeading > span,
+        .featuredCopy > span,
+        .businessCta > div > span {
+          display: block;
+          margin-bottom: 10px;
+          color: var(--green);
+          font-size: 8px;
+          font-weight: 950;
+          letter-spacing: 2px;
+        }
+
+        .sectionHeading h2,
+        .featuredCopy h2,
+        .businessCta h2 {
+          margin: 0;
+          font-size: clamp(38px, 4.4vw, 62px);
+          line-height: .98;
+          letter-spacing: -3.6px;
+        }
+
+        .sectionHeading p {
+          max-width: 600px;
+          margin: 16px 0 0;
+          color: var(--muted);
+          font-size: 13px;
+          line-height: 1.65;
         }
 
         .serviceGrid {
+          margin-top: 34px;
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 14px;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
         }
 
         .serviceCard {
           position: relative;
-          min-height: 340px;
+          min-height: 430px;
           overflow: hidden;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
           border: 1px solid var(--line);
-          border-radius: 16px;
+          border-radius: 18px;
           background: var(--panel);
-          transition: .25s ease;
+          transition: transform .25s ease, border-color .25s ease;
         }
 
         .serviceCard:hover {
           transform: translateY(-6px);
-          border-color: rgba(152,237,0,.48);
+          border-color: rgba(156,240,0,.4);
         }
 
-        .serviceImage {
+        .servicePhoto {
           position: absolute;
-          inset: 0 0 47% 0;
-          background-position: center;
+          inset: 0;
           background-size: cover;
+          background-position: center;
         }
 
-        .serviceShade {
+        .serviceOverlay {
           position: absolute;
           inset: 0;
           background:
-            linear-gradient(180deg, transparent, rgba(7,10,13,.18) 28%, #080c10 60%, #080c10);
+            linear-gradient(
+              180deg,
+              rgba(0,0,0,.03) 0%,
+              rgba(0,0,0,.2) 37%,
+              rgba(5,6,7,.95) 72%,
+              #090a0b 100%
+            );
         }
 
-        .serviceLabel,
-        .serviceBody {
-          position: relative;
+        .serviceContent {
+          position: absolute;
+          inset: auto 0 0;
           z-index: 2;
+          padding: 26px;
         }
 
-        .serviceLabel {
-          width: fit-content;
-          margin: 16px;
-          padding: 7px 9px;
-          border: 1px solid rgba(152,237,0,.34);
-          border-radius: 999px;
+        .serviceIcon {
+          width: 52px;
+          height: 52px;
+          display: grid;
+          place-items: center;
+          margin-bottom: 21px;
+          border: 1px solid rgba(156,240,0,.34);
+          border-radius: 50%;
           color: var(--green);
-          background: rgba(0,0,0,.58);
-          font-size: 7px;
-          font-weight: 950;
-          letter-spacing: 1.3px;
+          background: rgba(156,240,0,.08);
+          font-size: 20px;
         }
 
-        .serviceBody { padding: 20px 18px; }
-
-        .serviceBody h2 {
-          margin: 0 0 9px;
-          font-size: 21px;
-          letter-spacing: -1px;
+        .serviceContent h3 {
+          margin: 0 0 10px;
+          font-size: 23px;
+          letter-spacing: -1.2px;
         }
 
-        .serviceBody p {
-          min-height: 55px;
-          margin: 0 0 18px;
-          color: var(--muted);
-          font-size: 11px;
-          line-height: 1.55;
+        .serviceContent p {
+          min-height: 64px;
+          margin: 0 0 22px;
+          color: #b5bbc0;
+          font-size: 12px;
+          line-height: 1.65;
         }
 
-        .serviceButton {
+        .learnMore {
           display: flex;
+          align-items: center;
           justify-content: space-between;
           color: var(--green);
           font-size: 11px;
           font-weight: 900;
         }
 
-        .featuredRow {
-          margin-top: 14px;
+        .steps {
+          margin-top: 36px;
           display: grid;
-          grid-template-columns: 1.35fr .65fr;
-          gap: 14px;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
         }
 
-        .featuredBusiness {
-          position: relative;
-          overflow: hidden;
-          min-height: 205px;
-          display: grid;
-          grid-template-columns: 90px 1fr auto;
-          align-items: center;
-          gap: 22px;
-          padding: 24px;
-          border: 1px solid rgba(152,237,0,.27);
-          border-radius: 16px;
-          background:
-            linear-gradient(90deg, rgba(3,6,8,.98), rgba(3,6,8,.82)),
-            url("/images/mobile-tyre-fitting.jpg") right center / 48% auto no-repeat;
+        .step {
+          min-height: 190px;
+          display: flex;
+          align-items: flex-start;
+          gap: 19px;
+          padding: 28px;
+          border: 1px solid var(--line);
+          border-radius: 17px;
+          background: var(--panel);
         }
 
-        .premiumTag {
-          position: absolute;
-          top: 13px;
-          right: 16px;
-          z-index: 3;
-          padding: 5px 9px;
-          border-radius: 999px;
-          color: #071000;
-          background: var(--green);
-          font-size: 7px;
-          font-weight: 950;
-        }
-
-        .businessLogo {
-          width: 90px;
-          height: 90px;
+        .stepNumber {
+          width: 54px;
+          height: 54px;
+          flex-shrink: 0;
           display: grid;
           place-items: center;
-          border: 1px solid rgba(152,237,0,.42);
+          border: 1px solid rgba(156,240,0,.45);
           border-radius: 50%;
           color: var(--green);
-          background: rgba(0,0,0,.72);
-          font-size: 26px;
-          font-weight: 1000;
-        }
-
-        .featuredEyebrow {
-          display: block;
-          margin-bottom: 7px;
-          color: var(--green);
-          font-size: 8px;
-          font-weight: 950;
-          letter-spacing: 1.5px;
-        }
-
-        .businessInfo h2 {
-          margin: 0;
-          font-size: 28px;
-          letter-spacing: -1.5px;
-        }
-
-        .rating {
-          margin-top: 6px;
-          color: #ffd72a;
-          letter-spacing: 1.5px;
           font-size: 12px;
-        }
-
-        .rating small {
-          margin-left: 7px;
-          color: #c3c9cf;
-          letter-spacing: 0;
-        }
-
-        .businessInfo p {
-          max-width: 630px;
-          margin: 10px 0;
-          color: #c6ccd1;
-          font-size: 11px;
-          line-height: 1.55;
-        }
-
-        .businessTags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 7px;
-        }
-
-        .businessTags span {
-          padding: 6px 8px;
-          border: 1px solid var(--line);
-          border-radius: 7px;
-          color: #d8dde1;
-          background: rgba(0,0,0,.45);
-          font-size: 9px;
-        }
-
-        .businessActions {
-          min-width: 205px;
-          display: grid;
-          gap: 9px;
-        }
-
-        .compact {
-          min-height: 48px;
-          font-size: 11px;
-        }
-
-        .searchCard {
-          padding: 17px;
-          border: 1px solid rgba(152,237,0,.27);
-          border-radius: 16px;
-          background:
-            radial-gradient(circle at 90% 0%, rgba(152,237,0,.1), transparent 30%),
-            var(--panel);
-        }
-
-        .searchHeading {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-bottom: 12px;
-          color: var(--green);
-          font-size: 8px;
           font-weight: 950;
-          letter-spacing: 1.8px;
         }
 
-        .searchHeading b {
-          padding: 5px 7px;
-          border: 1px solid rgba(152,237,0,.38);
-          border-radius: 999px;
-          font-size: 7px;
+        .step h3 {
+          margin: 2px 0 9px;
+          font-size: 20px;
         }
 
-        .searchInput {
-          min-height: 58px;
-          display: grid;
-          grid-template-columns: 32px 1fr auto;
-          align-items: center;
-          gap: 10px;
-          padding: 0 12px;
-          border: 1px solid var(--line);
-          border-radius: 10px;
-          background: rgba(1,3,5,.72);
-        }
-
-        .searchInput + .searchInput { margin-top: 8px; }
-
-        .searchInput > span { color: var(--green); }
-
-        .searchInput small,
-        .searchInput strong { display: block; }
-
-        .searchInput small {
-          margin-bottom: 4px;
-          color: #8f98a1;
-          font-size: 8px;
-        }
-
-        .searchInput strong { font-size: 12px; }
-
-        .searchButton {
-          min-height: 51px;
-          margin-top: 9px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 18px;
-          border-radius: 9px;
-          color: #061000;
-          background: linear-gradient(135deg, var(--green2), #72d000);
-          font-size: 11px;
-          font-weight: 1000;
-        }
-
-        .benefits {
-          margin-top: 14px;
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          border: 1px solid var(--line);
-          border-radius: 15px;
-          background: var(--panel);
-        }
-
-        .benefits article {
-          min-height: 92px;
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          padding: 18px 20px;
-          border-right: 1px solid var(--line);
-        }
-
-        .benefits article:last-child { border-right: 0; }
-
-        .benefits b {
-          min-width: 38px;
-          color: var(--green);
-          font-size: 22px;
-        }
-
-        .benefits strong,
-        .benefits span { display: block; }
-
-        .benefits strong {
-          margin-bottom: 4px;
-          font-size: 11px;
-        }
-
-        .benefits span {
-          color: var(--muted);
-          font-size: 9px;
-        }
-
-        .stats {
-          width: min(calc(100% - 64px), var(--max));
-          margin: 18px auto 0;
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          border: 1px solid var(--line);
-          border-radius: 15px;
-          background: var(--panel);
-        }
-
-        .stats article {
-          min-height: 95px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          padding: 19px 24px;
-          border-right: 1px solid var(--line);
-        }
-
-        .stats article:last-child { border-right: 0; }
-
-        .stats strong {
-          margin-bottom: 5px;
-          font-size: 24px;
-        }
-
-        .stats span {
-          color: var(--muted);
-          font-size: 10px;
-        }
-
-        .aiSection {
-          width: min(calc(100% - 64px), var(--max));
-          min-height: 310px;
-          margin: 18px auto 0;
-          display: grid;
-          grid-template-columns: 1.1fr .42fr .72fr;
-          align-items: center;
-          gap: 28px;
-          padding: 34px;
-          border: 1px solid rgba(152,237,0,.27);
-          border-radius: 16px;
-          background:
-            radial-gradient(circle at 35% 120%, rgba(152,237,0,.16), transparent 35%),
-            var(--panel);
-        }
-
-        .aiCopy > span,
-        .areasHeading > span,
-        .bottomCta > div > span {
-          display: block;
-          margin-bottom: 9px;
-          color: var(--green);
-          font-size: 8px;
-          font-weight: 950;
-          letter-spacing: 1.8px;
-        }
-
-        .aiCopy h2,
-        .areasHeading h2,
-        .bottomCta h2 {
+        .step p {
           margin: 0;
-          font-size: clamp(35px, 4vw, 56px);
-          line-height: .98;
-          letter-spacing: -3px;
-        }
-
-        .aiCopy p {
-          max-width: 560px;
-          margin: 17px 0 20px;
           color: var(--muted);
           font-size: 12px;
           line-height: 1.65;
         }
 
-        .aiActions {
+        .featuredBusiness {
+          width: min(calc(100% - 64px), var(--max));
+          margin: 88px auto 0;
+          display: grid;
+          grid-template-columns: 1fr auto;
+          align-items: center;
+          gap: 48px;
+          padding: 38px;
+          border: 1px solid rgba(156,240,0,.28);
+          border-radius: 20px;
+          background:
+            linear-gradient(90deg, rgba(8,9,10,.98), rgba(8,9,10,.83)),
+            url("/images/mobile-tyre-fitting.jpg") right center / 48% auto no-repeat;
+        }
+
+        .featuredCopy {
+          max-width: 750px;
+        }
+
+        .stars {
+          margin-top: 12px;
+          color: #ffd92b;
+          font-size: 14px;
+          letter-spacing: 2px;
+        }
+
+        .stars small {
+          margin-left: 9px;
+          color: #c3c8cd;
+          font-size: 10px;
+          letter-spacing: 0;
+        }
+
+        .featuredCopy > p {
+          max-width: 690px;
+          margin: 16px 0;
+          color: #bdc3c8;
+          font-size: 12px;
+          line-height: 1.65;
+        }
+
+        .featureTags {
           display: flex;
           flex-wrap: wrap;
-          gap: 9px;
-        }
-
-        .phone {
-          position: relative;
-          width: 145px;
-          height: 265px;
-          justify-self: center;
-          padding: 7px;
-          border: 2px solid rgba(255,255,255,.2);
-          border-radius: 29px;
-          background: #000;
-        }
-
-        .speaker {
-          position: absolute;
-          z-index: 2;
-          top: 14px;
-          left: 50%;
-          width: 48px;
-          height: 14px;
-          transform: translateX(-50%);
-          border-radius: 999px;
-          background: #000;
-        }
-
-        .phoneScreen {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 44px 13px 16px;
-          border-radius: 21px;
-          background:
-            radial-gradient(circle at 50% 82%, rgba(152,237,0,.18), transparent 32%),
-            #060a0e;
-        }
-
-        .phoneScreen small {
-          color: var(--green);
-          font-size: 6px;
-          font-weight: 950;
-          letter-spacing: 1.5px;
-        }
-
-        .phoneScreen strong {
-          margin-top: 6px;
-          font-size: 10px;
-        }
-
-        .phoneScreen > span {
-          margin-top: 13px;
-          color: #828b94;
-          font-size: 9px;
-        }
-
-        .wave {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          gap: 3px;
-        }
-
-        .wave i {
-          width: 3px;
-          border-radius: 99px;
-          background: white;
-        }
-
-        .wave i:nth-child(1) { height: 18px; }
-        .wave i:nth-child(2) { height: 36px; }
-        .wave i:nth-child(3) { height: 24px; }
-        .wave i:nth-child(4) { height: 48px; }
-        .wave i:nth-child(5) { height: 29px; }
-        .wave i:nth-child(6) { height: 55px; }
-        .wave i:nth-child(7) { height: 27px; }
-        .wave i:nth-child(8) { height: 39px; }
-
-        .phoneScreen > b {
-          width: 41px;
-          height: 41px;
-          display: grid;
-          place-items: center;
-          border-radius: 50%;
-          color: #061000;
-          background: var(--green);
-          font-size: 17px;
-        }
-
-        .aiFeatures {
-          display: flex;
-          flex-direction: column;
           gap: 8px;
         }
 
-        .aiFeatures span {
-          padding: 11px 13px;
+        .featureTags span {
+          padding: 8px 10px;
           border: 1px solid var(--line);
-          border-radius: 8px;
-          background: rgba(1,3,5,.7);
-          color: #d8dde1;
-          font-size: 10px;
-          font-weight: 750;
+          border-radius: 999px;
+          color: #dfe3e6;
+          background: rgba(0,0,0,.42);
+          font-size: 9px;
         }
 
-        .areas {
-          width: min(calc(100% - 64px), var(--max));
-          margin: 18px auto 0;
-          padding: 30px 0;
-        }
-
-        .areaGrid {
-          margin-top: 18px;
+        .featuredActions {
+          min-width: 240px;
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
+          gap: 11px;
+        }
+
+        .statsSection {
+          width: min(calc(100% - 64px), var(--max));
+          margin: 20px auto 0;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          border: 1px solid var(--line);
+          border-radius: 18px;
+          background: var(--panel);
+        }
+
+        .statsSection article {
+          min-height: 118px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          border-right: 1px solid var(--line);
+          text-align: center;
+        }
+
+        .statsSection article:last-child {
+          border-right: 0;
+        }
+
+        .statsSection strong {
+          margin-bottom: 6px;
+          color: var(--green);
+          font-size: 31px;
+          letter-spacing: -1px;
+        }
+
+        .statsSection span {
+          color: var(--muted);
+          font-size: 10px;
+        }
+
+        .areaLinks {
+          margin-top: 28px;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
           border-top: 1px solid var(--line);
         }
 
-        .areaGrid a {
-          min-height: 56px;
+        .areaLinks a {
+          min-height: 62px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0 15px;
+          padding: 0 17px;
           border-right: 1px solid var(--line);
           border-bottom: 1px solid var(--line);
-          color: #dce1e5;
-          font-size: 10px;
+          color: #e2e5e8;
+          font-size: 11px;
           font-weight: 800;
         }
 
-        .areaGrid a:nth-child(5n) { border-right: 0; }
+        .areaLinks a:nth-child(4n) {
+          border-right: 0;
+        }
 
-        .areaGrid a span { color: var(--green); }
+        .areaLinks a span {
+          color: var(--green);
+        }
 
-        .bottomCta {
+        .businessCta {
           width: min(calc(100% - 64px), var(--max));
-          margin: 0 auto;
+          margin: 88px auto 0;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 30px;
-          padding: 24px 28px;
-          border: 1px solid rgba(152,237,0,.29);
-          border-radius: 14px;
+          gap: 42px;
+          padding: 38px;
+          border: 1px solid rgba(156,240,0,.3);
+          border-radius: 20px;
           background:
-            linear-gradient(90deg, rgba(152,237,0,.13), rgba(152,237,0,.02));
+            linear-gradient(100deg, rgba(156,240,0,.09), transparent 46%),
+            var(--panel);
         }
 
-        .bottomCta h2 {
-          font-size: 32px;
-          letter-spacing: -2px;
+        .businessCta > div {
+          max-width: 770px;
+        }
+
+        .businessCta p {
+          margin: 14px 0 0;
+          color: var(--muted);
+          font-size: 12px;
+          line-height: 1.65;
         }
 
         .footer {
           width: min(calc(100% - 64px), var(--max));
-          margin: 18px auto 0;
+          margin: 88px auto 0;
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 45px;
-          padding: 42px 0 26px;
+          padding: 42px 0 28px;
           border-top: 1px solid var(--line);
         }
 
-        .footerIntro p {
+        .footerBrand p {
           max-width: 390px;
           color: var(--muted);
           font-size: 11px;
-          line-height: 1.6;
+          line-height: 1.65;
         }
 
         .footerLinks {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 10px 30px;
+          gap: 12px 28px;
         }
 
         .footerLinks a {
@@ -1269,66 +1068,64 @@ export default function PublicHomePage() {
           font-size: 10px;
         }
 
+        .footerLinks a:hover {
+          color: var(--green);
+        }
+
         .footerBottom {
           grid-column: 1 / -1;
           display: flex;
           justify-content: space-between;
-          padding-top: 20px;
+          padding-top: 21px;
           border-top: 1px solid var(--line);
-          color: #6d7680;
+          color: #71777d;
           font-size: 9px;
         }
 
-        @media (max-width: 1080px) {
-          .desktopNav { display: none; }
-
-          .serviceGrid {
-            grid-template-columns: repeat(2, 1fr);
+        @media (max-width: 1050px) {
+          .desktopNav {
+            display: none;
           }
 
-          .featuredRow {
+          .serviceGrid,
+          .steps {
             grid-template-columns: 1fr;
           }
 
+          .serviceCard {
+            min-height: 390px;
+          }
+
           .featuredBusiness {
-            grid-template-columns: 80px 1fr;
+            grid-template-columns: 1fr;
           }
 
-          .businessActions {
-            grid-column: 1 / -1;
+          .featuredActions {
+            min-width: 0;
+            max-width: 420px;
           }
 
-          .benefits {
+          .statsSection {
             grid-template-columns: repeat(2, 1fr);
           }
 
-          .benefits article:nth-child(2) {
+          .statsSection article:nth-child(2) {
             border-right: 0;
           }
 
-          .benefits article:nth-child(-n+2) {
+          .statsSection article:nth-child(-n+2) {
             border-bottom: 1px solid var(--line);
           }
 
-          .aiSection {
-            grid-template-columns: 1fr .45fr;
-          }
-
-          .aiFeatures {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-          }
-
-          .areaGrid {
+          .areaLinks {
             grid-template-columns: repeat(2, 1fr);
           }
 
-          .areaGrid a:nth-child(5n) {
+          .areaLinks a:nth-child(4n) {
             border-right: 1px solid var(--line);
           }
 
-          .areaGrid a:nth-child(even) {
+          .areaLinks a:nth-child(even) {
             border-right: 0;
           }
         }
@@ -1342,66 +1139,58 @@ export default function PublicHomePage() {
             height: 92px;
             padding: 0 20px;
             transform: none;
-            gap: 14px;
             background:
               linear-gradient(
                 180deg,
-                rgba(0,0,0,.92) 0%,
-                rgba(0,0,0,.62) 76%,
-                transparent 100%
+                rgba(0,0,0,.95),
+                rgba(0,0,0,.62),
+                transparent
               );
           }
 
-          .logo {
+          .brand {
             gap: 9px;
           }
 
-          .logoMark {
+          .brandMark {
             font-size: 24px;
           }
 
-          .logoText {
+          .brandText {
             font-size: 23px;
           }
 
-          .logoText small {
-            margin-top: 7px;
+          .brandText small {
             font-size: 5px;
             letter-spacing: 1.5px;
           }
 
-          .desktopNav {
-            display: none;
-          }
-
-          .listButton {
+          .topButton {
             min-height: 43px;
             margin-left: auto;
             padding: 0 15px;
             border-radius: 999px;
-            gap: 14px;
-            font-size: 10px;
+            gap: 13px;
             white-space: nowrap;
+            font-size: 10px;
           }
 
           .mobileNav {
             position: absolute;
             z-index: 29;
-            top: 91px;
+            top: 92px;
             left: 0;
             width: 100%;
-            min-height: 50px;
             display: flex;
-            align-items: center;
             gap: 8px;
             overflow-x: auto;
-            padding: 6px 16px 10px;
+            padding: 7px 16px 10px;
             scrollbar-width: none;
             background:
               linear-gradient(
                 180deg,
                 rgba(0,0,0,.72),
-                rgba(0,0,0,.38),
+                rgba(0,0,0,.28),
                 transparent
               );
           }
@@ -1416,19 +1205,19 @@ export default function PublicHomePage() {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0 13px;
+            padding: 0 14px;
             border: 1px solid rgba(255,255,255,.15);
             border-radius: 999px;
-            background: rgba(3,7,10,.76);
+            background: rgba(4,5,6,.78);
             color: rgba(255,255,255,.88);
-            backdrop-filter: blur(13px);
-            -webkit-backdrop-filter: blur(13px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             font-size: 10px;
             font-weight: 850;
           }
 
           .mobileNav a:first-child {
-            border-color: rgba(152,237,0,.48);
+            border-color: rgba(156,240,0,.45);
             color: var(--green);
           }
 
@@ -1436,7 +1225,7 @@ export default function PublicHomePage() {
             min-height: auto;
             display: block;
             padding-top: 0;
-            background: #020304;
+            background: #020202;
           }
 
           .heroImage {
@@ -1444,12 +1233,8 @@ export default function PublicHomePage() {
             inset: auto;
             z-index: 1;
             width: 100%;
-            height: 650px;
-            background-image: url("/images/hero-recovery.png");
-            background-size: cover;
+            height: 575px;
             background-position: 56% center;
-            background-repeat: no-repeat;
-            filter: brightness(1.04) contrast(1.07) saturate(1.05);
           }
 
           .heroImage::after {
@@ -1459,40 +1244,30 @@ export default function PublicHomePage() {
             background:
               linear-gradient(
                 180deg,
-                rgba(0,0,0,.05) 0%,
-                rgba(0,0,0,.02) 58%,
-                rgba(2,3,4,.9) 100%
+                rgba(0,0,0,.03) 0%,
+                rgba(0,0,0,.01) 64%,
+                rgba(2,2,2,.92) 100%
               );
           }
 
-          .heroOverlay,
-          .heroGlow {
+          .heroShade {
             display: none;
           }
 
           .heroInner {
             width: 100%;
-            min-height: auto;
             margin: 0;
-            display: block;
             padding: 0;
           }
 
           .heroCopy {
             width: 100%;
             max-width: none;
-            margin: 0;
-            padding: 30px 27px 43px;
-            background:
-              radial-gradient(
-                circle at 18% 0%,
-                rgba(152,237,0,.13),
-                transparent 34%
-              ),
-              #020304;
+            padding: 31px 26px 44px;
+            background: #020202;
           }
 
-          .heroBadge {
+          .eyebrow {
             margin-bottom: 18px;
             padding: 9px 12px;
             font-size: 7px;
@@ -1500,140 +1275,100 @@ export default function PublicHomePage() {
           }
 
           .hero h1 {
-            width: 100%;
-            max-width: 600px;
-            margin: 0;
+            max-width: 620px;
             font-size: clamp(45px, 12.8vw, 58px);
             line-height: .92;
             letter-spacing: -3.8px;
-            font-weight: 1000;
-          }
-
-          .hero h1 span {
-            display: block;
           }
 
           .heroCopy > p {
-            width: 100%;
-            max-width: 600px;
+            max-width: 620px;
             margin: 21px 0 24px;
             font-size: 15px;
             line-height: 1.72;
           }
 
-          .heroActions {
-            width: 100%;
-            max-width: none;
+          .heroButtons {
             grid-template-columns: 1fr;
-            gap: 11px;
+            max-width: none;
           }
 
+          .topButton,
           .primaryButton,
           .secondaryButton {
-            min-height: 64px;
-            padding: 0 20px;
+            min-height: 63px;
             font-size: 14px;
           }
 
-          .freeBusinessLink {
-            margin-top: 17px;
-            font-size: 12px;
+          .topButton {
+            min-height: 43px;
+            font-size: 10px;
           }
 
-          .servicePanel {
+          .trustStrip,
+          .servicesSection,
+          .howSection,
+          .areasSection,
+          .featuredBusiness,
+          .statsSection,
+          .businessCta,
+          .footer {
             width: calc(100% - 32px);
-            padding-top: 18px;
           }
 
-          .serviceGrid {
+          .trustStrip {
+            margin-top: 18px;
             grid-template-columns: 1fr;
+          }
+
+          .trustStrip article {
+            border-right: 0;
+            border-bottom: 1px solid var(--line);
+          }
+
+          .trustStrip article:last-child {
+            border-bottom: 0;
+          }
+
+          .servicesSection {
+            padding-top: 70px;
+          }
+
+          .howSection,
+          .areasSection {
+            padding-top: 72px;
           }
 
           .serviceCard {
-            min-height: 460px;
+            min-height: 430px;
           }
 
           .featuredBusiness {
-            grid-template-columns: 64px 1fr;
-            padding: 20px;
+            margin-top: 72px;
+            padding: 27px 22px;
           }
 
-          .businessLogo {
-            width: 64px;
-            height: 64px;
-            font-size: 20px;
-          }
-
-          .businessInfo h2 {
-            font-size: 22px;
-          }
-
-          .businessActions {
-            min-width: 0;
-          }
-
-          .benefits {
-            grid-template-columns: 1fr;
-          }
-
-          .benefits article {
-            border-right: 0;
-            border-bottom: 1px solid var(--line);
-          }
-
-          .benefits article:last-child {
-            border-bottom: 0;
-          }
-
-          .stats {
-            width: calc(100% - 32px);
+          .statsSection {
             grid-template-columns: repeat(2, 1fr);
           }
 
-          .stats article {
-            border-bottom: 1px solid var(--line);
-          }
-
-          .stats article:nth-child(2) {
-            border-right: 0;
-          }
-
-          .stats article:nth-child(3),
-          .stats article:nth-child(4) {
-            border-bottom: 0;
-          }
-
-          .aiSection {
-            width: calc(100% - 32px);
-            grid-template-columns: 1fr;
-            padding: 27px 21px;
-          }
-
-          .aiFeatures {
-            grid-column: auto;
+          .areaLinks {
             grid-template-columns: 1fr;
           }
 
-          .areas {
-            width: calc(100% - 32px);
-          }
-
-          .areaGrid {
-            grid-template-columns: 1fr;
-          }
-
-          .areaGrid a {
+          .areaLinks a {
             border-right: 0 !important;
           }
 
-          .bottomCta {
-            width: calc(100% - 32px);
+          .businessCta {
+            margin-top: 72px;
             align-items: flex-start;
             flex-direction: column;
+            padding: 28px 23px;
           }
 
           .footer {
-            width: calc(100% - 32px);
+            margin-top: 72px;
             grid-template-columns: 1fr;
           }
 
@@ -1645,10 +1380,17 @@ export default function PublicHomePage() {
         }
 
         @media (max-width: 390px) {
-          .hero h1 { font-size: 44px; }
-          .heroCopy > p,
-          .heroActions { max-width: 100%; }
-          .listButton {
+          .heroImage {
+            height: 525px;
+            background-position: 57% center;
+          }
+
+          .hero h1 {
+            font-size: 43px;
+            letter-spacing: -3px;
+          }
+
+          .topButton {
             padding: 0 12px;
             font-size: 9px;
           }
