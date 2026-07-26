@@ -2,16 +2,23 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "AdForge | Mobile Tyres, Recovery & Local Services",
+  title:
+    "Mobile Tyre Fitting & Vehicle Recovery Liverpool | AdForge",
+
   description:
-    "Find mobile tyre fitting, vehicle recovery and trusted local businesses across Liverpool, Wirral and Merseyside.",
+    "Find 24-hour mobile tyre fitting, emergency tyre assistance, vehicle recovery and trusted local businesses across Liverpool, Wirral and Merseyside.",
+
   alternates: {
     canonical: "https://adforge.uk/",
   },
+
   openGraph: {
-    title: "AdForge | Find Local Help Fast",
+    title:
+      "Mobile Tyre Fitting & Vehicle Recovery Liverpool | AdForge",
+
     description:
-      "Mobile tyre fitting, vehicle recovery and trusted local businesses across Merseyside.",
+      "Find 24-hour mobile tyre fitting, emergency tyre assistance, vehicle recovery and trusted local businesses across Liverpool, Wirral and Merseyside.",
+
     url: "https://adforge.uk/",
     siteName: "AdForge",
     type: "website",
@@ -111,13 +118,18 @@ export default function PublicHomePage() {
             </div>
 
             <h1>
-              Find Local Help.
-              <span>Get Moving Again.</span>
+              Mobile Tyre Fitting &amp;
+              <span>Vehicle Recovery Liverpool</span>
             </h1>
 
-            <p>
-              Mobile tyre fitting, vehicle recovery and trusted local
-              businesses across Liverpool, Wirral and Merseyside.
+            <p className="heroTagline">
+              Find local help. Get moving again.
+            </p>
+
+            <p className="heroDescription">
+              Find 24-hour mobile tyre fitting, emergency tyre assistance,
+              vehicle recovery and trusted local businesses across Liverpool,
+              Wirral and Merseyside.
             </p>
 
             <div className="heroButtons">
@@ -551,8 +563,16 @@ export default function PublicHomePage() {
           color: var(--green);
         }
 
-        .hero p {
-          margin: 24px 0 27px;
+        .heroTagline {
+          margin: 20px 0 8px;
+          color: #fff;
+          font-size: 16px;
+          line-height: 1.4;
+          font-weight: 850;
+        }
+
+        .heroDescription {
+          margin: 0 0 27px;
           color: #c6cbd0;
           font-size: 15px;
           line-height: 1.68;
@@ -1023,8 +1043,14 @@ export default function PublicHomePage() {
             letter-spacing: -3.6px;
           }
 
-          .hero p {
-            margin: 20px 0 23px;
+          .heroTagline {
+            margin: 18px 0 7px;
+            font-size: 15px;
+            line-height: 1.4;
+          }
+
+          .heroDescription {
+            margin: 0 0 23px;
             font-size: 14px;
             line-height: 1.68;
           }
