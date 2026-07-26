@@ -108,6 +108,14 @@ export default function PublicHomePage() {
           </Link>
         </header>
 
+        <nav className="mobileNav" aria-label="Mobile public navigation">
+          <Link href="#services">Services</Link>
+          <Link href="/businesses">Businesses</Link>
+          <Link href="/ai-receptionist">AI Receptionist</Link>
+          <Link href="#areas">Areas</Link>
+          <Link href="/home">Open App</Link>
+        </nav>
+
         <section className="hero">
           <div className="heroImage" />
           <div className="heroOverlay" />
@@ -527,6 +535,10 @@ export default function PublicHomePage() {
         }
 
         .desktopNav a:hover { color: var(--green); }
+
+        .mobileNav {
+          display: none;
+        }
 
         .listButton {
           min-height: 46px;
@@ -1323,69 +1335,165 @@ export default function PublicHomePage() {
 
         @media (max-width: 760px) {
           .header {
-            width: calc(100% - 32px);
-            height: 86px;
-          }
-
-          .logoMark { font-size: 24px; }
-          .logoText { font-size: 23px; }
-          .logoText small {
-            font-size: 5px;
-            letter-spacing: 1.6px;
-          }
-
-          .listButton {
-            min-height: 42px;
-            padding: 0 15px;
-            border-radius: 999px;
-            font-size: 10px;
-          }
-
-          .hero {
-            min-height: 820px;
-            padding-top: 86px;
-            align-items: flex-end;
-          }
-
-          .heroImage {
-            background-position: 57% center;
-            background-size: cover;
-          }
-
-          .heroOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 92px;
+            padding: 0 20px;
+            transform: none;
+            gap: 14px;
             background:
               linear-gradient(
                 180deg,
-                rgba(0,0,0,.08) 0%,
-                rgba(0,0,0,.12) 28%,
-                rgba(0,0,0,.55) 58%,
-                rgba(0,0,0,.96) 100%
-              ),
-              linear-gradient(
-                90deg,
-                rgba(0,0,0,.72) 0%,
-                rgba(0,0,0,.22) 60%,
-                rgba(0,0,0,.04) 100%
+                rgba(0,0,0,.92) 0%,
+                rgba(0,0,0,.62) 76%,
+                transparent 100%
               );
           }
 
-          .heroInner {
-            width: calc(100% - 34px);
-            min-height: 820px;
-            margin: 0 auto;
+          .logo {
+            gap: 9px;
+          }
+
+          .logoMark {
+            font-size: 24px;
+          }
+
+          .logoText {
+            font-size: 23px;
+          }
+
+          .logoText small {
+            margin-top: 7px;
+            font-size: 5px;
+            letter-spacing: 1.5px;
+          }
+
+          .desktopNav {
+            display: none;
+          }
+
+          .listButton {
+            min-height: 43px;
+            margin-left: auto;
+            padding: 0 15px;
+            border-radius: 999px;
+            gap: 14px;
+            font-size: 10px;
+            white-space: nowrap;
+          }
+
+          .mobileNav {
+            position: absolute;
+            z-index: 29;
+            top: 91px;
+            left: 0;
+            width: 100%;
+            min-height: 50px;
             display: flex;
-            align-items: flex-end;
-            padding: 300px 0 38px;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 6px 16px 10px;
+            scrollbar-width: none;
+            background:
+              linear-gradient(
+                180deg,
+                rgba(0,0,0,.72),
+                rgba(0,0,0,.38),
+                transparent
+              );
+          }
+
+          .mobileNav::-webkit-scrollbar {
+            display: none;
+          }
+
+          .mobileNav a {
+            flex: 0 0 auto;
+            min-height: 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 13px;
+            border: 1px solid rgba(255,255,255,.15);
+            border-radius: 999px;
+            background: rgba(3,7,10,.76);
+            color: rgba(255,255,255,.88);
+            backdrop-filter: blur(13px);
+            -webkit-backdrop-filter: blur(13px);
+            font-size: 10px;
+            font-weight: 850;
+          }
+
+          .mobileNav a:first-child {
+            border-color: rgba(152,237,0,.48);
+            color: var(--green);
+          }
+
+          .hero {
+            min-height: auto;
+            display: block;
+            padding-top: 0;
+            background: #020304;
+          }
+
+          .heroImage {
+            position: relative;
+            inset: auto;
+            z-index: 1;
+            width: 100%;
+            height: 650px;
+            background-image: url("/images/hero-recovery.png");
+            background-size: cover;
+            background-position: 56% center;
+            background-repeat: no-repeat;
+            filter: brightness(1.04) contrast(1.07) saturate(1.05);
+          }
+
+          .heroImage::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+              linear-gradient(
+                180deg,
+                rgba(0,0,0,.05) 0%,
+                rgba(0,0,0,.02) 58%,
+                rgba(2,3,4,.9) 100%
+              );
+          }
+
+          .heroOverlay,
+          .heroGlow {
+            display: none;
+          }
+
+          .heroInner {
+            width: 100%;
+            min-height: auto;
+            margin: 0;
+            display: block;
+            padding: 0;
           }
 
           .heroCopy {
             width: 100%;
-            max-width: 390px;
-            margin-left: 0;
+            max-width: none;
+            margin: 0;
+            padding: 30px 27px 43px;
+            background:
+              radial-gradient(
+                circle at 18% 0%,
+                rgba(152,237,0,.13),
+                transparent 34%
+              ),
+              #020304;
           }
 
           .heroBadge {
-            margin-bottom: 17px;
+            margin-bottom: 18px;
             padding: 9px 12px;
             font-size: 7px;
             letter-spacing: 1.2px;
@@ -1393,49 +1501,61 @@ export default function PublicHomePage() {
 
           .hero h1 {
             width: 100%;
-            max-width: 390px;
+            max-width: 600px;
             margin: 0;
-            font-size: 49px;
-            line-height: .91;
-            letter-spacing: -3.5px;
+            font-size: clamp(45px, 12.8vw, 58px);
+            line-height: .92;
+            letter-spacing: -3.8px;
             font-weight: 1000;
           }
 
-          .hero h1 span { display: block; }
+          .hero h1 span {
+            display: block;
+          }
 
           .heroCopy > p {
-            max-width: 340px;
-            margin: 21px 0;
-            font-size: 14px;
-            line-height: 1.65;
+            width: 100%;
+            max-width: 600px;
+            margin: 21px 0 24px;
+            font-size: 15px;
+            line-height: 1.72;
           }
 
           .heroActions {
             width: 100%;
-            max-width: 340px;
+            max-width: none;
             grid-template-columns: 1fr;
-            gap: 10px;
+            gap: 11px;
           }
 
           .primaryButton,
           .secondaryButton {
-            min-height: 61px;
-            padding: 0 18px;
-            font-size: 13px;
+            min-height: 64px;
+            padding: 0 20px;
+            font-size: 14px;
           }
 
           .freeBusinessLink {
-            margin-top: 15px;
+            margin-top: 17px;
             font-size: 12px;
           }
 
-          .servicePanel { width: calc(100% - 32px); }
-          .serviceGrid { grid-template-columns: 1fr; }
-          .serviceCard { min-height: 460px; }
+          .servicePanel {
+            width: calc(100% - 32px);
+            padding-top: 18px;
+          }
+
+          .serviceGrid {
+            grid-template-columns: 1fr;
+          }
+
+          .serviceCard {
+            min-height: 460px;
+          }
 
           .featuredBusiness {
             grid-template-columns: 64px 1fr;
-            padding: 18px;
+            padding: 20px;
           }
 
           .businessLogo {
@@ -1444,30 +1564,49 @@ export default function PublicHomePage() {
             font-size: 20px;
           }
 
-          .businessInfo h2 { font-size: 21px; }
-          .businessActions { min-width: 0; }
+          .businessInfo h2 {
+            font-size: 22px;
+          }
 
-          .benefits { grid-template-columns: 1fr; }
+          .businessActions {
+            min-width: 0;
+          }
+
+          .benefits {
+            grid-template-columns: 1fr;
+          }
+
           .benefits article {
             border-right: 0;
             border-bottom: 1px solid var(--line);
           }
-          .benefits article:last-child { border-bottom: 0; }
+
+          .benefits article:last-child {
+            border-bottom: 0;
+          }
 
           .stats {
             width: calc(100% - 32px);
             grid-template-columns: repeat(2, 1fr);
           }
 
-          .stats article { border-bottom: 1px solid var(--line); }
-          .stats article:nth-child(2) { border-right: 0; }
+          .stats article {
+            border-bottom: 1px solid var(--line);
+          }
+
+          .stats article:nth-child(2) {
+            border-right: 0;
+          }
+
           .stats article:nth-child(3),
-          .stats article:nth-child(4) { border-bottom: 0; }
+          .stats article:nth-child(4) {
+            border-bottom: 0;
+          }
 
           .aiSection {
             width: calc(100% - 32px);
             grid-template-columns: 1fr;
-            padding: 25px 20px;
+            padding: 27px 21px;
           }
 
           .aiFeatures {
@@ -1475,9 +1614,17 @@ export default function PublicHomePage() {
             grid-template-columns: 1fr;
           }
 
-          .areas { width: calc(100% - 32px); }
-          .areaGrid { grid-template-columns: 1fr; }
-          .areaGrid a { border-right: 0 !important; }
+          .areas {
+            width: calc(100% - 32px);
+          }
+
+          .areaGrid {
+            grid-template-columns: 1fr;
+          }
+
+          .areaGrid a {
+            border-right: 0 !important;
+          }
 
           .bottomCta {
             width: calc(100% - 32px);
