@@ -380,7 +380,7 @@ export default function PublicHomePage() {
           <div className="featuredImageWrap">
             <div className="featuredBadge">FEATURED LOCAL PROVIDER</div>
             <img
-              src="/images/total-tyres-van.jpg"
+              src="/images/totaltyres.jpeg"
               alt="Total Tyres mobile tyre fitting van providing local tyre support"
               className="featuredImage"
             />
@@ -598,25 +598,29 @@ export default function PublicHomePage() {
         }
 
         .brandText {
-          display: flex;
-          flex-direction: column;
+          display: inline-block;
           color: #fff;
           font-size: 27px;
-          line-height: .86;
+          line-height: 1;
           font-weight: 950;
           letter-spacing: -2px;
+          white-space: nowrap;
         }
 
         .brandText > span {
+          display: inline;
           color: #32ff73;
         }
 
         .brandText small {
-          margin-top: 8px;
+          display: block;
+          margin-top: 7px;
           color: #8b9197;
           font-size: 6px;
+          line-height: 1;
           font-weight: 900;
           letter-spacing: 2.1px;
+          white-space: nowrap;
         }
 
         .desktopNav {
@@ -751,7 +755,7 @@ export default function PublicHomePage() {
 
         .hero h1 {
           margin: 0;
-          font-size: clamp(55px, 6vw, 88px);
+          font-size: clamp(48px, 5.2vw, 76px);
           line-height: .9;
           letter-spacing: -5px;
           font-weight: 1000;
@@ -827,7 +831,7 @@ export default function PublicHomePage() {
         }
 
         .servicesSection {
-          padding-top: 76px;
+          padding-top: 67px;
         }
 
         .simpleSteps,
@@ -980,7 +984,7 @@ export default function PublicHomePage() {
           margin: 82px auto 0;
           overflow: hidden;
           display: grid;
-          grid-template-columns: minmax(330px, 44%) 1fr;
+          grid-template-columns: minmax(300px, 40%) 1fr;
           border: 1px solid rgba(50,255,115,.42);
           border-radius: 22px;
           background: #080a0d;
@@ -991,7 +995,7 @@ export default function PublicHomePage() {
 
         .featuredImageWrap {
           position: relative;
-          min-height: 470px;
+          min-height: 390px;
           overflow: hidden;
           background: #05070a;
         }
@@ -1025,7 +1029,7 @@ export default function PublicHomePage() {
         .featuredImage {
           width: 100%;
           height: 100%;
-          min-height: 470px;
+          min-height: 390px;
           display: block;
           object-fit: cover;
           object-position: center;
@@ -1035,7 +1039,7 @@ export default function PublicHomePage() {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          padding: 38px;
+          padding: 30px;
         }
 
         .featuredKicker {
@@ -1286,8 +1290,8 @@ export default function PublicHomePage() {
             top: 0;
             left: 0;
             width: 100%;
-            height: 88px;
-            padding: 0 19px;
+            height: 70px;
+            padding: 0 18px;
             transform: none;
             background:
               linear-gradient(
@@ -1303,16 +1307,28 @@ export default function PublicHomePage() {
           }
 
           .brandMark {
-            font-size: 23px;
+            font-size: 21px;
+            letter-spacing: -4px;
           }
 
           .brandText {
-            font-size: 22px;
+            display: inline-block;
+            font-size: 21px;
+            line-height: 1;
+            letter-spacing: -1.5px;
+            white-space: nowrap;
+          }
+
+          .brandText > span {
+            display: inline;
           }
 
           .brandText small {
-            font-size: 5px;
-            letter-spacing: 1.4px;
+            display: block;
+            margin-top: 6px;
+            font-size: 4.5px;
+            line-height: 1;
+            letter-spacing: 1.35px;
           }
 
           .topButton {
@@ -1374,7 +1390,7 @@ export default function PublicHomePage() {
             inset: auto;
             z-index: 1;
             width: 100%;
-            height: 430px;
+            height: 390px;
             background-position: 56% center;
           }
 
@@ -1383,10 +1399,12 @@ export default function PublicHomePage() {
           }
 
           .heroContent {
+            position: relative;
+            z-index: 4;
             width: 100%;
-            margin: 0;
-            padding: 27px 24px 38px;
-            background: #000;
+            margin: -48px 0 0;
+            padding: 24px 24px 34px;
+            background: linear-gradient(180deg, transparent 0, #000 48px, #000 100%);
           }
 
           .eyebrow {
@@ -1396,9 +1414,9 @@ export default function PublicHomePage() {
           }
 
           .hero h1 {
-            font-size: clamp(43px, 12.2vw, 56px);
-            line-height: .92;
-            letter-spacing: -3.6px;
+            font-size: clamp(36px, 10vw, 46px);
+            line-height: .94;
+            letter-spacing: -2.8px;
           }
 
           .heroTagline {
@@ -1491,13 +1509,15 @@ export default function PublicHomePage() {
           }
 
           .featuredBusiness {
-            margin-top: 66px;
+            margin-top: 52px;
             display: block;
+            border-radius: 17px;
           }
 
           .featuredImageWrap,
           .featuredImage {
-            min-height: 300px;
+            min-height: 205px;
+            height: 205px;
           }
 
           .featuredImageWrap::after {
@@ -1505,12 +1525,46 @@ export default function PublicHomePage() {
           }
 
           .featuredContent {
-            padding: 24px 21px 25px;
+            padding: 20px 18px 21px;
+          }
+
+          .featuredContent h2 {
+            font-size: 31px;
+            line-height: 1.02;
+            letter-spacing: -2px;
+          }
+
+          .featuredContent h3 {
+            font-size: 20px;
+          }
+
+          .featuredContent > p {
+            font-size: 12px;
+            line-height: 1.65;
+          }
+
+          .featuredBadge {
+            top: 13px;
+            left: 13px;
+            padding: 8px 12px;
+            font-size: 7px;
           }
 
           .providerServices {
             grid-template-columns: 1fr 1fr;
-            gap: 9px 12px;
+            gap: 7px 10px;
+            font-size: 10px;
+          }
+
+          .coverageBox {
+            padding: 13px 14px;
+            font-size: 11px;
+          }
+
+          .featuredActions .primaryButton,
+          .featuredActions .secondaryButton {
+            min-height: 52px;
+            font-size: 11px;
           }
 
           .featuredActions {
@@ -1566,8 +1620,8 @@ export default function PublicHomePage() {
           }
 
           .hero h1 {
-            font-size: 42px;
-            letter-spacing: -3px;
+            font-size: 35px;
+            letter-spacing: -2.3px;
           }
 
           .topButton {
