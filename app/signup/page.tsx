@@ -50,7 +50,7 @@ export default function SignupPage() {
       localStorage.setItem("users", JSON.stringify(users));
       localStorage.setItem("user", cleanUsername);
 
-      router.push("/feed");
+      router.push("/business-settings");
     } catch (signupError) {
       console.error("Signup error:", signupError);
       setError("Something went wrong. Please try again.");
