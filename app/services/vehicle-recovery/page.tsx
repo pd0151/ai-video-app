@@ -2,864 +2,275 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://adforge.uk"),
-
-  title:
-    "Vehicle Recovery, Breakdown Recovery & Towing Services | AdForge",
-
+  title: "24-Hour Vehicle Recovery Liverpool | AdForge",
   description:
-    "Find vehicle recovery, emergency towing, breakdown recovery, roadside assistance and vehicle transport services across Liverpool, Merseyside and surrounding areas.",
-
+    "Browse 24-hour vehicle recovery, breakdown recovery, accident recovery, towing service, roadside assistance and vehicle transport pages across Liverpool, Wirral and Merseyside.",
   alternates: {
-    canonical: "/services/vehicle-recovery",
+    canonical: "https://adforge.uk/services/vehicle-recovery",
   },
-
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-
   openGraph: {
-    title: "Find Vehicle Recovery & Towing Services | AdForge",
+    title: "24-Hour Vehicle Recovery Liverpool | AdForge",
     description:
-      "Browse local breakdown recovery, emergency towing and vehicle recovery pages across Liverpool, Merseyside and nearby areas.",
+      "Find breakdown recovery, towing and roadside assistance across Liverpool, Wirral and Merseyside.",
     url: "https://adforge.uk/services/vehicle-recovery",
     siteName: "AdForge",
     type: "website",
-    locale: "en_GB",
+    images: ["/images/recovery-truck.jpg"],
   },
 };
 
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
 );
 
-type LandingPage = {
-  slug: string;
-  headline: string | null;
-  title_tag: string | null;
-  meta_description: string | null;
-};
-
-function readableName(page: LandingPage) {
-  if (page.headline?.trim()) {
-    return page.headline.trim();
-  }
-
-  if (page.title_tag?.trim()) {
-    return page.title_tag.trim();
-  }
-
-  return page.slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
-export default async function VehicleRecoveryHubPage() {
-  const { data, error } = await supabase
+async function getRecoveryPages() {
+  const { data } = await supabase
     .from("landing_pages")
-    .select("slug, headline, title_tag, meta_description")
+    .select("slug,headline,meta_description,created_at")
     .eq("active", true)
     .or(
-      [
-        "slug.ilike.%recovery%",
-        "slug.ilike.%towing%",
-        "slug.ilike.%breakdown%",
-        "slug.ilike.%roadside-assistance%",
-        "slug.ilike.%vehicle-transport%",
-        "slug.ilike.%car-transport%",
-      ].join(",")
+      "slug.ilike.%recovery%,slug.ilike.%towing%,slug.ilike.%breakdown%,slug.ilike.%roadside-assistance%,slug.ilike.%vehicle-transport%"
     )
-    .order("slug", { ascending: true })
+    .order("created_at", { ascending: false })
     .limit(1000);
 
-  const pages: LandingPage[] = data || [];
+  return data ?? [];
+}
 
-  const uniquePages = Array.from(
-    new Map(pages.map((page) => [page.slug, page])).values()
-  );
+const areas = [
+  "Liverpool","Wirral","Bootle","Huyton","Kirkby","St Helens","Widnes",
+  "Warrington","Wallasey","Birkenhead","Speke","Prescot"
+];
+
+export default async function VehicleRecoveryHubPage() {
+  const pages = await getRecoveryPages();
 
   const schema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Vehicle Recovery and Towing Services",
-    description:
-      "Browse vehicle recovery, towing, breakdown recovery, roadside assistance and vehicle transport pages on AdForge.",
+    name: "Vehicle Recovery Liverpool",
     url: "https://adforge.uk/services/vehicle-recovery",
+    description:
+      "AdForge 24-hour vehicle recovery, breakdown recovery and towing service directory.",
     isPartOf: {
       "@type": "WebSite",
       name: "AdForge",
-      url: "https://adforge.uk",
+      url: "https://adforge.uk/",
     },
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schema),
-        }}
-      />
-
       <main className="page">
-        <header className="header">
-          <div className="wrap headerInner">
-            <Link href="/" className="brand">
+        <header className="topbar">
+          <Link href="/" className="brand">
+            <span className="mark">AF</span>
+            <span className="brandWords">
+              <b>Ad<span>Forge</span></b>
               <small>LOCAL SERVICE PLATFORM</small>
+            </span>
+          </Link>
 
-              <strong>
-                Ad<span>Forge</span>
-              </strong>
-            </Link>
+          <nav>
+            <Link href="/">Home</Link>
+            <Link href="/services/mobile-tyre-fitting">Mobile Tyres</Link>
+            <Link href="/businesses">Businesses</Link>
+            <Link href="/signup">List Business</Link>
+          </nav>
 
-            <div className="headerLinks">
-              <Link href="/">Home</Link>
-
-              <Link href="/services/mobile-tyre-fitting">
-                Tyre Services
-              </Link>
-
-              <Link href="/businesses">
-                Businesses
-              </Link>
-
-              <Link href="/login" className="loginButton">
-                Login
-              </Link>
-            </div>
-          </div>
+          <Link href="/login" className="login">Login</Link>
         </header>
 
         <section className="hero">
-          <div className="heroGlow" />
+          <div className="heroImage" />
+          <div className="heroShade" />
 
-          <div className="wrap heroInner">
-            <div className="badge">
-              <span />
-              VEHICLE RECOVERY DIRECTORY
-            </div>
-
+          <div className="heroInner">
+            <div className="pill"><i /> VEHICLE RECOVERY SERVICE DIRECTORY</div>
             <h1>
-              Find Vehicle Recovery
-              <br />
-              <span>& Towing Services</span>
+              24-Hour Vehicle Recovery
+              <span>Liverpool &amp; Merseyside</span>
             </h1>
-
             <p>
-              Browse active vehicle recovery, emergency towing, breakdown
-              recovery, roadside assistance and vehicle transport pages across
-              Liverpool, Merseyside and surrounding areas.
+              Browse active AdForge pages for 24-hour recovery service, breakdown
+              recovery, breakdown service, accident recovery, towing service,
+              roadside assistance and vehicle transport across Liverpool, Wirral
+              and Merseyside.
             </p>
 
             <div className="heroButtons">
-              <a href="#recovery-pages" className="primaryButton">
-                Browse Recovery Areas
-                <span>↓</span>
-              </a>
-
-              <Link href="/businesses" className="secondaryButton">
-                Find Local Businesses
-              </Link>
-            </div>
-
-            <div className="stats">
-              <div>
-                <strong>{uniquePages.length}</strong>
-                <span>Active recovery pages</span>
-              </div>
-
-              <div>
-                <strong>Local</strong>
-                <span>Area-based coverage</span>
-              </div>
-
-              <div>
-                <strong>24-Hour</strong>
-                <span>Emergency service pages</span>
-              </div>
+              <a href="#recovery-pages" className="primary">Browse Recovery Areas ↓</a>
+              <Link href="/businesses" className="secondary">Find Local Businesses →</Link>
             </div>
           </div>
         </section>
 
-        <section className="introSection">
-          <div className="wrap introGrid">
-            <div>
-              <span className="sectionLabel">RECOVERY SERVICES</span>
+        <section className="stats">
+          <article><b>{pages.length}+</b><span>Active recovery pages</span></article>
+          <article><b>24/7</b><span>Emergency recovery help</span></article>
+          <article><b>Local</b><span>Area-based coverage</span></article>
+          <article><b>Direct</b><span>Contact local providers</span></article>
+        </section>
 
-              <h2>Find the right recovery service near you</h2>
-            </div>
+        <section className="section">
+          <div className="heading">
+            <small>VEHICLE RECOVERY SERVICES</small>
+            <h2>Help when your vehicle cannot continue.</h2>
+            <p>
+              AdForge helps drivers find local recovery providers for breakdowns,
+              accidents, towing and vehicle transport across Liverpool and
+              surrounding areas.
+            </p>
+          </div>
 
-            <div className="introText">
-              <p>
-                AdForge contains public pages covering vehicle recovery,
-                emergency towing, breakdown assistance, accident recovery,
-                roadside support and vehicle transportation.
-              </p>
+          <div className="featureGrid">
+            <article>
+              <b>01</b>
+              <h3>Breakdown Recovery</h3>
+              <p>Find a breakdown service when a vehicle will not start or cannot continue safely.</p>
+            </article>
+            <article>
+              <b>02</b>
+              <h3>Towing Service</h3>
+              <p>Arrange towing to a home address, garage, storage site or another safe destination.</p>
+            </article>
+            <article>
+              <b>03</b>
+              <h3>Accident &amp; Transport</h3>
+              <p>Browse accident recovery, roadside assistance and planned vehicle transport services.</p>
+            </article>
+          </div>
 
-              <p>
-                Select a local area below to view the available service
-                information and contact options for that location.
-              </p>
-            </div>
+          <div className="accordion">
+            <details open>
+              <summary>
+                <span><b>24-Hour Vehicle Recovery</b><small>Local recovery day and night</small></span>
+                <i>+</i>
+              </summary>
+              <div className="detail">
+                <p>
+                  AdForge helps drivers find a 24-hour recovery service across
+                  Liverpool, Wirral and Merseyside. Recovery providers may attend
+                  roadside breakdowns, accident scenes, homes, workplaces and
+                  other safe collection points.
+                </p>
+                <p>
+                  A vehicle may be transported to a garage, home address, storage
+                  facility or another agreed destination when it cannot be driven.
+                </p>
+                <a href="#recovery-pages">Browse local recovery pages →</a>
+              </div>
+            </details>
+
+            <details>
+              <summary>
+                <span><b>Breakdown Recovery &amp; Roadside Assistance</b><small>Help when a vehicle stops unexpectedly</small></span>
+                <i>+</i>
+              </summary>
+              <div className="detail">
+                <p>
+                  A breakdown service can assist when a vehicle has a mechanical
+                  fault, flat battery, tyre problem or another issue that prevents
+                  it from continuing. Where roadside repair is not possible,
+                  breakdown recovery can move the vehicle safely.
+                </p>
+                <p>
+                  AdForge helps customers search for roadside assistance and
+                  breakdown recovery across Liverpool and surrounding Merseyside
+                  areas.
+                </p>
+                <a href="#recovery-pages">Find breakdown recovery pages →</a>
+              </div>
+            </details>
+
+            <details>
+              <summary>
+                <span><b>Towing, Accident Recovery &amp; Transport</b><small>Safe vehicle movement and collection</small></span>
+                <i>+</i>
+              </summary>
+              <div className="detail">
+                <p>
+                  A towing service may be needed after a breakdown, accident or
+                  mechanical failure. Accident recovery providers can collect
+                  damaged vehicles and transport them to a suitable destination.
+                </p>
+                <p>
+                  Vehicle transport can also be used for garage transfers,
+                  non-running vehicles, purchases, relocations and planned moves
+                  across Liverpool, Wirral and Merseyside.
+                </p>
+                <a href="#recovery-pages">Browse towing and transport pages →</a>
+              </div>
+            </details>
+          </div>
+
+          <div className="areaTags">
+            {areas.map((area) => (
+              <Link key={area} href={`/businesses?location=${encodeURIComponent(area)}`}>{area}</Link>
+            ))}
           </div>
         </section>
 
-        <section className="pagesSection" id="recovery-pages">
-          <div className="wrap">
-            <div className="sectionHeading">
-              <div>
-                <span className="sectionLabel">ALL ACTIVE PAGES</span>
-
-                <h2>Recovery and towing locations</h2>
-              </div>
-
-              <p>
-                This directory updates automatically whenever an active
-                recovery or towing page is added to AdForge.
-              </p>
+        <section className="pageList" id="recovery-pages">
+          <div className="listHeader">
+            <div className="heading">
+              <small>ACTIVE ADFORGE RECOVERY PAGES</small>
+              <h2>Browse vehicle recovery areas.</h2>
             </div>
-
-            {error ? (
-              <div className="messageCard">
-                Recovery pages could not be loaded.
-              </div>
-            ) : uniquePages.length === 0 ? (
-              <div className="messageCard">
-                No active recovery pages were found.
-              </div>
-            ) : (
-              <div className="pageGrid">
-                {uniquePages.map((page) => (
-                  <article className="serviceCard" key={page.slug}>
-                    <span className="cardLabel">
-                      LOCAL RECOVERY SERVICE
-                    </span>
-
-                    <h3>{readableName(page)}</h3>
-
-                    <p>
-                      {page.meta_description ||
-                        "View local vehicle recovery and towing service information for this area."}
-                    </p>
-
-                    <Link href={`/seo/${page.slug}`}>
-                      View service page
-                      <span>→</span>
-                    </Link>
-                  </article>
-                ))}
-              </div>
-            )}
+            <p>{pages.length} active recovery-related pages found</p>
           </div>
-        </section>
 
-        <section className="contentSection">
-          <div className="wrap contentCard">
-            <span className="sectionLabel">ABOUT VEHICLE RECOVERY</span>
-
-            <h2>
-              Local recovery support for breakdowns, accidents and transport
-            </h2>
-
-            <p>
-              Vehicle recovery services can assist when a car, van or other
-              vehicle cannot continue its journey. Common reasons include
-              mechanical failure, battery problems, accident damage, punctures
-              and vehicles that require transportation to a garage or another
-              destination.
-            </p>
-
-            <p>
-              AdForge organises recovery and towing pages by service and
-              location, helping customers find relevant local information
-              without searching through unrelated areas.
-            </p>
-
-            <p>
-              Service availability, response times and pricing are determined
-              by the individual business providing the recovery service.
-              Customers should confirm the collection location, destination,
-              vehicle details and charges directly with the provider.
-            </p>
-          </div>
+          {pages.length > 0 ? (
+            <div className="linksGrid">
+              {pages.map((page) => (
+                <Link key={page.slug} href={`/seo/${page.slug}`}>
+                  <b>{page.headline || page.slug.replaceAll("-", " ")}</b>
+                  <span>→</span>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="empty">No active recovery pages were returned from Supabase.</div>
+          )}
         </section>
 
         <footer className="footer">
-          <div className="wrap footerInner">
-            <div>
-              <Link href="/" className="brand">
+          <div>
+            <Link href="/" className="brand">
+              <span className="mark">AF</span>
+              <span className="brandWords">
+                <b>Ad<span>Forge</span></b>
                 <small>LOCAL SERVICE PLATFORM</small>
-
-                <strong>
-                  Ad<span>Forge</span>
-                </strong>
-              </Link>
-
-              <p>
-                Find vehicle recovery, towing services, mobile tyre fitting and
-                local businesses.
-              </p>
-            </div>
-
-            <div className="footerLinks">
-              <Link href="/">Homepage</Link>
-
-              <Link href="/services/mobile-tyre-fitting">
-                Mobile Tyre Fitting
-              </Link>
-
-              <Link href="/businesses">
-                Local Businesses
-              </Link>
-
-              <Link href="/signup">
-                List Your Business
-              </Link>
-            </div>
+              </span>
+            </Link>
+            <p>
+              AdForge helps drivers find 24-hour vehicle recovery, breakdown
+              recovery and towing services across Liverpool, Wirral and Merseyside.
+            </p>
           </div>
+          <nav>
+            <Link href="/">Homepage</Link>
+            <Link href="/services/mobile-tyre-fitting">Mobile Tyre Hub</Link>
+            <Link href="/businesses">Local Businesses</Link>
+          </nav>
         </footer>
       </main>
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+
       <style>{`
-        * {
-          box-sizing: border-box;
-        }
-
-        html {
-          scroll-behavior: smooth;
-          background: #05070d;
-        }
-
-        body {
-          margin: 0;
-          background: #05070d;
-          color: #ffffff;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .page {
-          min-height: 100vh;
-          overflow: hidden;
-          color: #ffffff;
-          background:
-            radial-gradient(
-              circle at 50% -10%,
-              rgba(50, 255, 115, 0.1),
-              transparent 28%
-            ),
-            #05070d;
-          font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .wrap {
-          width: min(1200px, calc(100% - 40px));
-          margin: 0 auto;
-        }
-
-        .header {
-          position: relative;
-          z-index: 20;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          background: rgba(5, 7, 13, 0.84);
-          backdrop-filter: blur(22px);
-        }
-
-        .headerInner {
-          min-height: 88px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 30px;
-        }
-
-        .brand {
-          display: inline-flex;
-          flex-direction: column;
-        }
-
-        .brand small {
-          margin-bottom: 4px;
-          color: rgba(255, 255, 255, 0.42);
-          font-size: 8px;
-          font-weight: 900;
-          letter-spacing: 4px;
-        }
-
-        .brand strong {
-          font-size: 34px;
-          font-weight: 950;
-          letter-spacing: -2px;
-          line-height: 1;
-        }
-
-        .brand strong span {
-          color: #32ff73;
-          text-shadow: 0 0 24px rgba(50, 255, 115, 0.4);
-        }
-
-        .headerLinks {
-          display: flex;
-          align-items: center;
-          gap: 26px;
-        }
-
-        .headerLinks a {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 12px;
-          font-weight: 800;
-        }
-
-        .loginButton {
-          min-height: 42px;
-          padding: 0 18px;
-          border: 1px solid rgba(255, 255, 255, 0.13);
-          border-radius: 999px;
-          display: inline-flex;
-          align-items: center;
-        }
-
-        .hero {
-          position: relative;
-          min-height: 610px;
-          display: flex;
-          align-items: center;
-          overflow: hidden;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-        }
-
-        .hero::before {
-          position: absolute;
-          inset: 0;
-          content: "";
-          background-image:
-            linear-gradient(
-              rgba(255, 255, 255, 0.025) 1px,
-              transparent 1px
-            ),
-            linear-gradient(
-              90deg,
-              rgba(255, 255, 255, 0.025) 1px,
-              transparent 1px
-            );
-          background-size: 80px 80px;
-          opacity: 0.4;
-        }
-
-        .heroGlow {
-          position: absolute;
-          top: 5%;
-          right: 5%;
-          width: 520px;
-          height: 520px;
-          border-radius: 50%;
-          background: rgba(50, 255, 115, 0.13);
-          filter: blur(100px);
-        }
-
-        .heroInner {
-          position: relative;
-          z-index: 2;
-          padding: 90px 0;
-        }
-
-        .badge,
-        .sectionLabel {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          color: #32ff73;
-          font-size: 10px;
-          font-weight: 950;
-          letter-spacing: 3px;
-        }
-
-        .badge {
-          min-height: 39px;
-          padding: 0 15px;
-          border: 1px solid rgba(50, 255, 115, 0.23);
-          border-radius: 999px;
-          background: rgba(50, 255, 115, 0.055);
-        }
-
-        .badge span {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #32ff73;
-          box-shadow: 0 0 15px #32ff73;
-        }
-
-        .hero h1 {
-          max-width: 880px;
-          margin: 27px 0 24px;
-          font-size: clamp(58px, 7vw, 92px);
-          font-weight: 950;
-          letter-spacing: -6px;
-          line-height: 0.93;
-        }
-
-        .hero h1 span {
-          color: rgba(255, 255, 255, 0.34);
-        }
-
-        .hero p {
-          max-width: 720px;
-          margin: 0;
-          color: rgba(255, 255, 255, 0.58);
-          font-size: 18px;
-          line-height: 1.75;
-        }
-
-        .heroButtons {
-          margin-top: 35px;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 12px;
-        }
-
-        .primaryButton,
-        .secondaryButton {
-          min-height: 57px;
-          padding: 0 24px;
-          border-radius: 999px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 26px;
-          font-size: 13px;
-          font-weight: 950;
-        }
-
-        .primaryButton {
-          color: #05070d;
-          background: #32ff73;
-          box-shadow: 0 0 32px rgba(50, 255, 115, 0.2);
-        }
-
-        .secondaryButton {
-          border: 1px solid rgba(255, 255, 255, 0.13);
-          background: rgba(255, 255, 255, 0.035);
-        }
-
-        .stats {
-          margin-top: 45px;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 45px;
-        }
-
-        .stats div {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-        }
-
-        .stats strong {
-          font-size: 17px;
-        }
-
-        .stats span {
-          color: rgba(255, 255, 255, 0.38);
-          font-size: 11px;
-        }
-
-        .introSection,
-        .pagesSection,
-        .contentSection {
-          padding: 105px 0;
-        }
-
-        .introGrid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 80px;
-        }
-
-        .introGrid h2,
-        .sectionHeading h2,
-        .contentCard h2 {
-          max-width: 830px;
-          margin: 16px 0 0;
-          font-size: clamp(40px, 5vw, 66px);
-          font-weight: 950;
-          letter-spacing: -4px;
-          line-height: 0.97;
-        }
-
-        .introText p,
-        .contentCard p {
-          margin: 0 0 18px;
-          color: rgba(255, 255, 255, 0.45);
-          font-size: 14px;
-          line-height: 1.8;
-        }
-
-        .pagesSection {
-          background:
-            radial-gradient(
-              circle at 50% 0%,
-              rgba(50, 255, 115, 0.045),
-              transparent 32%
-            ),
-            #070910;
-        }
-
-        .sectionHeading {
-          margin-bottom: 46px;
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          gap: 50px;
-        }
-
-        .sectionHeading > p {
-          max-width: 430px;
-          margin: 0;
-          color: rgba(255, 255, 255, 0.43);
-          font-size: 14px;
-          line-height: 1.7;
-        }
-
-        .pageGrid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
-        }
-
-        .serviceCard {
-          min-height: 275px;
-          padding: 25px;
-          border: 1px solid rgba(255, 255, 255, 0.09);
-          border-radius: 26px;
-          display: flex;
-          flex-direction: column;
-          background:
-            radial-gradient(
-              circle at 100% 0%,
-              rgba(50, 255, 115, 0.06),
-              transparent 30%
-            ),
-            rgba(255, 255, 255, 0.02);
-        }
-
-        .cardLabel {
-          color: #32ff73;
-          font-size: 8px;
-          font-weight: 950;
-          letter-spacing: 2px;
-        }
-
-        .serviceCard h3 {
-          margin: 25px 0 13px;
-          font-size: 22px;
-          letter-spacing: -1px;
-        }
-
-        .serviceCard p {
-          margin: 0;
-          color: rgba(255, 255, 255, 0.42);
-          font-size: 13px;
-          line-height: 1.7;
-        }
-
-        .serviceCard a {
-          margin-top: auto;
-          padding-top: 25px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          font-size: 11px;
-          font-weight: 900;
-        }
-
-        .serviceCard a span {
-          color: #32ff73;
-        }
-
-        .messageCard {
-          padding: 35px;
-          border: 1px solid rgba(255, 255, 255, 0.09);
-          border-radius: 24px;
-          color: rgba(255, 255, 255, 0.55);
-          background: rgba(255, 255, 255, 0.02);
-        }
-
-        .contentSection {
-          padding-top: 0;
-          background: #070910;
-        }
-
-        .contentCard {
-          padding: 50px;
-          border: 1px solid rgba(255, 255, 255, 0.09);
-          border-radius: 30px;
-          background: rgba(255, 255, 255, 0.02);
-        }
-
-        .contentCard h2 {
-          max-width: 950px;
-          font-size: clamp(36px, 4.4vw, 56px);
-        }
-
-        .contentCard p {
-          max-width: 950px;
-          margin-top: 22px;
-          margin-bottom: 0;
-        }
-
-        .footer {
-          border-top: 1px solid rgba(255, 255, 255, 0.075);
-          background: #03050a;
-        }
-
-        .footerInner {
-          padding: 65px 0;
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 60px;
-        }
-
-        .footerInner p {
-          max-width: 430px;
-          color: rgba(255, 255, 255, 0.38);
-          font-size: 12px;
-          line-height: 1.7;
-        }
-
-        .footerLinks {
-          display: flex;
-          flex-direction: column;
-          gap: 13px;
-        }
-
-        .footerLinks a {
-          color: rgba(255, 255, 255, 0.42);
-          font-size: 11px;
-        }
-
-        @media (max-width: 900px) {
-          .pageGrid {
-            grid-template-columns: 1fr 1fr;
-          }
-
-          .introGrid {
-            grid-template-columns: 1fr;
-            gap: 35px;
-          }
-        }
-
-        @media (max-width: 720px) {
-          .wrap {
-            width: min(100% - 28px, 1200px);
-          }
-
-          .headerInner {
-            min-height: 76px;
-          }
-
-          .brand small {
-            font-size: 6px;
-            letter-spacing: 2px;
-          }
-
-          .brand strong {
-            font-size: 28px;
-          }
-
-          .headerLinks > a:not(.loginButton) {
-            display: none;
-          }
-
-          .hero {
-            min-height: auto;
-          }
-
-          .heroInner {
-            padding: 68px 0;
-          }
-
-          .hero h1 {
-            font-size: clamp(48px, 15vw, 68px);
-            letter-spacing: -4px;
-          }
-
-          .hero p {
-            font-size: 15px;
-          }
-
-          .heroButtons {
-            display: grid;
-            grid-template-columns: 1fr;
-          }
-
-          .primaryButton,
-          .secondaryButton {
-            width: 100%;
-          }
-
-          .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-          }
-
-          .stats strong {
-            font-size: 13px;
-          }
-
-          .stats span {
-            font-size: 8px;
-          }
-
-          .introSection,
-          .pagesSection,
-          .contentSection {
-            padding: 78px 0;
-          }
-
-          .sectionHeading {
-            display: block;
-          }
-
-          .sectionHeading > p {
-            margin-top: 18px;
-          }
-
-          .introGrid h2,
-          .sectionHeading h2,
-          .contentCard h2 {
-            font-size: 42px;
-            letter-spacing: -2.6px;
-          }
-
-          .pageGrid {
-            grid-template-columns: 1fr;
-          }
-
-          .contentCard {
-            padding: 32px 23px;
-          }
-
-          .footerInner {
-            flex-direction: column;
-          }
-        }
+        :root{--g:#32ff73;--p:#090b0e;--l:rgba(255,255,255,.11);--m:#a9adb5;--max:1380px}
+        *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#000;color:#fff;font-family:Inter,system-ui,sans-serif}a{text-decoration:none;color:inherit}.page{min-height:100vh;background:#000;overflow:hidden}
+        .topbar{width:min(calc(100% - 56px),var(--max));height:86px;margin:auto;display:flex;align-items:center;gap:24px}.brand{display:flex;align-items:center;gap:10px}.mark{font-size:28px;font-style:italic;font-weight:1000;letter-spacing:-5px}.brandWords{display:flex;flex-direction:column;line-height:.9}.brandWords b{font-size:27px;letter-spacing:-2px}.brandWords b span{color:var(--g)}.brandWords small{margin-top:7px;color:#878c93;font-size:6px;letter-spacing:2px;font-weight:900}.topbar nav{margin-left:auto;display:flex;gap:21px}.topbar nav a{font-size:11px;font-weight:800}.login{min-height:44px;padding:0 18px;display:flex;align-items:center;border:1px solid var(--l);border-radius:999px;font-size:11px;font-weight:900}
+        .hero{position:relative;isolation:isolate;min-height:610px;display:flex;align-items:flex-end}.heroImage{position:absolute;inset:0;z-index:-3;background:url("/images/recovery-truck.jpg") center/cover no-repeat}.heroShade{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(0,0,0,.96),rgba(0,0,0,.7) 42%,rgba(0,0,0,.1)),linear-gradient(0deg,#000,transparent 27%)}.heroInner{width:min(calc(100% - 56px),var(--max));margin:auto;padding:110px 0 64px}.heroInner>*{max-width:760px}.pill{width:max-content;padding:10px 15px;display:flex;align-items:center;gap:10px;border:1px solid rgba(50,255,115,.4);border-radius:999px;background:rgba(0,0,0,.62);color:var(--g);font-size:8px;letter-spacing:2px;font-weight:950}.pill i{width:8px;height:8px;border-radius:50%;background:var(--g);box-shadow:0 0 12px var(--g)}h1{margin:19px 0 0;font-size:clamp(55px,6.4vw,94px);line-height:.88;letter-spacing:-5px;font-weight:1000}h1 span{display:block;color:var(--g)}.heroInner p{margin:22px 0 0;color:#c1c6cc;font-size:15px;line-height:1.75}.heroButtons{margin-top:28px;display:flex;gap:12px}.primary,.secondary{min-height:58px;padding:0 22px;display:flex;align-items:center;border-radius:11px;font-size:12px;font-weight:950}.primary{background:var(--g);color:#031006}.secondary{border:1px solid rgba(50,255,115,.4);background:rgba(0,0,0,.7)}
+        .stats,.section,.pageList,.footer{width:min(calc(100% - 56px),var(--max));margin-left:auto;margin-right:auto}.stats{position:relative;z-index:4;margin-top:-16px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--l);border-radius:16px;background:var(--p)}.stats article{padding:20px 22px;border-right:1px solid var(--l)}.stats article:last-child{border-right:0}.stats b{display:block;color:var(--g);font-size:19px}.stats span{color:var(--m);font-size:10px}.section{padding-top:76px}.heading{max-width:790px}.heading small{display:block;margin-bottom:10px;color:var(--g);font-size:8px;letter-spacing:2px;font-weight:950}.heading h2{margin:0;font-size:clamp(38px,4vw,58px);line-height:.98;letter-spacing:-3px}.heading p{margin:15px 0 0;color:var(--m);font-size:13px;line-height:1.75}.featureGrid{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.featureGrid article{padding:25px;border:1px solid var(--l);border-radius:16px;background:var(--p)}.featureGrid b{color:var(--g);font-size:11px}.featureGrid h3{margin:14px 0 8px;font-size:21px}.featureGrid p{margin:0;color:var(--m);font-size:11px;line-height:1.65}.accordion{margin-top:29px;display:grid;gap:12px}.accordion details{overflow:hidden;border:1px solid var(--l);border-radius:17px;background:var(--p)}.accordion details[open]{border-color:rgba(50,255,115,.4)}.accordion summary{min-height:88px;padding:17px 21px;display:flex;align-items:center;justify-content:space-between;list-style:none;cursor:pointer}.accordion summary::-webkit-details-marker{display:none}.accordion summary span{display:flex;flex-direction:column;gap:4px}.accordion summary b{font-size:16px}.accordion summary small{color:var(--m);font-size:9px}.accordion summary i{width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(50,255,115,.28);border-radius:50%;color:var(--g);font-size:19px;font-style:normal}.accordion details[open] summary i{transform:rotate(45deg)}.detail{padding:0 22px 24px;border-top:1px solid rgba(255,255,255,.07)}.detail p{margin:18px 0 0;color:#bcc1c7;font-size:13px;line-height:1.8}.detail a{display:block;width:max-content;margin-top:20px;color:var(--g);font-size:11px;font-weight:950}.areaTags{margin-top:25px;display:flex;flex-wrap:wrap;gap:9px}.areaTags a{padding:10px 13px;border:1px solid var(--l);border-radius:999px;background:var(--p);font-size:10px}
+        .pageList{padding-top:76px}.listHeader{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.listHeader p{margin:0;color:var(--m);font-size:11px}.linksGrid{margin-top:25px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.linksGrid a{min-height:74px;padding:16px 17px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid var(--l);border-radius:13px;background:var(--p)}.linksGrid a:hover{border-color:rgba(50,255,115,.38)}.linksGrid b{font-size:12px}.linksGrid span{color:var(--g)}.empty{margin-top:25px;padding:24px;border:1px solid var(--l);border-radius:14px;color:var(--m);background:var(--p)}.footer{margin-top:76px;padding:35px 0 28px;display:flex;justify-content:space-between;gap:25px;border-top:1px solid var(--l)}.footer p{max-width:520px;color:var(--m);font-size:11px}.footer nav{display:grid;gap:9px}.footer nav a{font-size:10px;color:#b3b7bd}
+        @media(max-width:980px){.topbar nav{display:none}.featureGrid,.linksGrid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.stats article:nth-child(2){border-right:0}}
+        @media(max-width:760px){.topbar{width:100%;height:76px;padding:0 20px}.mark{font-size:23px}.brandWords b{font-size:21px}.brandWords small{font-size:5px}.login{margin-left:auto}.hero{display:block;min-height:auto}.heroImage{position:relative;inset:auto;z-index:1;height:390px;background-position:center}.heroShade{display:none}.heroInner{width:100%;padding:28px 24px 38px;background:#000}.pill{font-size:7px;letter-spacing:1.2px}h1{font-size:clamp(43px,12vw,57px);letter-spacing:-3.6px}.heroInner p{font-size:14px}.heroButtons{display:grid}.primary,.secondary{min-height:61px;font-size:13px}.stats,.section,.pageList,.footer{width:calc(100% - 30px)}.stats{margin-top:14px}.stats article{padding:16px}.section,.pageList{padding-top:62px}.featureGrid,.linksGrid{grid-template-columns:1fr}.accordion summary{padding:14px}.accordion summary b{font-size:14px}.detail{padding:0 15px 20px}.detail p{font-size:12px}.listHeader{align-items:flex-start;flex-direction:column}.footer{margin-top:62px;flex-direction:column}}
       `}</style>
     </>
   );
