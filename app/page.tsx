@@ -237,7 +237,7 @@ export default function PublicHomePage() {
         <section className="featured">
           <div className="featuredImage">
             <span>FEATURED LOCAL PROVIDER</span>
-            <img src="/images/totaaltyres.jpeg" alt="Total Tyres mobile tyre fitting van in Liverpool" />
+            <img src="/images/totaltyres.jpeg" alt="Total Tyres mobile tyre fitting van in Liverpool" />
           </div>
           <div className="featuredCopy">
             <small>LOCAL BUSINESS COVERING LIVERPOOL &amp; MERSEYSIDE</small>
