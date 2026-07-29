@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { createClient } from "@supabase/supabase-js";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Mobile Tyre Fitting & Vehicle Recovery Liverpool | AdForge",
@@ -27,6 +31,72 @@ export const metadata: Metadata = {
 };
 
 const PHONE = "+447576579923";
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
+);
+
+type LandingPage = {
+  slug: string;
+  headline: string | null;
+  meta_description: string | null;
+};
+
+function cleanTitle(page: LandingPage) {
+  if (page.headline?.trim()) return page.headline.trim();
+  return page.slug
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function isTyrePage(slug: string) {
+  const value = slug.toLowerCase();
+  return (
+    value.includes("tyre") ||
+    value.includes("puncture") ||
+    value.includes("flat-tyre") ||
+    value.includes("locking-wheel") ||
+    value.includes("wheel-nut")
+  );
+}
+
+function isRecoveryPage(slug: string) {
+  const value = slug.toLowerCase();
+  return (
+    value.includes("recovery") ||
+    value.includes("towing") ||
+    value.includes("breakdown") ||
+    value.includes("roadside-assistance")
+  );
+}
+
+const faqs = [
+  {
+    q: "Do mobile tyre fitters operate 24 hours a day?",
+    a: "Many AdForge mobile tyre pages cover 24-hour emergency mobile tyre fitting, roadside tyre replacement and puncture repair. Availability depends on the local provider and location.",
+  },
+  {
+    q: "Can a tyre be fitted at my home or workplace?",
+    a: "Yes. Mobile tyre fitting can usually be arranged at a home, workplace or roadside location, subject to safe access and local availability.",
+  },
+  {
+    q: "Can I get new and part-worn tyres?",
+    a: "AdForge helps customers find providers offering new tyres, part-worn tyres, emergency tyre replacement and mobile tyre fitting.",
+  },
+  {
+    q: "What recovery services can I find through AdForge?",
+    a: "AdForge pages cover vehicle recovery, breakdown recovery, accident recovery, roadside assistance, towing and vehicle transport.",
+  },
+  {
+    q: "Do recovery providers cover Liverpool, Wirral and Merseyside?",
+    a: "Yes. AdForge includes recovery pages for Liverpool, Wirral, Merseyside and surrounding towns, depending on provider availability.",
+  },
+  {
+    q: "What happens when I call AdForge?",
+    a: "The call goes through the AdForge number so the job details can be collected and directed to the right local provider.",
+  },
+];
+
 const DISPLAY_PHONE = "+44 7576 579923";
 
 const serviceCards = [
@@ -84,7 +154,27 @@ const areas = [
   "Merseyside",
 ];
 
-export default function PublicHomePage() {
+export default async function PublicHomePage() {
+  const { data: activePages } = await supabase
+    .from("landing_pages")
+    .select("slug,headline,meta_description")
+    .eq("active", true)
+    .limit(500);
+
+  const allPages = (activePages || []) as LandingPage[];
+  const tyrePages = allPages.filter((page) => isTyrePage(page.slug)).slice(0, 18);
+  const recoveryPages = allPages.filter((page) => isRecoveryPage(page.slug)).slice(0, 18);
+  const latestPages = allPages.slice(0, 20);
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -252,6 +342,55 @@ export default function PublicHomePage() {
           </div>
         </section>
 
+        <section className="popularSeo" id="popular">
+          <div className="sectionIntro wide">
+            <span>DYNAMIC INTERNAL LINKING</span>
+            <h2>Popular mobile tyre searches.</h2>
+            <p>
+              These links are pulled directly from active AdForge landing pages.
+              New tyre pages added in Supabase can appear here automatically,
+              giving Google a clear crawl path from the homepage.
+            </p>
+          </div>
+
+          <div className="seoLinkGrid">
+            {tyrePages.map((page) => (
+              <Link href={`/seo/${page.slug}`} key={page.slug}>
+                <span>{cleanTitle(page)}</span>
+                <b>→</b>
+              </Link>
+            ))}
+          </div>
+
+          <Link href="/services/mobile-tyre-fitting" className="viewAllSeo">
+            View all mobile tyre areas <span>→</span>
+          </Link>
+        </section>
+
+        <section className="popularSeo recoveryPopular">
+          <div className="sectionIntro wide">
+            <span>RECOVERY SERVICE PAGES</span>
+            <h2>Popular vehicle recovery searches.</h2>
+            <p>
+              AdForge recovery pages target breakdown recovery, towing, accident
+              recovery, roadside assistance and vehicle transport searches.
+            </p>
+          </div>
+
+          <div className="seoLinkGrid">
+            {recoveryPages.map((page) => (
+              <Link href={`/seo/${page.slug}`} key={page.slug}>
+                <span>{cleanTitle(page)}</span>
+                <b>→</b>
+              </Link>
+            ))}
+          </div>
+
+          <Link href="/services/vehicle-recovery" className="viewAllSeo">
+            View all recovery areas <span>→</span>
+          </Link>
+        </section>
+
         <section className="splitServices">
           <article className="splitCard tyreCard">
             <div className="splitImage tyrePhoto" />
@@ -337,7 +476,7 @@ export default function PublicHomePage() {
             <span className="featuredBadge">FEATURED LOCAL PROVIDER</span>
 
             <img
-              src="/images/totaltyres.jpeg"
+              src="/images/totaaltyres.jpeg"
               alt="Total Tyres mobile tyre fitting van in Liverpool"
             />
           </div>
@@ -403,6 +542,47 @@ export default function PublicHomePage() {
           </div>
         </section>
 
+        {latestPages.length > 0 && (
+          <section className="latestSeoPages">
+            <div className="sectionIntro wide">
+              <span>MORE ACTIVE ADFORGE PAGES</span>
+              <h2>More local tyre and recovery pages.</h2>
+              <p>
+                This section creates another internal crawl path into active
+                service pages across the AdForge directory.
+              </p>
+            </div>
+
+            <div className="compactSeoLinks">
+              {latestPages.map((page) => (
+                <Link href={`/seo/${page.slug}`} key={page.slug}>
+                  {cleanTitle(page)}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="faqSection">
+          <div className="sectionIntro wide">
+            <span>COMMON QUESTIONS</span>
+            <h2>Mobile tyre and recovery FAQs.</h2>
+            <p>
+              Helpful answers for customers searching for emergency tyre fitting,
+              recovery and roadside assistance.
+            </p>
+          </div>
+
+          <div className="faqGrid">
+            {faqs.map((faq) => (
+              <details key={faq.q}>
+                <summary>{faq.q}<b>+</b></summary>
+                <p>{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
         <section className="businessCta">
           <div>
             <span>FOR LOCAL BUSINESSES</span>
@@ -443,6 +623,11 @@ export default function PublicHomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <style>{`
@@ -811,8 +996,11 @@ export default function PublicHomePage() {
         }
 
         .services,
+        .popularSeo,
         .splitServices,
         .featured,
+        .latestSeoPages,
+        .faqSection,
         .areas,
         .businessCta,
         .footer {
@@ -902,6 +1090,105 @@ export default function PublicHomePage() {
         .serviceArrow {
           color: var(--green);
           font-size: 25px;
+        }
+
+        .sectionIntro.wide {
+          max-width: 820px;
+        }
+
+        .popularSeo {
+          padding: 90px 0 20px;
+        }
+
+        .recoveryPopular {
+          padding-top: 75px;
+        }
+
+        .seoLinkGrid {
+          margin-top: 32px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+
+        .seoLinkGrid a {
+          min-height: 62px;
+          padding: 0 16px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px;
+          border: 1px solid var(--line);
+          border-radius: 14px;
+          background: var(--panel);
+          font-size: 11px;
+          font-weight: 850;
+        }
+
+        .seoLinkGrid a:hover {
+          border-color: rgba(50,255,115,.42);
+        }
+
+        .seoLinkGrid b {
+          color: var(--green);
+          font-size: 17px;
+        }
+
+        .viewAllSeo {
+          width: max-content;
+          max-width: 100%;
+          min-height: 48px;
+          margin-top: 20px;
+          padding: 0 16px;
+          display: flex;
+          align-items: center;
+          gap: 26px;
+          border-radius: 13px;
+          background: var(--green);
+          color: #031006;
+          font-size: 11px;
+          font-weight: 950;
+        }
+
+        .latestSeoPages,
+        .faqSection {
+          padding: 90px 0 20px;
+        }
+
+        .compactSeoLinks {
+          margin-top: 30px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 9px;
+        }
+
+        .compactSeoLinks a {
+          padding: 11px 14px;
+          border: 1px solid var(--line);
+          border-radius: 999px;
+          background: var(--panel);
+          font-size: 10px;
+          font-weight: 800;
+        }
+
+        .faqGrid {
+          margin-top: 32px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+
+        .faqGrid details {
+          margin-top: 0;
+          align-self: start;
+        }
+
+        .faqGrid p {
+          margin: 0;
+          padding: 0 17px 17px;
+          color: #9da3aa;
+          font-size: 11px;
+          line-height: 1.65;
         }
 
         .splitServices {
@@ -1439,8 +1726,11 @@ export default function PublicHomePage() {
 
           .stats,
           .services,
+          .popularSeo,
           .splitServices,
           .featured,
+          .latestSeoPages,
+          .faqSection,
           .areas,
           .businessCta,
           .footer {
@@ -1493,7 +1783,106 @@ export default function PublicHomePage() {
             font-size: 10px;
           }
 
-          .splitServices {
+          .sectionIntro.wide {
+          max-width: 820px;
+        }
+
+        .popularSeo {
+          padding: 90px 0 20px;
+        }
+
+        .recoveryPopular {
+          padding-top: 75px;
+        }
+
+        .seoLinkGrid {
+          margin-top: 32px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+
+        .seoLinkGrid a {
+          min-height: 62px;
+          padding: 0 16px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px;
+          border: 1px solid var(--line);
+          border-radius: 14px;
+          background: var(--panel);
+          font-size: 11px;
+          font-weight: 850;
+        }
+
+        .seoLinkGrid a:hover {
+          border-color: rgba(50,255,115,.42);
+        }
+
+        .seoLinkGrid b {
+          color: var(--green);
+          font-size: 17px;
+        }
+
+        .viewAllSeo {
+          width: max-content;
+          max-width: 100%;
+          min-height: 48px;
+          margin-top: 20px;
+          padding: 0 16px;
+          display: flex;
+          align-items: center;
+          gap: 26px;
+          border-radius: 13px;
+          background: var(--green);
+          color: #031006;
+          font-size: 11px;
+          font-weight: 950;
+        }
+
+        .latestSeoPages,
+        .faqSection {
+          padding: 90px 0 20px;
+        }
+
+        .compactSeoLinks {
+          margin-top: 30px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 9px;
+        }
+
+        .compactSeoLinks a {
+          padding: 11px 14px;
+          border: 1px solid var(--line);
+          border-radius: 999px;
+          background: var(--panel);
+          font-size: 10px;
+          font-weight: 800;
+        }
+
+        .faqGrid {
+          margin-top: 32px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+
+        .faqGrid details {
+          margin-top: 0;
+          align-self: start;
+        }
+
+        .faqGrid p {
+          margin: 0;
+          padding: 0 17px 17px;
+          color: #9da3aa;
+          font-size: 11px;
+          line-height: 1.65;
+        }
+
+        .splitServices {
             padding-top: 55px;
           }
 
