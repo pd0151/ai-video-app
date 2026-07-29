@@ -97,6 +97,11 @@ export default function SeoPagesAdmin() {
       .trim();
   }
 
+  function makeTitleTag(value: string) {
+    const cleanHeadline = String(value || "").trim();
+    return cleanHeadline ? `${cleanHeadline} | AdForge` : "";
+  }
+
   function seoCheck(page: LandingPage) {
     const issues: string[] = [];
 
@@ -109,9 +114,9 @@ export default function SeoPagesAdmin() {
     if (
       page.headline &&
       page.title_tag &&
-      !page.title_tag.includes(page.headline)
+      page.title_tag.trim() !== makeTitleTag(page.headline)
     ) {
-      issues.push("Title does not match H1");
+      issues.push("Title must be H1 + | AdForge");
     }
 
     if (page.meta_description && page.meta_description.length < 80) {
@@ -207,7 +212,7 @@ export default function SeoPagesAdmin() {
     const payload = {
       slug: page.slug || makeSlug(safeHeadline),
       headline: safeHeadline,
-      title_tag: page.title_tag || `${safeHeadline} | AdForge`,
+      title_tag: makeTitleTag(safeHeadline),
       meta_description:
         page.meta_description ||
         `Find ${safeHeadline.toLowerCase()} through AdForge. Local service information, nearby coverage and clear contact options.`,
@@ -226,7 +231,7 @@ export default function SeoPagesAdmin() {
     }
 
     await loadPages();
-    alert("SEO page fixed.");
+    alert("SEO page fixed. The title tag now matches the H1 followed by | AdForge.");
   }
 
   async function fixAllSeoPages() {
@@ -239,7 +244,7 @@ export default function SeoPagesAdmin() {
 
     if (
       !confirm(
-        `Fix missing SEO fields on ${badPages.length} pages? Existing values will be preserved.`
+        `Fix SEO fields on ${badPages.length} pages? Each title tag will be set to its H1 followed by | AdForge. Other existing SEO content will be preserved.`
       )
     ) {
       return;
@@ -257,7 +262,7 @@ export default function SeoPagesAdmin() {
           return {
             slug: page.slug || makeSlug(safeHeadline),
             headline: safeHeadline,
-            title_tag: page.title_tag || `${safeHeadline} | AdForge`,
+            title_tag: makeTitleTag(safeHeadline),
             meta_description:
               page.meta_description ||
               `Find ${safeHeadline.toLowerCase()} through AdForge. Local service information, nearby coverage and clear contact options.`,
@@ -279,10 +284,17 @@ export default function SeoPagesAdmin() {
   }
 
   async function savePage() {
+    const cleanHeadline = headline.trim();
+
+    if (!cleanHeadline) {
+      alert("Add a headline first");
+      return;
+    }
+
     const payload = {
-      slug: makeSlug(slug),
-      headline,
-      title_tag: titleTag,
+      slug: makeSlug(slug || cleanHeadline),
+      headline: cleanHeadline,
+      title_tag: makeTitleTag(cleanHeadline),
       meta_description: metaDescription,
       content,
       active: true,
@@ -315,7 +327,7 @@ export default function SeoPagesAdmin() {
     setEditingId(page.id);
     setSlug(page.slug || "");
     setHeadline(page.headline || "");
-    setTitleTag(page.title_tag || "");
+    setTitleTag(makeTitleTag(page.headline || ""));
     setMetaDescription(page.meta_description || "");
     setContent(page.content || "");
     setShowForm(true);
@@ -351,7 +363,7 @@ export default function SeoPagesAdmin() {
       return {
         slug: draft.slug,
         headline,
-        title_tag: `${headline} | AdForge`,
+        title_tag: makeTitleTag(headline),
         meta_description:
           type === "recovery"
             ? `Need vehicle recovery in ${location}? Fast local breakdown recovery, towing and roadside help across ${location} and nearby areas.`
@@ -403,7 +415,7 @@ export default function SeoPagesAdmin() {
       return {
         slug: draft.slug,
         headline: pageHeadline,
-        title_tag: `${pageHeadline} | AdForge`,
+        title_tag: makeTitleTag(pageHeadline),
         meta_description: `Need ${service.toLowerCase()} in ${location}? Find trusted local providers covering ${location} and nearby areas through AdForge.`,
         content: buildRichContent(draft),
         active: true,
@@ -577,14 +589,18 @@ export default function SeoPagesAdmin() {
             style={inputStyle}
             placeholder="Headline / H1"
             value={headline}
-            onChange={(event) => setHeadline(event.target.value)}
+            onChange={(event) => {
+              const nextHeadline = event.target.value;
+              setHeadline(nextHeadline);
+              setTitleTag(makeTitleTag(nextHeadline));
+            }}
           />
 
           <input
-            style={inputStyle}
+            style={{ ...inputStyle, opacity: 0.78, cursor: "not-allowed" }}
             placeholder="SEO title tag"
             value={titleTag}
-            onChange={(event) => setTitleTag(event.target.value)}
+            readOnly
           />
 
           <textarea
