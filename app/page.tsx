@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { createClient } from "@supabase/supabase-js";
+
+const HOME_SEO = Object.freeze({
+  title: "24 Hour Mobile Tyre Fitting & Vehicle Recovery | Liverpool | AdForge",
+  h1: "24 Hour Mobile Tyre Fitting & Vehicle Recovery",
+  description:
+    "Find 24-hour mobile tyre fitting, emergency tyre repair, puncture repairs, locking wheel nut removal, wheel balancing, new and part-worn tyres, breakdown recovery, vehicle recovery, roadside assistance and emergency call-outs across Liverpool, Wirral and Merseyside.",
+  canonical: "https://adforge.uk/",
+} as const);
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Mobile Tyre Fitting & Vehicle Recovery Liverpool | AdForge",
-  description:
-    "Find 24-hour mobile tyre fitting, emergency tyre repair, puncture repairs, vehicle recovery, breakdown recovery and roadside assistance across Liverpool, Wirral and Merseyside.",
+  title: HOME_SEO.title,
+  description: HOME_SEO.description,
   alternates: {
-    canonical: "https://adforge.uk/",
+    canonical: HOME_SEO.canonical,
   },
   openGraph: {
-    title: "Mobile Tyre Fitting & Vehicle Recovery Liverpool | AdForge",
-    description:
-      "Find mobile tyre fitting, emergency tyre repair, vehicle recovery and trusted local services across Liverpool, Wirral and Merseyside.",
-    url: "https://adforge.uk/",
+    title: HOME_SEO.title,
+    description: HOME_SEO.description,
+    url: HOME_SEO.canonical,
     siteName: "AdForge",
     type: "website",
     images: [
@@ -20,13 +30,79 @@ export const metadata: Metadata = {
         url: "https://adforge.uk/images/hero-recovery.png",
         width: 1200,
         height: 630,
-        alt: "AdForge mobile tyre fitting and vehicle recovery services",
+        alt: "24 Hour Mobile Tyre Fitting and Vehicle Recovery by AdForge",
       },
     ],
   },
 };
 
 const PHONE = "+447576579923";
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
+);
+
+type LandingPage = {
+  slug: string;
+  headline: string | null;
+  meta_description: string | null;
+};
+
+function cleanTitle(page: LandingPage) {
+  if (page.headline?.trim()) return page.headline.trim();
+  return page.slug
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function isTyrePage(slug: string) {
+  const value = slug.toLowerCase();
+  return (
+    value.includes("tyre") ||
+    value.includes("puncture") ||
+    value.includes("flat-tyre") ||
+    value.includes("locking-wheel") ||
+    value.includes("wheel-nut")
+  );
+}
+
+function isRecoveryPage(slug: string) {
+  const value = slug.toLowerCase();
+  return (
+    value.includes("recovery") ||
+    value.includes("towing") ||
+    value.includes("breakdown") ||
+    value.includes("roadside-assistance")
+  );
+}
+
+const faqs = [
+  {
+    q: "Do mobile tyre fitters operate 24 hours a day?",
+    a: "Many AdForge mobile tyre pages cover 24-hour emergency mobile tyre fitting, roadside tyre replacement and puncture repair. Availability depends on the local provider and location.",
+  },
+  {
+    q: "Can a tyre be fitted at my home or workplace?",
+    a: "Yes. Mobile tyre fitting can usually be arranged at a home, workplace or roadside location, subject to safe access and local availability.",
+  },
+  {
+    q: "Can I get new and part-worn tyres?",
+    a: "AdForge helps customers find providers offering new tyres, part-worn tyres, emergency tyre replacement and mobile tyre fitting.",
+  },
+  {
+    q: "What recovery services can I find through AdForge?",
+    a: "AdForge pages cover vehicle recovery, breakdown recovery, accident recovery, roadside assistance, towing and vehicle transport.",
+  },
+  {
+    q: "Do recovery providers cover Liverpool, Wirral and Merseyside?",
+    a: "Yes. AdForge includes recovery pages for Liverpool, Wirral, Merseyside and surrounding towns, depending on provider availability.",
+  },
+  {
+    q: "What happens when I call AdForge?",
+    a: "The call goes through the AdForge number so the job details can be collected and directed to the right local provider.",
+  },
+];
+
 const DISPLAY_PHONE = "+44 7576 579923";
 
 const serviceCards = [
@@ -70,6 +146,181 @@ const recoveryServices = [
   "Liverpool, Wirral and Merseyside coverage",
 ];
 
+
+const tyreSeoParagraphs = [
+  {
+    title: "24-hour emergency mobile tyre fitting",
+    paragraphs: [
+      "AdForge helps drivers find 24-hour emergency mobile tyre fitting when a tyre fails unexpectedly at home, at work, in a car park or at the roadside. A mobile tyre fitter can travel to the vehicle with the equipment needed to inspect the damage, remove the unsafe tyre and fit a suitable replacement without the customer first arranging transport to a garage.",
+      "This service can include emergency tyre call outs, out-of-hours tyre fitting, evening and weekend assistance, rapid roadside tyre replacement and same-day mobile tyre fitting across Liverpool, Wirral and Merseyside. Availability, response time and tyre stock depend on the location, tyre size and local provider.",
+    ],
+  },
+  {
+    title: "Emergency tyre call outs and same-day fitting",
+    paragraphs: [
+      "An emergency tyre call out is useful when a vehicle cannot be driven safely because of a flat tyre, sidewall damage, a blowout, exposed cords or severe loss of pressure. AdForge connects urgent enquiries with local mobile tyre services that may be able to attend on the same day and fit a replacement tyre at the vehicle's location.",
+      "Customers can search for same-day tyre fitting, immediate mobile tyre replacement, 24-hour tyre call outs, weekend tyre fitting and bank-holiday tyre assistance. The fitter will normally need the tyre size, vehicle details and exact location before confirming stock and an estimated arrival time.",
+    ],
+  },
+  {
+    title: "Puncture repairs and flat tyre assistance",
+    paragraphs: [
+      "A puncture does not always require a new tyre. Where the damage is within the safe repairable area and the tyre has not been driven while dangerously underinflated, a mobile puncture repair may be possible. AdForge pages help drivers find emergency puncture repairs, slow-puncture checks, leaking-valve inspections and flat tyre assistance.",
+      "When a puncture is too close to the sidewall, the tyre structure is damaged or the tread is below the legal limit, the provider may recommend a replacement instead. The aim is to arrange a safe repair where appropriate and a roadside tyre replacement where repair is not possible.",
+    ],
+  },
+  {
+    title: "Roadside tyre replacement after a blowout",
+    paragraphs: [
+      "A tyre blowout or sudden pressure loss can leave a vehicle stranded and unsafe to move. Roadside tyre replacement allows a mobile fitter to attend the breakdown location, assess the wheel and tyre, and fit a suitable replacement so the journey can continue without recovery to a tyre depot.",
+      "AdForge helps drivers search for roadside mobile tyres, emergency replacement tyres, flat tyre call outs and urgent tyre fitting near Liverpool and surrounding areas. Drivers should stop in the safest available place, switch on hazard lights and avoid standing close to moving traffic while waiting for assistance.",
+    ],
+  },
+  {
+    title: "New tyres, budget tyres and premium tyres",
+    paragraphs: [
+      "Mobile tyre providers may carry a choice of new tyres covering budget, mid-range and premium brands. The right option depends on vehicle type, tyre size, driving conditions, annual mileage and budget. AdForge helps customers find mobile new tyre fitting without needing to visit a fixed tyre centre.",
+      "A provider can confirm available brands and prices after receiving the tyre size shown on the sidewall. Where stock is available, new tyres can often be fitted at home, at work or at the roadside as part of a scheduled or emergency call out.",
+    ],
+  },
+  {
+    title: "Part-worn tyres and affordable replacements",
+    paragraphs: [
+      "Some local providers offer part-worn tyres as a lower-cost replacement option. A correctly supplied part-worn tyre should be inspected, clearly marked where required and have sufficient legal tread depth and no unsafe structural damage. Availability varies considerably by tyre size.",
+      "AdForge helps customers search for mobile part-worn tyre fitting, affordable replacement tyres and budget mobile tyres across Liverpool, Wirral and Merseyside. Customers should ask the provider about tread depth, condition and suitability before fitting.",
+    ],
+  },
+  {
+    title: "Locking wheel nut and locking nut removal",
+    paragraphs: [
+      "A wheel cannot always be removed when the locking wheel nut key has been lost, damaged or rounded off. Selected mobile providers may offer locking wheel nut removal, locking nut removal, damaged wheel nut extraction and assistance with seized or broken locking bolts.",
+      "Once the locking nut has been removed, the fitter can access the wheel and complete a puncture repair or tyre replacement where possible. The customer should provide the vehicle make, model and any photographs requested so the provider can bring suitable removal equipment.",
+    ],
+  },
+  {
+    title: "Wheel balancing after mobile tyre fitting",
+    paragraphs: [
+      "Wheel balancing helps distribute weight evenly around the wheel and tyre assembly. An imbalance may cause steering-wheel vibration, cabin vibration, uneven tyre wear or discomfort at higher speeds. Many equipped mobile tyre vans can balance a wheel after fitting a replacement tyre.",
+      "AdForge service pages cover mobile wheel balancing, tyre fitting and balancing, vibration checks and tyre-condition inspections. Wheel balancing is different from wheel alignment, so persistent pulling or uneven wear may require a separate alignment assessment at a suitably equipped premises.",
+    ],
+  },
+  {
+    title: "Home tyre fitting and workplace tyre fitting",
+    paragraphs: [
+      "Mobile tyre fitting can be arranged at a home address or workplace, allowing the tyre change to be completed while the customer continues with their day. This is useful for planned replacements as well as urgent problems discovered before a journey or during working hours.",
+      "Customers can search AdForge for home tyre fitting, driveway tyre replacement, workplace mobile tyres, office car-park tyre fitting and scheduled same-day fitting. Safe access and enough working space around the vehicle are normally required.",
+    ],
+  },
+  {
+    title: "Car tyres, van tyres, SUV tyres and 4x4 tyres",
+    paragraphs: [
+      "Different vehicles require tyres with the correct dimensions, load rating and speed rating. AdForge helps customers search for mobile car tyres, commercial van tyres, reinforced tyres, SUV tyres and 4x4 tyre replacement based on the vehicle and tyre specification.",
+      "Van and commercial-vehicle tyres may require a higher load rating than standard passenger-car tyres. Giving the provider the complete tyre size and vehicle registration helps them identify a suitable option before travelling to the call out.",
+    ],
+  },
+  {
+    title: "Run-flat tyres and low-profile tyres",
+    paragraphs: [
+      "Run-flat and low-profile tyres can require specialist handling and suitable fitting equipment. A run-flat tyre may allow limited travel after pressure loss, but it still needs to be inspected because internal damage may not be visible from outside.",
+      "AdForge helps drivers locate mobile run-flat tyre fitting, low-profile tyre replacement and urgent assistance for vehicles without a usable spare wheel. Stock can be more limited for specialist sizes, so the full tyre markings should be provided when booking.",
+    ],
+  },
+  {
+    title: "Tyre pressure, tread depth and safety checks",
+    paragraphs: [
+      "Low pressure, uneven wear, cracking and insufficient tread can increase stopping distance and make a tyre unsafe. Mobile providers may carry out tyre-pressure checks, tread-depth checks, visual tyre inspections and valve checks while attending another tyre service.",
+      "The legal and safe condition of a tyre remains important whether it is new or part worn. AdForge encourages customers to arrange an inspection when they notice repeated pressure loss, vibration, bulges, cuts, exposed cords or unusual tyre noise.",
+    ],
+  },
+];
+
+const recoverySeoParagraphs = [
+  {
+    title: "24-hour emergency vehicle recovery",
+    paragraphs: [
+      "AdForge helps drivers find 24-hour emergency vehicle recovery when a car, van or motorcycle cannot be driven safely. Recovery may be required after a mechanical failure, electrical fault, collision, tyre-related incident or breakdown that cannot be resolved at the roadside.",
+      "Local operators may provide emergency recovery call outs during the day, overnight, at weekends and on bank holidays across Liverpool, Wirral and Merseyside. The operator will normally ask for the vehicle type, condition, pickup location and required destination before dispatching the correct recovery truck.",
+    ],
+  },
+  {
+    title: "Breakdown recovery and roadside collection",
+    paragraphs: [
+      "Breakdown recovery is used when a vehicle will not start, has lost power, is overheating or has developed a fault that makes continued driving unsafe. A recovery operator can collect the vehicle and transport it to a home address, garage, dealership or chosen repair centre.",
+      "AdForge pages cover local breakdown recovery, emergency roadside collection, same-day recovery and out-of-hours breakdown assistance. The exact recovery method depends on the vehicle, access, road conditions and whether the wheels can roll freely.",
+    ],
+  },
+  {
+    title: "Roadside assistance and non-starting vehicles",
+    paragraphs: [
+      "Some call outs can be resolved without transporting the vehicle. Depending on the operator, roadside assistance may include basic fault checks, jump starts, help with a flat battery or minor assistance that allows the vehicle to move to a safer place.",
+      "When a roadside fix is not safe or successful, the operator can arrange vehicle recovery instead. AdForge helps customers search for roadside assistance, non-start recovery and urgent breakdown support through one local service platform.",
+    ],
+  },
+  {
+    title: "Accident recovery and damaged vehicle recovery",
+    paragraphs: [
+      "After a collision, a vehicle may need professional accident recovery even when the visible damage appears minor. Damaged steering, suspension, wheels, bodywork or fluid leaks can make the vehicle unsafe to drive and may require specialist loading equipment.",
+      "Selected operators may provide accident-damaged vehicle recovery, non-runner collection and transport to a body shop, garage, storage facility or home address. Customers should make sure the scene is safe and follow instructions from emergency services where they are involved.",
+    ],
+  },
+  {
+    title: "Car recovery, van recovery and motorcycle recovery",
+    paragraphs: [
+      "Recovery equipment must suit the vehicle being transported. AdForge helps customers search for car recovery, van recovery, motorcycle recovery, 4x4 recovery and light commercial vehicle recovery throughout Liverpool and surrounding areas.",
+      "The operator may need information about vehicle weight, height, wheel condition, gearbox type and access restrictions. Motorcycles and specialist vehicles may require additional straps, wheel supports or a particular recovery body.",
+    ],
+  },
+  {
+    title: "Towing services and emergency towing",
+    paragraphs: [
+      "Towing services can move a broken-down or non-running vehicle over a local distance when the correct equipment and method are used. AdForge pages target local towing, emergency towing, car towing and van towing searches while directing enquiries to suitable recovery providers.",
+      "Not every vehicle or fault is suitable for a simple tow. Automatic, electric, four-wheel-drive and badly damaged vehicles may need to be fully lifted or transported on a flatbed to prevent further damage.",
+    ],
+  },
+  {
+    title: "Flatbed recovery and vehicle transport",
+    paragraphs: [
+      "Flatbed recovery carries the entire vehicle off the road surface and is often suitable for accident-damaged cars, non-runners, low vehicles and vehicles that should not be towed with wheels on the ground. It can also be used for planned vehicle transport.",
+      "AdForge helps customers find flatbed recovery, vehicle collection, garage-to-garage transport, auction collection, dealership delivery and private vehicle transport. Accurate pickup and destination details help the operator provide a clear quotation.",
+    ],
+  },
+  {
+    title: "Local recovery and long-distance recovery",
+    paragraphs: [
+      "Local recovery usually transports a vehicle within the same town or surrounding area, while long-distance recovery moves it between cities or regions. AdForge supports searches for both urgent local recovery and pre-arranged long-distance vehicle transport.",
+      "Pricing may depend on loading requirements, mileage, tolls, waiting time and the size of the recovery vehicle. Customers should confirm whether the quote includes the full journey from pickup to final destination.",
+    ],
+  },
+  {
+    title: "Motorway recovery and major-road breakdowns",
+    paragraphs: [
+      "Breaking down on a motorway or fast road requires extra care. Drivers should move to a safe place where possible, leave the vehicle from the side away from traffic when safe to do so and follow official road-safety guidance before arranging recovery.",
+      "AdForge recovery pages cover motorway recovery and breakdown collection near major routes around Liverpool and Merseyside. The operator will need a precise location, direction of travel, nearby junction or marker information and details of the vehicle.",
+    ],
+  },
+  {
+    title: "Jump starts and flat battery assistance",
+    paragraphs: [
+      "A flat or weak battery can prevent a vehicle from starting at home, at work or after it has been parked. Some recovery providers offer battery jump starts and flat battery assistance as part of their roadside call-out service.",
+      "If the vehicle still will not start, or if the charging system appears faulty, recovery to a garage may be the safer option. Electric and hybrid vehicles require appropriate procedures and should only be handled by a suitably equipped provider.",
+    ],
+  },
+  {
+    title: "Non-runner collection and garage transport",
+    paragraphs: [
+      "A non-runner may need moving even when there is no emergency. AdForge helps customers arrange collection of vehicles that have been stored, purchased, sold or booked into a garage but cannot move under their own power.",
+      "Non-runner transport may require a winch, skates or additional loading equipment when brakes are seized, steering is locked or wheels are damaged. The condition of the vehicle should be explained before collection so the correct truck can be sent.",
+    ],
+  },
+  {
+    title: "Same-day recovery and out-of-hours call outs",
+    paragraphs: [
+      "AdForge helps customers search for same-day vehicle recovery, rapid-response breakdown recovery, weekend towing, evening recovery and 24-hour emergency call outs. This is useful when a vehicle must be removed urgently from a roadside, workplace, car park or private property.",
+      "Response times depend on traffic, distance, current workload and the recovery equipment required. Providing complete information at the first call helps the operator assess the job and avoid delays caused by sending an unsuitable vehicle.",
+    ],
+  },
+];
+
 const areas = [
   "Liverpool",
   "Wirral",
@@ -84,7 +335,27 @@ const areas = [
   "Merseyside",
 ];
 
-export default function PublicHomePage() {
+export default async function PublicHomePage() {
+  const { data: activePages } = await supabase
+    .from("landing_pages")
+    .select("slug,headline,meta_description")
+    .eq("active", true)
+    .limit(500);
+
+  const allPages = (activePages || []) as LandingPage[];
+  const tyrePages = allPages.filter((page) => isTyrePage(page.slug)).slice(0, 18);
+  const recoveryPages = allPages.filter((page) => isRecoveryPage(page.slug)).slice(0, 18);
+  const latestPages = allPages.slice(0, 20);
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -147,11 +418,7 @@ export default function PublicHomePage() {
                 24/7 LOCAL EMERGENCY SERVICES
               </div>
 
-              <h1>
-                Mobile tyres.
-                <span>Vehicle recovery.</span>
-                Liverpool.
-              </h1>
+              <h1>{HOME_SEO.h1}</h1>
 
               <p className="heroLead">
                 AdForge helps drivers find 24-hour mobile tyre fitting,
@@ -252,6 +519,55 @@ export default function PublicHomePage() {
           </div>
         </section>
 
+        <section className="popularSeo" id="popular">
+          <div className="sectionIntro wide">
+            <span>DYNAMIC INTERNAL LINKING</span>
+            <h2>Popular mobile tyre searches.</h2>
+            <p>
+              These links are pulled directly from active AdForge landing pages.
+              New tyre pages added in Supabase can appear here automatically,
+              giving Google a clear crawl path from the homepage.
+            </p>
+          </div>
+
+          <div className="seoLinkGrid">
+            {tyrePages.map((page) => (
+              <Link href={`/seo/${page.slug}`} key={page.slug}>
+                <span>{cleanTitle(page)}</span>
+                <b>→</b>
+              </Link>
+            ))}
+          </div>
+
+          <Link href="/services/mobile-tyre-fitting" className="viewAllSeo">
+            View all mobile tyre areas <span>→</span>
+          </Link>
+        </section>
+
+        <section className="popularSeo recoveryPopular">
+          <div className="sectionIntro wide">
+            <span>RECOVERY SERVICE PAGES</span>
+            <h2>Popular vehicle recovery searches.</h2>
+            <p>
+              AdForge recovery pages target breakdown recovery, towing, accident
+              recovery, roadside assistance and vehicle transport searches.
+            </p>
+          </div>
+
+          <div className="seoLinkGrid">
+            {recoveryPages.map((page) => (
+              <Link href={`/seo/${page.slug}`} key={page.slug}>
+                <span>{cleanTitle(page)}</span>
+                <b>→</b>
+              </Link>
+            ))}
+          </div>
+
+          <Link href="/services/vehicle-recovery" className="viewAllSeo">
+            View all recovery areas <span>→</span>
+          </Link>
+        </section>
+
         <section className="splitServices">
           <article className="splitCard tyreCard">
             <div className="splitImage tyrePhoto" />
@@ -332,6 +648,74 @@ export default function PublicHomePage() {
           </article>
         </section>
 
+
+        <section className="keywordContent" id="service-details">
+          <div className="sectionIntro wide">
+            <span>DETAILED MOBILE TYRE SERVICES</span>
+            <h2>Complete guide to mobile tyre fitting services.</h2>
+            <p>
+              Open any box below to read detailed service information. The
+              wording naturally covers the different tyre services customers
+              search for without filling the visible homepage with repeated
+              keyword lists.
+            </p>
+          </div>
+
+          <div className="keywordBoxGrid">
+            {tyreSeoParagraphs.map((item) => (
+              <details className="keywordBox" key={item.title}>
+                <summary>
+                  <span>{item.title}</span>
+                  <b>+</b>
+                </summary>
+                <div className="keywordParagraphs">{item.paragraphs.map((paragraph) => (<p key={paragraph}>{paragraph}</p>))}</div>
+              </details>
+            ))}
+          </div>
+
+          <div className="keywordSectionActions">
+            <Link href="/services/mobile-tyre-fitting" className="smallGreen">
+              View Mobile Tyre Services
+            </Link>
+            <a href={`tel:${PHONE}`} className="smallDark">
+              Request an Emergency Call Out
+            </a>
+          </div>
+        </section>
+
+        <section className="keywordContent recoveryKeywordContent">
+          <div className="sectionIntro wide">
+            <span>DETAILED VEHICLE RECOVERY SERVICES</span>
+            <h2>Complete guide to vehicle recovery services.</h2>
+            <p>
+              These expandable sections explain the recovery services available
+              through AdForge while targeting useful local search phrases in
+              complete, natural sentences.
+            </p>
+          </div>
+
+          <div className="keywordBoxGrid">
+            {recoverySeoParagraphs.map((item) => (
+              <details className="keywordBox" key={item.title}>
+                <summary>
+                  <span>{item.title}</span>
+                  <b>+</b>
+                </summary>
+                <div className="keywordParagraphs">{item.paragraphs.map((paragraph) => (<p key={paragraph}>{paragraph}</p>))}</div>
+              </details>
+            ))}
+          </div>
+
+          <div className="keywordSectionActions">
+            <Link href="/services/vehicle-recovery" className="smallGreen">
+              View Vehicle Recovery Services
+            </Link>
+            <a href={`tel:${PHONE}`} className="smallDark">
+              Request Emergency Recovery
+            </a>
+          </div>
+        </section>
+
         <section className="featured">
           <div className="featuredMedia">
             <span className="featuredBadge">FEATURED LOCAL PROVIDER</span>
@@ -403,6 +787,47 @@ export default function PublicHomePage() {
           </div>
         </section>
 
+        {latestPages.length > 0 && (
+          <section className="latestSeoPages">
+            <div className="sectionIntro wide">
+              <span>MORE ACTIVE ADFORGE PAGES</span>
+              <h2>More local tyre and recovery pages.</h2>
+              <p>
+                This section creates another internal crawl path into active
+                service pages across the AdForge directory.
+              </p>
+            </div>
+
+            <div className="compactSeoLinks">
+              {latestPages.map((page) => (
+                <Link href={`/seo/${page.slug}`} key={page.slug}>
+                  {cleanTitle(page)}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="faqSection">
+          <div className="sectionIntro wide">
+            <span>COMMON QUESTIONS</span>
+            <h2>Mobile tyre and recovery FAQs.</h2>
+            <p>
+              Helpful answers for customers searching for emergency tyre fitting,
+              recovery and roadside assistance.
+            </p>
+          </div>
+
+          <div className="faqGrid">
+            {faqs.map((faq) => (
+              <details key={faq.q}>
+                <summary>{faq.q}<b>+</b></summary>
+                <p>{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
         <section className="businessCta">
           <div>
             <span>FOR LOCAL BUSINESSES</span>
@@ -443,6 +868,11 @@ export default function PublicHomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <style>{`
@@ -811,8 +1241,12 @@ export default function PublicHomePage() {
         }
 
         .services,
+        .popularSeo,
         .splitServices,
+        .keywordContent,
         .featured,
+        .latestSeoPages,
+        .faqSection,
         .areas,
         .businessCta,
         .footer {
@@ -902,6 +1336,181 @@ export default function PublicHomePage() {
         .serviceArrow {
           color: var(--green);
           font-size: 25px;
+        }
+
+        .sectionIntro.wide {
+          max-width: 820px;
+        }
+
+        .popularSeo {
+          padding: 90px 0 20px;
+        }
+
+        .recoveryPopular {
+          padding-top: 75px;
+        }
+
+        .seoLinkGrid {
+          margin-top: 32px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+
+        .seoLinkGrid a {
+          min-height: 62px;
+          padding: 0 16px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px;
+          border: 1px solid var(--line);
+          border-radius: 14px;
+          background: var(--panel);
+          font-size: 11px;
+          font-weight: 850;
+        }
+
+        .seoLinkGrid a:hover {
+          border-color: rgba(50,255,115,.42);
+        }
+
+        .seoLinkGrid b {
+          color: var(--green);
+          font-size: 17px;
+        }
+
+        .viewAllSeo {
+          width: max-content;
+          max-width: 100%;
+          min-height: 48px;
+          margin-top: 20px;
+          padding: 0 16px;
+          display: flex;
+          align-items: center;
+          gap: 26px;
+          border-radius: 13px;
+          background: var(--green);
+          color: #031006;
+          font-size: 11px;
+          font-weight: 950;
+        }
+
+        .latestSeoPages,
+        .faqSection {
+          padding: 90px 0 20px;
+        }
+
+        .compactSeoLinks {
+          margin-top: 30px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 9px;
+        }
+
+        .compactSeoLinks a {
+          padding: 11px 14px;
+          border: 1px solid var(--line);
+          border-radius: 999px;
+          background: var(--panel);
+          font-size: 10px;
+          font-weight: 800;
+        }
+
+        .faqGrid {
+          margin-top: 32px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+
+        .faqGrid details {
+          margin-top: 0;
+          align-self: start;
+        }
+
+        .faqGrid p {
+          margin: 0;
+          padding: 0 17px 17px;
+          color: #9da3aa;
+          font-size: 11px;
+          line-height: 1.65;
+        }
+
+
+        .keywordContent {
+          padding: 85px 0 10px;
+        }
+
+        .recoveryKeywordContent {
+          padding-top: 72px;
+        }
+
+        .keywordBoxGrid {
+          margin-top: 32px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+
+        .keywordBox {
+          margin-top: 0;
+          align-self: start;
+          overflow: hidden;
+          border: 1px solid var(--line);
+          border-radius: 16px;
+          background: var(--panel);
+        }
+
+        .keywordBox[open] {
+          border-color: rgba(50,255,115,.34);
+          background:
+            radial-gradient(circle at 92% 8%, rgba(50,255,115,.06), transparent 27%),
+            var(--panel);
+        }
+
+        .keywordBox summary {
+          min-height: 68px;
+          padding: 0 18px;
+          gap: 20px;
+          font-size: 12px;
+          line-height: 1.35;
+        }
+
+        .keywordBox summary span {
+          text-transform: capitalize;
+        }
+
+        .keywordBox[open] summary b {
+          transform: rotate(45deg);
+        }
+
+        .keywordBox summary b {
+          flex: 0 0 auto;
+          transition: transform .2s ease;
+        }
+
+        .keywordParagraphs {
+          padding: 0 17px 18px;
+        }
+
+        .keywordBox p {
+          margin: 0 0 14px;
+          padding: 0 18px 20px;
+          color: #a2a8af;
+          font-size: 12px;
+          line-height: 1.75;
+        }
+
+        .keywordBox p:last-child {
+          margin-bottom: 0;
+        }
+
+        .keywordSectionActions {
+          margin-top: 20px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
         }
 
         .splitServices {
@@ -1439,8 +2048,12 @@ export default function PublicHomePage() {
 
           .stats,
           .services,
+          .popularSeo,
           .splitServices,
+          .keywordContent,
           .featured,
+          .latestSeoPages,
+          .faqSection,
           .areas,
           .businessCta,
           .footer {
@@ -1493,7 +2106,106 @@ export default function PublicHomePage() {
             font-size: 10px;
           }
 
-          .splitServices {
+          .sectionIntro.wide {
+          max-width: 820px;
+        }
+
+        .popularSeo {
+          padding: 90px 0 20px;
+        }
+
+        .recoveryPopular {
+          padding-top: 75px;
+        }
+
+        .seoLinkGrid {
+          margin-top: 32px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+
+        .seoLinkGrid a {
+          min-height: 62px;
+          padding: 0 16px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px;
+          border: 1px solid var(--line);
+          border-radius: 14px;
+          background: var(--panel);
+          font-size: 11px;
+          font-weight: 850;
+        }
+
+        .seoLinkGrid a:hover {
+          border-color: rgba(50,255,115,.42);
+        }
+
+        .seoLinkGrid b {
+          color: var(--green);
+          font-size: 17px;
+        }
+
+        .viewAllSeo {
+          width: max-content;
+          max-width: 100%;
+          min-height: 48px;
+          margin-top: 20px;
+          padding: 0 16px;
+          display: flex;
+          align-items: center;
+          gap: 26px;
+          border-radius: 13px;
+          background: var(--green);
+          color: #031006;
+          font-size: 11px;
+          font-weight: 950;
+        }
+
+        .latestSeoPages,
+        .faqSection {
+          padding: 90px 0 20px;
+        }
+
+        .compactSeoLinks {
+          margin-top: 30px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 9px;
+        }
+
+        .compactSeoLinks a {
+          padding: 11px 14px;
+          border: 1px solid var(--line);
+          border-radius: 999px;
+          background: var(--panel);
+          font-size: 10px;
+          font-weight: 800;
+        }
+
+        .faqGrid {
+          margin-top: 32px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+
+        .faqGrid details {
+          margin-top: 0;
+          align-self: start;
+        }
+
+        .faqGrid p {
+          margin: 0;
+          padding: 0 17px 17px;
+          color: #9da3aa;
+          font-size: 11px;
+          line-height: 1.65;
+        }
+
+        .splitServices {
             padding-top: 55px;
           }
 
