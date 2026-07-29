@@ -337,7 +337,7 @@ export default function PublicHomePage() {
             <span className="featuredBadge">FEATURED LOCAL PROVIDER</span>
 
             <img
-              src="/images/totaaltyres.jpeg"
+              src="/images/totaltyres.jpeg"
               alt="Total Tyres mobile tyre fitting van in Liverpool"
             />
           </div>
