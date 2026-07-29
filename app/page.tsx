@@ -609,7 +609,7 @@ export default function PublicHomePage() {
 
         .hero {
           position: relative;
-          min-height: 920px;
+          min-height: 860px;
           display: flex;
           align-items: flex-end;
         }
@@ -619,15 +619,15 @@ export default function PublicHomePage() {
           inset: 0;
           background-image: url("/images/hero-recovery.png");
           background-size: cover;
-          background-position: center 38%;
+          background-position: center 26%;
         }
 
         .heroOverlay {
           position: absolute;
           inset: 0;
           background:
-            linear-gradient(90deg, rgba(0,0,0,.83) 0%, rgba(0,0,0,.48) 52%, rgba(0,0,0,.18) 100%),
-            linear-gradient(180deg, rgba(0,0,0,.06) 0%, rgba(0,0,0,.14) 58%, #000 100%);
+            linear-gradient(90deg, rgba(0,0,0,.58) 0%, rgba(0,0,0,.24) 52%, rgba(0,0,0,.08) 100%),
+            linear-gradient(180deg, rgba(0,0,0,.02) 0%, rgba(0,0,0,.08) 56%, rgba(0,0,0,.82) 86%, #000 100%);
         }
 
         .heroGrid {
@@ -670,10 +670,11 @@ export default function PublicHomePage() {
         }
 
         .hero h1 {
-          margin: 24px 0 0;
-          font-size: clamp(60px, 7vw, 108px);
-          line-height: .87;
-          letter-spacing: -6px;
+          margin: 18px 0 0;
+          max-width: 700px;
+          font-size: clamp(48px, 5.4vw, 78px);
+          line-height: .92;
+          letter-spacing: -4px;
           font-weight: 1000;
         }
 
@@ -1375,22 +1376,22 @@ export default function PublicHomePage() {
           }
 
           .hero {
-            min-height: 920px;
+            min-height: 820px;
           }
 
           .heroMedia {
-            background-position: 57% center;
+            background-position: 58% 20%;
           }
 
           .heroOverlay {
             background:
-              linear-gradient(180deg, rgba(0,0,0,.14) 0%, rgba(0,0,0,.2) 35%, rgba(0,0,0,.78) 70%, #000 100%);
+              linear-gradient(180deg, rgba(0,0,0,.02) 0%, rgba(0,0,0,.07) 44%, rgba(0,0,0,.62) 76%, #000 100%);
           }
 
           .heroGrid {
             width: 100%;
-            padding: 175px 20px 46px;
-            gap: 30px;
+            padding: 160px 20px 36px;
+            gap: 24px;
           }
 
           .eyebrow {
@@ -1400,17 +1401,19 @@ export default function PublicHomePage() {
           }
 
           .hero h1 {
-            margin-top: 18px;
-            font-size: 48px;
-            line-height: .91;
-            letter-spacing: -3.4px;
+            margin-top: 14px;
+            max-width: 560px;
+            font-size: 39px;
+            line-height: .95;
+            letter-spacing: -2.5px;
           }
 
           .heroLead {
-            width: 86%;
-            margin-top: 18px;
-            font-size: 13px;
-            line-height: 1.65;
+            width: 92%;
+            max-width: 560px;
+            margin-top: 14px;
+            font-size: 12px;
+            line-height: 1.62;
           }
 
           .heroActions {
@@ -1585,7 +1588,7 @@ export default function PublicHomePage() {
           }
 
           .hero h1 {
-            font-size: 44px;
+            font-size: 37px;
           }
 
           .heroLead {
