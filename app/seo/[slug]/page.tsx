@@ -676,14 +676,14 @@ export default async function LandingPage({ params }: any) {
               </a>
               <a href="/request-service" className="secondaryBtn">
                 Request Help
-              </a>
+              </a> 
             </div>
 
-            <small className="providerNotice">
+            <p className="providerNotice">
               All calls and enquiries go through AdForge. We collect the job
               details and arrange the right local support without publishing the
               provider&apos;s private number.
-            </small>
+            </p>
           </div>
         </article>
 
