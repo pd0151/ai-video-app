@@ -649,6 +649,509 @@ export default async function PublicHomePage() {
         </section>
 
 
+
+        <section className="expandedLocalServices">
+          <div className="expandedServicesIntro">
+            <span>24 HOUR LOCAL SERVICES</span>
+            <p>
+              We provide mobile tyre fitting and vehicle recovery services across
+              Liverpool and surrounding areas. Open either service below for detailed
+              information about the help we provide throughout Liverpool, Wirral,
+              Merseyside and nearby towns.
+            </p>
+          </div>
+
+          <div className="expandedServiceGrid">
+            <details className="expandedServiceBox tyreExpanded">
+              <summary>
+                <div>
+                  <span className="expandedServiceKicker">MOBILE TYRE SERVICES</span>
+                  <strong>24 Hour Mobile Tyre Fitting</strong>
+                  <small>
+                    Emergency tyres, puncture repairs, roadside tyre replacement and
+                    mobile fitting across Liverpool and surrounding areas.
+                  </small>
+                </div>
+                <b>+</b>
+              </summary>
+
+              <div className="expandedServiceBody">
+                <h3>24 hour mobile tyre fitting across Liverpool and surrounding areas</h3>
+                <p>
+                  We provide 24-hour mobile tyre fitting across Liverpool and surrounding
+                  areas for drivers who need fast help with a flat tyre, puncture, tyre
+                  blowout, damaged sidewall, sudden pressure loss or an unsafe tyre that
+                  cannot be driven on. Our mobile tyre service is designed to bring tyre
+                  fitting directly to the vehicle, whether the customer is at home, at
+                  work, in a public car park, outside a business, on a residential street
+                  or at a suitable roadside location. We provide mobile tyre fitting
+                  throughout Liverpool City Centre, Anfield, Everton, Walton, Kirkdale,
+                  Wavertree, Toxteth, Aigburth, Allerton, Childwall, West Derby, Knotty
+                  Ash, Dovecot, Belle Vale, Speke, Garston and Hunts Cross, as well as
+                  surrounding Merseyside areas.
+                </p>
+
+                <p>
+                  We provide emergency mobile tyre fitting when a vehicle cannot be moved
+                  safely because the tyre has lost pressure completely or has suffered
+                  serious damage. A mobile tyre fitter can attend the vehicle with the
+                  equipment required to remove the damaged tyre and fit a suitable
+                  replacement at the customer's location. This can avoid the need to
+                  arrange recovery to a fixed tyre garage simply because of a tyre fault.
+                  We provide emergency tyre call-outs during the day, in the evening and
+                  out of hours across Liverpool and nearby areas, subject to fitter
+                  availability, tyre size and stock.
+                </p>
+
+                <h3>Emergency tyre replacement and roadside tyre assistance</h3>
+                <p>
+                  We provide emergency tyre replacement across Liverpool for customers
+                  dealing with punctures that cannot be repaired, split sidewalls, impact
+                  damage, tyre blowouts, exposed cords, severe tread damage or tyres that
+                  are no longer safe for road use. Roadside tyre replacement can be
+                  arranged at suitable locations near Liverpool City Centre, Queens Drive,
+                  Edge Lane, Prescot Road, Aigburth Road, Smithdown Road, Speke Boulevard,
+                  the A59, A561, A580, M57 and M62. If a tyre fails on a fast road, drivers
+                  should move to the safest available position and stay away from moving
+                  traffic while assistance is arranged.
+                </p>
+
+                <p>
+                  We provide roadside mobile tyre assistance throughout Liverpool,
+                  Bootle, Huyton, Kirkby, Prescot, Whiston, Halewood, Aintree, Crosby,
+                  Wallasey, Birkenhead, Widnes, Runcorn, St Helens and surrounding areas.
+                  Customers should provide the exact road name, postcode, direction of
+                  travel or live location where possible. Accurate location information
+                  is particularly important on long roads, industrial estates, motorway
+                  approaches and large retail parks where a postcode alone may cover a
+                  wide area.
+                </p>
+
+                <h3>Puncture repairs and flat tyre help</h3>
+                <p>
+                  We provide puncture repair assistance across Liverpool and surrounding
+                  areas when the tyre remains suitable for a safe repair. A small puncture
+                  within the repairable tread area may sometimes be repaired, but damage
+                  close to the shoulder or sidewall, internal damage caused by driving on
+                  a flat tyre, large holes, exposed cords or badly worn tread can mean the
+                  tyre needs to be replaced instead. We provide mobile puncture checks,
+                  slow-puncture assistance and flat tyre help so the problem can be
+                  assessed at the vehicle's location rather than requiring the customer
+                  to drive on a tyre that may be unsafe.
+                </p>
+
+                <p>
+                  Slow pressure loss is not always caused by a nail or screw. Leaking
+                  valves, wheel-rim corrosion, poor bead sealing and previous damage can
+                  also cause a tyre to lose air repeatedly. We provide mobile tyre fitting
+                  and tyre fault assistance across Liverpool, Wirral and Merseyside, and
+                  customers should explain how quickly the tyre is losing pressure,
+                  whether the vehicle has been driven while flat and whether any visible
+                  damage can be seen. A clear photograph of the tyre and sidewall markings
+                  can also help identify the tyre size and likely service required.
+                </p>
+
+                <h3>New tyres, part-worn tyres and replacement tyres</h3>
+                <p>
+                  We provide new tyre fitting across Liverpool for cars, vans, taxis,
+                  private-hire vehicles, SUVs and suitable light commercial vehicles.
+                  Depending on tyre size and availability, customers may be able to choose
+                  from budget, mid-range and premium replacement tyres. The correct tyre
+                  should match the required width, profile, wheel diameter, load rating
+                  and speed rating for the vehicle. We provide mobile new tyre fitting at
+                  homes, workplaces and suitable roadside locations across Liverpool and
+                  nearby Merseyside towns, helping customers replace an unsafe tyre
+                  without first travelling to a tyre centre.
+                </p>
+
+                <p>
+                  We also provide access to part-worn tyre fitting for selected sizes
+                  where suitable stock is available. Part-worn tyres can offer a lower-cost
+                  replacement option, but the tyre still needs to be suitable for road use
+                  and free from dangerous structural damage. We provide mobile part-worn
+                  tyres across Liverpool and surrounding areas subject to stock, size and
+                  specification. Customers should provide the complete tyre size shown on
+                  the sidewall so the available new or part-worn options can be checked
+                  before a fitter travels.
+                </p>
+
+                <h3>Home tyre fitting and workplace mobile tyres</h3>
+                <p>
+                  We provide home mobile tyre fitting throughout Liverpool for customers
+                  who discover a flat tyre, damaged tyre or slow puncture while the vehicle
+                  is parked outside their house or on a driveway. Home tyre fitting can be
+                  useful before work, before a long journey or when the vehicle has been
+                  parked overnight and is no longer safe to drive. We provide mobile tyre
+                  services throughout Anfield, Everton, Walton, West Derby, Childwall,
+                  Allerton, Aigburth, Wavertree, Speke, Garston and surrounding
+                  neighbourhoods, subject to safe access around the vehicle.
+                </p>
+
+                <p>
+                  We provide workplace tyre fitting throughout Liverpool for employees,
+                  tradespeople, taxi drivers, couriers, delivery drivers and local
+                  businesses. A tyre problem may be noticed after arriving at work or when
+                  preparing to leave at the end of a shift. Where there is enough safe
+                  working space, we can arrange mobile tyre fitting at offices, industrial
+                  estates, depots, warehouses, retail parks and commercial premises
+                  across Liverpool, Bootle, Knowsley, Speke, Garston, Huyton and nearby
+                  business areas.
+                </p>
+
+                <h3>Locking wheel nut removal and wheel problems</h3>
+                <p>
+                  We provide assistance with selected locking wheel nut problems when a
+                  tyre cannot be removed because the locking key has been lost, damaged or
+                  rounded. Customers should check the glovebox, boot, spare-wheel area and
+                  original vehicle tool kit before requesting locking wheel nut removal.
+                  If the key cannot be found, the customer should mention this when
+                  arranging mobile tyre fitting so suitable removal equipment can be
+                  considered. We provide locking wheel nut assistance alongside emergency
+                  tyre replacement across Liverpool and surrounding Merseyside areas,
+                  depending on the vehicle, wheel design and condition of the locking nut.
+                </p>
+
+                <p>
+                  Seized, rounded or overtightened wheel bolts can also prevent a normal
+                  tyre change. Attempting to remove damaged wheel fixings with unsuitable
+                  tools can make the problem worse. We provide mobile tyre assistance for
+                  many common wheel and tyre issues, although severe wheel damage or badly
+                  seized fixings may require specialist workshop equipment or vehicle
+                  recovery. Customers should describe any previous unsuccessful removal
+                  attempts when calling so the situation can be assessed properly.
+                </p>
+
+                <h3>Wheel balancing, tyre pressure and tyre safety</h3>
+                <p>
+                  We provide mobile tyre fitting with wheel balancing where suitable
+                  equipment and the selected provider allow it. Wheel imbalance can cause
+                  vibration through the steering wheel or vehicle, particularly at higher
+                  speeds, and may contribute to uneven tyre wear. Wheel balancing is
+                  different from wheel alignment, so a vehicle that pulls to one side or
+                  continues to wear tyres unevenly may need a separate wheel-alignment
+                  inspection at an appropriately equipped premises.
+                </p>
+
+                <p>
+                  We provide tyre replacement and tyre safety assistance for drivers who
+                  notice low pressure, cracking, bulges, exposed cords, uneven wear or
+                  insufficient tread. Tyre condition directly affects braking, steering
+                  and road grip, particularly in wet conditions. Drivers across Liverpool,
+                  Wirral and Merseyside should avoid continuing to use a tyre that is
+                  visibly damaged or repeatedly losing pressure. A mobile tyre service can
+                  inspect the immediate problem and arrange a suitable repair or
+                  replacement where possible.
+                </p>
+
+                <h3>Mobile tyres for cars, vans, taxis and commercial vehicles</h3>
+                <p>
+                  We provide mobile car tyre fitting across Liverpool for everyday family
+                  cars, company vehicles, taxis and private-hire vehicles. We also provide
+                  van tyre fitting for suitable light commercial vehicles, where the
+                  correct load-rated tyre is available. Van and commercial tyres can have
+                  different load requirements from standard passenger-car tyres, so the
+                  complete tyre specification and vehicle details should be provided
+                  before attendance. Taxi and private-hire drivers can also request urgent
+                  tyre assistance to reduce time off the road when a puncture or damaged
+                  tyre interrupts a shift.
+                </p>
+
+                <p>
+                  We provide mobile tyre services across Liverpool and surrounding areas
+                  including Wirral, Birkenhead, Wallasey, Bootle, Sefton, Crosby, Formby,
+                  Huyton, Kirkby, Knowsley, Prescot, Whiston, Halewood, Widnes, Runcorn,
+                  St Helens, Rainhill, Haydock and nearby parts of Merseyside and the North
+                  West. Coverage and response times vary according to the exact location,
+                  traffic, fitter availability and tyre stock, so customers should provide
+                  their postcode, vehicle details and complete tyre size when requesting
+                  assistance.
+                </p>
+
+                <h3>What we need when you request mobile tyre fitting</h3>
+                <p>
+                  When requesting mobile tyre fitting in Liverpool, customers should
+                  provide the exact location, contact number, vehicle registration, make
+                  and model, complete tyre size and a clear explanation of the fault. It is
+                  also useful to confirm whether the tyre is completely flat, whether the
+                  wheel is visibly damaged, whether the vehicle has been driven since the
+                  tyre lost pressure and whether the locking wheel nut key is available.
+                  This information helps us arrange the right local mobile tyre support and
+                  reduces delays caused by missing tyre or vehicle details.
+                </p>
+
+                <p>
+                  We provide 24-hour mobile tyre fitting, emergency tyre call-outs,
+                  puncture repairs, flat tyre assistance, roadside tyre replacement, new
+                  tyres, part-worn tyres, locking wheel nut assistance and mobile tyre
+                  support across Liverpool and surrounding areas. Whether a tyre problem
+                  happens at home, at work, in a car park or during a journey, AdForge
+                  helps connect the enquiry with suitable local support so the customer
+                  can arrange the service required at their location.
+                </p>
+
+                <div className="expandedServiceActions">
+                  <Link href="/services/mobile-tyre-fitting" className="smallGreen">
+                    View Mobile Tyre Services
+                  </Link>
+                  <a href={`tel:${PHONE}`} className="smallDark">
+                    Call For Tyre Assistance
+                  </a>
+                </div>
+              </div>
+            </details>
+
+            <details className="expandedServiceBox recoveryExpanded">
+              <summary>
+                <div>
+                  <span className="expandedServiceKicker">RECOVERY SERVICES</span>
+                  <strong>24 Hour Vehicle Recovery</strong>
+                  <small>
+                    Breakdown recovery, accident recovery, towing, roadside assistance
+                    and vehicle transport across Liverpool and surrounding areas.
+                  </small>
+                </div>
+                <b>+</b>
+              </summary>
+
+              <div className="expandedServiceBody">
+                <h3>24 hour vehicle recovery across Liverpool and surrounding areas</h3>
+                <p>
+                  We provide 24-hour vehicle recovery across Liverpool and surrounding
+                  areas for drivers whose cars or vans cannot be driven safely. Recovery
+                  may be needed after a mechanical breakdown, electrical failure,
+                  overheating problem, clutch fault, gearbox issue, steering problem,
+                  accident damage, flat battery or another fault that leaves the vehicle
+                  immobilised. We provide recovery from homes, workplaces, car parks,
+                  business premises and suitable roadside locations throughout Liverpool
+                  City Centre, Anfield, Everton, Walton, Kirkdale, Wavertree, Toxteth,
+                  Aigburth, Allerton, Childwall, West Derby, Speke, Garston and nearby
+                  Merseyside areas.
+                </p>
+
+                <p>
+                  We provide emergency recovery during the day, overnight, at weekends and
+                  on bank holidays, subject to local operator availability. The vehicle
+                  can be collected and transported to an agreed garage, repair centre,
+                  dealership, storage location, home address or another suitable
+                  destination. Customers should provide the exact pickup location,
+                  vehicle make and model, registration, nature of the fault and intended
+                  destination so the correct type of recovery support can be arranged
+                  before a truck is dispatched.
+                </p>
+
+                <h3>Breakdown recovery and roadside collection</h3>
+                <p>
+                  We provide breakdown recovery across Liverpool when a vehicle will not
+                  start, loses power, overheats or develops a fault that makes continued
+                  driving unsafe. Common reasons for recovery include alternator failure,
+                  starter-motor problems, clutch failure, gearbox faults, cooling-system
+                  problems, engine warning lights, fuel-system issues, electrical faults
+                  and suspension damage. Even when a vehicle still starts, it may not be
+                  safe to continue driving, and recovery can prevent a small fault from
+                  becoming a more expensive mechanical problem.
+                </p>
+
+                <p>
+                  We provide breakdown collection from residential roads, office car
+                  parks, industrial estates, retail parks, depots and safe roadside
+                  locations across Liverpool. We also provide recovery around Bootle,
+                  Huyton, Kirkby, Prescot, Whiston, Halewood, Widnes, Runcorn, St Helens,
+                  Wirral, Wallasey, Birkenhead and surrounding parts of Merseyside. The
+                  exact recovery method depends on the vehicle, access, wheel condition
+                  and whether the vehicle can roll, steer and brake normally.
+                </p>
+
+                <h3>Roadside assistance and non-starting vehicles</h3>
+                <p>
+                  We provide roadside assistance in Liverpool for vehicles that have
+                  stopped unexpectedly or will not restart. Depending on the fault and
+                  provider, roadside assistance may include basic checks, a battery jump
+                  start, help with a flat battery or minor assistance that allows the
+                  vehicle to move to a safer place. When a safe roadside repair is not
+                  possible, we provide recovery so the vehicle can be transported to a
+                  garage or another agreed destination rather than repeatedly attempting
+                  to drive a vehicle with an unresolved fault.
+                </p>
+
+                <p>
+                  We provide recovery for non-starting cars and vans at homes, workplaces,
+                  hotels, shopping centres, public car parks and business premises across
+                  Liverpool and surrounding areas. Customers should explain what happened
+                  before the vehicle stopped, whether any warning lights are displayed,
+                  whether the engine turns over and whether there are unusual noises,
+                  smoke or fluid leaks. This information helps identify whether roadside
+                  assistance may be suitable or whether vehicle recovery is likely to be
+                  required.
+                </p>
+
+                <h3>Accident recovery and damaged vehicle transport</h3>
+                <p>
+                  We provide accident recovery across Liverpool when a vehicle has been
+                  damaged in a collision and cannot be driven safely. Collision damage can
+                  affect steering, suspension, wheels, tyres, cooling systems, lights,
+                  airbags and bodywork even when the engine still runs. A damaged vehicle
+                  should not be driven simply because it can move under its own power.
+                  Once the scene is safe and any emergency-service requirements have been
+                  completed, recovery can be arranged to a body shop, garage, storage
+                  facility, insurance-approved repair centre or home address.
+                </p>
+
+                <p>
+                  We provide damaged vehicle recovery throughout Liverpool City Centre and
+                  surrounding districts, as well as nearby Merseyside areas including
+                  Bootle, Sefton, Huyton, Knowsley, Kirkby, Prescot, Whiston, Widnes,
+                  Runcorn, St Helens, Wirral, Birkenhead and Wallasey. Customers should
+                  mention whether any wheels are locked or damaged, whether fluids are
+                  leaking, whether airbags have deployed and whether body panels are
+                  obstructing the wheels, as these details can affect the loading method
+                  and recovery equipment required.
+                </p>
+
+                <h3>Car recovery, van recovery and light commercial recovery</h3>
+                <p>
+                  We provide car recovery across Liverpool for family cars, company cars,
+                  taxis, private-hire vehicles and other suitable passenger vehicles. A
+                  vehicle may need recovery because of mechanical failure, accident
+                  damage, electrical problems, a non-starting fault or because it simply
+                  needs transporting to a garage. We provide local car recovery from
+                  residential streets, business locations and roadside positions
+                  throughout Liverpool and surrounding areas.
+                </p>
+
+                <p>
+                  We provide van recovery for suitable light commercial vehicles used by
+                  tradespeople, couriers, delivery drivers and local businesses. Vehicle
+                  size, approximate weight and whether the van is carrying a load should
+                  be confirmed before attendance because larger or heavily loaded vans may
+                  require different recovery equipment. We provide van recovery around
+                  Liverpool, Speke, Garston, Bootle, Knowsley, Huyton, Kirkby and nearby
+                  commercial and industrial areas, subject to the vehicle being suitable
+                  for the available recovery equipment.
+                </p>
+
+                <h3>Towing, flatbed recovery and vehicle transport</h3>
+                <p>
+                  We provide access to towing and vehicle recovery services for broken
+                  down and non-running vehicles across Liverpool and surrounding areas.
+                  The safest method depends on the vehicle and its condition. Some
+                  automatic, electric, four-wheel-drive, low or accident-damaged vehicles
+                  may need to be fully lifted or transported on a flatbed rather than
+                  moved with wheels on the road. Flatbed recovery can also be suitable for
+                  non-runners, damaged vehicles and planned transport where the vehicle
+                  should not be driven.
+                </p>
+
+                <p>
+                  We provide vehicle transport from Liverpool for customers who need a car
+                  or van moved even when there has not been an emergency breakdown. This
+                  can include garage-to-garage transport, auction collection, dealership
+                  delivery, project-car transport, collection of a recently purchased
+                  vehicle or movement of a non-runner between addresses. Customers should
+                  provide the collection address, destination, vehicle condition and
+                  access information, including whether the vehicle has keys and whether
+                  it rolls and steers.
+                </p>
+
+                <h3>Motorway recovery and major road breakdowns</h3>
+                <p>
+                  We provide vehicle recovery near Liverpool's main motorway and major-road
+                  routes, including the M62, M57, M58, A59, A580 East Lancashire Road,
+                  A561, A562, Queens Drive and other major routes connecting Liverpool
+                  with Knowsley, Sefton, St Helens, Widnes, Warrington, Wirral and the
+                  wider North West. Motorway and high-speed-road breakdowns require extra
+                  care, and drivers should move to the safest available location where
+                  possible and follow official road-safety guidance before arranging
+                  recovery.
+                </p>
+
+                <p>
+                  When requesting motorway recovery, customers should provide the motorway
+                  or road name, direction of travel, nearest junction, marker information,
+                  emergency refuge area or live location. Accurate location details can
+                  significantly reduce delays, particularly on long motorway sections or
+                  roads that cross several local authority areas. We provide recovery near
+                  Liverpool motorway connections and surrounding routes, subject to safe
+                  access and operator availability.
+                </p>
+
+                <h3>Recovery from homes, workplaces and car parks</h3>
+                <p>
+                  We provide home vehicle recovery throughout Liverpool when a car or van
+                  will not start, has developed a mechanical fault or needs transporting
+                  to a garage. The vehicle should be accessible to the recovery truck and
+                  customers should mention narrow roads, underground parking, height
+                  restrictions, locked steering or missing keys before attendance. We
+                  provide home recovery across Anfield, Everton, Walton, West Derby,
+                  Wavertree, Childwall, Allerton, Aigburth, Speke, Garston and surrounding
+                  Liverpool neighbourhoods.
+                </p>
+
+                <p>
+                  We provide workplace and commercial recovery across Liverpool for
+                  vehicles stranded at offices, industrial estates, depots, warehouses,
+                  retail parks and business premises. Recovery can also be arranged from
+                  public car parks and shopping areas where suitable access is available.
+                  Large multi-storey or underground car parks may need different
+                  arrangements if a standard recovery truck cannot enter, so customers
+                  should describe any access restrictions when requesting assistance.
+                </p>
+
+                <h3>Local recovery and long-distance vehicle recovery</h3>
+                <p>
+                  We provide local recovery within Liverpool and surrounding areas, and
+                  longer-distance vehicle transport may also be available by arrangement.
+                  Local recovery can move a broken-down vehicle from a roadside location
+                  to a nearby garage or home address, while long-distance recovery can
+                  transport vehicles between towns, cities or regions. Pricing and
+                  availability can depend on mileage, loading requirements, vehicle size,
+                  waiting time and the equipment needed for the job.
+                </p>
+
+                <p>
+                  We provide recovery across Liverpool and nearby areas including Bootle,
+                  Aintree, Crosby, Huyton, Kirkby, Knowsley, Prescot, Whiston, Halewood,
+                  Widnes, Runcorn, St Helens, Rainhill, Haydock, Wirral, Birkenhead,
+                  Wallasey and surrounding Merseyside locations. Customers travelling
+                  between two towns should provide the exact breakdown position rather
+                  than only the nearest town name, especially when the vehicle is close to
+                  a motorway junction or local boundary.
+                </p>
+
+                <h3>What we need when you request vehicle recovery</h3>
+                <p>
+                  When requesting recovery in Liverpool, customers should provide their
+                  exact location, contact number, vehicle make and model, registration,
+                  nature of the fault or damage and required destination. It is also
+                  important to confirm whether the vehicle rolls, steers and brakes,
+                  whether any tyres or wheels are damaged, whether the keys are available,
+                  whether there are fluid leaks and whether the vehicle is in a restricted
+                  or dangerous location. Complete information helps us arrange the right
+                  local recovery support and avoid delays caused by unsuitable equipment.
+                </p>
+
+                <p>
+                  We provide 24-hour vehicle recovery, breakdown recovery, accident
+                  recovery, roadside assistance, car recovery, van recovery, towing,
+                  flatbed recovery, non-runner transport and vehicle transport across
+                  Liverpool and surrounding areas. Whether a vehicle fails at home, at
+                  work, in a car park, on a local road or during a longer journey, AdForge
+                  helps direct the enquiry towards suitable local recovery support across
+                  Liverpool, Wirral, Merseyside and nearby North West areas.
+                </p>
+
+                <div className="expandedServiceActions">
+                  <Link href="/services/vehicle-recovery" className="smallGreen">
+                    View Vehicle Recovery Services
+                  </Link>
+                  <a href={`tel:${PHONE}`} className="smallDark">
+                    Call For Recovery
+                  </a>
+                </div>
+              </div>
+            </details>
+          </div>
+        </section>
+
         <section className="keywordContent" id="service-details">
           <div className="sectionIntro wide">
             <span>DETAILED MOBILE TYRE SERVICES</span>
@@ -1867,6 +2370,146 @@ export default async function PublicHomePage() {
           font-size: 9px;
         }
 
+
+        .expandedLocalServices {
+          width: min(calc(100% - 56px), 1280px);
+          margin: 0 auto;
+          padding: 85px 0 20px;
+        }
+
+        .expandedServicesIntro {
+          max-width: 820px;
+          margin-bottom: 28px;
+        }
+
+        .expandedServicesIntro > span {
+          color: var(--green);
+          font-size: 8px;
+          font-weight: 950;
+          letter-spacing: 2.8px;
+        }
+
+        .expandedServicesIntro p {
+          margin: 14px 0 0;
+          color: #9ca2aa;
+          font-size: 14px;
+          line-height: 1.75;
+        }
+
+        .expandedServiceGrid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+          align-items: start;
+        }
+
+        .expandedServiceBox {
+          margin: 0;
+          overflow: hidden;
+          border: 1px solid rgba(255,255,255,.12);
+          border-radius: 22px;
+          background:
+            radial-gradient(circle at 92% 8%, rgba(50,255,115,.05), transparent 28%),
+            #07090c;
+        }
+
+        .expandedServiceBox[open] {
+          grid-column: 1 / -1;
+          border-color: rgba(50,255,115,.38);
+        }
+
+        .expandedServiceBox summary {
+          min-height: 176px;
+          padding: 28px;
+          align-items: flex-start;
+          gap: 28px;
+        }
+
+        .expandedServiceBox summary > div {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .expandedServiceKicker {
+          color: var(--green);
+          font-size: 8px;
+          font-weight: 950;
+          letter-spacing: 2.4px;
+        }
+
+        .expandedServiceBox summary strong {
+          margin-top: 12px;
+          color: #fff;
+          font-size: clamp(26px, 3vw, 42px);
+          line-height: 1;
+          letter-spacing: -1.7px;
+        }
+
+        .expandedServiceBox summary small {
+          max-width: 540px;
+          margin-top: 14px;
+          color: #9da3aa;
+          font-size: 12px;
+          line-height: 1.65;
+          font-weight: 600;
+        }
+
+        .expandedServiceBox summary b {
+          width: 42px;
+          height: 42px;
+          flex: 0 0 42px;
+          display: grid;
+          place-items: center;
+          border: 1px solid rgba(50,255,115,.32);
+          border-radius: 50%;
+          background: rgba(50,255,115,.06);
+          color: var(--green);
+          font-size: 24px;
+          line-height: 1;
+          transition: transform .2s ease;
+        }
+
+        .expandedServiceBox[open] summary b {
+          transform: rotate(45deg);
+        }
+
+        .expandedServiceBody {
+          padding: 4px 30px 32px;
+          border-top: 1px solid rgba(255,255,255,.08);
+          column-count: 2;
+          column-gap: 46px;
+        }
+
+        .expandedServiceBody h3,
+        .expandedServiceBody p,
+        .expandedServiceActions {
+          break-inside: avoid;
+        }
+
+        .expandedServiceBody h3 {
+          margin: 28px 0 10px;
+          color: #fff;
+          font-size: 18px;
+          line-height: 1.25;
+          letter-spacing: -.4px;
+        }
+
+        .expandedServiceBody p {
+          margin: 0 0 18px;
+          color: #aab0b7;
+          font-size: 13px;
+          line-height: 1.82;
+        }
+
+        .expandedServiceActions {
+          margin-top: 26px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          column-span: all;
+        }
+
         @media (max-width: 1160px) {
           .desktopNav {
             display: none;
@@ -1942,6 +2585,57 @@ export default async function PublicHomePage() {
         }
 
         @media (max-width: 760px) {
+
+          .expandedLocalServices {
+            width: min(calc(100% - 28px), 1280px);
+            padding: 62px 0 8px;
+          }
+
+          .expandedServiceGrid {
+            grid-template-columns: 1fr;
+          }
+
+          .expandedServiceBox[open] {
+            grid-column: auto;
+          }
+
+          .expandedServiceBox summary {
+            min-height: 150px;
+            padding: 22px 18px;
+            gap: 14px;
+          }
+
+          .expandedServiceBox summary strong {
+            font-size: 28px;
+            letter-spacing: -1.2px;
+          }
+
+          .expandedServiceBox summary small {
+            font-size: 11px;
+          }
+
+          .expandedServiceBox summary b {
+            width: 36px;
+            height: 36px;
+            flex-basis: 36px;
+          }
+
+          .expandedServiceBody {
+            padding: 0 18px 24px;
+            column-count: 1;
+          }
+
+          .expandedServiceBody h3 {
+            margin-top: 24px;
+            font-size: 16px;
+          }
+
+          .expandedServiceBody p {
+            font-size: 12px;
+            line-height: 1.8;
+          }
+
+
           .siteHeader {
             top: 0;
             left: 0;
