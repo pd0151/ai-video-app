@@ -772,6 +772,342 @@ export default async function LandingPage({ params }: any) {
         </div>
       </section>
 
+      <section className="section landingExpandedServices">
+        <div className="landingExpandedIntro">
+          <p className="label">24 HOUR LOCAL SERVICES</p>
+          <p>
+            We provide mobile tyre fitting and vehicle recovery services across {pageLocation},
+            Liverpool and surrounding areas. Open either service below for detailed information
+            about the help we provide across Liverpool, Wirral, Merseyside and nearby towns.
+          </p>
+        </div>
+
+        <div className="landingExpandedGrid">
+          <details className="landingExpandedBox">
+            <summary>
+              <div>
+                <span className="landingExpandedKicker">MOBILE TYRE SERVICES</span>
+                <strong>24 Hour Mobile Tyre Fitting</strong>
+                <small>
+                  Emergency tyres, puncture repairs, roadside tyre replacement and mobile tyre
+                  fitting across {pageLocation}, Liverpool and surrounding areas.
+                </small>
+              </div>
+              <b>+</b>
+            </summary>
+
+            <div className="landingExpandedBody">
+              <h3>24 hour mobile tyre fitting in {pageLocation} and surrounding areas</h3>
+              <p>
+                We provide 24-hour mobile tyre fitting in {pageLocation} and throughout Liverpool
+                and surrounding areas for drivers who need tyre help at home, at work, in a car
+                park or at the roadside. Our mobile tyre service is designed for situations where
+                travelling to a tyre garage is difficult, unsafe or simply inconvenient. We
+                provide emergency mobile tyre fitting, roadside tyre replacement, same-day tyre
+                fitting and out-of-hours tyre assistance for cars, vans, taxis, SUVs, 4x4s and
+                light commercial vehicles, subject to tyre stock and local provider availability.
+              </p>
+
+              <p>
+                We provide mobile tyre fitting for flat tyres, damaged tyres, tyre blowouts,
+                sidewall damage, slow punctures, pressure loss, worn tyres and tyres that are no
+                longer safe to drive on. A mobile tyre fitter can attend the vehicle, inspect the
+                problem, remove the damaged tyre and fit a suitable replacement where required.
+                This can save customers from arranging a separate recovery truck just to reach a
+                tyre depot and is especially useful when a vehicle is stranded away from home.
+              </p>
+
+              <h3>Emergency tyre replacement and roadside tyre fitting</h3>
+              <p>
+                We provide emergency tyre replacement across {pageLocation}, Liverpool, Wirral,
+                Merseyside and surrounding areas when a tyre has failed unexpectedly. Whether the
+                problem happens before work, late at night, during a weekend journey or while
+                travelling on a busy local road, mobile tyre assistance can be arranged directly
+                to the vehicle. Customers should provide the complete tyre size, vehicle details
+                and exact location so the correct tyre and fitting equipment can be prepared
+                before the fitter travels to the call-out.
+              </p>
+
+              <p>
+                We provide roadside tyre fitting for drivers who have suffered a blowout, severe
+                puncture, damaged sidewall or sudden loss of pressure and cannot safely continue
+                their journey. Roadside tyre replacement may be available on local streets, at
+                homes and workplaces, in suitable car parks and at safe roadside locations. If a
+                vehicle is stopped on a motorway or high-speed road, customers should prioritise
+                their safety and follow official road-safety guidance while arranging help.
+              </p>
+
+              <h3>Mobile puncture repairs and flat tyre assistance</h3>
+              <p>
+                We provide mobile puncture repair where the tyre damage is in a safely repairable
+                part of the tread and the tyre has not suffered structural or sidewall damage. A
+                puncture does not always mean a replacement tyre is required, so the tyre can be
+                inspected before the correct repair or replacement is recommended. We also
+                provide assistance for slow punctures, leaking valves, repeated pressure loss and
+                flat tyres where the cause of the problem needs to be identified at the vehicle.
+              </p>
+
+              <p>
+                When a puncture cannot be repaired safely, we provide mobile tyre replacement so
+                the damaged tyre can be removed and a suitable tyre fitted at the same location.
+                Damage close to the sidewall, exposed cords, deep cuts, bulges, excessive tread
+                wear or driving for too long on an underinflated tyre can mean replacement is the
+                safer option. The final decision should always be based on the actual condition of
+                the tyre rather than simply trying to repair every puncture.
+              </p>
+
+              <h3>New tyres, budget tyres and part-worn tyres</h3>
+              <p>
+                We provide new tyre fitting with a range of tyre options depending on vehicle,
+                tyre size, availability and budget. Customers may be able to choose from budget,
+                mid-range and premium replacement tyres, with fitting carried out at their home,
+                workplace or roadside location. Giving the full tyre markings shown on the
+                sidewall helps the provider check the correct width, profile, rim size, load
+                rating and other important specifications before travelling.
+              </p>
+
+              <p>
+                We also provide access to part-worn tyre fitting through suitable local providers
+                where stock is available. Part-worn tyres can offer a lower-cost option for some
+                customers, but the tyre still needs to be suitable for the vehicle and in a safe,
+                legal condition. Customers should ask about condition, tread depth and tyre size
+                before fitting. Availability of individual part-worn sizes can vary, so providing
+                the tyre size when first calling can prevent unnecessary delays.
+              </p>
+
+              <h3>Locking wheel nut removal, wheel balancing and tyre checks</h3>
+              <p>
+                We provide locking wheel nut removal assistance where a locking key has been
+                lost, damaged or rounded and the wheel cannot be removed normally. Depending on
+                the vehicle and the condition of the locking nut, specialist extraction equipment
+                may be required before a puncture repair or tyre replacement can be completed. It
+                is useful to provide the vehicle make, model and photographs of the wheel or
+                locking nut where requested.
+              </p>
+
+              <p>
+                We provide wheel balancing with mobile tyre fitting where the attending vehicle
+                is equipped for balancing. Correct wheel balancing helps reduce steering-wheel
+                vibration and uneven weight distribution after a tyre is fitted. Mobile providers
+                may also check tyre pressure, visible tread condition, valves and signs of damage
+                while attending. Wheel balancing and wheel alignment are different services, so
+                persistent pulling or unusual tyre wear may require a separate alignment check.
+              </p>
+
+              <h3>Home, workplace and commercial mobile tyre fitting</h3>
+              <p>
+                We provide mobile tyre fitting at homes and workplaces across {pageLocation} and
+                surrounding areas, allowing customers to have tyres replaced without spending
+                time travelling to and waiting at a tyre centre. This is useful for planned tyre
+                changes as well as urgent faults discovered before a journey. Where there is safe
+                access and enough working room around the vehicle, fitting can often be completed
+                on a driveway, private parking area, office car park, yard or other suitable
+                location.
+              </p>
+
+              <p>
+                We provide tyre assistance for cars, taxis, private-hire vehicles, vans and light
+                commercial vehicles. Commercial drivers often depend on their vehicle for work,
+                so a tyre failure can quickly cause lost time and cancelled jobs. Mobile fitting
+                allows the tyre problem to be dealt with at the vehicle and can help a driver get
+                moving again without first arranging transport to a fixed garage.
+              </p>
+
+              <h3>Mobile tyre coverage around Liverpool and Merseyside</h3>
+              <p>
+                We provide mobile tyre fitting across {pageLocation}, Liverpool City Centre,
+                Bootle, Huyton, Kirkby, Knowsley, Prescot, Whiston, Halewood, Speke, Garston,
+                Aigburth, Allerton, Childwall, West Derby, Aintree, Crosby, Maghull, Sefton, St
+                Helens, Widnes, Runcorn, Warrington, Birkenhead, Wallasey, Wirral and other nearby
+                areas. Local availability can vary by time, distance, tyre size and current demand,
+                but AdForge is designed to make it easier to find suitable local tyre support.
+              </p>
+
+              <p>
+                We provide mobile tyre assistance near major routes around Liverpool and
+                Merseyside including the M62, M57, M58, M53, M56, A580, A59, A565, Queens Drive
+                and surrounding connecting roads where safe attendance is possible. When calling
+                from a roadside location, providing the road name, direction of travel, nearby
+                junction, postcode or recognisable landmark helps the attending provider locate
+                the vehicle more quickly.
+              </p>
+
+              <div className="landingExpandedActions">
+                <a href={`tel:${phone}`} className="primaryBtn">Call for Mobile Tyre Help</a>
+                <a href="/services/mobile-tyre-fitting" className="secondaryBtn">Browse Mobile Tyre Services</a>
+              </div>
+            </div>
+          </details>
+
+          <details className="landingExpandedBox">
+            <summary>
+              <div>
+                <span className="landingExpandedKicker">RECOVERY SERVICES</span>
+                <strong>24 Hour Vehicle Recovery</strong>
+                <small>
+                  Breakdown recovery, accident recovery, towing, roadside assistance and vehicle
+                  transport across {pageLocation}, Liverpool and surrounding areas.
+                </small>
+              </div>
+              <b>+</b>
+            </summary>
+
+            <div className="landingExpandedBody">
+              <h3>24 hour vehicle recovery in {pageLocation} and surrounding areas</h3>
+              <p>
+                We provide 24-hour vehicle recovery in {pageLocation}, Liverpool and surrounding
+                areas for drivers who are stranded because their car, van or light commercial
+                vehicle cannot be driven safely. A recovery service may be required after a
+                mechanical breakdown, electrical fault, overheating problem, clutch or gearbox
+                issue, accident, damaged wheel, tyre-related incident or any other fault that
+                prevents the vehicle from continuing its journey safely.
+              </p>
+
+              <p>
+                We provide emergency recovery during the day and out of hours, including evening,
+                overnight and weekend call-outs depending on local provider availability. When
+                arranging a recovery, customers should provide the vehicle make and model, exact
+                pickup location, the problem with the vehicle and the destination it needs to be
+                taken to. This information helps the recovery operator determine what type of
+                truck, loading method and equipment will be needed for the job.
+              </p>
+
+              <h3>Breakdown recovery and roadside collection</h3>
+              <p>
+                We provide breakdown recovery when a vehicle will not start, has lost power, is
+                overheating, has developed a warning fault or cannot be moved safely under its own
+                power. A recovery truck can collect the vehicle from a roadside location, home,
+                workplace, car park or other accessible location and transport it to a garage,
+                dealership, repair centre, home address or another agreed destination.
+              </p>
+
+              <p>
+                We provide local breakdown recovery as well as longer-distance vehicle transport
+                where available. Some breakdowns happen close to home while others occur during a
+                longer journey, so the required destination can vary considerably. Customers
+                should explain whether the vehicle can roll and steer, whether any wheels are
+                damaged or locked and whether there are access restrictions that could affect how
+                the vehicle is loaded.
+              </p>
+
+              <h3>Accident recovery and damaged vehicle transport</h3>
+              <p>
+                We provide accident recovery for vehicles that have been involved in a collision
+                and are no longer safe or legal to drive. Even where bodywork damage appears
+                limited, damaged steering, suspension, wheels, tyres, lights or fluid systems can
+                make continued driving unsafe. The recovery operator can load the vehicle and
+                transport it away from the scene to a garage, body shop, storage facility or
+                another suitable destination.
+              </p>
+
+              <p>
+                We provide recovery for damaged and non-running vehicles where specialist loading
+                may be necessary. A vehicle with broken suspension, locked wheels, damaged tyres
+                or steering problems may require a winch, skates or a flatbed rather than a simple
+                tow. Giving accurate information about the vehicle condition before dispatch helps
+                make sure the attending truck is suitable and reduces the risk of delays at the
+                collection point.
+              </p>
+
+              <h3>Car recovery, van recovery and light commercial recovery</h3>
+              <p>
+                We provide car recovery for everyday passenger vehicles as well as recovery for
+                vans, SUVs, 4x4s and suitable light commercial vehicles. Different vehicles can
+                have different weights, wheelbases, ground clearances and loading requirements, so
+                the recovery operator may ask for additional vehicle information before attending.
+                This is particularly important for larger vans, lowered cars, damaged vehicles and
+                vehicles carrying equipment or commercial loads.
+              </p>
+
+              <p>
+                We provide van recovery for tradespeople, couriers and businesses whose vehicles
+                have broken down while working across {pageLocation}, Liverpool and surrounding
+                areas. A commercial vehicle breakdown can stop a working day immediately, so clear
+                pickup and destination information helps arrange the correct recovery vehicle as
+                efficiently as possible.
+              </p>
+
+              <h3>Towing, flatbed recovery and vehicle transport</h3>
+              <p>
+                We provide towing and recovery options according to the vehicle and the fault.
+                Some vehicles can be moved using appropriate towing equipment, while others should
+                be transported with all wheels off the road. Automatic vehicles, electric and
+                hybrid vehicles, four-wheel-drive vehicles, low vehicles and accident-damaged cars
+                may require a particular recovery method to avoid causing further damage.
+              </p>
+
+              <p>
+                We provide flatbed recovery and vehicle transport for breakdowns, non-runners,
+                accident-damaged vehicles and planned vehicle movements. Vehicle transport can be
+                useful for collecting a vehicle from a garage, dealership, auction, seller,
+                storage location or private address and moving it to another destination without
+                the vehicle being driven. Planned transport can often be arranged in advance,
+                while emergency recovery is intended for unexpected roadside problems.
+              </p>
+
+              <h3>Roadside assistance, flat batteries and non-starting vehicles</h3>
+              <p>
+                We provide access to roadside assistance where a problem may be resolved without
+                transporting the vehicle. Depending on the attending provider and the fault, this
+                may include basic checks, flat-battery assistance or a jump start. If the vehicle
+                still does not start, or if there is another fault that makes driving unsafe,
+                recovery to a garage or chosen destination can be arranged instead.
+              </p>
+
+              <p>
+                We provide recovery for non-starting vehicles at homes, workplaces and public
+                parking locations as well as roadside breakdowns. A non-runner does not have to be
+                an emergency; vehicles that have been stored, purchased, sold or booked into a
+                repair centre may also need transporting because they cannot move under their own
+                power. The condition of the steering, brakes, wheels and transmission should be
+                explained before collection where known.
+              </p>
+
+              <h3>Motorway recovery and major-road breakdown assistance</h3>
+              <p>
+                We provide vehicle recovery around major roads and motorway routes serving
+                Liverpool and Merseyside, including the M62, M57, M58, M53, M56, A580, A59 and
+                other busy connecting routes. Breaking down on a motorway or fast road can be
+                dangerous, so drivers should prioritise safety, move to a safer location where
+                possible and follow official road-safety instructions while arranging assistance.
+              </p>
+
+              <p>
+                When requesting motorway recovery, customers should provide as precise a location
+                as possible, including the motorway or road number, direction of travel, nearest
+                junction, marker information, nearby services or another clear landmark. Accurate
+                location details are especially important at night or where several carriageways
+                and junctions are close together.
+              </p>
+
+              <h3>Recovery coverage across Liverpool, Wirral and Merseyside</h3>
+              <p>
+                We provide vehicle recovery across {pageLocation}, Liverpool City Centre, Bootle,
+                Huyton, Kirkby, Knowsley, Prescot, Whiston, Halewood, Speke, Garston, Aintree,
+                Crosby, Maghull, Sefton, St Helens, Widnes, Runcorn, Warrington, Birkenhead,
+                Wallasey, Wirral and other surrounding locations. Coverage and response time depend
+                on the location of the recovery vehicle, current workload, traffic conditions and
+                the equipment required for the particular vehicle.
+              </p>
+
+              <p>
+                We provide a straightforward way for customers to request breakdown recovery,
+                accident recovery, roadside assistance, towing and vehicle transport through
+                AdForge. Whether a vehicle has failed outside a house, at a workplace, in a retail
+                park, on an industrial estate or while travelling through Liverpool and the wider
+                Merseyside area, the aim is to collect the essential job details and help arrange
+                suitable local support for the situation.
+              </p>
+
+              <div className="landingExpandedActions">
+                <a href={`tel:${phone}`} className="primaryBtn">Call for Vehicle Recovery</a>
+                <a href="/services/vehicle-recovery" className="secondaryBtn">Browse Recovery Services</a>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
       <section id="why" className="section">
         <div className="sectionHeading">
           <div>
@@ -2118,6 +2454,139 @@ text-decoration: none;
 font-size: 14px;
 }
 
+.landingExpandedServices {
+  padding-top: 32px;
+  padding-bottom: 72px;
+}
+
+.landingExpandedIntro {
+  max-width: 920px;
+  margin-bottom: 30px;
+}
+
+.landingExpandedIntro > p:last-child {
+  margin: 18px 0 0;
+  color: rgba(255,255,255,.68);
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+.landingExpandedGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.landingExpandedBox {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(50,255,115,.07), transparent 30%),
+    #070a0d;
+}
+
+.landingExpandedBox[open] {
+  grid-column: 1 / -1;
+  border-color: rgba(50,255,115,.38);
+}
+
+.landingExpandedBox summary {
+  min-height: 280px;
+  padding: 38px 34px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.landingExpandedBox summary::-webkit-details-marker {
+  display: none;
+}
+
+.landingExpandedBox summary > div {
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+}
+
+.landingExpandedKicker {
+  color: #32ff73;
+  font-size: 11px;
+  font-weight: 1000;
+  letter-spacing: 4px;
+}
+
+.landingExpandedBox summary strong {
+  margin-top: 20px;
+  color: #fff;
+  font-size: clamp(38px, 4.4vw, 58px);
+  line-height: .96;
+  letter-spacing: -2.6px;
+}
+
+.landingExpandedBox summary small {
+  margin-top: 24px;
+  color: rgba(255,255,255,.66);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.75;
+}
+
+.landingExpandedBox summary b {
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(50,255,115,.55);
+  border-radius: 50%;
+  color: #32ff73;
+  font-size: 34px;
+  line-height: 1;
+  transition: transform .2s ease;
+}
+
+.landingExpandedBox[open] summary b {
+  transform: rotate(45deg);
+}
+
+.landingExpandedBody {
+  max-width: 1050px;
+  padding: 0 40px 42px;
+}
+
+.landingExpandedBody h3 {
+  margin: 34px 0 12px;
+  color: #fff;
+  font-size: 25px;
+  line-height: 1.15;
+  letter-spacing: -.6px;
+}
+
+.landingExpandedBody h3:first-child {
+  margin-top: 4px;
+}
+
+.landingExpandedBody p {
+  margin: 0 0 20px;
+  color: rgba(255,255,255,.71);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.landingExpandedActions {
+  margin-top: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+
 @media (max-width: 980px) {
 .nav { display: none; }
 .featuredProviderCard { grid-template-columns: 1fr; }
@@ -2130,6 +2599,23 @@ font-size: 14px;
 }
 
 @media (max-width: 760px) {
+.landingExpandedServices { padding-top: 20px; padding-bottom: 54px; }
+.landingExpandedIntro { margin-bottom: 22px; }
+.landingExpandedIntro > p:last-child { font-size: 14px; line-height: 1.8; }
+.landingExpandedGrid { grid-template-columns: 1fr; gap: 16px; }
+.landingExpandedBox[open] { grid-column: auto; }
+.landingExpandedBox { border-radius: 20px; }
+.landingExpandedBox summary { min-height: 250px; padding: 28px 26px; gap: 16px; }
+.landingExpandedKicker { font-size: 9px; letter-spacing: 3.4px; }
+.landingExpandedBox summary strong { margin-top: 17px; font-size: 40px; letter-spacing: -2px; }
+.landingExpandedBox summary small { margin-top: 20px; font-size: 13px; line-height: 1.7; }
+.landingExpandedBox summary b { width: 52px; height: 52px; flex-basis: 52px; font-size: 31px; }
+.landingExpandedBody { padding: 0 26px 30px; }
+.landingExpandedBody h3 { margin-top: 28px; font-size: 21px; }
+.landingExpandedBody p { font-size: 14px; line-height: 1.82; }
+.landingExpandedActions { display: grid; grid-template-columns: 1fr; }
+.landingExpandedActions .primaryBtn, .landingExpandedActions .secondaryBtn { width: 100%; }
+
 .page { padding-bottom: 120px; }
 .headerInner { padding: 12px 16px; }
 .brand { font-size: 29px; }
