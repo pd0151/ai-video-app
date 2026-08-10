@@ -566,17 +566,23 @@ export default async function LandingPage({ params }: any) {
           </a>
 
           <nav className="nav">
-            <a href="/" className="homeNavButton">Home</a>
+            <a href="/">Home</a>
             <a href="#services">Services</a>
             <a href="#coverage">Areas We Cover</a>
             <a href="#why">Why AdForge</a>
             <a href="#faq">FAQs</a>
           </nav>
 
-          <a href={`tel:${phone}`} className="headerCall">
+          <div className="headerRightActions">
+            <a href="/" className="homeTopButton" aria-label="Back to AdForge home page">
+              Home
+            </a>
+
+            <a href={`tel:${phone}`} className="headerCall">
             <span className="callLabel">CALL NOW</span>
             <span>{phone}</span>
-          </a>
+            </a>
+          </div>
         </div>
       </header>
 
@@ -1705,22 +1711,33 @@ font-weight: 800;
 text-decoration: none;
 }
 
-.homeNavButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 40px;
-  padding: 0 16px;
-  border-radius: 10px;
-  border: 1px solid rgba(50,255,115,.42);
-  background: rgba(50,255,115,.10);
-  color: #32ff73 !important;
-  font-weight: 1000 !important;
+.headerRightActions {
+display: flex;
+align-items: center;
+gap: 10px;
 }
 
-.homeNavButton:hover {
-  background: #32ff73;
-  color: #05070d !important;
+.homeTopButton {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-height: 44px;
+padding: 0 18px;
+border-radius: 12px;
+border: 1px solid rgba(50,255,115,.55);
+background: rgba(50,255,115,.10);
+color: #32ff73;
+font-size: 12px;
+font-weight: 1000;
+letter-spacing: 1px;
+text-transform: uppercase;
+text-decoration: none;
+white-space: nowrap;
+}
+
+.homeTopButton:hover {
+background: #32ff73;
+color: #05070d;
 }
 
 .headerCall {
@@ -2644,6 +2661,8 @@ font-size: 14px;
   letter-spacing: 1.5px;
   white-space: nowrap;
 }
+.headerRightActions { gap: 7px; }
+.homeTopButton { min-height: 40px; padding: 0 12px; font-size: 10px; border-radius: 10px; }
 .headerCall { padding: 9px 12px; font-size: 12px; }
 
 .hero { min-height: 680px; }
