@@ -1108,6 +1108,26 @@ export default async function LandingPage({ params }: any) {
         </div>
       </section>
 
+      <section className="section homepageInternalLinkSection">
+        <div className="homepageInternalLinkCard">
+          <div className="homepageInternalLinkCopy">
+            <p className="label">EXPLORE ADFORGE</p>
+            <p>
+              Looking for more 24-hour mobile tyre fitting or vehicle recovery services?
+              Visit the AdForge homepage to browse emergency mobile tyre fitting, puncture
+              repairs, roadside tyre replacement, new and part-worn tyres, breakdown recovery,
+              accident recovery, towing, roadside assistance and vehicle transport across
+              Liverpool, Wirral, Merseyside and surrounding areas.
+            </p>
+          </div>
+
+          <a href="/" className="homepageInternalLink">
+            View AdForge 24 Hour Tyre &amp; Recovery Services
+            <span>→</span>
+          </a>
+        </div>
+      </section>
+
       <section id="why" className="section">
         <div className="sectionHeading">
           <div>
@@ -2459,6 +2479,55 @@ font-size: 14px;
   padding-bottom: 72px;
 }
 
+.homepageInternalLinkSection {
+  padding-top: 10px;
+  padding-bottom: 72px;
+}
+
+.homepageInternalLinkCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 30px 32px;
+  border: 1px solid rgba(50,255,115,.28);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(50,255,115,.08), transparent 32%),
+    #070a0d;
+}
+
+.homepageInternalLinkCopy {
+  max-width: 780px;
+}
+
+.homepageInternalLinkCopy > p:last-child {
+  margin: 12px 0 0;
+  color: rgba(255,255,255,.68);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.homepageInternalLink {
+  min-width: 320px;
+  min-height: 58px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-radius: 14px;
+  background: #32ff73;
+  color: #04110a;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.homepageInternalLink span {
+  font-size: 20px;
+}
+
 .landingExpandedIntro {
   max-width: 920px;
   margin-bottom: 30px;
@@ -2599,6 +2668,10 @@ font-size: 14px;
 }
 
 @media (max-width: 760px) {
+.homepageInternalLinkSection { padding-top: 0; padding-bottom: 54px; }
+.homepageInternalLinkCard { flex-direction: column; align-items: stretch; padding: 24px 22px; }
+.homepageInternalLinkCopy > p:last-child { font-size: 13px; line-height: 1.75; }
+.homepageInternalLink { width: 100%; min-width: 0; min-height: 56px; font-size: 12px; }
 .landingExpandedServices { padding-top: 20px; padding-bottom: 54px; }
 .landingExpandedIntro { margin-bottom: 22px; }
 .landingExpandedIntro > p:last-child { font-size: 14px; line-height: 1.8; }
