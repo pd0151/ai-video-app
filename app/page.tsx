@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 
 const HOME_SEO = Object.freeze({
   title: "24 Hour Mobile Tyre Fitting &  Recovery Service| Liverpool | AdForge",
-  h1: "24 Hour Mobile Tyre Fitting & Recovery Service",
+  h1: "24 Hour Mobile Tyre Fitting & Recovery Service Liverpool",
   description:
     "Find 24-hour mobile tyre fitting, emergency tyre repair, puncture repairs, locking wheel nut removal, wheel balancing, new and part-worn tyres, breakdown recovery, vehicle recovery, roadside assistance and emergency call-outs across Liverpool, Wirral and Merseyside.",
   canonical: "https://adforge.uk/",
