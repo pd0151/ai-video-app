@@ -41,7 +41,8 @@ export async function generateMetadata({ params }: any) {
     .replace(/\s*\|\s*AdForge\s*$/i, "")
     .trim();
 
-  const searchTitle = `${pageHeadline} | AdForge`;
+ const searchTitle =
+  data?.title_tag?.trim() || `${pageHeadline} | AdForge`;
   const description = data?.meta_description || "";
   const url = `${SITE_URL}/seo/${slug}`;
 
