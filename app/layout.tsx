@@ -3,14 +3,13 @@ import ClientLayout from "./ClientLayout";
 // import "./globals.css";
 
 export const metadata: Metadata = {
-title: "Local Business Directory | Find Local Businesses Near You | AdForge",
-description:
-"Find trusted local businesses near you. Advertise your business for free, generate AI images and videos.",
-icons: {
-icon: "/icon.png",
-shortcut: "/icon.png",
-apple: "/icon.png",
-},
+  title: "AdForge",
+  description: "AdForge helps customers find local services and trusted businesses.",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({
