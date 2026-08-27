@@ -15,7 +15,7 @@ type PageType =
 
   | "custom";
 
-const CONTENT_VERSION = "ADFORGE_SEO_ENGINE_V6_SAFE_ROUTING";
+const CONTENT_VERSION = "ADFORGE_SEO_ENGINE_V7_LEGACY_NAME_FIX";
 
 function titleCase(value: string) {
 
@@ -62,6 +62,9 @@ function rotateItems<T>(items: T[], seedText: string, amount?: number) {
 }
 
 const TYRE_SERVICE_PATTERNS = [
+  "adforge mobile tyres",
+  "adforge tyres",
+  "mobile tyres",
   "emergency mobile tyre fitting",
   "24 hour mobile tyre fitting",
   "mobile tyre fitting",
@@ -91,6 +94,8 @@ const TYRE_SERVICE_PATTERNS = [
 ];
 
 const RECOVERY_SERVICE_PATTERNS = [
+  "adforge vehicle recovery",
+  "adforge recovery",
   "vehicle breakdown recovery service",
   "breakdown recovery service",
   "vehicle recovery service",
@@ -179,6 +184,10 @@ function detectPageType(page: LandingPageLike): PageType {
 function stripServiceWords(value: string) {
   let cleaned = normalise(value)
     .replace(/[-_/]+/g, " ")
+    // Older landing pages often begin with the AdForge brand name.
+    // Strip the brand before extracting the actual location.
+    .replace(/\bad\s*forge\b/gi, " ")
+    .replace(/\badforge\b/gi, " ")
     .replace(/\b24\s*hour\b/gi, " ")
     .replace(/\b24hr\b/gi, " ")
     .replace(/\bemergency\b/gi, " ")
@@ -194,6 +203,13 @@ function stripServiceWords(value: string) {
       " "
     );
   }
+
+  // Catch legacy wording not always represented as a formal service name.
+  cleaned = cleaned
+    .replace(/\bmobile\s+tyres?\b/gi, " ")
+    .replace(/\btyres?\s+service\b/gi, " ")
+    .replace(/\brecovery\s+services?\b/gi, " ")
+    .replace(/\bvehicle\s+recovery\b/gi, " ");
 
   return normalise(cleaned);
 }
