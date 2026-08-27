@@ -1,99 +1,221 @@
 
 export type LandingPageLike = {
+
   slug?: string | null;
+
   headline?: string | null;
+
 };
 
 type PageType =
+
   | "tyre"
+
   | "recovery"
+
   | "custom";
 
-const CONTENT_VERSION = "ADFORGE_SEO_ENGINE_V5";
+const CONTENT_VERSION = "ADFORGE_SEO_ENGINE_V6_SAFE_ROUTING";
 
 function titleCase(value: string) {
+
   return String(value || "")
+
     .replace(/-/g, " ")
+
     .replace(/\b\w/g, (c) => c.toUpperCase())
+
     .replace(/\s+/g, " ")
+
     .trim();
+
 }
 
 function normalise(value: string) {
+
   return String(value || "").replace(/\s+/g, " ").trim();
+
 }
 
 function hashText(value: string) {
+
   return Array.from(value).reduce(
+
     (total, character) => total + character.charCodeAt(0),
+
+    0
+
+  );
+
+}
+
+function rotateItems<T>(items: T[], seedText: string, amount?: number) {
+
+  if (!items.length) return [];
+
+  const start = hashText(seedText) % items.length;
+
+  const rotated = [...items.slice(start), ...items.slice(0, start)];
+
+  return typeof amount === "number" ? rotated.slice(0, amount) : rotated;
+
+}
+
+const TYRE_SERVICE_PATTERNS = [
+  "emergency mobile tyre fitting",
+  "24 hour mobile tyre fitting",
+  "mobile tyre fitting",
+  "same day tyre fitting",
+  "emergency tyre fitting",
+  "tyre fitting",
+  "mobile tyre replacement",
+  "emergency tyre replacement",
+  "roadside tyre replacement",
+  "tyre replacement",
+  "mobile puncture repair",
+  "emergency puncture repair",
+  "slow puncture repair",
+  "puncture repair",
+  "emergency tyre repair",
+  "tyre repair",
+  "locking wheel nut removal",
+  "locking nut removal",
+  "wheel balancing",
+  "new tyres",
+  "part worn tyres",
+  "part-worn tyres",
+  "run flat tyres",
+  "run-flat tyres",
+  "van tyres",
+  "car tyres",
+];
+
+const RECOVERY_SERVICE_PATTERNS = [
+  "vehicle breakdown recovery service",
+  "breakdown recovery service",
+  "vehicle recovery service",
+  "24 hour vehicle recovery",
+  "24 hour recovery service",
+  "emergency vehicle recovery",
+  "breakdown recovery",
+  "accident recovery",
+  "motorway recovery",
+  "roadside recovery",
+  "car recovery",
+  "van recovery",
+  "motorcycle recovery",
+  "vehicle recovery",
+  "roadside assistance",
+  "vehicle transport",
+  "car towing service",
+  "towing service",
+  "emergency towing",
+  "car towing",
+  "tow truck",
+  "jump start assistance",
+  "flat battery assistance",
+  "recovery service",
+  "towing",
+  "recovery",
+];
+
+function escapeRegExp(value: string) {
+  return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function canonicalSearchText(page: LandingPageLike) {
+  return normalise(
+    `${page.headline || ""} ${titleCase(page.slug || "")}`
+      .replace(/[-_/]+/g, " ")
+      .toLowerCase()
+  );
+}
+
+function countPatternMatches(source: string, patterns: string[]) {
+  return patterns.reduce(
+    (score, pattern) => score + (source.includes(pattern) ? 1 : 0),
     0
   );
 }
 
-function rotateItems<T>(items: T[], seedText: string, amount?: number) {
-  if (!items.length) return [];
-  const start = hashText(seedText) % items.length;
-  const rotated = [...items.slice(start), ...items.slice(0, start)];
-  return typeof amount === "number" ? rotated.slice(0, amount) : rotated;
-}
-
 function detectPageType(page: LandingPageLike): PageType {
-  const source = `${page.slug || ""} ${page.headline || ""}`.toLowerCase();
+  const source = canonicalSearchText(page);
+
+  const tyreScore = countPatternMatches(source, TYRE_SERVICE_PATTERNS);
+  const recoveryScore = countPatternMatches(source, RECOVERY_SERVICE_PATTERNS);
+
+  // Explicit service phrases win before generic words. This prevents a
+  // recovery page from accidentally receiving tyre content and vice versa.
+  if (
+    /\b(vehicle recovery|breakdown recovery|accident recovery|motorway recovery|roadside assistance|vehicle transport|towing service|tow truck)\b/i.test(
+      source
+    )
+  ) {
+    return "recovery";
+  }
 
   if (
-    source.includes("tyre") ||
-    source.includes("puncture") ||
-    source.includes("locking wheel") ||
-    source.includes("locking-wheel") ||
-    source.includes("run flat") ||
-    source.includes("run-flat")
+    /\b(mobile tyre fitting|emergency tyre fitting|tyre replacement|tyre repair|puncture repair|locking wheel nut removal|wheel balancing|run flat tyres?)\b/i.test(
+      source
+    )
   ) {
     return "tyre";
   }
 
-  if (
-    source.includes("recovery") ||
-    source.includes("breakdown") ||
-    source.includes("towing") ||
-    source.includes("tow truck") ||
-    source.includes("vehicle transport") ||
-    source.includes("roadside assistance")
-  ) {
+  if (recoveryScore > tyreScore && recoveryScore > 0) return "recovery";
+  if (tyreScore > recoveryScore && tyreScore > 0) return "tyre";
+
+  if (source.includes("recovery") || source.includes("towing")) {
     return "recovery";
+  }
+
+  if (source.includes("tyre") || source.includes("puncture")) {
+    return "tyre";
   }
 
   return "custom";
 }
 
-function extractLocation(page: LandingPageLike) {
-  const headline = normalise(
-    page.headline || titleCase(page.slug || "") || "Local Area"
+function stripServiceWords(value: string) {
+  let cleaned = normalise(value)
+    .replace(/[-_/]+/g, " ")
+    .replace(/\b24\s*hour\b/gi, " ")
+    .replace(/\b24hr\b/gi, " ")
+    .replace(/\bemergency\b/gi, " ")
+    .replace(/\bsame\s*day\b/gi, " ");
+
+  const patterns = [...TYRE_SERVICE_PATTERNS, ...RECOVERY_SERVICE_PATTERNS].sort(
+    (a, b) => b.length - a.length
   );
 
-  const cleaned = headline
-    .replace(/^24\s*hour\s*/i, "")
-    .replace(/^emergency\s*/i, "")
-    .replace(/^same\s*day\s*/i, "")
-    .replace(/mobile\s*tyre\s*fitting/gi, "")
-    .replace(/mobile\s*tyre\s*replacement/gi, "")
-    .replace(/emergency\s*tyre\s*replacement/gi, "")
-    .replace(/mobile\s*puncture\s*repair/gi, "")
-    .replace(/puncture\s*repair/gi, "")
-    .replace(/roadside\s*tyre\s*replacement/gi, "")
-    .replace(/locking\s*wheel\s*nut\s*removal/gi, "")
-    .replace(/vehicle\s*breakdown\s*recovery\s*service/gi, "")
-    .replace(/vehicle\s*breakdown\s*service/gi, "")
-    .replace(/breakdown\s*recovery\s*service/gi, "")
-    .replace(/vehicle\s*recovery\s*service/gi, "")
-    .replace(/emergency\s*vehicle\s*recovery/gi, "")
-    .replace(/roadside\s*assistance/gi, "")
-    .replace(/vehicle\s*transport/gi, "")
-    .replace(/accident\s*recovery/gi, "")
-    .replace(/car\s*towing\s*service/gi, "")
-    .replace(/car\s*towing/gi, "")
-    .replace(/recovery\s*service/gi, "")
-    .replace(/vehicle\s*recovery/gi, "")
-    .replace(/breakdown\s*recovery/gi, "")
+  for (const phrase of patterns) {
+    cleaned = cleaned.replace(
+      new RegExp(`\\b${escapeRegExp(phrase).replace(/\\ /g, "\\s+")}\\b`, "gi"),
+      " "
+    );
+  }
+
+  return normalise(cleaned);
+}
+
+function extractLocation(page: LandingPageLike) {
+  const headline = normalise(page.headline || "");
+
+  // The H1 is the preferred source because it contains the exact service +
+  // location wording saved in Supabase.
+  let cleaned = stripServiceWords(headline);
+
+  // If a legacy / unusual headline does not leave a usable location, use the
+  // slug as a safe fallback and strip the same service vocabulary from it.
+  if (!cleaned || cleaned.toLowerCase() === headline.toLowerCase()) {
+    cleaned = stripServiceWords(titleCase(page.slug || ""));
+  }
+
+  // Remove leftover generic connector words without damaging motorway names,
+  // postcodes or area codes such as M57, M58, L20, CH44 etc.
+  cleaned = cleaned
+    .replace(/^(in|near|around|for)\s+/i, "")
+    .replace(/\s+(service|services)$/i, "")
     .replace(/\s+/g, " ")
     .trim();
 
@@ -101,223 +223,407 @@ function extractLocation(page: LandingPageLike) {
 }
 
 function extractService(page: LandingPageLike) {
-  const location = extractLocation(page);
   const headline = normalise(
     page.headline || titleCase(page.slug || "") || "Local Service"
   );
 
+  const location = extractLocation(page);
+
+  if (!location || location === "Your Local Area") {
+    return headline || "Local Service";
+  }
+
   const service = headline
-    .replace(new RegExp(`${location.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i"), "")
+    .replace(new RegExp(`\\s+${escapeRegExp(location)}$`, "i"), "")
     .trim();
 
   return service || "Local Service";
 }
 
 function getNearbyAreas(location: string) {
+
   const key = location.toLowerCase();
 
   const map: Record<string, string[]> = {
+
     liverpool: [
+
       "Bootle", "Anfield", "Aigburth", "Wavertree", "Speke", "Garston",
+
       "Huyton", "Kirkby", "Prescot", "Toxteth", "Allerton", "Childwall",
+
     ],
+
     bootle: [
+
       "Netherton", "Litherland", "Seaforth", "Walton", "Aintree",
+
       "Crosby", "Liverpool", "Orrell", "Ford", "Old Roan",
+
     ],
+
     netherton: [
+
       "Bootle", "Aintree", "Litherland", "Seaforth", "Walton",
+
       "Crosby", "Orrell", "Maghull", "Old Roan", "Kirkdale",
+
     ],
+
     wirral: [
+
       "Birkenhead", "Wallasey", "Moreton", "Heswall", "West Kirby",
+
       "Bromborough", "Hoylake", "Upton", "Bebington", "Ellesmere Port",
+
     ],
+
     wallasey: [
+
       "New Brighton", "Liscard", "Seacombe", "Moreton", "Birkenhead",
+
       "Leasowe", "Upton", "Wirral", "Egremont", "Poulton",
+
     ],
+
     southport: [
+
       "Birkdale", "Ainsdale", "Formby", "Churchtown", "Banks",
+
       "Hesketh Bank", "Ormskirk", "Crossens", "Hillside", "Scarisbrick",
+
     ],
+
     "st helens": [
+
       "Prescot", "Rainhill", "Haydock", "Newton-le-Willows", "Sutton",
+
       "Thatto Heath", "Eccleston", "Widnes", "Whiston", "Billinge",
+
     ],
+
     warrington: [
+
       "Widnes", "Runcorn", "Lymm", "Great Sankey", "Winwick",
+
       "Newton-le-Willows", "St Helens", "Birchwood", "Padgate", "Stockton Heath",
+
     ],
+
     widnes: [
+
       "Runcorn", "Huyton", "Prescot", "St Helens", "Warrington",
+
       "Speke", "Hale", "Cronton", "Halewood", "Farnworth",
+
     ],
+
     formby: [
+
       "Ainsdale", "Southport", "Crosby", "Hightown",
+
       "Freshfield", "Maghull", "Ormskirk", "Thornton",
+
     ],
+
     birkenhead: [
+
       "Wallasey", "Bebington", "Tranmere", "Prenton",
+
       "Oxton", "Upton", "Rock Ferry", "Moreton",
+
     ],
+
   };
 
   const match = Object.keys(map).find((name) => key.includes(name));
+
   if (match) return map[match];
 
   return rotateItems(
+
     [
+
       "nearby towns",
+
       "surrounding districts",
+
       "local villages",
+
       "business parks",
+
       "industrial estates",
+
       "retail parks",
+
       "residential areas",
+
       "nearby motorway junctions",
+
       "town centres",
+
       "workplace locations",
+
     ],
+
     location
+
   );
+
 }
 
 function getRoads(location: string) {
+
   const key = location.toLowerCase();
 
   const map: Record<string, string[]> = {
+
     liverpool: [
+
       "M62", "M57", "A580", "Queens Drive", "Edge Lane",
+
       "Dock Road", "Aigburth Road", "Speke Boulevard", "Scotland Road", "Prescot Road",
+
     ],
+
     bootle: [
+
       "A5036", "Derby Road", "Stanley Road", "Dunnings Bridge Road",
+
       "M57", "M58", "Switch Island", "Hawthorne Road",
+
     ],
+
     netherton: [
+
       "A5036", "Dunnings Bridge Road", "Park Lane", "Copy Lane",
+
       "M57", "M58", "Switch Island", "Northern Perimeter Road",
+
     ],
+
     wirral: [
+
       "M53", "A41", "A552", "New Chester Road",
+
       "Woodchurch Road", "Dock Road", "Kingsway Tunnel", "Queensway Tunnel",
+
     ],
+
     southport: [
+
       "A565", "Marine Drive", "Lord Street", "Scarisbrick New Road",
+
       "Coastal Road", "Liverpool Road", "Cambridge Road",
+
     ],
+
     "st helens": [
+
       "A580", "M62", "A570", "Linkway",
+
       "East Lancashire Road", "Prescot Road", "Rainford Road",
+
     ],
+
     warrington: [
+
       "M6", "M62", "M56", "A49", "A57",
+
       "Winwick Road", "Knutsford Road", "Manchester Road",
+
     ],
+
     widnes: [
+
       "A562", "A557", "M62", "Speke Road",
+
       "Queensway", "Fiddlers Ferry Road", "Liverpool Road",
+
     ],
+
   };
 
   const match = Object.keys(map).find((name) => key.includes(name));
+
   if (match) return map[match];
 
   return [
+
     "local main roads",
+
     "nearby dual carriageways",
+
     "residential streets",
+
     "business parks",
+
     "industrial estates",
+
     "retail parks",
+
     "motorway routes",
+
     "town-centre roads",
+
   ];
+
 }
 
 function getLocalPlaces(location: string) {
+
   return rotateItems(
+
     [
+
       `${location} town centre`,
+
       "supermarket car parks",
+
       "retail parks",
+
       "industrial estates",
+
       "business parks",
+
       "workplace car parks",
+
       "railway stations",
+
       "hotels",
+
       "hospitals",
+
       "schools and colleges",
+
       "petrol stations",
+
       "residential estates",
+
       "garage forecourts",
+
       "shopping areas",
+
       "delivery yards",
+
       "public car parks",
+
     ],
+
     location,
+
     12
+
   );
+
 }
 
 function getVehicleTypes(seed: string) {
+
   return rotateItems(
+
     [
+
       "cars", "vans", "SUVs", "4x4 vehicles", "electric vehicles",
+
       "hybrid vehicles", "light commercial vehicles", "company cars",
+
       "fleet vehicles", "taxis", "private-hire vehicles", "courier vans",
+
       "delivery vehicles", "campervans", "family cars", "performance vehicles",
+
     ],
+
     seed,
+
     14
+
   );
+
 }
 
 function getTyreBrands(seed: string) {
+
   return rotateItems(
+
     [
+
       "Michelin", "Continental", "Goodyear", "Pirelli", "Bridgestone",
+
       "Hankook", "Dunlop", "Yokohama", "Avon", "Firestone",
+
       "Falken", "Kumho", "Nexen", "Toyo", "General Tire", "budget tyre ranges",
+
     ],
+
     seed,
+
     12
+
   );
+
 }
 
 function getVehicleMakes(seed: string) {
+
   return rotateItems(
+
     [
+
       "BMW", "Audi", "Mercedes-Benz", "Ford", "Vauxhall",
+
       "Volkswagen", "Toyota", "Nissan", "Kia", "Hyundai",
+
       "Tesla", "Land Rover", "Range Rover", "Peugeot", "Renault",
+
       "Citroën", "Volvo", "Skoda", "SEAT", "Honda",
+
     ],
+
     seed,
+
     15
+
   );
+
 }
 
 function buildRecoveryContent(page: LandingPageLike) {
+
   const location = extractLocation(page);
+
   const seed = `${page.slug || ""}-${location}`;
+
   const nearby = getNearbyAreas(location);
+
   const roads = getRoads(location);
+
   const places = getLocalPlaces(location);
+
   const vehicles = getVehicleTypes(seed);
 
   const faults = rotateItems(
+
     [
+
       "flat battery", "starter motor failure", "alternator fault",
+
       "engine failure", "clutch failure", "gearbox problem",
+
       "overheating", "coolant loss", "electrical fault",
+
       "warning lights", "accident damage", "suspension damage",
+
       "steering problem", "wheel damage", "fuel-system problem",
+
       "non-starting vehicle", "unsafe vehicle", "broken drive belt",
+
       "oil leak", "locked steering",
+
     ],
+
     seed
+
   );
 
   return `${CONTENT_VERSION}
@@ -539,27 +845,45 @@ We provide recovery around ${roads.join(", ")} and other roads serving ${locatio
 # Choose AdForge for Recovery in ${location}
 
 We provide clear local information for drivers who need recovery in ${location}. We provide breakdown recovery, accident recovery, roadside assistance and vehicle transport across the area and nearby districts. If your vehicle is broken down, damaged or unsafe to drive, use AdForge to arrange local help.`;
+
 }
 
 function buildTyreContent(page: LandingPageLike) {
+
   const location = extractLocation(page);
+
   const seed = `${page.slug || ""}-${location}`;
+
   const nearby = getNearbyAreas(location);
+
   const roads = getRoads(location);
+
   const places = getLocalPlaces(location);
+
   const vehicles = getVehicleTypes(seed);
+
   const tyreBrands = getTyreBrands(seed);
+
   const vehicleMakes = getVehicleMakes(seed);
 
   const tyreProblems = rotateItems(
+
     [
+
       "flat tyre", "nail puncture", "screw puncture", "slow puncture",
+
       "tyre blowout", "damaged sidewall", "split tyre", "cracked tyre",
+
       "low tread", "uneven tyre wear", "valve leak", "TPMS warning",
+
       "locking wheel nut problem", "run-flat tyre failure", "wheel damage",
+
       "pressure loss", "pothole damage", "emergency tyre replacement",
+
     ],
+
     seed
+
   );
 
   return `${CONTENT_VERSION}
@@ -737,9 +1061,13 @@ We provide suitable options based on the vehicle rather than guessing from the m
 We provide the correct tyre more quickly when customers read the full size from the tyre sidewall. A common example is 205/55 R16 91V.
 
 205 is the tyre width in millimetres.
+
 55 is the sidewall profile.
+
 R16 means the tyre fits a 16-inch wheel.
+
 91 is the load index.
+
 V is the speed rating.
 
 We provide mobile tyre fitting in ${location}, but the complete size and specification are needed before stock can be checked.
@@ -847,25 +1175,41 @@ mobile tyre fitting ${location}, 24 hour mobile tyre fitting ${location}, emerge
 # Choose AdForge for Mobile Tyre Fitting in ${location}
 
 We provide clear local information for customers who need mobile tyre fitting in ${location}. We provide new tyres, part worn tyres, puncture repairs, locking wheel nut removal and emergency roadside tyre replacement throughout the area. If you need a mobile tyre fitter in ${location}, use AdForge to arrange local help.`;
+
 }
 
 function buildCustomContent(page: LandingPageLike) {
+
   const location = extractLocation(page);
+
   const service = extractService(page);
+
   const seed = `${page.slug || ""}-${service}-${location}`;
+
   const nearby = getNearbyAreas(location);
+
   const roads = getRoads(location);
+
   const places = getLocalPlaces(location);
 
   const customerTypes = rotateItems(
+
     [
+
       "homeowners", "drivers", "landlords", "tenants",
+
       "business owners", "property managers", "tradespeople",
+
       "fleet operators", "families", "local organisations",
+
       "retail businesses", "commercial customers",
+
     ],
+
     seed,
+
     10
+
   );
 
   return `${CONTENT_VERSION}
@@ -907,12 +1251,19 @@ Local pages reduce the time customers spend searching and help them contact prov
 # What to Explain When Calling
 
 • Your name and contact number
+
 • The exact location or postcode
+
 • The service required
+
 • How urgent the job is
+
 • Access or parking information
+
 • Relevant sizes, measurements or photographs
+
 • Any safety concern
+
 • Your preferred appointment time
 
 # Same-Day and Emergency Enquiries
@@ -974,43 +1325,69 @@ ${service.toLowerCase()} ${location}, ${service.toLowerCase()} near me, local ${
 # Find Local Help Through AdForge
 
 Use this AdForge page to find information for ${service.toLowerCase()} in ${location}. Explain the job clearly, confirm the provider covers the location and agree the service details before work begins.`;
+
 }
 
 export function buildRichContent(page: LandingPageLike) {
+
   const type = detectPageType(page);
 
   if (type === "tyre") return buildTyreContent(page);
+
   if (type === "recovery") return buildRecoveryContent(page);
+
   return buildCustomContent(page);
+
 }
 
 
+
 export function getSeoGallery(page: LandingPageLike) {
+
   const type = detectPageType(page);
 
   if (type === "tyre") {
+
     return [
+
       { src: "/images/seo-v4/new-tyres.svg", alt: "New tyres supplied by mobile tyre fitters", title: "New Tyres" },
+
       { src: "/images/seo-v4/part-worn-tyres.svg", alt: "Part worn tyres available locally", title: "Part Worn Tyres" },
+
       { src: "/images/seo-v4/puncture-repair.svg", alt: "Mobile puncture repair service", title: "Puncture Repairs" },
+
       { src: "/images/seo-v4/locking-wheel-nut.svg", alt: "Locking wheel nut removal", title: "Locking Nut Removal" },
+
       { src: "/images/seo-v4/wheel-balancing.svg", alt: "Wheel balancing service", title: "Wheel Balancing" },
+
       { src: "/images/seo-v4/mobile-tyre-fitting.svg", alt: "24 hour mobile tyre fitting", title: "24 Hour Mobile Tyre Fitting" },
+
     ];
+
   }
 
   if (type === "recovery") {
+
     return [
+
       { src: "/images/seo-v4/breakdown-recovery.svg", alt: "24 hour breakdown recovery", title: "Breakdown Recovery" },
+
       { src: "/images/seo-v4/accident-recovery.svg", alt: "Accident recovery service", title: "Accident Recovery" },
+
       { src: "/images/seo-v4/vehicle-transport.svg", alt: "Vehicle transport service", title: "Vehicle Transport" },
+
       { src: "/images/seo-v4/jump-start.svg", alt: "Flat battery and jump start assistance", title: "Battery Assistance" },
+
       { src: "/images/seo-v4/motorway-recovery.svg", alt: "Motorway recovery", title: "Motorway Recovery" },
+
       { src: "/images/seo-v4/van-recovery.svg", alt: "Car and van recovery", title: "Car & Van Recovery" },
+
     ];
+
   }
 
   return [];
+
 }
 
 export { CONTENT_VERSION };
