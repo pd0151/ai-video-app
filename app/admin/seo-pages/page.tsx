@@ -205,6 +205,43 @@ export default function SeoPagesAdmin() {
     }
   }
 
+  async function rebuildPageContent(page: LandingPage) {
+    if (
+      !confirm(
+        `Rebuild ONLY the body content for "${page.headline || page.slug}" using the current SEO engine? H1, title tag, meta description and URL will stay unchanged.`
+      )
+    ) {
+      return;
+    }
+
+    setWorking(true);
+    setProgress(`Rebuilding content for ${page.headline || page.slug}...`);
+
+    try {
+      const newContent = buildRichContent(page);
+
+      const { error } = await supabase
+        .from("landing_pages")
+        .update({
+          content: newContent,
+        })
+        .eq("id", page.id);
+
+      if (error) throw new Error(error.message);
+
+      await loadPages();
+
+      alert(
+        `Content rebuilt for "${page.headline || page.slug}". H1, title tag, meta description and URL were not changed.`
+      );
+    } catch (error: any) {
+      alert(error?.message || "Could not rebuild page content");
+    } finally {
+      setWorking(false);
+      setProgress("");
+    }
+  }
+
   async function fixSeoPage(page: LandingPage) {
     const safeHeadline =
       page.headline || titleCase(page.slug || "Local Service");
@@ -662,7 +699,7 @@ export default function SeoPagesAdmin() {
               <p style={{ opacity: 0.72 }}>
                 Content: {(page.content || "").length.toLocaleString()} characters
                 {(page.content || "").includes(CONTENT_VERSION)
-                  ? " • V3 rich content"
+                  ? ` • ${CONTENT_VERSION}`
                   : ""}
               </p>
 
@@ -682,6 +719,14 @@ export default function SeoPagesAdmin() {
                   style={btnSmall}
                 >
                   Edit
+                </button>
+
+                <button
+                  disabled={working}
+                  onClick={() => rebuildPageContent(page)}
+                  style={btnSmallPurple}
+                >
+                  Rebuild Content
                 </button>
 
                 <button
@@ -772,6 +817,12 @@ const btnSmallGreen: React.CSSProperties = {
   ...btnSmall,
   background: "#32ff73",
   color: "#05070d",
+};
+
+const btnSmallPurple: React.CSSProperties = {
+  ...btnSmall,
+  background: "linear-gradient(135deg,#8b5cf6,#6d5dfc)",
+  color: "white",
 };
 
 const progressBox: React.CSSProperties = {
