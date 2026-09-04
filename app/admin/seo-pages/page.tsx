@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { buildRichContent, CONTENT_VERSION } from "../../../lib/seo-engine";
+import { buildRichContent } from "../../../lib/seo-engine";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -58,11 +58,13 @@ export default function SeoPagesAdmin() {
       if (error) throw new Error(error.message);
 
       const batch = (data || []) as LandingPage[];
+
       if (batch.length === 0) break;
 
       allPages.push(...batch);
 
       if (batch.length < step) break;
+
       from += step;
     }
 
@@ -73,7 +75,8 @@ export default function SeoPagesAdmin() {
     setLoadingPages(true);
 
     try {
-      setPages(await fetchAllLandingPages());
+      const result = await fetchAllLandingPages();
+      setPages(result);
     } catch (error: any) {
       alert(error?.message || "Could not load SEO pages");
     } finally {
@@ -99,132 +102,101 @@ export default function SeoPagesAdmin() {
 
   function makeTitleTag(value: string) {
     const cleanHeadline = String(value || "").trim();
+
     return cleanHeadline ? `${cleanHeadline} | AdForge` : "";
   }
 
+  /*
+   * IMPORTANT:
+   *
+   * This checker now ONLY checks whether important SEO fields
+   * are missing.
+   *
+   * It DOES NOT say an existing title tag is wrong simply because
+   * it doesn't exactly match the H1.
+   *
+   * EXISTING SEO IS PRESERVED.
+   */
   function seoCheck(page: LandingPage) {
     const issues: string[] = [];
 
-    if (!page.slug) issues.push("Missing slug");
-    if (!page.headline) issues.push("Missing H1 headline");
-    if (!page.title_tag) issues.push("Missing title tag");
-    if (!page.meta_description) issues.push("Missing meta description");
-    if (!page.content) issues.push("Missing content");
-
-    if (
-      page.headline &&
-      page.title_tag &&
-      page.title_tag.trim() !== makeTitleTag(page.headline)
-    ) {
-      issues.push("Title must be H1 + | AdForge");
+    if (!page.slug?.trim()) {
+      issues.push("Missing slug");
     }
 
-    if (page.meta_description && page.meta_description.length < 80) {
-      issues.push("Meta too short");
+    if (!page.headline?.trim()) {
+      issues.push("Missing H1 headline");
     }
 
-    if (page.meta_description && page.meta_description.length > 220) {
-      issues.push("Meta too long");
+    if (!page.title_tag?.trim()) {
+      issues.push("Missing title tag");
+    }
+
+    if (!page.meta_description?.trim()) {
+      issues.push("Missing meta description");
+    }
+
+    if (!page.content?.trim()) {
+      issues.push("Missing content");
     }
 
     return issues;
   }
 
-  async function updateRowsInChunks(
-    rows: LandingPage[],
-    makePayload: (page: LandingPage) => Record<string, any>,
-    label: string
-  ) {
-    const chunkSize = 20;
-
-    for (let start = 0; start < rows.length; start += chunkSize) {
-      const chunk = rows.slice(start, start + chunkSize);
-
-      const results = await Promise.all(
-        chunk.map(async (page) => {
-          const { error } = await supabase
-            .from("landing_pages")
-            .update(makePayload(page))
-            .eq("id", page.id);
-
-          return { page, error };
-        })
-      );
-
-      const failed = results.find((result) => result.error);
-
-      if (failed?.error) {
-        throw new Error(
-          `${failed.page.slug || failed.page.id}: ${failed.error.message}`
-        );
-      }
-
-      const complete = Math.min(start + chunk.length, rows.length);
-
-      setProgress(
-        `${label}: ${complete.toLocaleString()} / ${rows.length.toLocaleString()}`
-      );
-
-      await new Promise((resolve) => setTimeout(resolve, 75));
-    }
-  }
-
-  async function upgradeAllExistingContent() {
+  /*
+   * SAFE SEO FIX
+   *
+   * This only fills fields that are EMPTY.
+   *
+   * It NEVER replaces:
+   * - existing slug
+   * - existing H1
+   * - existing title
+   * - existing meta
+   * - existing content
+   */
+  async function fixSeoPage(page: LandingPage) {
     if (
       !confirm(
-        "Upgrade the CONTENT on every existing page? Headlines, Google titles, descriptions and URLs will stay unchanged."
+        `Fix ONLY missing SEO fields for "${
+          page.headline || page.slug
+        }"? Existing SEO and content will NOT be changed.`
       )
     ) {
       return;
     }
 
-    setWorking(true);
-    setProgress("Loading all SEO pages...");
+    const safeHeadline =
+      page.headline?.trim() || titleCase(page.slug || "Local Service");
 
-    try {
-      const existingPages = await fetchAllLandingPages();
+    const payload = {
+      slug: page.slug?.trim() || makeSlug(safeHeadline),
 
-      await updateRowsInChunks(
-        existingPages,
-        (page) => ({
-          content: buildRichContent(page),
-        }),
-        "Upgrading rich content"
-      );
+      headline: page.headline?.trim() || safeHeadline,
 
-      await loadPages();
+      title_tag:
+        page.title_tag?.trim() || makeTitleTag(safeHeadline),
 
-      alert(
-        `Finished. ${existingPages.length.toLocaleString()} pages were upgraded. H1s, title tags, descriptions and URLs were not changed.`
-      );
-    } catch (error: any) {
-      alert(error?.message || "Content upgrade failed");
-    } finally {
-      setWorking(false);
-      setProgress("");
-    }
-  }
+      meta_description:
+        page.meta_description?.trim() ||
+        `Find ${safeHeadline.toLowerCase()} through AdForge. Local service information, nearby coverage and clear contact options.`,
 
-  async function rebuildPageContent(page: LandingPage) {
-    if (
-      !confirm(
-        `Rebuild ONLY the body content for "${page.headline || page.slug}" using the current SEO engine? H1, title tag, meta description and URL will stay unchanged.`
-      )
-    ) {
-      return;
-    }
+      /*
+       * DO NOT use buildRichContent here.
+       *
+       * Existing content stays untouched.
+       */
+      content: page.content || "",
+
+      active: page.active ?? true,
+    };
 
     setWorking(true);
-    setProgress(`Rebuilding content for ${page.headline || page.slug}...`);
 
     try {
-      const newContent = buildRichContent(page);
-
       const { error } = await supabase
         .from("landing_pages")
-        .update({
-          content: newContent,
-        })
+        .update(payload)
         .eq("id", page.id);
 
       if (error) throw new Error(error.message);
@@ -232,122 +204,194 @@ export default function SeoPagesAdmin() {
       await loadPages();
 
       alert(
-        `Content rebuilt for "${page.headline || page.slug}". H1, title tag, meta description and URL were not changed.`
+        "Done. Only missing fields were filled. Existing SEO/content was preserved."
       );
     } catch (error: any) {
-      alert(error?.message || "Could not rebuild page content");
+      alert(error?.message || "Could not fix page");
     } finally {
       setWorking(false);
-      setProgress("");
     }
   }
 
-  async function fixSeoPage(page: LandingPage) {
-    const safeHeadline =
-      page.headline || titleCase(page.slug || "Local Service");
-
-    const payload = {
-      slug: page.slug || makeSlug(safeHeadline),
-      headline: safeHeadline,
-      title_tag: makeTitleTag(safeHeadline),
-      meta_description:
-        page.meta_description ||
-        `Find ${safeHeadline.toLowerCase()} through AdForge. Local service information, nearby coverage and clear contact options.`,
-      content: page.content || buildRichContent(page),
-      active: page.active ?? true,
-    };
-
-    const { error } = await supabase
-      .from("landing_pages")
-      .update(payload)
-      .eq("id", page.id);
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    await loadPages();
-    alert("SEO page fixed. The title tag now matches the H1 followed by | AdForge.");
-  }
-
+  /*
+   * SAFE FIX ALL
+   *
+   * Only pages with genuinely missing values are touched.
+   *
+   * Existing values are NEVER rewritten.
+   */
   async function fixAllSeoPages() {
     const badPages = pages.filter((page) => seoCheck(page).length > 0);
 
     if (!badPages.length) {
-      alert("All pages already pass the SEO checker.");
+      alert("No missing SEO fields found.");
       return;
     }
 
     if (
       !confirm(
-        `Fix SEO fields on ${badPages.length} pages? Each title tag will be set to its H1 followed by | AdForge. Other existing SEO content will be preserved.`
+        `Fill ONLY missing fields on ${badPages.length} pages?\n\nExisting titles, H1s, descriptions, URLs and content will NOT be replaced.`
       )
     ) {
       return;
     }
 
     setWorking(true);
+    setProgress("Safely checking pages...");
 
     try {
-      await updateRowsInChunks(
-        badPages,
-        (page) => {
-          const safeHeadline =
-            page.headline || titleCase(page.slug || "Local Service");
+      const chunkSize = 20;
 
-          return {
-            slug: page.slug || makeSlug(safeHeadline),
-            headline: safeHeadline,
-            title_tag: makeTitleTag(safeHeadline),
-            meta_description:
-              page.meta_description ||
-              `Find ${safeHeadline.toLowerCase()} through AdForge. Local service information, nearby coverage and clear contact options.`,
-            content: page.content || buildRichContent(page),
-            active: page.active ?? true,
-          };
-        },
-        "Fixing SEO fields"
-      );
+      for (
+        let start = 0;
+        start < badPages.length;
+        start += chunkSize
+      ) {
+        const chunk = badPages.slice(start, start + chunkSize);
+
+        const results = await Promise.all(
+          chunk.map(async (page) => {
+            const safeHeadline =
+              page.headline?.trim() ||
+              titleCase(page.slug || "Local Service");
+
+            const payload = {
+              slug:
+                page.slug?.trim() ||
+                makeSlug(safeHeadline),
+
+              headline:
+                page.headline?.trim() ||
+                safeHeadline,
+
+              title_tag:
+                page.title_tag?.trim() ||
+                makeTitleTag(safeHeadline),
+
+              meta_description:
+                page.meta_description?.trim() ||
+                `Find ${safeHeadline.toLowerCase()} through AdForge. Local service information, nearby coverage and clear contact options.`,
+
+              /*
+               * NEVER regenerate existing content here.
+               */
+              content: page.content || "",
+
+              active: page.active ?? true,
+            };
+
+            const { error } = await supabase
+              .from("landing_pages")
+              .update(payload)
+              .eq("id", page.id);
+
+            return {
+              page,
+              error,
+            };
+          })
+        );
+
+        const failed = results.find((result) => result.error);
+
+        if (failed?.error) {
+          throw new Error(
+            `${failed.page.slug || failed.page.id}: ${
+              failed.error.message
+            }`
+          );
+        }
+
+        const complete = Math.min(
+          start + chunk.length,
+          badPages.length
+        );
+
+        setProgress(
+          `Safely fixing missing fields: ${complete.toLocaleString()} / ${badPages.length.toLocaleString()}`
+        );
+
+        await new Promise((resolve) =>
+          setTimeout(resolve, 75)
+        );
+      }
 
       await loadPages();
-      alert("SEO fixes complete.");
+
+      alert(
+        "Safe SEO check complete. Existing SEO/content was not rewritten."
+      );
     } catch (error: any) {
-      alert(error?.message || "SEO fixes failed");
+      alert(error?.message || "SEO check failed");
     } finally {
       setWorking(false);
       setProgress("");
     }
   }
 
+  /*
+   * SAVE PAGE
+   *
+   * Existing pages use exactly what is in the form.
+   *
+   * Title tag is NOT automatically rebuilt from the H1.
+   */
   async function savePage() {
     const cleanHeadline = headline.trim();
+    const cleanSlug = slug.trim();
 
     if (!cleanHeadline) {
       alert("Add a headline first");
       return;
     }
 
+    if (!cleanSlug) {
+      alert("Add a URL slug first");
+      return;
+    }
+
+    if (!titleTag.trim()) {
+      alert("Add an SEO title tag");
+      return;
+    }
+
     const payload = {
-      slug: makeSlug(slug || cleanHeadline),
+      slug: cleanSlug,
       headline: cleanHeadline,
-      title_tag: makeTitleTag(cleanHeadline),
-      meta_description: metaDescription,
+      title_tag: titleTag.trim(),
+      meta_description: metaDescription.trim(),
       content,
       active: true,
     };
 
-    const { error } = editingId
-      ? await supabase.from("landing_pages").update(payload).eq("id", editingId)
-      : await supabase.from("landing_pages").insert(payload);
+    setWorking(true);
 
-    if (error) {
-      alert(error.message);
-      return;
+    try {
+      const { error } = editingId
+        ? await supabase
+            .from("landing_pages")
+            .update(payload)
+            .eq("id", editingId)
+        : await supabase
+            .from("landing_pages")
+            .insert(payload);
+
+      if (error) throw new Error(error.message);
+
+      resetForm();
+
+      await loadPages();
+
+      alert(
+        editingId
+          ? "Page updated."
+          : "Page created."
+      );
+    } catch (error: any) {
+      alert(error?.message || "Could not save page");
+    } finally {
+      setWorking(false);
     }
-
-    resetForm();
-    await loadPages();
   }
 
   function resetForm() {
@@ -360,18 +404,47 @@ export default function SeoPagesAdmin() {
     setShowForm(false);
   }
 
+  /*
+   * EDIT PAGE
+   *
+   * IMPORTANT:
+   * Loads the REAL EXISTING title tag.
+   *
+   * Does NOT generate a new title from the H1.
+   */
   function editPage(page: LandingPage) {
     setEditingId(page.id);
+
     setSlug(page.slug || "");
+
     setHeadline(page.headline || "");
-    setTitleTag(makeTitleTag(page.headline || ""));
-    setMetaDescription(page.meta_description || "");
+
+    setTitleTag(page.title_tag || "");
+
+    setMetaDescription(
+      page.meta_description || ""
+    );
+
     setContent(page.content || "");
+
     setShowForm(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
-  async function generateBulkPages(type: "recovery" | "tyres") {
+  /*
+   * GENERATE NEW PAGES
+   *
+   * buildRichContent is allowed here because these are NEW pages.
+   *
+   * It is NOT used to overwrite existing pages.
+   */
+  async function generateBulkPages(
+    type: "recovery" | "tyres"
+  ) {
     const locations = bulkLocations
       .split("\n")
       .map((value) => value.trim())
@@ -383,43 +456,82 @@ export default function SeoPagesAdmin() {
     }
 
     const newPages = locations.map((location) => {
-      const headline =
+      const pageHeadline =
         type === "recovery"
           ? `24 Hour Recovery Service ${location}`
           : `24 Hour Mobile Tyre Fitting ${location}`;
 
       const draft: LandingPage = {
         id: "",
+
         slug:
           type === "recovery"
-            ? `24-hour-recovery-service-${makeSlug(location)}`
-            : `mobile-tyre-fitting-${makeSlug(location)}`,
-        headline,
+            ? `24-hour-recovery-service-${makeSlug(
+                location
+              )}`
+            : `mobile-tyre-fitting-${makeSlug(
+                location
+              )}`,
+
+        headline: pageHeadline,
       };
 
       return {
         slug: draft.slug,
-        headline,
-        title_tag: makeTitleTag(headline),
+
+        headline: pageHeadline,
+
+        title_tag:
+          makeTitleTag(pageHeadline),
+
         meta_description:
           type === "recovery"
             ? `Need vehicle recovery in ${location}? Fast local breakdown recovery, towing and roadside help across ${location} and nearby areas.`
             : `Need mobile tyre fitting in ${location}? Fast tyre replacement, puncture repair and emergency tyre help at home, work or roadside.`,
-        content: buildRichContent(draft),
+
+        content:
+          buildRichContent(draft),
+
         active: true,
       };
     });
 
-    const { error } = await supabase.from("landing_pages").insert(newPages);
-
-    if (error) {
-      alert(error.message);
+    if (
+      !confirm(
+        `Create ${newPages.length} NEW ${
+          type === "recovery"
+            ? "recovery"
+            : "mobile tyre"
+        } pages?\n\nExisting pages will NOT be changed.`
+      )
+    ) {
       return;
     }
 
-    setBulkLocations("");
-    await loadPages();
-    alert(`${newPages.length} rich SEO pages created.`);
+    setWorking(true);
+
+    try {
+      const { error } = await supabase
+        .from("landing_pages")
+        .insert(newPages);
+
+      if (error) throw new Error(error.message);
+
+      setBulkLocations("");
+
+      await loadPages();
+
+      alert(
+        `${newPages.length} new pages created. Existing pages were untouched.`
+      );
+    } catch (error: any) {
+      alert(
+        error?.message ||
+          "Could not create pages"
+      );
+    } finally {
+      setWorking(false);
+    }
   }
 
   async function generateCustomServicePages() {
@@ -441,70 +553,151 @@ export default function SeoPagesAdmin() {
     }
 
     const newPages = locations.map((location) => {
-      const pageHeadline = `${service} ${location}`;
+      const pageHeadline =
+        `${service} ${location}`;
 
       const draft: LandingPage = {
         id: "",
-        slug: `${makeSlug(service)}-${makeSlug(location)}`,
+        slug: `${makeSlug(service)}-${makeSlug(
+          location
+        )}`,
         headline: pageHeadline,
       };
 
       return {
         slug: draft.slug,
-        headline: pageHeadline,
-        title_tag: makeTitleTag(pageHeadline),
-        meta_description: `Need ${service.toLowerCase()} in ${location}? Find trusted local providers covering ${location} and nearby areas through AdForge.`,
-        content: buildRichContent(draft),
+
+        headline:
+          pageHeadline,
+
+        title_tag:
+          makeTitleTag(pageHeadline),
+
+        meta_description:
+          `Need ${service.toLowerCase()} in ${location}? Find trusted local providers covering ${location} and nearby areas through AdForge.`,
+
+        content:
+          buildRichContent(draft),
+
         active: true,
       };
     });
 
-    const { error } = await supabase.from("landing_pages").insert(newPages);
-
-    if (error) {
-      alert(error.message);
+    if (
+      !confirm(
+        `Create ${newPages.length} NEW custom service pages?\n\nExisting pages will NOT be changed.`
+      )
+    ) {
       return;
     }
 
-    setCustomService("");
-    setCustomLocations("");
-    await loadPages();
-    alert(`${newPages.length} rich custom pages created.`);
+    setWorking(true);
+
+    try {
+      const { error } = await supabase
+        .from("landing_pages")
+        .insert(newPages);
+
+      if (error) throw new Error(error.message);
+
+      setCustomService("");
+      setCustomLocations("");
+
+      await loadPages();
+
+      alert(
+        `${newPages.length} new custom pages created.`
+      );
+    } catch (error: any) {
+      alert(
+        error?.message ||
+          "Could not create custom pages"
+      );
+    } finally {
+      setWorking(false);
+    }
   }
 
   async function deletePage(id: string) {
-    if (!confirm("Delete this page?")) return;
-
-    const { error } = await supabase
-      .from("landing_pages")
-      .delete()
-      .eq("id", id);
-
-    if (error) {
-      alert(error.message);
+    if (
+      !confirm(
+        "Delete this page permanently?"
+      )
+    ) {
       return;
     }
 
-    await loadPages();
+    setWorking(true);
+
+    try {
+      const { error } = await supabase
+        .from("landing_pages")
+        .delete()
+        .eq("id", id);
+
+      if (error) throw new Error(error.message);
+
+      await loadPages();
+    } catch (error: any) {
+      alert(
+        error?.message ||
+          "Could not delete page"
+      );
+    } finally {
+      setWorking(false);
+    }
   }
 
   const badPages = useMemo(
-    () => pages.filter((page) => seoCheck(page).length > 0),
+    () =>
+      pages.filter(
+        (page) =>
+          seoCheck(page).length > 0
+      ),
     [pages]
   );
 
   return (
     <div style={pageShell}>
-      <h1 style={{ fontSize: 36, fontWeight: 900, margin: 0 }}>SEO Pages</h1>
+      <h1
+        style={{
+          fontSize: 36,
+          fontWeight: 900,
+          margin: 0,
+        }}
+      >
+        SEO Pages
+      </h1>
+
       <p style={{ opacity: 0.7 }}>
-        Create and upgrade Google landing pages from AdForge.
+        Manage AdForge Google landing pages safely.
       </p>
+
+      <div style={warningBox}>
+        <strong>
+          SEO PROTECTION ENABLED
+        </strong>
+
+        <p
+          style={{
+            margin: "8px 0 0",
+            opacity: 0.82,
+            lineHeight: 1.6,
+          }}
+        >
+          Existing H1s, title tags,
+          meta descriptions, URLs and
+          page content will not be
+          automatically regenerated.
+        </p>
+      </div>
 
       <div style={buttonRow}>
         <button
           disabled={working}
           onClick={() => {
             resetForm();
+
             setShowForm(true);
           }}
           style={btn}
@@ -512,168 +705,330 @@ export default function SeoPagesAdmin() {
           + Create New Page
         </button>
 
-        <button disabled={working} onClick={fixAllSeoPages} style={btnGreen}>
-          Fix All SEO Issues ({badPages.length})
+        <button
+          disabled={working}
+          onClick={fixAllSeoPages}
+          style={btnGreen}
+        >
+          Fill Missing SEO Fields (
+          {badPages.length})
         </button>
 
         <button
           disabled={working}
-          onClick={upgradeAllExistingContent}
-          style={btnPurple}
+          onClick={loadPages}
+          style={btn}
         >
-          {working ? "Working..." : "Upgrade All Existing Content"}
+          Refresh Pages
         </button>
       </div>
 
       {progress && (
         <div style={progressBox}>
           <strong>{progress}</strong>
-          <p style={{ margin: "7px 0 0", opacity: 0.72 }}>
-            Keep this page open until the update finishes.
-          </p>
         </div>
       )}
 
       <div style={panel}>
-        <h2 style={{ marginTop: 0 }}>SEO Checker</h2>
+        <h2 style={{ marginTop: 0 }}>
+          SEO Checker
+        </h2>
 
         <p>
           Total pages:{" "}
           <strong>
-            {loadingPages ? "Loading..." : pages.length.toLocaleString()}
+            {loadingPages
+              ? "Loading..."
+              : pages.length.toLocaleString()}
           </strong>
         </p>
 
         <p
           style={{
-            color: badPages.length ? "#ffb4b4" : "#32ff73",
+            color: badPages.length
+              ? "#ffb4b4"
+              : "#32ff73",
             fontWeight: 900,
           }}
         >
           {badPages.length === 0
-            ? "All pages look OK"
-            : `${badPages.length} pages need attention`}
+            ? "No missing SEO fields"
+            : `${badPages.length} pages have missing fields`}
         </p>
       </div>
 
       <div style={panel}>
-        <h2 style={{ marginTop: 0 }}>Bulk Generate Recovery / Tyre Pages</h2>
+        <h2 style={{ marginTop: 0 }}>
+          Bulk Generate NEW Recovery /
+          Tyre Pages
+        </h2>
+
+        <p
+          style={{
+            opacity: 0.7,
+            lineHeight: 1.6,
+          }}
+        >
+          This creates new pages only.
+          Existing pages are untouched.
+        </p>
 
         <textarea
-          style={{ ...inputStyle, minHeight: 140 }}
-          placeholder={"Liverpool\nSouthport\nRuncorn\nWidnes\nSt Helens"}
+          style={{
+            ...inputStyle,
+            minHeight: 140,
+          }}
+          placeholder={
+            "Liverpool\nSouthport\nRuncorn\nWidnes\nSt Helens"
+          }
           value={bulkLocations}
-          onChange={(event) => setBulkLocations(event.target.value)}
+          onChange={(event) =>
+            setBulkLocations(
+              event.target.value
+            )
+          }
         />
 
-        <button
-          disabled={working}
-          onClick={() => generateBulkPages("recovery")}
-          style={btn}
-        >
-          Generate Recovery Pages
-        </button>
+        <div style={buttonRow}>
+          <button
+            disabled={working}
+            onClick={() =>
+              generateBulkPages(
+                "recovery"
+              )
+            }
+            style={btn}
+          >
+            Generate Recovery Pages
+          </button>
 
-        <button
-          disabled={working}
-          onClick={() => generateBulkPages("tyres")}
-          style={btn}
-        >
-          Generate Mobile Tyre Pages
-        </button>
+          <button
+            disabled={working}
+            onClick={() =>
+              generateBulkPages(
+                "tyres"
+              )
+            }
+            style={btn}
+          >
+            Generate Mobile Tyre Pages
+          </button>
+        </div>
       </div>
 
       <div style={panel}>
-        <h2 style={{ marginTop: 0 }}>Custom Service Page Generator</h2>
+        <h2 style={{ marginTop: 0 }}>
+          Custom Service Page Generator
+        </h2>
 
         <input
           style={inputStyle}
           placeholder="Service e.g. Emergency Mobile Tyre Fitting"
           value={customService}
-          onChange={(event) => setCustomService(event.target.value)}
+          onChange={(event) =>
+            setCustomService(
+              event.target.value
+            )
+          }
         />
 
         <textarea
-          style={{ ...inputStyle, minHeight: 140 }}
-          placeholder={"Liverpool\nBootle\nWirral\nSouthport"}
+          style={{
+            ...inputStyle,
+            minHeight: 140,
+          }}
+          placeholder={
+            "Liverpool\nBootle\nWirral\nSouthport"
+          }
           value={customLocations}
-          onChange={(event) => setCustomLocations(event.target.value)}
+          onChange={(event) =>
+            setCustomLocations(
+              event.target.value
+            )
+          }
         />
 
         <button
           disabled={working}
-          onClick={generateCustomServicePages}
-          style={btn}
+          onClick={
+            generateCustomServicePages
+          }
+          style={{
+            ...btn,
+            marginTop: 12,
+          }}
         >
-          Generate Custom Service Pages
+          Generate NEW Custom Pages
         </button>
       </div>
 
       {showForm && (
         <div style={panel}>
           <h2 style={{ marginTop: 0 }}>
-            {editingId ? "Edit Page" : "Create Page"}
+            {editingId
+              ? "Edit Existing Page"
+              : "Create New Page"}
           </h2>
+
+          {editingId && (
+            <div style={safeBox}>
+              <strong>
+                Existing SEO loaded
+                exactly as stored.
+              </strong>
+
+              <p
+                style={{
+                  margin:
+                    "7px 0 0",
+                  opacity: 0.8,
+                }}
+              >
+                Nothing is automatically
+                replaced from the H1.
+              </p>
+            </div>
+          )}
+
+          <label style={labelStyle}>
+            URL Slug
+          </label>
 
           <input
             style={inputStyle}
             placeholder="URL slug"
             value={slug}
-            onChange={(event) => setSlug(makeSlug(event.target.value))}
+            onChange={(event) =>
+              setSlug(
+                makeSlug(
+                  event.target.value
+                )
+              )
+            }
           />
+
+          <label style={labelStyle}>
+            Headline / H1
+          </label>
 
           <input
             style={inputStyle}
             placeholder="Headline / H1"
             value={headline}
-            onChange={(event) => {
-              const nextHeadline = event.target.value;
-              setHeadline(nextHeadline);
-              setTitleTag(makeTitleTag(nextHeadline));
-            }}
+            onChange={(event) =>
+              setHeadline(
+                event.target.value
+              )
+            }
           />
+
+          <label style={labelStyle}>
+            Google SEO Title
+          </label>
 
           <input
-            style={{ ...inputStyle, opacity: 0.78, cursor: "not-allowed" }}
+            style={inputStyle}
             placeholder="SEO title tag"
             value={titleTag}
-            readOnly
+            onChange={(event) =>
+              setTitleTag(
+                event.target.value
+              )
+            }
           />
 
+          <label style={labelStyle}>
+            Meta Description
+          </label>
+
           <textarea
-            style={inputStyle}
+            style={{
+              ...inputStyle,
+              minHeight: 110,
+            }}
             placeholder="Meta description"
             value={metaDescription}
-            onChange={(event) => setMetaDescription(event.target.value)}
+            onChange={(event) =>
+              setMetaDescription(
+                event.target.value
+              )
+            }
           />
+
+          <label style={labelStyle}>
+            Main Page Content
+          </label>
 
           <textarea
-            style={{ ...inputStyle, minHeight: 240 }}
+            style={{
+              ...inputStyle,
+              minHeight: 300,
+            }}
             placeholder="Main page content"
             value={content}
-            onChange={(event) => setContent(event.target.value)}
+            onChange={(event) =>
+              setContent(
+                event.target.value
+              )
+            }
           />
 
-          <button disabled={working} onClick={savePage} style={btn}>
-            {editingId ? "Update Page" : "Save Page"}
-          </button>
+          <div style={buttonRow}>
+            <button
+              disabled={working}
+              onClick={savePage}
+              style={btnGreen}
+            >
+              {editingId
+                ? "Save Existing Page"
+                : "Create Page"}
+            </button>
 
-          <button disabled={working} onClick={resetForm} style={btn}>
-            Cancel
-          </button>
+            <button
+              disabled={working}
+              onClick={resetForm}
+              style={btn}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       )}
 
-      <div style={{ marginTop: 30, display: "grid", gap: 14 }}>
+      <div
+        style={{
+          marginTop: 30,
+          display: "grid",
+          gap: 14,
+        }}
+      >
         {pages.map((page) => {
-          const issues = seoCheck(page);
+          const issues =
+            seoCheck(page);
 
           return (
-            <div key={page.id} style={panel}>
-              <h2 style={{ marginTop: 0 }}>{page.headline || page.slug}</h2>
+            <div
+              key={page.id}
+              style={panel}
+            >
+              <h2
+                style={{
+                  marginTop: 0,
+                }}
+              >
+                {page.headline ||
+                  page.slug}
+              </h2>
 
               {issues.length === 0 ? (
-                <p style={{ color: "#32ff73", fontWeight: 900 }}>SEO OK</p>
+                <p
+                  style={{
+                    color: "#32ff73",
+                    fontWeight: 900,
+                  }}
+                >
+                  SEO fields present
+                </p>
               ) : (
                 <div
                   style={{
@@ -682,25 +1037,55 @@ export default function SeoPagesAdmin() {
                     fontWeight: 800,
                   }}
                 >
-                  {issues.map((issue) => (
-                    <div key={issue}>⚠ {issue}</div>
-                  ))}
+                  {issues.map(
+                    (issue) => (
+                      <div
+                        key={issue}
+                      >
+                        ⚠ {issue}
+                      </div>
+                    )
+                  )}
                 </div>
               )}
 
-              <p style={{ opacity: 0.72, marginTop: 8 }}>
-                Title: {page.title_tag || "Missing"}
+              <p
+                style={{
+                  opacity: 0.72,
+                  marginTop: 8,
+                }}
+              >
+                <strong>
+                  Title:
+                </strong>{" "}
+                {page.title_tag ||
+                  "Missing"}
               </p>
 
-              <p style={{ opacity: 0.72 }}>
-                Meta: {page.meta_description || "Missing"}
+              <p
+                style={{
+                  opacity: 0.72,
+                }}
+              >
+                <strong>
+                  Meta:
+                </strong>{" "}
+                {page.meta_description ||
+                  "Missing"}
               </p>
 
-              <p style={{ opacity: 0.72 }}>
-                Content: {(page.content || "").length.toLocaleString()} characters
-                {(page.content || "").includes(CONTENT_VERSION)
-                  ? ` • ${CONTENT_VERSION}`
-                  : ""}
+              <p
+                style={{
+                  opacity: 0.72,
+                }}
+              >
+                <strong>
+                  Content:
+                </strong>{" "}
+                {(
+                  page.content || ""
+                ).length.toLocaleString()}{" "}
+                characters
               </p>
 
               <a
@@ -709,38 +1094,51 @@ export default function SeoPagesAdmin() {
                 rel="noreferrer"
                 style={openLink}
               >
-                Open /seo/{page.slug}
+                Open /seo/
+                {page.slug}
               </a>
 
               <div style={buttonRow}>
                 <button
                   disabled={working}
-                  onClick={() => editPage(page)}
+                  onClick={() =>
+                    editPage(page)
+                  }
                   style={btnSmall}
                 >
                   Edit
                 </button>
 
-                <button
-                  disabled={working}
-                  onClick={() => rebuildPageContent(page)}
-                  style={btnSmallPurple}
-                >
-                  Rebuild Content
-                </button>
+                {issues.length >
+                  0 && (
+                  <button
+                    disabled={
+                      working
+                    }
+                    onClick={() =>
+                      fixSeoPage(
+                        page
+                      )
+                    }
+                    style={
+                      btnSmallGreen
+                    }
+                  >
+                    Fill Missing
+                    Fields
+                  </button>
+                )}
 
                 <button
                   disabled={working}
-                  onClick={() => fixSeoPage(page)}
-                  style={btnSmallGreen}
-                >
-                  Fix SEO
-                </button>
-
-                <button
-                  disabled={working}
-                  onClick={() => deletePage(page.id)}
-                  style={btnSmall}
+                  onClick={() =>
+                    deletePage(
+                      page.id
+                    )
+                  }
+                  style={
+                    btnSmallDanger
+                  }
                 >
                   Delete
                 </button>
@@ -762,20 +1160,31 @@ const pageShell: React.CSSProperties = {
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
+  boxSizing: "border-box",
   padding: 14,
   borderRadius: 14,
-  border: "1px solid rgba(255,255,255,0.15)",
-  background: "rgba(255,255,255,0.08)",
+  border:
+    "1px solid rgba(255,255,255,0.15)",
+  background:
+    "rgba(255,255,255,0.08)",
   color: "white",
-  marginTop: 10,
+  marginTop: 8,
+};
+
+const labelStyle: React.CSSProperties = {
+  display: "block",
+  marginTop: 18,
+  fontWeight: 900,
 };
 
 const panel: React.CSSProperties = {
   marginTop: 24,
   padding: 18,
   borderRadius: 22,
-  background: "rgba(255,255,255,0.08)",
-  border: "1px solid rgba(255,255,255,0.08)",
+  background:
+    "rgba(255,255,255,0.08)",
+  border:
+    "1px solid rgba(255,255,255,0.08)",
 };
 
 const buttonRow: React.CSSProperties = {
@@ -799,12 +1208,6 @@ const btnGreen: React.CSSProperties = {
   color: "#05070d",
 };
 
-const btnPurple: React.CSSProperties = {
-  ...btn,
-  background: "linear-gradient(135deg,#8b5cf6,#6d5dfc)",
-  color: "white",
-};
-
 const btnSmall: React.CSSProperties = {
   padding: "10px 16px",
   borderRadius: 999,
@@ -819,18 +1222,43 @@ const btnSmallGreen: React.CSSProperties = {
   color: "#05070d",
 };
 
-const btnSmallPurple: React.CSSProperties = {
+const btnSmallDanger: React.CSSProperties = {
   ...btnSmall,
-  background: "linear-gradient(135deg,#8b5cf6,#6d5dfc)",
-  color: "white",
+  background:
+    "rgba(255,80,80,0.16)",
+  color: "#ffb4b4",
+  border:
+    "1px solid rgba(255,80,80,0.3)",
 };
 
 const progressBox: React.CSSProperties = {
   marginTop: 18,
   padding: 18,
   borderRadius: 18,
-  background: "rgba(139,92,246,0.16)",
-  border: "1px solid rgba(139,92,246,0.35)",
+  background:
+    "rgba(139,92,246,0.16)",
+  border:
+    "1px solid rgba(139,92,246,0.35)",
+};
+
+const warningBox: React.CSSProperties = {
+  marginTop: 20,
+  padding: 18,
+  borderRadius: 18,
+  background:
+    "rgba(50,255,115,0.10)",
+  border:
+    "1px solid rgba(50,255,115,0.35)",
+};
+
+const safeBox: React.CSSProperties = {
+  marginBottom: 18,
+  padding: 14,
+  borderRadius: 14,
+  background:
+    "rgba(50,255,115,0.08)",
+  border:
+    "1px solid rgba(50,255,115,0.25)",
 };
 
 const openLink: React.CSSProperties = {
